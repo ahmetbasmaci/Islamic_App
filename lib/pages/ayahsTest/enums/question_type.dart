@@ -1,0 +1,1 @@
+enum QuestionType { ayahInJusAndPage, surahInJus }

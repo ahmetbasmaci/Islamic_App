@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "933409206573",
+    "project_id": "zad-almumin",
+    "storage_bucket": "zad-almumin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933409206573:android:7f43b39eb12e81598ae3a4",
+        "android_client_info": {
+          "package_name": "com.example.zad_almumin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933409206573-jlffmjd9s65pd2h5dic1dce7ai4k6usp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwYZ1aCNG6PFWo06itHAEmaUBKl9oFUnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933409206573-jlffmjd9s65pd2h5dic1dce7ai4k6usp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

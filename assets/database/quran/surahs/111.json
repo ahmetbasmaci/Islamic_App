@@ -1,0 +1,52 @@
+{
+    "number": 111,
+    "name": "سُورَةُ المَسَدِ",
+    "numberOfAyahs": 5,
+    "ayahs": [
+        {
+            "numberInQuran": 6217,
+            "numberInSurah": 1,
+            "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6217.mp3",
+            "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ تَبَّتْ يَدَآ أَبِى لَهَبٍۢ وَتَبَّ",
+            "juz": 30,
+            "page": 603,
+            "sajda": false
+        },
+        {
+            "numberInQuran": 6218,
+            "numberInSurah": 2,
+            "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6218.mp3",
+            "text": "مَآ أَغْنَىٰ عَنْهُ مَالُهُۥ وَمَا كَسَبَ",
+            "juz": 30,
+            "page": 603,
+            "sajda": false
+        },
+        {
+            "numberInQuran": 6219,
+            "numberInSurah": 3,
+            "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6219.mp3",
+            "text": "سَيَصْلَىٰ نَارًۭا ذَاتَ لَهَبٍۢ",
+            "juz": 30,
+            "page": 603,
+            "sajda": false
+        },
+        {
+            "numberInQuran": 6220,
+            "numberInSurah": 4,
+            "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6220.mp3",
+            "text": "وَٱمْرَأَتُهُۥ حَمَّالَةَ ٱلْحَطَبِ",
+            "juz": 30,
+            "page": 603,
+            "sajda": false
+        },
+        {
+            "numberInQuran": 6221,
+            "numberInSurah": 5,
+            "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6221.mp3",
+            "text": "فِى جِيدِهَا حَبْلٌۭ مِّن مَّسَدٍۭ",
+            "juz": 30,
+            "page": 603,
+            "sajda": false
+        }
+    ]
+}
