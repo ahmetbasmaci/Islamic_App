@@ -141,10 +141,10 @@ class _ZikrCardState extends State<ZikrCard> {
           ? IconButton(onPressed: () => getRandomData(), icon: MyIcons.refresh)
           : null,
       secondChild: AudioPlayStopBtn(
-        // audioUrl: widget.zikrData.audioUrl,
         numberInQuran: widget.zikrData.numberInQuran,
         fileName: widget.zikrData.numberInQuran.toString(),
         fileType: 'mp3',
+        onComplite: () => getRandomData(),
       ),
     );
   }
@@ -190,9 +190,8 @@ class _ZikrCardState extends State<ZikrCard> {
   }
 
   Future getRandomData() async {
-    setState(() {
-      isLoading = true;
-    });
+    isLoading = true;
+    if (mounted) setState(() {});
     await Future.delayed(Duration(milliseconds: 300));
     if (ZikrType.quran == widget.zikrData.zikrType) {
       widget.zikrData = await JsonService.getQuranData();
@@ -201,9 +200,8 @@ class _ZikrCardState extends State<ZikrCard> {
     else if (ZikrType.sermon == widget.zikrData.zikrType) return;
 
     checkIfIsFavorite();
-    setState(() {
-      isLoading = false;
-    });
+    isLoading = false;
+    if (mounted) setState(() {});
   }
 
   checkIfIsFavorite() async {

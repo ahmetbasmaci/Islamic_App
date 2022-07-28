@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -44,8 +43,7 @@ class _HomePageState extends State<HomePage> {
             height: MySiezes.navigationTap,
             items: items,
             color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
-            backgroundColor:
-                ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+            backgroundColor: MyColors.background(),
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
             index: currentIndex,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/services/theme_service.dart';
 
 class MyColors {
-  static const Color background = Color(0xffdbe2e7);
+  static const Color backgroundLight = Color(0xffdbe2e7);
   static const Color backgroundDark = Color.fromARGB(255, 30, 30, 30);
   static const Color primary = Color.fromARGB(255, 2, 111, 111);
   static const Color primaryDark = Color.fromARGB(255, 58, 126, 143);
@@ -21,4 +22,16 @@ class MyColors {
   static const Color true_ = Color.fromARGB(255, 37, 159, 53);
   static const Color trueDark = Color.fromARGB(255, 19, 85, 16);
   static const Color false_ = Color.fromARGB(255, 203, 40, 40);
+
+  static Color background() {
+    return ThemeService().getThemeMode() == ThemeMode.dark ? backgroundDark : backgroundLight;
+  }
+
+  static Color shadow() {
+    return ThemeService().getThemeMode() == ThemeMode.dark ? white : black;
+  }
+
+  static Color shadowPrimary() {
+    return ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary;
+  }
 }

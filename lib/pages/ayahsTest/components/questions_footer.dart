@@ -32,7 +32,7 @@ class QuestionsFooter extends StatelessWidget {
         MaterialButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
           elevation: 5,
-          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.background,
+          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.background(),
           onPressed: () => getNextQuestion(),
           child: Row(
             children: [

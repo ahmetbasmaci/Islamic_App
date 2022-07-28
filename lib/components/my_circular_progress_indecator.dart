@@ -15,7 +15,7 @@ class MyCircularProgressIndecator extends StatelessWidget {
       child: CircularProgressIndicator(
         color: MyColors.primary,
         strokeWidth: 2,
-        backgroundColor: MyColors.background,
+        backgroundColor: MyColors.background(),
       ),
     ));
   }

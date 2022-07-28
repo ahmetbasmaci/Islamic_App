@@ -448,7 +448,7 @@ class AlarmsCtr extends GetxController {
       icon: icon,
       snackPosition: SnackPosition.BOTTOM,
       colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
-      backgroundColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+      backgroundColor: MyColors.background(),
       boxShadows: [BoxShadow(color: MyColors.primary.withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
       titleText: Directionality(
         textDirection: TextDirection.rtl,

@@ -39,11 +39,11 @@ class MyTexts {
     );
   }
 
-  static Text normal(BuildContext context, {required String title, Color? color}) {
+  static Text normal(BuildContext context, {required String title, Color? color,double ?size,FontWeight? fontWeight}) {
     return Text(
       title,
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.subtitle2!.copyWith(color: color),
+      style: Theme.of(context).textTheme.subtitle2!.copyWith(color: color,fontSize: size,fontWeight: fontWeight),
     );
   }
 

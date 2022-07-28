@@ -235,8 +235,7 @@ class _ShopsPageState extends State<ShopsPage> {
           alertAlignment: Alignment.center,
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
-          backgroundColor:
-              ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+          backgroundColor: MyColors.background(),
           titleStyle: Theme.of(context).textTheme.headline1!,
           descStyle: TextStyle(
             color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
@@ -291,8 +290,7 @@ class _ShopsPageState extends State<ShopsPage> {
               )
             ],
             style: AlertStyle(
-              backgroundColor:
-                  ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+              backgroundColor: MyColors.background(),
               titleStyle: Theme.of(context).textTheme.headline1!,
             )).show();
       }
@@ -407,8 +405,7 @@ class _ShopsPageState extends State<ShopsPage> {
               // check the shop name is not empty
               if (_shopCtr.text.isEmpty) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من ادخال اسم السوق !!!',
-                    backgroundColor:
-                        ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+                    backgroundColor: MyColors.background(),
                     colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
@@ -417,8 +414,7 @@ class _ShopsPageState extends State<ShopsPage> {
               //sheck if shop name math with other shops
               if (shopsList.any((element) => element.shopName == _shopCtr.text)) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'اسم السوق موجود بالفعل !!!',
-                    backgroundColor:
-                        ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+                    backgroundColor: MyColors.background(),
                     colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
@@ -427,8 +423,7 @@ class _ShopsPageState extends State<ShopsPage> {
               //check if all required data is ready
               if (!isLocationReady) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من جلب موقعك الحالي !!!',
-                    backgroundColor:
-                        ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+                    backgroundColor: MyColors.background(),
                     colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
@@ -445,8 +440,7 @@ class _ShopsPageState extends State<ShopsPage> {
           alertAlignment: Alignment.center,
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
-          backgroundColor:
-              ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.backgroundDark : MyColors.background,
+          backgroundColor: MyColors.background(),
           titleStyle: Theme.of(context).textTheme.headline1!,
           descStyle: TextStyle(
             color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,

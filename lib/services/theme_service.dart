@@ -40,9 +40,9 @@ TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 18, fontWeight: FontWeigh
 
 class ThemeService {
   final ThemeData lightThemeMode = ThemeData.light().copyWith(
-    scaffoldBackgroundColor: MyColors.background,
+    scaffoldBackgroundColor: MyColors.backgroundLight,
     appBarTheme: AppBarTheme(
-      color: MyColors.background,
+      color: MyColors.backgroundLight,
       iconTheme: IconThemeData(
         color: MyColors.primary,
         size: MySiezes.icon,
@@ -53,7 +53,7 @@ class ThemeService {
         color: MyColors.primary,
       ),
     ),
-    drawerTheme: DrawerThemeData(backgroundColor: MyColors.background),
+    drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundLight),
     iconTheme: IconThemeData(color: MyColors.primary, size: MySiezes.icon),
     floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: MyColors.primary, elevation: 10),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -78,7 +78,7 @@ class ThemeService {
         ),
       ),
     ),
-    backgroundColor: MyColors.background,
+    backgroundColor: MyColors.backgroundLight,
     indicatorColor: MyColors.primary,
     bottomAppBarColor: MyColors.primary,
     textTheme: TextTheme(

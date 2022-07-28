@@ -6,6 +6,7 @@ import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
+import '../pages/prayer_times.dart';
 import '../services/theme_service.dart';
 import '../constents/icons.dart';
 import '../pages/alarms_page.dart';
@@ -89,6 +90,15 @@ class MyDrawer extends StatelessWidget {
             routeName: FirstAyahsInPages.id,
             onTap: () async {
               navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages());
+            },
+          ),
+          drawerItem(
+            context: context,
+            title: 'اوقات الصلاة',
+            icon: MyIcons.prayersTime,
+            routeName: PrayerTimes.id,
+            onTap: () async {
+              navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes());
             },
           ),
           Divider(height: 50, thickness: 2),

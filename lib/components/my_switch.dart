@@ -26,9 +26,9 @@ class MySwitch extends StatelessWidget {
       activeColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primary : MyColors.primaryDark,
       activeTrackColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
       inactiveThumbColor:
-          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.settingsContent : MyColors.background,
+          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.settingsContent : MyColors.background(),
       inactiveTrackColor:
-          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.background : MyColors.settingsContent,
+          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.background() : MyColors.settingsContent,
       onChanged: onChanged,
     );
   }

@@ -6,11 +6,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:zad_almumin/services/http_service.dart';
 
 class AudioService {
-  AudioService({required this.animationCtr, required this.setState}) {
+  AudioService({required this.animationCtr, required this.setState, required VoidCallback onComplite}) {
     player.onPlayerComplete.listen((event) {
       pauseAudio();
+      onComplite();
     });
   }
 
@@ -22,22 +24,20 @@ class AudioService {
   final AudioServiceCtr audioServiceCtr = Get.put(AudioServiceCtr());
   void setAudioStreams({VoidCallback? onPlayerComplete}) {}
 
-  Future<File?> downloadFile({required String url, required String fileName, required String fileType}) async {
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File('$dir/$fileName.$fileType');
-    bool exists = await file.exists();
-    if (exists) return file;
+  // Future<File?> downloadFile({required String url, required String fileName, required String fileType}) async {
+  //   String dir = (await getApplicationDocumentsDirectory()).path;
+  //   File file = File('$dir/$fileName.$fileType');
+  //   bool exists = await file.exists();
+  //   if (exists) return file;
 
-    http.Response request = await http.get(Uri.parse(url)); //downlaod the file
-    Uint8List bytes = request.bodyBytes; //close();
-    await file.writeAsBytes(bytes);
-    Fluttertoast.showToast(msg: 'تم تحميل الاية بنجاح');
-    return file;
-  }
+  //   http.Response request = await http.get(Uri.parse(url)); //downlaod the file
+  //   Uint8List bytes = request.bodyBytes; //close();
+  //   await file.writeAsBytes(bytes);
+  //   Fluttertoast.showToast(msg: 'تم تحميل الاية بنجاح');
+  //   return file;
+  // }
 
-//TODO
-  Future runAudio(
-      {required int numberInQuran, required String fileName, required String fileType}) async {
+  Future runAudio({required int numberInQuran, required String fileName, required String fileType}) async {
     //check if the same file is playing
     if (audioServiceCtr.list.isNotEmpty) {
       //if some files are downloading
@@ -51,15 +51,13 @@ class AudioService {
     isLoading = true;
     setState();
 
-    animationCtr.forward();
-
-    await player.play(AssetSource('sounds/allAyahs/$numberInQuran.mp3'));
-
-
+    File file = await HttpService.getAyah(numberInQuran: numberInQuran);
     isLoading = false;
     setState();
 
+    animationCtr.forward();
 
+    await player.play(DeviceFileSource(file.path));
   }
 
   void pauseAudio() {
@@ -78,9 +76,10 @@ class AudioServiceCtr extends GetxController {
   }
 
   void stopAudio() {
+    isAudioPlaying.value = false;
+    if (list.isEmpty) return;
     list[0].player.pause();
     list.removeAt(0);
-    isAudioPlaying.value = false;
   }
 
   void stopAudioById(int id) {

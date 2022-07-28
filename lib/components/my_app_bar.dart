@@ -19,9 +19,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        elevation: 0,
         title: MyTexts.outsideHeader(context, title: title),
         leading: leading ?? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer),
-        actions: [...actions??[], settingsPageButton(), backButton(context)],
+        actions: [...actions ?? [], settingsPageButton(), backButton(context)],
         bottom: bottom);
   }
 

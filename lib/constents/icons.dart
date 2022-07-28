@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -26,6 +27,7 @@ class MyIcons {
   static Icon info = Icon(Icons.info_outline, color: MyColors.info);
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
+  static Icon prayersTime = Icon(CupertinoIcons.timer_fill);
 
   static Icon rightArrow({Color? color, double size = MySiezes.icon}) {
     return Icon(Icons.arrow_back_ios, color: color, size: size);
@@ -58,12 +60,10 @@ class MyIcons {
       {required AnimationController animationCtr, required VoidCallback onTap, Color? color, double? size}) {
     color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary;
     size = MySiezes.icon;
-    
 
     return InkWell(
       borderRadius: BorderRadius.circular(100),
       onTap: () {
-      
         onTap();
       },
       child: Container(

@@ -8,6 +8,7 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'navigation_service.dart';
 
 class JsonService {
+
   static Future<ZikrData> getQuranData() async {
     int randomSure = Random().nextInt(114);
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
@@ -40,7 +41,7 @@ class JsonService {
       return ZikrData();
     }
     int randomHadith = Random().nextInt(hadithsMap.length);
-    return ZikrData(zikrType: ZikrType.hadith,title: 'قال عليه الصلاة والسلام',content:  hadithsMap[randomHadith]['text']);
-   
+    return ZikrData(
+        zikrType: ZikrType.hadith, title: 'قال عليه الصلاة والسلام', content: hadithsMap[randomHadith]['text']);
   }
 }
