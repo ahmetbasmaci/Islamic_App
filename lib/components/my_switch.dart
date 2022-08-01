@@ -23,12 +23,11 @@ class MySwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Switch(
       value: value,
-      activeColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primary : MyColors.primaryDark,
-      activeTrackColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+      activeColor: MyColors.primary(),
+      activeTrackColor: MyColors.primary(),
       inactiveThumbColor:
           ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.settingsContent : MyColors.background(),
-      inactiveTrackColor:
-          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.background() : MyColors.settingsContent,
+      inactiveTrackColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.black : MyColors.settingsContent,
       onChanged: onChanged,
     );
   }

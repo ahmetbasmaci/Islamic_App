@@ -8,15 +8,16 @@ class MyCircularProgressIndecator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox(
+    return SizedBox(
       width: MySiezes.circularProgressIndecator,
       height: MySiezes.circularProgressIndecator,
-      child: CircularProgressIndicator(
-        color: MyColors.primary,
-        strokeWidth: 2,
-        backgroundColor: MyColors.background(),
+      child: Center(
+        child: CircularProgressIndicator(
+          color: MyColors.primary(),
+          strokeWidth: 2,
+          backgroundColor: MyColors.background(),
+        ),
       ),
-    ));
+    );
   }
 }

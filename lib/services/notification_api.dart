@@ -110,6 +110,21 @@ class NotificationService {
         payload: 'item x');
   }
 
+//! -----------------------------  once alarm ----------------------------- //
+  static Future setOnceNotification({required AlarmProp alarmProp}) async {
+    await Future.delayed(Duration(seconds: 0)); //TODO set the time to show alarm
+    await _flutterLocalNotificationsPlugin.show(
+      alarmProp.id,
+      alarmProp.notificationTitle,
+      alarmProp.notificationBody,
+      _getNotificationDetails(
+        notificationSound: NotificationSound.random,
+        bigTitle: alarmProp.notificationTitle,
+        bigBody: alarmProp.notificationBody,
+      ),
+    );
+  }
+
 //! -----------------------------  daily alarm ----------------------------- //
   static Future setDailyNotification({required AlarmProp alarmProp}) async {
     NotificationSound selectedAlarmType = NotificationSound.random;

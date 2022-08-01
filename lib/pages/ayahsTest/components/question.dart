@@ -50,8 +50,7 @@ class Question extends StatelessWidget {
                       padding: EdgeInsets.all(MySiezes.cardPadding * 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                        color:
-                            ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.zikrCard,
+                        color: MyColors.zikrCard(),
                         border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),
@@ -76,10 +75,9 @@ class Question extends StatelessWidget {
   Future<AyahProp> getRandomAyah(BuildContext context) async {
     String jsonString = await DefaultAssetBundle.of(context)
         .loadString('assets/database/quran/firstAyahsFromEachPage/first_ayahs_from_each_page.json');
-    
-   
+
     List juzs = json.decode(jsonString);
-   
+
     int randomJuz = ctr.juzFrom.value - 1;
     if (ctr.juzTo.value != ctr.juzFrom.value)
       randomJuz = Random().nextInt(ctr.juzTo.value - ctr.juzFrom.value) + ctr.juzFrom.value;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -36,6 +37,7 @@ class _AlarmPageState extends State<AlarmPage> {
               fastAlarms(),
               azkarAlarms(),
               hadithsAlarms(),
+              prayTimesAlarms(),
             ],
           ),
         ),
@@ -81,7 +83,7 @@ class _AlarmPageState extends State<AlarmPage> {
         alarmBlockTitle(title: 'تذكير الصيام'),
         Obx(
           () => alarmListTile(
-              imagePath: 'assets/images/fasting.png',
+              imagePath: 'assets/images/fastingAlarm.png',
               title: 'صيام الاثنين',
               subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
               value: alarmCtr.mondayFastProp.isActive.value,
@@ -92,7 +94,7 @@ class _AlarmPageState extends State<AlarmPage> {
         ),
         Obx(
           () => alarmListTile(
-              imagePath: 'assets/images/fasting.png',
+              imagePath: 'assets/images/fastingAlarm.png',
               title: 'صيام الخميس',
               subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
               value: alarmCtr.thursdayFastProp.isActive.value,
@@ -103,7 +105,7 @@ class _AlarmPageState extends State<AlarmPage> {
         ),
         Obx(
           () => alarmListTile(
-              imagePath: 'assets/images/fasting.png',
+              imagePath: 'assets/images/fastingAlarm.png',
               title: 'صيام الايام البيض',
               subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
               value: alarmCtr.whitedayFastProp.isActive.value,
@@ -154,7 +156,7 @@ class _AlarmPageState extends State<AlarmPage> {
         alarmBlockTitle(title: 'تذكير الاحاديث'),
         Obx(
           () => alarmListTile(
-              imagePath: 'assets/images/azkarAlarm.png',
+              imagePath: 'assets/images/hadithAlarm.png',
               title: 'حديث يومي',
               subtitle: 'سيصلك اشعار بحديث جديد كل يوم',
               value: alarmCtr.hadithEveryDayProp.isActive.value,
@@ -168,6 +170,80 @@ class _AlarmPageState extends State<AlarmPage> {
     );
   }
 
+  Column prayTimesAlarms() {
+    return Column(
+      children: [
+        alarmBlockTitle(title: 'تذكير الاذان'),
+        Obx(
+          () => alarmListTile(
+            imagePath: 'assets/images/prayAlarm.png',
+            title: 'صلاة الفجر',
+            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+            value: alarmCtr.fajrPrayProp.isActive.value,
+            alarmProp: alarmCtr.fajrPrayProp,
+            onChanged: (newValue) {
+              alarmCtr.changeState(alarmProp: alarmCtr.fajrPrayProp, newValue: newValue);
+            },
+            canChange: false,
+          ),
+        ),
+        Obx(
+          () => alarmListTile(
+            imagePath: 'assets/images/prayAlarm.png',
+            title: 'صلاة الظهر',
+            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+            value: alarmCtr.duhrPrayProp.isActive.value,
+            alarmProp: alarmCtr.duhrPrayProp,
+            onChanged: (newValue) {
+              alarmCtr.changeState(alarmProp: alarmCtr.duhrPrayProp, newValue: newValue);
+            },
+            canChange: false,
+          ),
+        ),
+        Obx(
+          () => alarmListTile(
+            imagePath: 'assets/images/prayAlarm.png',
+            title: 'صلاة العصر',
+            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+            value: alarmCtr.asrPrayProp.isActive.value,
+            alarmProp: alarmCtr.asrPrayProp,
+            onChanged: (newValue) {
+              alarmCtr.changeState(alarmProp: alarmCtr.asrPrayProp, newValue: newValue);
+            },
+            canChange: false,
+          ),
+        ),
+        Obx(
+          () => alarmListTile(
+            imagePath: 'assets/images/prayAlarm.png',
+            title: 'صلاة المغرب',
+            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+            value: alarmCtr.maghribPrayProp.isActive.value,
+            alarmProp: alarmCtr.maghribPrayProp,
+            onChanged: (newValue) {
+              alarmCtr.changeState(alarmProp: alarmCtr.maghribPrayProp, newValue: newValue);
+            },
+            canChange: false,
+          ),
+        ),
+        Obx(
+          () => alarmListTile(
+            imagePath: 'assets/images/prayAlarm.png',
+            title: 'صلاة العشاء',
+            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+            value: alarmCtr.ishaPrayProp.isActive.value,
+            alarmProp: alarmCtr.ishaPrayProp,
+            onChanged: (newValue) {
+              alarmCtr.changeState(alarmProp: alarmCtr.ishaPrayProp, newValue: newValue);
+            },
+            canChange: false,
+          ),
+        ),
+        blockDivider(),
+      ],
+    );
+  }
+
   Widget alarmListTile({
     required String imagePath,
     required String title,
@@ -175,6 +251,7 @@ class _AlarmPageState extends State<AlarmPage> {
     required bool value,
     required AlarmProp alarmProp,
     required Function(bool) onChanged,
+    bool canChange = true,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: MySiezes.betweanAzkarBlock),
@@ -195,17 +272,19 @@ class _AlarmPageState extends State<AlarmPage> {
             ),
           ),
           Expanded(
-            child: IconButton(
-              onPressed: () async {
-                TimeOfDay? newTime = await showTimePicker(context: context, initialTime: alarmProp.timeOfDay);
-                if (newTime == null) return;
-                alarmProp.timeOfDay = newTime;
-                GetStorage getStorage = GetStorage();
-                getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
-                if (alarmProp.isActive.value) onChanged(true);
-              },
-              icon: MyIcons.alarm,
-            ),
+            child: canChange
+                ? IconButton(
+                    onPressed: () async {
+                      TimeOfDay? newTime = await showTimePicker(context: context, initialTime: alarmProp.timeOfDay);
+                      if (newTime == null) return;
+                      alarmProp.timeOfDay = newTime;
+                      GetStorage getStorage = GetStorage();
+                      getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
+                      if (alarmProp.isActive.value) onChanged(true);
+                    },
+                    icon: MyIcons.alarm,
+                  )
+                : Container(),
           ),
           Expanded(child: MySwitch(value: value, onChanged: onChanged)),
         ],
@@ -262,7 +341,7 @@ class AlarmProp {
   }
 }
 
-enum ALarmPeriod { daily, weekly, monthly }
+enum ALarmPeriod { daily, weekly, monthly, once }
 
 enum ALarmType { none, hadith }
 
@@ -362,7 +441,6 @@ class AlarmsCtr extends GetxController {
     alarmPeriod: ALarmPeriod.daily,
   );
 //!------------- hadith ----------------------------
-
   AlarmProp hadithEveryDayProp = AlarmProp(
     id: 8,
     timeOfDay: const TimeOfDay(hour: 13, minute: 0),
@@ -376,8 +454,70 @@ class AlarmsCtr extends GetxController {
     alarmPeriod: ALarmPeriod.daily,
     alarmType: ALarmType.hadith,
   );
+//!------------- prayers ----------------------------
+  AlarmProp fajrPrayProp = AlarmProp(
+    id: 9,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'fajrPrayProp',
+    notificationTitle: 'اذان الفجر',
+    notificationBody: 'تبفى القليل لموعد اذان الفجر',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الفجر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان الفجر',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذان الفجر',
+    alarmPeriod: ALarmPeriod.once,
+  );
+  AlarmProp duhrPrayProp = AlarmProp(
+    id: 10,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'duhrPrayProp',
+    notificationTitle: 'اذان الظهر',
+    notificationBody: 'تبفى القليل لموعد اذان الظهر',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الظهر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان الظهر',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذان الظهر',
+    alarmPeriod: ALarmPeriod.once,
+  );
+  AlarmProp asrPrayProp = AlarmProp(
+    id: 11,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'asrPrayProp',
+    notificationTitle: 'اذان العصر',
+    notificationBody: 'تبفى القليل لموعد اذان العصر',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العصر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان العصر',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذان العصر',
+    alarmPeriod: ALarmPeriod.once,
+  );
+  AlarmProp maghribPrayProp = AlarmProp(
+    id: 12,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'maghribPrayProp',
+    notificationTitle: 'اذان المغرب',
+    notificationBody: 'تبفى القليل لموعد اذان المغرب',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير اذان المغرب',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان المغرب',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذان المغرب',
+    alarmPeriod: ALarmPeriod.once,
+  );
+  AlarmProp ishaPrayProp = AlarmProp(
+    id: 13,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'ishaPrayProp',
+    notificationTitle: 'اذان العشاء',
+    notificationBody: 'تبفى القليل لموعد اذان العشاء',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العشاء',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان العشاء',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذان العشاء',
+    alarmPeriod: ALarmPeriod.once,
+  );
 
   AlarmsCtr() {
+//!------------- quran ----------------------------
     getStorage.read(kahfSureProp.storageKey) != null
         ? kahfSureProp.fromJson(jsonDecode(getStorage.read(kahfSureProp.storageKey)))
         : kahfSureProp = kahfSureProp;
@@ -386,6 +526,7 @@ class AlarmsCtr extends GetxController {
         ? quranPageEveryDayProp.fromJson(jsonDecode(getStorage.read(quranPageEveryDayProp.storageKey)))
         : quranPageEveryDayProp = quranPageEveryDayProp;
 
+//!------------- fast ----------------------------
     getStorage.read(mondayFastProp.storageKey) != null
         ? mondayFastProp.fromJson(jsonDecode(getStorage.read(mondayFastProp.storageKey)))
         : mondayFastProp = mondayFastProp;
@@ -397,17 +538,40 @@ class AlarmsCtr extends GetxController {
     getStorage.read(whitedayFastProp.storageKey) != null
         ? whitedayFastProp.fromJson(jsonDecode(getStorage.read(whitedayFastProp.storageKey)))
         : whitedayFastProp = whitedayFastProp;
-
+//!------------- azkar ----------------------------
     getStorage.read(morningAzkarProp.storageKey) != null
         ? morningAzkarProp.fromJson(jsonDecode(getStorage.read(morningAzkarProp.storageKey)))
         : morningAzkarProp = morningAzkarProp;
+
     getStorage.read(nightAzkarProp.storageKey) != null
         ? nightAzkarProp.fromJson(jsonDecode(getStorage.read(nightAzkarProp.storageKey)))
         : nightAzkarProp = nightAzkarProp;
 
+//!------------- hadith ----------------------------
     getStorage.read(hadithEveryDayProp.storageKey) != null
         ? hadithEveryDayProp.fromJson(jsonDecode(getStorage.read(hadithEveryDayProp.storageKey)))
         : hadithEveryDayProp = hadithEveryDayProp;
+
+//!------------- prayers ----------------------------
+    getStorage.read(fajrPrayProp.storageKey) != null
+        ? fajrPrayProp.fromJson(jsonDecode(getStorage.read(fajrPrayProp.storageKey)))
+        : fajrPrayProp = fajrPrayProp;
+
+    getStorage.read(duhrPrayProp.storageKey) != null
+        ? duhrPrayProp.fromJson(jsonDecode(getStorage.read(duhrPrayProp.storageKey)))
+        : duhrPrayProp = duhrPrayProp;
+
+    getStorage.read(asrPrayProp.storageKey) != null
+        ? asrPrayProp.fromJson(jsonDecode(getStorage.read(asrPrayProp.storageKey)))
+        : asrPrayProp = asrPrayProp;
+
+    getStorage.read(maghribPrayProp.storageKey) != null
+        ? maghribPrayProp.fromJson(jsonDecode(getStorage.read(maghribPrayProp.storageKey)))
+        : maghribPrayProp = maghribPrayProp;
+
+    getStorage.read(ishaPrayProp.storageKey) != null
+        ? ishaPrayProp.fromJson(jsonDecode(getStorage.read(ishaPrayProp.storageKey)))
+        : ishaPrayProp = ishaPrayProp;
   }
 
   changeState({required AlarmProp alarmProp, required bool newValue}) async {
@@ -417,7 +581,9 @@ class AlarmsCtr extends GetxController {
     alarmProp.isActive.value = newValue;
     getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
     if (newValue) {
-      if (alarmProp.alarmPeriod == ALarmPeriod.daily)
+      if (alarmProp.alarmPeriod == ALarmPeriod.once)
+        NotificationService.setOnceNotification(alarmProp: alarmProp);
+      else if (alarmProp.alarmPeriod == ALarmPeriod.daily)
         NotificationService.setDailyNotification(alarmProp: alarmProp);
       else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
         NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
@@ -438,6 +604,26 @@ class AlarmsCtr extends GetxController {
     }
   }
 
+  setPrayTimesAlarms({
+    required Time fajrTime,
+    required Time duhrTime,
+    required Time asrTime,
+    required Time maghribTime,
+    required Time ishaTime,
+  }) {
+    fajrPrayProp.timeOfDay = TimeOfDay(hour: fajrTime.hour, minute: fajrTime.minute);
+    duhrPrayProp.timeOfDay = TimeOfDay(hour: duhrTime.hour, minute: duhrTime.minute);
+    asrPrayProp.timeOfDay = TimeOfDay(hour: asrTime.hour, minute: asrTime.minute);
+    maghribPrayProp.timeOfDay = TimeOfDay(hour: maghribTime.hour, minute: maghribTime.minute);
+    ishaPrayProp.timeOfDay = TimeOfDay(hour: ishaTime.hour, minute: ishaTime.minute);
+
+    getStorage.write(fajrPrayProp.storageKey, jsonEncode(fajrPrayProp.toJson()));
+    getStorage.write(duhrPrayProp.storageKey, jsonEncode(duhrPrayProp.toJson()));
+    getStorage.write(asrPrayProp.storageKey, jsonEncode(asrPrayProp.toJson()));
+    getStorage.write(maghribPrayProp.storageKey, jsonEncode(maghribPrayProp.toJson()));
+    getStorage.write(ishaPrayProp.storageKey, jsonEncode(ishaPrayProp.toJson()));
+  }
+
   _showSnackBar({required Widget icon, required String title, required String message}) {
     Get.closeCurrentSnackbar();
     Get.snackbar(
@@ -449,7 +635,7 @@ class AlarmsCtr extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
       colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
       backgroundColor: MyColors.background(),
-      boxShadows: [BoxShadow(color: MyColors.primary.withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
+      boxShadows: [BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
       titleText: Directionality(
         textDirection: TextDirection.rtl,
         child: Text(

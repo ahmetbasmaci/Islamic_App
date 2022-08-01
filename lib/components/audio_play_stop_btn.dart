@@ -35,12 +35,15 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return audioService.isLoading
-        ? MyCircularProgressIndecator()
-        : MyIcons.animatedIcon_Play_Pause(
-            animationCtr: animationCtr,
-            onTap: onPlayTap,
-          );
+    return AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+        child: audioService.isLoading
+            ? MyCircularProgressIndecator()
+            : MyIcons.animatedIcon_Play_Pause(
+                animationCtr: animationCtr,
+                onTap: onPlayTap,
+              ));
   }
 
   onPlayTap() async {

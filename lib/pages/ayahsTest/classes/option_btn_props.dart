@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class OptionBtnProps {
   int juz;
   int page;
-  Color color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark :  MyColors.background();
+  Color color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() :  MyColors.background();
   Color textColor = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black;
   OptionBtnProps({required this.juz, required this.page});
 }

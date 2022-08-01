@@ -40,7 +40,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
             return Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                color:  ThemeService().getThemeMode() == ThemeMode.dark? MyColors.primaryDark : MyColors.primary,
+                color: MyColors.primary(),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(.6),
@@ -74,7 +74,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+            color: MyColors.primary(),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(.6),

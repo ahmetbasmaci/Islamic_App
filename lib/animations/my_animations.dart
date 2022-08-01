@@ -26,4 +26,10 @@ class MyAnimations {
         builder: (context, double tween, child) => Transform.scale(scale: tween, child: child),
         child: child);
   }
+  static Widget animatedSwicherTransition({required Duration duration}){
+    return AnimatedSwitcher(
+      duration: duration,
+      transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+    );
+  }
 }

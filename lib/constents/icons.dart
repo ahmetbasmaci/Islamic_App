@@ -38,7 +38,7 @@ class MyIcons {
   }
 
   static Icon menu({Color? color, double size = MySiezes.icon}) {
-    color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary;
+    color = MyColors.primary();
     return Icon(Icons.menu_book, color: color, size: size);
   }
 
@@ -58,7 +58,7 @@ class MyIcons {
 
   static Widget animatedIcon_Play_Pause(
       {required AnimationController animationCtr, required VoidCallback onTap, Color? color, double? size}) {
-    color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary;
+    color = MyColors.primary();
     size = MySiezes.icon;
 
     return InkWell(
@@ -69,7 +69,7 @@ class MyIcons {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.zikrCard,
+          color: MyColors.zikrCard(),
           boxShadow: [
             BoxShadow(
               color: ThemeService().getThemeMode() == ThemeMode.dark

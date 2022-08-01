@@ -33,7 +33,7 @@ class _ZikrCardState extends State<ZikrCard> {
   bool isLoading = false;
   // bool cantPress = true;
   bool zikrCountComplated = false;
-  Color zikrCountColor = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.trueDark : MyColors.true_;
+  Color zikrCountColor = MyColors.currect();
   @override
   void initState() {
     super.initState();
@@ -74,13 +74,11 @@ class _ZikrCardState extends State<ZikrCard> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-              color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.zikrCard,
+              color: MyColors.zikrCard(),
               boxShadow: [
                 BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
                 BoxShadow(
-                    color: ThemeService().getThemeMode() == ThemeMode.dark
-                        ? MyColors.primaryDark.withOpacity(.5)
-                        : MyColors.primary.withOpacity(.5),
+                    color: MyColors.primary().withOpacity(.5),
                     blurRadius: 5,
                     offset: Offset(0, 0)),
               ],
@@ -166,11 +164,7 @@ class _ZikrCardState extends State<ZikrCard> {
                 width: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(80),
-                  color: zikrCountComplated
-                      ? zikrCountColor
-                      : ThemeService().getThemeMode() == ThemeMode.dark
-                          ? MyColors.zikrCardDark
-                          : MyColors.zikrCard,
+                  color: zikrCountComplated ? zikrCountColor : MyColors.zikrCard(),
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(-5, 0),

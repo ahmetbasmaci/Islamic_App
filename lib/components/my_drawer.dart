@@ -27,7 +27,7 @@ class MyDrawer extends StatelessWidget {
             accountEmail: Text(''),
             decoration: ThemeService().getThemeMode() == ThemeMode.dark
                 ? BoxDecoration(color: MyColors.primaryDark)
-                : BoxDecoration(color: MyColors.primary),
+                : BoxDecoration(color: MyColors.primary()),
             // arrowColor: MyColors.background,
             // onDetailsPressed: () {
             //   print('onDetailsPressed');
@@ -152,21 +152,13 @@ Widget drawerItem(
   return ListTile(
     leading: icon,
     title: Text(title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    tileColor: Get.currentRoute.contains(routeName)
-        ? ThemeService().getThemeMode() == ThemeMode.dark
-            ? MyColors.primaryDark.withOpacity(.5)
-            : MyColors.primary.withOpacity(.8)
-        : null,
+    tileColor: Get.currentRoute.contains(routeName) ? MyColors.primary().withOpacity(.8) : null,
     textColor: Get.currentRoute.contains(routeName)
         ? Color.fromARGB(255, 255, 255, 255)
         : ThemeService().getThemeMode() == ThemeMode.dark
             ? MyColors.white
             : MyColors.black,
-    iconColor: Get.currentRoute.contains(routeName)
-        ? Color.fromARGB(255, 239, 239, 239)
-        : ThemeService().getThemeMode() == ThemeMode.dark
-            ? MyColors.primaryDark
-            : MyColors.primary,
+    iconColor: Get.currentRoute.contains(routeName) ? Color.fromARGB(255, 239, 239, 239) : MyColors.primary(),
     onTap: onTap,
   );
 }

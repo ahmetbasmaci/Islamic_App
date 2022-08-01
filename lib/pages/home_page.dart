@@ -4,6 +4,7 @@ import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/pages/prayer_times.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../services/theme_service.dart';
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           bottomNavigationBar: CurvedNavigationBar(
             height: MySiezes.navigationTap,
             items: items,
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+            color: MyColors.primary(),
             backgroundColor: MyColors.background(),
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
@@ -51,7 +52,10 @@ class _HomePageState extends State<HomePage> {
               updateCurrentIndex(newIndex);
             },
           ),
-          body: mainContainer(child: screens[currentIndex])),
+          body: mainContainer(
+            // child: PrayerTimes(),
+            child: screens[currentIndex],
+          )),
     );
   }
 }

@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                      color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+                      color: MyColors.primary(),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(.6),

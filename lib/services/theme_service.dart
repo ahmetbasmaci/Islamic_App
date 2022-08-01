@@ -36,7 +36,7 @@ TextStyle _bodyText2 = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info)
 
 TextStyle _subtitle1 = GoogleFonts.harmattan();
 
-TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 18, fontWeight: FontWeight.bold);
+TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 18);
 
 class ThemeService {
   final ThemeData lightThemeMode = ThemeData.light().copyWith(
@@ -44,21 +44,21 @@ class ThemeService {
     appBarTheme: AppBarTheme(
       color: MyColors.backgroundLight,
       iconTheme: IconThemeData(
-        color: MyColors.primary,
+        color: MyColors.primary_,
         size: MySiezes.icon,
       ),
       titleTextStyle: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: MyColors.primary,
+        color: MyColors.primary_,
       ),
     ),
     drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundLight),
-    iconTheme: IconThemeData(color: MyColors.primary, size: MySiezes.icon),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: MyColors.primary, elevation: 10),
+    iconTheme: IconThemeData(color: MyColors.primary_, size: MySiezes.icon),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: MyColors.primary_, elevation: 10),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(MyColors.primary),
+        backgroundColor: MaterialStateProperty.all(MyColors.primary_),
         foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 255, 255)),
         elevation: MaterialStateProperty.all(10),
         shape: MaterialStateProperty.all(
@@ -79,11 +79,11 @@ class ThemeService {
       ),
     ),
     backgroundColor: MyColors.backgroundLight,
-    indicatorColor: MyColors.primary,
-    bottomAppBarColor: MyColors.primary,
+    indicatorColor: MyColors.primary_,
+    bottomAppBarColor: MyColors.primary_,
     textTheme: TextTheme(
-      headline1: _headLine1.copyWith(color: MyColors.primary),
-      headline2: _headLine2.copyWith(color: MyColors.insideHeader),
+      headline1: _headLine1.copyWith(color: MyColors.primary_),
+      headline2: _headLine2.copyWith(color: MyColors.second_),
       headline3: _headLine3,
       headline4: _headLine4.copyWith(color: MyColors.settingsTitle),
       headline5: _headLine5.copyWith(color: MyColors.settingsContent),
@@ -91,7 +91,7 @@ class ThemeService {
       bodyText1: _bodyText1.copyWith(color: MyColors.content),
       bodyText2: _bodyText2.copyWith(color: MyColors.info),
       subtitle1: _subtitle1.copyWith(color: MyColors.black),
-      subtitle2: _subtitle2.copyWith(color: MyColors.primary),
+      subtitle2: _subtitle2.copyWith(color: MyColors.primary_),
     ),
   );
 
@@ -140,7 +140,7 @@ class ThemeService {
     bottomAppBarColor: MyColors.primaryDark,
     textTheme: TextTheme(
       headline1: _headLine1.copyWith(color: MyColors.primaryDark),
-      headline2: _headLine2.copyWith(color: MyColors.insideHeader),
+      headline2: _headLine2.copyWith(color: MyColors.second_),
       headline3: _headLine3,
       headline4: _headLine4.copyWith(color: MyColors.white),
       headline5: _headLine5.copyWith(color: MyColors.settingsContentDark),
@@ -152,6 +152,9 @@ class ThemeService {
     ),
   );
 
+
+
+
   final _getStorage = GetStorage();
   final _darkKeyTheme = 'isDarkMode';
 
@@ -160,7 +163,7 @@ class ThemeService {
   }
 
   bool _isSavedDarkMode() {
-    return _getStorage.read(_darkKeyTheme) ?? false;
+    return _getStorage.read<bool>(_darkKeyTheme) ?? false;
   }
 
   ThemeMode getThemeMode() {

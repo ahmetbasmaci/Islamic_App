@@ -227,7 +227,7 @@ class _ShopsPageState extends State<ShopsPage> {
               Get.back();
               setState(() {});
             },
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+            color: MyColors.primary(),
             child: Text("تأكيد", style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -285,7 +285,7 @@ class _ShopsPageState extends State<ShopsPage> {
             buttons: [
               DialogButton(
                 onPressed: () => Get.back(),
-                color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+                color: MyColors.primary(),
                 child: MyTexts.content(context, title: 'تم'),
               )
             ],
@@ -397,7 +397,7 @@ class _ShopsPageState extends State<ShopsPage> {
             color: Colors.transparent,
             child: Text("الغاء",
                 style: TextStyle(
-                  color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+                  color: MyColors.primary(),
                 )),
           ),
           DialogButton(
@@ -432,7 +432,7 @@ class _ShopsPageState extends State<ShopsPage> {
 
               _addLocation();
             },
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+            color:MyColors.primary(),
             child: Text("تأكيد", style: TextStyle(color: Colors.white)),
           ),
         ],

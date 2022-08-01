@@ -37,47 +37,46 @@ class _AzkarPageState extends State<AzkarPage> {
           appBar: MyAppBar(title: bigTitle),
           drawer: MyDrawer(),
           body: mainContainer(
-              child: widget.zikrType == ZikrType.none
-                  ? Container()
-                  : isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : Column(
-                          children: <Widget>[
-                            Flexible(
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: zikrDataList.length,
-                                itemBuilder: (context, index) {
-                                  if (zikrDataList[index].haveList) {
-                                    return ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: zikrDataList[index].list.length,
-                                        itemBuilder: (context, index2) {
-                                          return ZikrCard(
-                                              haveMargin: true,
-                                              zikrData: ZikrData(
-                                                zikrType: widget.zikrType,
-                                                title: index2 > 0
-                                                    ? "${zikrDataList[index].title} ${index2 + 1}"
-                                                    : zikrDataList[index].title,
-                                                content: zikrDataList[index].list[index2]['zekr'] ?? "",
-                                              ));
-                                        });
-                                  } else {
-                                    return ZikrCard(
-                                      zikrData: zikrDataList[index],
-                                      haveMargin: index != zikrDataList.length - 1 ? true : false,
-                                    );
-                                  }
-                                },
-                              ),
-                            )
-                          ],
-                        )),
+            child: widget.zikrType == ZikrType.none
+                ? Container()
+                : isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Column(
+                        children: <Widget>[
+                          Flexible(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: zikrDataList.length,
+                              itemBuilder: (context, index) {
+                                if (zikrDataList[index].haveList) {
+                                  return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: zikrDataList[index].list.length,
+                                      itemBuilder: (context, index2) {
+                                        return ZikrCard(
+                                            haveMargin: true,
+                                            zikrData: ZikrData(
+                                              zikrType: widget.zikrType,
+                                              title: index2 > 0
+                                                  ? "${zikrDataList[index].title} ${index2 + 1}"
+                                                  : zikrDataList[index].title,
+                                              content: zikrDataList[index].list[index2]['zekr'] ?? "",
+                                            ));
+                                      });
+                                } else {
+                                  return ZikrCard(
+                                    zikrData: zikrDataList[index],
+                                    haveMargin: index != zikrDataList.length - 1 ? true : false,
+                                  );
+                                }
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+          ),
         ));
   }
-
-
 
   void readData() async {
     setState(() {

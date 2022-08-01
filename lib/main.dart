@@ -20,6 +20,7 @@ void main() async {
 
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     // SqlDb().deleteDB();
 
     return GetMaterialApp(
-       navigatorKey: NavigationService.navigatorKey,
+      navigatorKey: NavigationService.navigatorKey,
       routes: {
         HomePage.id: (context) => HomePage(),
         SettingsPage.id: (context) => SettingsPage(),

@@ -32,14 +32,10 @@ class QuestionsFooter extends StatelessWidget {
         MaterialButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
           elevation: 5,
-          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.background(),
+          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() : MyColors.background(),
           onPressed: () => getNextQuestion(),
           child: Row(
-            children: [
-              MyIcons.rightArrow(
-                  color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary),
-              MyTexts.normal(context, title: 'التالي')
-            ],
+            children: [MyIcons.rightArrow(color: MyColors.primary()), MyTexts.normal(context, title: 'التالي')],
           ),
         ),
         MyTexts.normal(context, title: ' السؤال رقم ${ctr.quastionNumber.value}')
@@ -52,7 +48,7 @@ class QuestionsFooter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: MySiezes.cardPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCardDark : MyColors.zikrCard,
+        color: MyColors.zikrCard(),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),
         ],
@@ -74,9 +70,12 @@ class QuestionsFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
-        MyTexts.normal(context,
-            title: isCorrect ? 'الاجابات الصحيحة: ' : 'الاجابات الخاطئة:  ',
-            color: isCorrect ? MyColors.true_ : MyColors.false_),
+        MyTexts.normal(
+          context,
+          title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
+          color: isCorrect ? MyColors.true_ : MyColors.false_,
+          size: 15,
+        ),
         Material(
           borderRadius: BorderRadius.circular(100),
           elevation: 1,
@@ -112,10 +111,10 @@ class QuestionsFooter extends StatelessWidget {
   Row selectDifferentTestType(BuildContext context) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(context, title: 'نوع الاختبار:  '),
+        MyTexts.dropDownMenuTitle(context, title: 'نوع الاختبار:  ',),
         DropdownButton<QuestionType>(
           value: ctr.questionType.value,
-          iconEnabledColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+          iconEnabledColor: MyColors.primary(),
           onChanged: (QuestionType? val) {
             if (ctr.questionType.value != val) {
               ctr.changeQuestionType(val!);
@@ -157,7 +156,7 @@ class QuestionsFooter extends StatelessWidget {
           onChanged: (val) {
             ctr.questionType.value == QuestionType.ayahInJusAndPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!);
           },
-          iconEnabledColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+          iconEnabledColor: MyColors.primary(),
         ),
       ],
     );
@@ -180,7 +179,7 @@ class QuestionsFooter extends StatelessWidget {
                 ? ctr.changePageFrom(val!)
                 : ctr.changeJuzFrom(val!);
           },
-          iconEnabledColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.primaryDark : MyColors.primary,
+          iconEnabledColor: MyColors.primary(),
         ),
       ],
     );
