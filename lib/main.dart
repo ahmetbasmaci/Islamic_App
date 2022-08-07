@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // SqlDb().deleteDB();
+    SqlDb().deleteDB();
 
     return GetMaterialApp(
       navigatorKey: NavigationService.navigatorKey,
@@ -58,5 +58,14 @@ Scaffold(
         ),
       ),
     );
-
+DefaultTabController(
+      length: length,
+      child: TabBarView(children: [
+        for (var image in images)
+            child: Image.asset(
+            'assets/images/50.png',
+            fit: BoxFit.fill,
+          ),
+      ]),
+    );
 */

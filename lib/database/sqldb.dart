@@ -43,6 +43,7 @@ class SqlDb {
         "content" TEXT NOT NULL,
         "description" TEXT NOT NULL,
         "numberInQuran" INTEGER,
+        "surahNumber" INTEGER,
         "count" INTEGER NOT NULL
       )
     ''');

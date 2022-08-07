@@ -12,17 +12,22 @@ class ZikrData {
     this.list,
     this.isFavorite = false,
     this.isCopyed = false,
+    this.surahNumber = 0,
+    this.isRandomAyah = true,
   });
 
   String title;
   String content;
+  bool isFavorite;
+  
   String description;
   int numberInQuran;
   int count;
+  int surahNumber;
   bool haveList;
+  bool isRandomAyah;
   dynamic list = [];
 
-  bool isFavorite;
   bool isCopyed;
   ZikrType zikrType;
 }

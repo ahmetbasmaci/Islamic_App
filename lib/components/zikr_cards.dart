@@ -21,6 +21,7 @@ class ZikrCard extends StatefulWidget {
   }) : super(key: key);
   ZikrCard.withRandomData({required ZikrType zikrType}) {
     zikrData.zikrType = zikrType;
+    
   }
   ZikrData zikrData = ZikrData();
   VoidCallback? onDeleteFromFavorite;
@@ -34,6 +35,7 @@ class _ZikrCardState extends State<ZikrCard> {
   // bool cantPress = true;
   bool zikrCountComplated = false;
   Color zikrCountColor = MyColors.currect();
+
   @override
   void initState() {
     super.initState();
@@ -47,7 +49,8 @@ class _ZikrCardState extends State<ZikrCard> {
 
   @override
   Widget build(BuildContext context) {
-    checkIfRandomData();
+    checkIfRandomData();//TODO fix this
+
     return widget.zikrData.zikrType == ZikrType.quran
         ? quranCard()
         : widget.zikrData.zikrType == ZikrType.hadith
@@ -77,10 +80,7 @@ class _ZikrCardState extends State<ZikrCard> {
               color: MyColors.zikrCard(),
               boxShadow: [
                 BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-                BoxShadow(
-                    color: MyColors.primary().withOpacity(.5),
-                    blurRadius: 5,
-                    offset: Offset(0, 0)),
+                BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
               ],
             ),
             padding: EdgeInsets.all(MySiezes.cardPadding),
@@ -139,10 +139,16 @@ class _ZikrCardState extends State<ZikrCard> {
           ? IconButton(onPressed: () => getRandomData(), icon: MyIcons.refresh)
           : null,
       secondChild: AudioPlayStopBtn(
-        numberInQuran: widget.zikrData.numberInQuran,
-        fileName: widget.zikrData.numberInQuran.toString(),
-        fileType: 'mp3',
-        onComplite: () => getRandomData(),
+        zikrData:widget.zikrData,
+        onComplite: () async {
+          isLoading = true;
+          if (mounted) setState(() {});
+          widget.zikrData = await JsonService.getSpesificQuranData(
+              numberInQuran: widget.zikrData.numberInQuran + 1, surahNumber: widget.zikrData.surahNumber);
+          checkIfIsFavorite();
+          isLoading = false;
+          if (mounted) setState(() {});
+        },
       ),
     );
   }

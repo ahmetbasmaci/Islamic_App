@@ -57,7 +57,11 @@ class MyIcons {
   }
 
   static Widget animatedIcon_Play_Pause(
-      {required AnimationController animationCtr, required VoidCallback onTap, Color? color, double? size}) {
+      {required AnimationController animationCtr,
+      required VoidCallback onTap,
+      Color? color,
+      double? size,
+      required bool isForwerd}) {
     color = MyColors.primary();
     size = MySiezes.icon;
 
@@ -82,7 +86,8 @@ class MyIcons {
         ),
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.only(left: 8),
-        child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr, size: size),
+        child: AnimatedIcon(
+            icon: AnimatedIcons.play_pause, progress: animationCtr, size: size),
       ),
     );
   }

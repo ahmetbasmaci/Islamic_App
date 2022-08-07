@@ -5,16 +5,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class HttpService {
- static Future<File?> _downloadFile({required String url, required int numberInQuran}) async {
+  static Future<File?> _downloadFile({required String url, required int numberInQuran}) async {
     String dir = (await getApplicationDocumentsDirectory()).path;
     File file = File('$dir/${numberInQuran.toString()}.mp3');
     bool exists = await file.exists();
     if (exists) return file;
 
-    http.Response request = await http.get(Uri.parse(url)); //downlaod the file
-    Uint8List bytes = request.bodyBytes; //close();
-    await file.writeAsBytes(bytes);
-    Fluttertoast.showToast(msg: 'تم تحميل الاية بنجاح');
+    try {
+      http.Response request = await http.get(Uri.parse(url)); //downlaod the file
+      Uint8List bytes = request.bodyBytes; //close();
+      await file.writeAsBytes(bytes);
+      Fluttertoast.showToast(msg: 'تم تحميل الاية بنجاح');
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت');
+    }
     return file;
   }
 

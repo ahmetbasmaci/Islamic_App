@@ -83,6 +83,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
         'content': widget.zikrData.content,
         'description': widget.zikrData.description,
         'numberInQuran': widget.zikrData.numberInQuran,
+        'surahNumber': widget.zikrData.surahNumber,
         'count': -1,
       });
       toastText = 'تم إضافة النص إلى المفضلة';

@@ -260,11 +260,14 @@ class PrayerTimeCtr extends GetxController {
     double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60) + (time2.second.toDouble() / (60 * 60));
 
     double timeDiff = dTime1 - dTime2;
-
+  //TODO fix time after isha 
     int hr = timeDiff.truncate();
     double minute = (timeDiff - timeDiff.truncate()) * 60;
     double second = (minute - minute.truncate()) * 60;
-    return Time(hr, minute.toInt(), second.toInt());
+    // print('minute $minute');
+    // print('second $second');
+    // return Time(hr, minute.toInt(), second.toInt());
+    return Time(1,1,1);
   }
 
   bool compareTimes(Time time1, Time time2) {

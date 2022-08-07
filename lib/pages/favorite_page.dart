@@ -133,6 +133,7 @@ class _FavoritePageState extends State<FavoritePage> {
           content: listMap[i]['content'],
           description: listMap[i]['description'],
           numberInQuran: listMap[i]['numberInQuran'],
+          surahNumber: listMap[i]['surahNumber'],
           count: listMap[i]['count'],
           isFavorite: true,
         ),

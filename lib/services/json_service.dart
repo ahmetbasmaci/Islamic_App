@@ -8,11 +8,10 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'navigation_service.dart';
 
 class JsonService {
-
   static Future<ZikrData> getQuranData() async {
-    int randomSure = Random().nextInt(114);
+    int randomSure = Random().nextInt(114) + 1;
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
-        .loadString('assets/database/quran/surahs/${randomSure + 1}.json');
+        .loadString('assets/database/quran/surahs/$randomSure.json');
     Map<String, dynamic> data = json.decode(jsonString);
     List<dynamic> allSureAyahs = data['ayahs'];
     int randomAyah = Random().nextInt(allSureAyahs.length);
@@ -25,7 +24,31 @@ class JsonService {
       title: 'اعوذ بالله من الشيطان الرجيم',
       content: allSureAyahs[randomAyah]['text'],
       numberInQuran: allSureAyahs[randomAyah]['numberInQuran'],
+      surahNumber: randomSure,
     );
+  }
+
+  static Future<ZikrData> getSpesificQuranData({required int numberInQuran, required int surahNumber}) async {
+    print('numberInQuran $numberInQuran');
+    print('surahNumber $surahNumber');
+    String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
+        .loadString('assets/database/quran/surahs/$surahNumber.json');
+    Map<String, dynamic> data = json.decode(jsonString);
+    List<dynamic> allSureAyahs = data['ayahs'];
+    for (var i = 0; i < allSureAyahs.length; i++) {
+      // print(allSureAyahs[i]['numberInQuran']);
+      if (allSureAyahs[i]['numberInQuran'] == numberInQuran) {
+        return ZikrData(
+          zikrType: ZikrType.quran,
+          title: 'اعوذ بالله من الشيطان الرجيم',
+          content: allSureAyahs[i]['text'],
+          numberInQuran: allSureAyahs[i]['numberInQuran'],
+          surahNumber: surahNumber,
+          isRandomAyah: false,
+        );
+      }
+    }
+    return getSpesificQuranData(numberInQuran: numberInQuran+1, surahNumber: surahNumber + 1);
   }
 
   static Future<ZikrData> getHadithData() async {

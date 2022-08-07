@@ -7,7 +7,6 @@ import 'package:zad_almumin/constents/icons.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
-import '../services/theme_service.dart';
 import '../classes/block_data.dart';
 
 class MainScreen extends StatefulWidget {
