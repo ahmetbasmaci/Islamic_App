@@ -13,7 +13,6 @@ import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import '../services/theme_service.dart';
-import '../components/main_container.dart';
 import '../constents/colors.dart';
 import '../components/my_switch.dart';
 
@@ -108,86 +107,84 @@ class _ShopsPageState extends State<ShopsPage> {
           onPressed: () => showAddShopDialog(),
           child: Icon(Icons.add),
         ),
-        body: mainContainer(
-          child: ListView(
-            children: <Widget>[
-              ZikrCard(
-                zikrData: ZikrData(
-                  zikrType: ZikrType.hadith,
-                  title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
-                  content:
-                      'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
-                ),
+        body: ListView(
+          children: <Widget>[
+            ZikrCard(
+              zikrData: ZikrData(
+                zikrType: ZikrType.hadith,
+                title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
+                content:
+                    'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
               ),
-              Divider(),
-              isloading
-                  ? MyCircularProgressIndecator()
-                  : ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: shopsList.length,
-                      itemBuilder: ((context, index) => Container(
-                            margin: index != shopsList.length - 1
-                                ? EdgeInsets.only(bottom: MySiezes.betweanCardItems)
-                                : EdgeInsets.zero,
-                            decoration: BoxDecoration(
-                              color: shopsList[index].isSelected ? Color.fromARGB(70, 145, 145, 145) : null,
-                              border: Border(
-                                  bottom: BorderSide(
-                                color: shopsList[index].isSelected ? MyColors.primaryDark : Colors.grey,
-                              )),
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
-                            child: InkWell(
-                              onLongPress: () {
-                                shopsList[index].isSelected = true;
-                                selectedItems++;
-                                setState(() {});
-                              },
-                              onTap: () {
-                                if (shopsList[index].isSelected) {
-                                  shopsList[index].isSelected = false;
-                                  selectedItems--;
-                                } else {
-                                  if (selectedItems > 0) {
-                                    shopsList[index].isSelected = true;
-                                    selectedItems++;
-                                  }
+            ),
+            Divider(),
+            isloading
+                ? MyCircularProgressIndecator()
+                : ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: shopsList.length,
+                    itemBuilder: ((context, index) => Container(
+                          margin: index != shopsList.length - 1
+                              ? EdgeInsets.only(bottom: MySiezes.betweanCardItems)
+                              : EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            color: shopsList[index].isSelected ? Color.fromARGB(70, 145, 145, 145) : null,
+                            border: Border(
+                                bottom: BorderSide(
+                              color: shopsList[index].isSelected ? MyColors.primaryDark : Colors.grey,
+                            )),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
+                          child: InkWell(
+                            onLongPress: () {
+                              shopsList[index].isSelected = true;
+                              selectedItems++;
+                              setState(() {});
+                            },
+                            onTap: () {
+                              if (shopsList[index].isSelected) {
+                                shopsList[index].isSelected = false;
+                                selectedItems--;
+                              } else {
+                                if (selectedItems > 0) {
+                                  shopsList[index].isSelected = true;
+                                  selectedItems++;
                                 }
-                                setState(() {});
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: MyTexts.settingsTitle(context, title: shopsList[index].shopName),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      MyTexts.settingsContent(context, title: 'تفعيل الاشعار'),
-                                      MySwitch(
-                                        value: shopsList[index].isActive,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            shopsList[index].isActive = newValue;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        deleteShop(shopsList[index].shopName);
+                              }
+                              setState(() {});
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: MyTexts.settingsTitle(context, title: shopsList[index].shopName),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    MyTexts.settingsContent(context, title: 'تفعيل الاشعار'),
+                                    MySwitch(
+                                      value: shopsList[index].isActive,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          shopsList[index].isActive = newValue;
+                                        });
                                       },
-                                      icon: MyIcons.delete),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      deleteShop(shopsList[index].shopName);
+                                    },
+                                    icon: MyIcons.delete),
+                              ],
                             ),
-                          )),
-                    )
-            ],
-          ),
+                          ),
+                        )),
+                  )
+          ],
         ),
       ),
     );
@@ -432,7 +429,7 @@ class _ShopsPageState extends State<ShopsPage> {
 
               _addLocation();
             },
-            color:MyColors.primary(),
+            color: MyColors.primary(),
             child: Text("تأكيد", style: TextStyle(color: Colors.white)),
           ),
         ],

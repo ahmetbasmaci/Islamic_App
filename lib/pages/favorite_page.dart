@@ -70,7 +70,9 @@ class _FavoritePageState extends State<FavoritePage> {
             ],
           ),
           drawer: MyDrawer(),
-          body: mainContainer(
+          body: Container(
+      margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
+
             child: FutureBuilder(
               future: readFuture,
               builder: (context, snapshot) {

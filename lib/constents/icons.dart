@@ -20,7 +20,7 @@ class MyIcons {
   static Icon notification = Icon(Icons.notification_add);
   static Icon ayahsTest = Icon(Icons.menu_book_sharp);
   static Icon person = Icon(Icons.person);
-  static Icon home = Icon(Icons.home);
+  // static Icon home = Icon(Icons.home, color: MyColors.primary());
   static Icon shop = Icon(Icons.shopify);
   static Icon delete = Icon(Icons.delete, color: Colors.red);
   static Icon backArrow = Icon(Icons.arrow_forward, size: MySiezes.icon);
@@ -28,10 +28,20 @@ class MyIcons {
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
   static Icon prayersTime = Icon(CupertinoIcons.timer_fill);
+  // static Icon quran = Icon(CupertinoIcons.book_solid, color: MyColors.primary());
+  static Icon book = Icon(Icons.book);
+  // static Icon azkar = Icon(CupertinoIcons.square_fill_on_square_fill, color: MyColors.primary());
+  static Icon search = Icon(CupertinoIcons.search);
+  static Icon send = Icon(Icons.send, color: MyColors.primary());
 
   static Icon rightArrow({Color? color, double size = MySiezes.icon}) {
     return Icon(Icons.arrow_back_ios, color: color, size: size);
   }
+
+  static Icon home({Color? color, double size = MySiezes.icon}) => Icon(Icons.home, color: color);
+  static Icon quran({Color? color, double size = MySiezes.icon}) => Icon(CupertinoIcons.book_solid, color: color);
+  static Icon azkar({Color? color, double size = MySiezes.icon}) =>
+      Icon(CupertinoIcons.square_fill_on_square_fill, color: color);
 
   static Icon downArrow({Color? color, double size = MySiezes.icon}) {
     return Icon(Icons.arrow_drop_down, color: color, size: size);
@@ -86,8 +96,7 @@ class MyIcons {
         ),
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.only(left: 8),
-        child: AnimatedIcon(
-            icon: AnimatedIcons.play_pause, progress: animationCtr, size: size),
+        child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr, size: size),
       ),
     );
   }

@@ -28,10 +28,6 @@ class MyDrawer extends StatelessWidget {
             decoration: ThemeService().getThemeMode() == ThemeMode.dark
                 ? BoxDecoration(color: MyColors.primaryDark)
                 : BoxDecoration(color: MyColors.primary()),
-            // arrowColor: MyColors.background,
-            // onDetailsPressed: () {
-            //   print('onDetailsPressed');
-            // },
             otherAccountsPictures: [
               CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -47,17 +43,10 @@ class MyDrawer extends StatelessWidget {
             otherAccountsPicturesSize: Size.square(40),
           ),
           drawerItem(
-            context: context,
             title: 'الرئيسية',
-            icon: MyIcons.home,
+            icon: MyIcons.home(),
             routeName: HomePage.id,
-            onTap: () async {
-              var route = ModalRoute.of(context);
-              if (route!.settings.name != HomePage.id) {
-                await Get.offAll(HomePage());
-              } else
-                Get.back();
-            },
+            onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
           ),
 
           // drawerItem(
@@ -75,54 +64,35 @@ class MyDrawer extends StatelessWidget {
           //   },
           // ),
           drawerItem(
-            context: context,
             title: 'المنبه',
             icon: MyIcons.notification,
             routeName: AlarmPage.id,
-            onTap: () async {
-              navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage());
-            },
+            onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
           ),
           drawerItem(
-            context: context,
             title: 'مراجعة القران',
             icon: MyIcons.ayahsTest,
             routeName: FirstAyahsInPages.id,
-            onTap: () async {
-              navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages());
-            },
+            onTap: () async => navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages()),
           ),
           drawerItem(
-            context: context,
             title: 'اوقات الصلاة',
             icon: MyIcons.prayersTime,
             routeName: PrayerTimes.id,
-            onTap: () async {
-              navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes());
-            },
+            onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
           ),
           Divider(height: 50, thickness: 2),
           drawerItem(
-            context: context,
             title: 'المفضلة',
             icon: MyIcons.favoriteFilled,
             routeName: FavoritePage.id,
-            onTap: () async {
-              navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage());
-            },
+            onTap: () async => navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage()),
           ),
           drawerItem(
-            context: context,
             title: 'الإعدادات',
             icon: MyIcons.settings,
             routeName: SettingsPage.id,
-            onTap: () async {
-              var route = ModalRoute.of(context);
-              if (route!.settings.name != SettingsPage.id) {
-                await Get.off(SettingsPage());
-              } else
-                Get.back();
-            },
+            onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
           ),
         ],
       ),
@@ -133,32 +103,40 @@ class MyDrawer extends StatelessWidget {
     var route = ModalRoute.of(context);
     if (route!.settings.name != routeName) {
       if (Get.currentRoute.contains(HomePage.id))
-        await Get.to(page);
+        await Get.to(
+          page,
+          transition: Transition.rightToLeft,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+        );
       else
-        await Get.off(page);
+        await Get.off(
+          page,
+          transition: Transition.rightToLeft,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+        );
 
-      if (Get.currentRoute.contains(HomePage.id)) Get.offAll(HomePage());
+      if (Get.currentRoute.contains(HomePage.id))
+        Get.offAll(
+          HomePage(),
+          transition: Transition.size,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+        );
     } else
       Get.back();
   }
 }
 
 Widget drawerItem(
-    {required BuildContext context,
-    required String title,
-    required Widget icon,
-    required String routeName,
-    required VoidCallback onTap}) {
+    {required String title, required Widget icon, required String routeName, required VoidCallback onTap}) {
   return ListTile(
     leading: icon,
     title: Text(title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-    tileColor: Get.currentRoute.contains(routeName) ? MyColors.primary().withOpacity(.8) : null,
-    textColor: Get.currentRoute.contains(routeName)
-        ? Color.fromARGB(255, 255, 255, 255)
-        : ThemeService().getThemeMode() == ThemeMode.dark
-            ? MyColors.white
-            : MyColors.black,
-    iconColor: Get.currentRoute.contains(routeName) ? Color.fromARGB(255, 239, 239, 239) : MyColors.primary(),
+    selected: Get.currentRoute.contains(routeName),
+    selectedColor: MyColors.white,
+    iconColor: MyColors.primary(),
     onTap: onTap,
   );
 }

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class MyColors {
+  // static const Color backgroundLight = Color.fromARGB(255, 241, 240, 228);
   static const Color backgroundLight = Color(0xffdbe2e7);
   static const Color backgroundDark = Color.fromARGB(255, 30, 30, 30);
+  static const Color quranBackGroundLight = Color.fromARGB(255, 235, 235, 235);
+  static const Color quranBackGroundDark = Color.fromARGB(255, 53, 53, 53);
   static const Color primary_ = Color.fromARGB(255, 2, 111, 111);
   static const Color primaryDark = Color.fromARGB(255, 58, 126, 143);
   static const Color lightModeShadow = Color.fromARGB(255, 63, 63, 63);
@@ -25,6 +28,14 @@ class MyColors {
 
   static Color background() {
     return ThemeService().getThemeMode() == ThemeMode.dark ? backgroundDark : backgroundLight;
+  }
+
+  static Color whiteBlack() {
+    return ThemeService().getThemeMode() == ThemeMode.dark ? black : white;
+  }
+
+  static Color quranBackGround() {
+    return ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;
   }
 
   static Color primary() {

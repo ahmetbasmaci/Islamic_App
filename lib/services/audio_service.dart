@@ -20,9 +20,6 @@ class AudioService {
     player.onPlayerComplete.listen((event) async {
       await pauseAudio();
       if (!zikrData.isFavorite) onComplite();
-      // ZikrData zikrData =
-      //     await JsonService.getSpesificQuranData(numberInQuran: prevNumberInQuran+1, surahNumber: prevNumberSurahNumber);
-      // runAudio(numberInQuran: zikrData.numberInQuran, surahNumber: zikrData.surahNumber);
     });
   }
   Future runAudio() async {

@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/main_container.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/zikr_cards.dart';
+import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/services/animation_service.dart';
 import '../components/my_drawer.dart';
 
 class AzkarPage extends StatefulWidget {
@@ -23,6 +26,7 @@ class _AzkarPageState extends State<AzkarPage> {
   List<ZikrData> zikrDataList = [];
   List<Widget> zikrCardList = [];
   String bigTitle = "";
+  var scrollController= ScrollController();
   @override
   void initState() {
     super.initState();
@@ -31,51 +35,59 @@ class _AzkarPageState extends State<AzkarPage> {
 
   @override
   Widget build(BuildContext context) {
+    int totalIndex = 0;
     return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: MyAppBar(title: bigTitle),
-          drawer: MyDrawer(),
-          body: mainContainer(
-            child: widget.zikrType == ZikrType.none
-                ? Container()
-                : isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : Column(
-                        children: <Widget>[
-                          Flexible(
-                            child: ListView.builder(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: MyAppBar(title: bigTitle),
+        drawer: MyDrawer(),
+        body: widget.zikrType == ZikrType.none
+            ? Container()
+            : isLoading
+                ? Center(child: CircularProgressIndicator())
+                : AnimationLimiter(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      shrinkWrap: true,
+                      itemCount: zikrDataList.length,
+                      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                      itemBuilder: (context, index) {
+                        if (zikrDataList[index].haveList) {
+                          return ListView.builder(
                               shrinkWrap: true,
-                              itemCount: zikrDataList.length,
-                              itemBuilder: (context, index) {
-                                if (zikrDataList[index].haveList) {
-                                  return ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: zikrDataList[index].list.length,
-                                      itemBuilder: (context, index2) {
-                                        return ZikrCard(
-                                            haveMargin: true,
-                                            zikrData: ZikrData(
-                                              zikrType: widget.zikrType,
-                                              title: index2 > 0
-                                                  ? "${zikrDataList[index].title} ${index2 + 1}"
-                                                  : zikrDataList[index].title,
-                                              content: zikrDataList[index].list[index2]['zekr'] ?? "",
-                                            ));
-                                      });
-                                } else {
-                                  return ZikrCard(
-                                    zikrData: zikrDataList[index],
-                                    haveMargin: index != zikrDataList.length - 1 ? true : false,
-                                  );
-                                }
-                              },
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: zikrDataList[index].list.length,
+                              itemBuilder: (context, index2) {
+                                totalIndex++;
+                                return AnimationService.animationListItemDownToUp(
+                                  index: totalIndex,
+                                  child: ZikrCard(
+                                      haveMargin: true,
+                                      zikrData: ZikrData(
+                                        zikrType: widget.zikrType,
+                                        title: index2 > 0
+                                            ? "${zikrDataList[index].title} ${index2 + 1}"
+                                            : zikrDataList[index].title,
+                                        content: zikrDataList[index].list[index2]['zekr'] ?? "",
+                                      )),
+                                );
+                              });
+                        } else {
+                          totalIndex++;
+                          return AnimationService.animationListItemDownToUp(
+                            index: totalIndex,
+                            child: ZikrCard(
+                              zikrData: zikrDataList[index],
+                              haveMargin: index != zikrDataList.length - 1 ? true : false,
+                              scrollController: scrollController,
                             ),
-                          )
-                        ],
-                      ),
-          ),
-        ));
+                          );
+                        }
+                      },
+                    ),
+                  ),
+      ),
+    );
   }
 
   void readData() async {

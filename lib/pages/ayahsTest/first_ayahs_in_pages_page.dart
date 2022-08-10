@@ -5,6 +5,7 @@ import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/question.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
+import '../../constents/sizes.dart';
 import 'controller/first_ayahs_in_pages_ctr.dart';
 
 class FirstAyahsInPages extends StatefulWidget {
@@ -29,22 +30,23 @@ class _FirstAyahsInPagesState extends State<FirstAyahsInPages> {
       child: Scaffold(
         appBar: MyAppBar(title: 'مراجعة القران'),
         drawer: MyDrawer(),
-        body: mainContainer(
+        body: Container(
+            margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
             child: Column(
-          children: [
-            Expanded(
-              child: Question(),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: QuestionsFooter(
-                pageSetState: () {
-                  setState(() {});
-                },
-              ),
-            ),
-          ],
-        )),
+              children: [
+                Expanded(
+                  child: Question(),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: QuestionsFooter(
+                    pageSetState: () {
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

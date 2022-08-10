@@ -18,8 +18,7 @@ class SettingsPage extends StatelessWidget {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child: mainContainer(
-              child: SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Row(
@@ -46,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                 Divider(),
               ],
             ),
-          )),
+          ),
         ),
       ),
     );

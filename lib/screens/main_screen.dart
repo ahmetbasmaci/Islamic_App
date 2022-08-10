@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/zikr_cards.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -7,7 +8,9 @@ import 'package:zad_almumin/constents/icons.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
+import 'package:zad_almumin/services/animation_service.dart';
 import '../classes/block_data.dart';
+import '../services/json_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -19,28 +22,32 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return AnimationLimiter(
+      child: ListView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          ZikrCard.withRandomData(zikrType: ZikrType.quran),
-          const SizedBox(height: MySiezes.betweanCards),
-          ZikrCard.withRandomData(zikrType: ZikrType.hadith),
-          const SizedBox(height: MySiezes.betweanCards),
-          azkarBlocks(
-            outsideTitle: 'مختلف الاذكار',
-            azkars: BlockData.list,
-            zikrType: ZikrType.azkar,
+          AnimationService.animationListItemDownToUp(
+            index: 1,
+            child: ZikrCard.withRandomData(zikrType: ZikrType.quran),
+            // child: ZikrCard(zikrData:   JsonService.getQuranData(),)
           ),
           const SizedBox(height: MySiezes.betweanCards),
-          azkarBlocks(
+          AnimationService.animationListItemDownToUp(
+              index: 2, child: ZikrCard.withRandomData(zikrType: ZikrType.hadith)),
+          const SizedBox(height: MySiezes.betweanCards),
+          AnimationService.animationListItemDownToUp(
+            child: azkarBlocks(outsideTitle: 'مختلف الاذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),
+            index: 3,
+          ),
+          const SizedBox(height: MySiezes.betweanCards),
+          AnimationService.animationListItemDownToUp(
+            index: 4,
+            child: azkarBlocks(
               outsideTitle: 'اسماء الله الحسنى',
-              azkars: [
-                BlockData(
-                  imageSource: "assets/images/quran.png",
-                  title: 'تعرّف على اسماء الله الحسنى',
-                )
-              ],
-              zikrType: ZikrType.allahNames),
+              azkars: [BlockData(imageSource: "assets/images/quran.png", title: 'تعرّف على اسماء الله الحسنى')],
+              zikrType: ZikrType.allahNames,
+            ),
+          ),
         ],
       ),
     );
@@ -103,6 +110,8 @@ class _MainScreenState extends State<MainScreen> {
                         zikrIndexInJson: index,
                         zikrType: zikrType,
                       ),
+                      transition: Transition.size,
+                      duration: Duration(milliseconds: 500),
                     );
                   },
                 );

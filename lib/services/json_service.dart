@@ -2,13 +2,24 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 
 import 'navigation_service.dart';
 
 class JsonService {
-  static Future<ZikrData> getQuranData() async {
+  static Future<ZikrData> getQuranData(bool isNewData) async {
+    GetStorage storage = GetStorage();
+    if (!isNewData) {
+      //check old data
+      var oldData = await storage.read(ZikrType.quran.name);
+      if (oldData != null) {
+        ZikrData zikrData = ZikrData();
+        return zikrData.fromJson(oldData);
+      }
+    }
+
     int randomSure = Random().nextInt(114) + 1;
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
         .loadString('assets/database/quran/surahs/$randomSure.json');
@@ -16,16 +27,23 @@ class JsonService {
     List<dynamic> allSureAyahs = data['ayahs'];
     int randomAyah = Random().nextInt(allSureAyahs.length);
     if (randomAyah == 0) randomAyah = 1; //dont take the basmalah
-    ZikrData zikrData = ZikrData(zikrType: ZikrType.quran);
-    zikrData.content = allSureAyahs[randomAyah]['text'];
-    zikrData.numberInQuran = allSureAyahs[randomAyah]['numberInQuran'];
-    return ZikrData(
+    ZikrData zikrData = ZikrData(
       zikrType: ZikrType.quran,
       title: 'اعوذ بالله من الشيطان الرجيم',
       content: allSureAyahs[randomAyah]['text'],
       numberInQuran: allSureAyahs[randomAyah]['numberInQuran'],
       surahNumber: randomSure,
     );
+
+    storage.write(ZikrType.quran.name, zikrData.toJson());
+    return zikrData;
+    // return ZikrData(
+    //   zikrType: ZikrType.quran,
+    //   title: 'اعوذ بالله من الشيطان الرجيم',
+    //   content: allSureAyahs[randomAyah]['text'],
+    //   numberInQuran: allSureAyahs[randomAyah]['numberInQuran'],
+    //   surahNumber: randomSure,
+    // );
   }
 
   static Future<ZikrData> getSpesificQuranData({required int numberInQuran, required int surahNumber}) async {
@@ -48,7 +66,7 @@ class JsonService {
         );
       }
     }
-    return getSpesificQuranData(numberInQuran: numberInQuran+1, surahNumber: surahNumber + 1);
+    return getSpesificQuranData(numberInQuran: numberInQuran + 1, surahNumber: surahNumber + 1);
   }
 
   static Future<ZikrData> getHadithData() async {

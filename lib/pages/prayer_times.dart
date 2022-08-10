@@ -75,77 +75,111 @@ class _PrayerTimesState extends State<PrayerTimes> {
                     ),
                     SizedBox(height: MySiezes.betweanAzkarBlock),
                     ElevatedButton(
-                      onPressed: () async => await prayerTimeCtr.updatePrayerTimes(),
+                      onPressed: () async {
+                        await prayerTimeCtr.updatePrayerTimes();
+                        setState(() {});
+                      },
                       child: Text('تحديث'),
                     ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: MyColors.zikrCard(), borderRadius: BorderRadius.circular(20)),
-                  // height: 400,
-                  // height: double.maxFinite,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        await prayerTimeCtr.updatePrayerTimes(
+                            newTime: prayerTimeCtr.curerntDate.value.add(Duration(days: 1)));
 
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              MyTexts.settingsTitle(context, title: 'التاريخ الميلادي'),
-                              MyTexts.normal(
-                                context,
-                                title: '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              MyTexts.settingsTitle(context, title: 'التاريخ الهجري'),
-                              MyTexts.normal(
-                                context,
-                                title:
-                                    '${HijriCalendar.fromDate(DateTime.now()).hYear}-${HijriCalendar.fromDate(DateTime.now()).hMonth}-${HijriCalendar.fromDate(DateTime.now()).hDay}',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(thickness: 2),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(height: MySiezes.betweanAzkarBlock),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              prayerTime(prayerTimeType: PrayerTimeType.fajr),
-                              prayerTime(prayerTimeType: PrayerTimeType.sun),
-                              prayerTime(prayerTimeType: PrayerTimeType.duhr),
-                            ],
-                          ),
-                          SizedBox(height: MySiezes.betweanAzkarBlock),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              prayerTime(prayerTimeType: PrayerTimeType.asr),
-                              prayerTime(prayerTimeType: PrayerTimeType.maghrib),
-                              prayerTime(prayerTimeType: PrayerTimeType.isha),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.arrow_back_ios),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await prayerTimeCtr.updatePrayerTimes(
+                            newTime: prayerTimeCtr.curerntDate.value.subtract(Duration(days: 1)));
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios),
+                    ),
+                  ],
                 ),
+                _prayTimeContainer(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _prayTimeContainer() {
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(color: MyColors.zikrCard(), borderRadius: BorderRadius.circular(20)),
+      // height: 400,
+      // height: double.maxFinite,
+
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  MyTexts.settingsTitle(context, title: 'التاريخ الميلادي'),
+                  Obx(
+                    () => MyTexts.normal(
+                      context,
+                      title:
+                          '${prayerTimeCtr.curerntDate.value.year}-${prayerTimeCtr.curerntDate.value.month}-${prayerTimeCtr.curerntDate.value.day}',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MyTexts.settingsTitle(context, title: 'التاريخ الهجري'),
+                  Obx(
+                    () => MyTexts.normal(
+                      context,
+                      title:
+                          '${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hYear}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hMonth}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hDay}',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Divider(thickness: 2),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(height: MySiezes.betweanAzkarBlock),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  prayerTime(prayerTimeType: PrayerTimeType.fajr),
+                  prayerTime(prayerTimeType: PrayerTimeType.sun),
+                  prayerTime(prayerTimeType: PrayerTimeType.duhr),
+                ],
+              ),
+              SizedBox(height: MySiezes.betweanAzkarBlock),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  prayerTime(prayerTimeType: PrayerTimeType.asr),
+                  prayerTime(prayerTimeType: PrayerTimeType.maghrib),
+                  prayerTime(prayerTimeType: PrayerTimeType.isha),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -155,7 +189,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
     String time = '';
     if (prayerTimeType == PrayerTimeType.fajr) {
       title = 'الفجر';
-      time = '${prayerTimeCtr.facrTime.value.hour}:${prayerTimeCtr.facrTime.value.minute}';
+      time = '${prayerTimeCtr.fajrTime.value.hour}:${prayerTimeCtr.fajrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.sun) {
       title = 'شروق الشمس';
       time = '${prayerTimeCtr.sunTime.value.hour}:${prayerTimeCtr.sunTime.value.minute}';
@@ -178,7 +212,9 @@ class _PrayerTimesState extends State<PrayerTimes> {
         child: Container(
           padding: EdgeInsets.all(5),
           margin: EdgeInsets.symmetric(horizontal: 5),
-          decoration: prayerTimeType == prayerTimeCtr.nextPrayType.value && !prayerTimeCtr.isLoading.value
+          decoration: prayerTimeType == prayerTimeCtr.nextPrayType.value && //check if the prayer is the next prayer
+                  !prayerTimeCtr.isLoading.value && // check if loading when getting data
+                  prayerTimeCtr.curerntDate.value.day == DateTime.now().day //check if today
               ? BoxDecoration(
                   color: MyColors.zikrCard(),
                   borderRadius: BorderRadius.circular(10),
@@ -207,7 +243,7 @@ enum PrayerTimeType { fajr, sun, duhr, asr, maghrib, isha }
 
 class PrayerTimeCtr extends GetxController {
   Rx<PrayerTimeType> nextPrayType = PrayerTimeType.fajr.obs;
-  Rx<Time> facrTime = Time().obs;
+  Rx<Time> fajrTime = Time().obs;
   Rx<Time> sunTime = Time().obs;
   Rx<Time> duhrTime = Time().obs;
   Rx<Time> asrTime = Time().obs;
@@ -218,7 +254,7 @@ class PrayerTimeCtr extends GetxController {
   RxString timeLeftToNextPrayTime = '00:00:00'.obs;
   Rx<Time> nextPrayTime = Time().obs;
   Time currentTime = Time(DateTime.now().hour, DateTime.now().minute);
-  DateTime curerntDate = DateTime.now();
+  Rx<DateTime> curerntDate = DateTime.now().obs;
   late Position _currentPosition;
   PrayerTimeCtr() {
     updatePrayerTimes();
@@ -244,30 +280,43 @@ class PrayerTimeCtr extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 
-  updatePrayerTimes() async {
+  updatePrayerTimes({DateTime? newTime}) async {
+    // newTime ??= DateTime.now();
+    // currentTime=Time(newTime.hour, newTime.minute);
+    curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
     await _setCurrentPosition();
     await _setPrayTimes();
+    if (newTime == null) {
+      updatePrayerAlarms();
+    }
+    // await _setPrayTimes();
     checkNextPrayTime();
     updateCurrentTime();
     isLoading.value = false;
-    updateAlarms();
   }
 
-  Time differenceTimes(Time time1, Time time2) {
-    double dTime1 = time1.hour.toDouble() + (time1.minute.toDouble() / 60) + (time1.second.toDouble() / (60 * 60));
-    double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60) + (time2.second.toDouble() / (60 * 60));
+  Time differenceTimes(DateTime time1, DateTime time2) {
+    // double dTime1 = time1.hour.toDouble() + (time1.minute.toDouble() / 60) + (time1.second.toDouble() / (60 * 60));
+    // double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60) + (time2.second.toDouble() / (60 * 60));
 
-    double timeDiff = dTime1 - dTime2;
-  //TODO fix time after isha 
-    int hr = timeDiff.truncate();
-    double minute = (timeDiff - timeDiff.truncate()) * 60;
-    double second = (minute - minute.truncate()) * 60;
-    // print('minute $minute');
-    // print('second $second');
+    // double timeDiff = dTime1 - dTime2;
+    // //TODO fix time after isha
+    // int hr = timeDiff.truncate();
+    // double minute = (timeDiff - timeDiff.truncate()) * 60;
+    // double second = (minute - minute.truncate()) * 60;
+    // // print('minute $minute');
+    // // print('second $second');
+    // // return Time(hr, minute.toInt(), second.toInt());
     // return Time(hr, minute.toInt(), second.toInt());
-    return Time(1,1,1);
+
+    int hr = time1.difference(time2).inHours;
+    int minute = time1.difference(time2).inMinutes - (hr * 60);
+    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
+    if (hr < 0) hr = 0;
+    if (minute < 0) minute = 0;
+    if (second < 0) second = 0;
+    return Time(hr, minute, second);
   }
 
   bool compareTimes(Time time1, Time time2) {
@@ -284,23 +333,30 @@ class PrayerTimeCtr extends GetxController {
 
   updateCurrentTime() async {
     await Future.delayed(Duration(seconds: 1));
-    currentTime = Time(DateTime.now().hour, DateTime.now().minute, DateTime.now().second);
-    Time leftTime = differenceTimes(nextPrayTime.value, currentTime);
+    Time leftTime = differenceTimes(
+      DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        nextPrayTime.value.hour,
+        nextPrayTime.value.minute,
+        nextPrayTime.value.second,
+      ),
+      DateTime.now(),
+    );
 
     String houreTimeLeftTxt = leftTime.hour < 10 ? '0${leftTime.hour}' : '${leftTime.hour}';
     String minuteTimeLeftTxt = leftTime.minute < 10 ? '0${leftTime.minute}' : '${leftTime.minute}';
     String secondTimeLeftTxt = leftTime.second < 10 ? '0${leftTime.second}' : '${leftTime.second}';
 
     timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
-    if (leftTime.hour == 0 && leftTime.hour == 0 && leftTime.hour == 0) checkNextPrayTime();
+    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkNextPrayTime();
     updateCurrentTime();
   }
 
   void checkNextPrayTime() {
-    Time sun = Time(
-      sunTime.value.hour,
-      sunTime.value.minute,
-    );
+    Time fajr = Time(fajrTime.value.hour, fajrTime.value.minute);
+    Time sun = Time(sunTime.value.hour, sunTime.value.minute);
     Time duhr = Time(duhrTime.value.hour, duhrTime.value.minute);
     Time asr = Time(asrTime.value.hour, asrTime.value.minute);
     Time maghrib = Time(maghribTime.value.hour, maghribTime.value.minute);
@@ -316,13 +372,12 @@ class PrayerTimeCtr extends GetxController {
       setNextPrayTime(prayTimeType: PrayerTimeType.asr);
     else if (compareTimes(currentTime, sun))
       setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
-    else
-      setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, fajr)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
   }
 
   setNextPrayTime({required PrayerTimeType prayTimeType}) {
     if (prayTimeType == PrayerTimeType.fajr) {
-      nextPrayTime.value = Time(facrTime.value.hour, facrTime.value.minute);
+      nextPrayTime.value = Time(fajrTime.value.hour, fajrTime.value.minute);
       nextPrayName.value = 'الفجر';
       nextPrayType = PrayerTimeType.fajr.obs;
     } else if (prayTimeType == PrayerTimeType.sun) {
@@ -351,13 +406,13 @@ class PrayerTimeCtr extends GetxController {
   _setCurrentPosition() async => _currentPosition = await _determinePosition();
 
   String _getApi() {
-    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&method=${13}&month=${curerntDate.month}&year=${curerntDate.year}';
+    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&method=${13}&month=${curerntDate.value.month}&year=${curerntDate.value.year}';
   }
 
   Future _setPrayTimes() async {
     String api = _getApi();
     http.Response responce = await http.get(Uri.parse(api));
-    facrTime.value = _getPrayTime(jsonDecode(responce.body), 'Fajr');
+    fajrTime.value = _getPrayTime(jsonDecode(responce.body), 'Fajr');
     sunTime.value = _getPrayTime(jsonDecode(responce.body), 'Sunrise');
     duhrTime.value = _getPrayTime(jsonDecode(responce.body), 'Dhuhr');
     asrTime.value = _getPrayTime(jsonDecode(responce.body), 'Asr');
@@ -366,14 +421,15 @@ class PrayerTimeCtr extends GetxController {
   }
 
   Time _getPrayTime(Map map, String prayName) {
-    int hour = int.parse(map['data'][curerntDate.day - 1]['timings'][prayName].split(' ')[0].split(':')[0]);
-    int minute = int.parse(map['data'][curerntDate.day - 1]['timings'][prayName].split(' ')[0].split(':')[1]);
+    int hour = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[0]);
+    int minute = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[1]);
     return Time(hour, minute);
   }
 
-  updateAlarms() {
+  updatePrayerAlarms() {
     Get.find<AlarmsCtr>().setPrayTimesAlarms(
-      fajrTime: Time(facrTime.value.hour, facrTime.value.minute),
+      fajrTime: Time(fajrTime.value.hour, fajrTime.value.minute),
+      sunTime: sunTime.value,
       duhrTime: Time(duhrTime.value.hour, duhrTime.value.minute),
       asrTime: Time(asrTime.value.hour, asrTime.value.minute),
       maghribTime: Time(maghribTime.value.hour, maghribTime.value.minute),

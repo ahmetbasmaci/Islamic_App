@@ -15,18 +15,6 @@ enum NotificationSound { hadith, random }
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  // static final NotificationDetails _notificationDetails = NotificationDetails(
-  //   android: AndroidNotificationDetails(
-  //     'your channel id',
-  //     'your channel name',
-  //     channelDescription: 'your channel description',
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //     playSound: true,
-  //     sound: RawResourceAndroidNotificationSound('hadith_alarm'),
-  //     ticker: 'ticker',
-  //   ),
-  // );
   NotificationService() {
     init();
   }
@@ -112,7 +100,7 @@ class NotificationService {
 
 //! -----------------------------  once alarm ----------------------------- //
   static Future setOnceNotification({required AlarmProp alarmProp}) async {
-    await Future.delayed(Duration(seconds: 0)); //TODO set the time to show alarm
+    await Future.delayed(Duration(seconds: 0));
     await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
       alarmProp.notificationTitle,

@@ -40,6 +40,12 @@ TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 18);
 
 class ThemeService {
   final ThemeData lightThemeMode = ThemeData.light().copyWith(
+    listTileTheme: ListTileThemeData(
+      selectedColor: MyColors.primary_,
+      iconColor: MyColors.primary_,
+      textColor: MyColors.primary_,
+      selectedTileColor: MyColors.primary_.withOpacity(.8),
+    ),
     scaffoldBackgroundColor: MyColors.backgroundLight,
     appBarTheme: AppBarTheme(
       color: MyColors.backgroundLight,
@@ -96,6 +102,12 @@ class ThemeService {
   );
 
   final ThemeData darkThemeMode = ThemeData.dark().copyWith(
+    listTileTheme: ListTileThemeData(
+      selectedColor: MyColors.primaryDark,
+      iconColor: MyColors.primaryDark,
+      textColor: MyColors.primaryDark,
+      selectedTileColor: MyColors.primaryDark.withOpacity(.8),
+    ),
     scaffoldBackgroundColor: MyColors.backgroundDark,
     appBarTheme: AppBarTheme(
       backgroundColor: MyColors.backgroundDark,
@@ -152,9 +164,6 @@ class ThemeService {
     ),
   );
 
-
-
-
   final _getStorage = GetStorage();
   final _darkKeyTheme = 'isDarkMode';
 
@@ -171,7 +180,7 @@ class ThemeService {
   }
 
   void changeThemeMode(bool newThemeMode) {
-    Get.changeThemeMode(newThemeMode ? ThemeMode.dark : ThemeMode.light);
     _saveThemeData(newThemeMode);
+    Get.changeThemeMode(newThemeMode ? ThemeMode.dark : ThemeMode.light);
   }
 }

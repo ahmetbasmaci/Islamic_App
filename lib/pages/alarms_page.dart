@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/pages/prayer_times.dart';
 import 'package:zad_almumin/services/notification_api.dart';
 import '../services/theme_service.dart';
 import '../components/main_container.dart';
@@ -16,13 +17,13 @@ import '../constents/texts.dart';
 
 class AlarmPage extends StatefulWidget {
   const AlarmPage({Key? key}) : super(key: key);
-  static const id = 'FastAlarmPage';
+  static const id = 'AlarmPage';
   @override
   State<AlarmPage> createState() => _AlarmPageState();
 }
 
 class _AlarmPageState extends State<AlarmPage> {
-  var alarmCtr = Get.find<AlarmsCtr>();
+  var alarmsCtr = Get.find<AlarmsCtr>();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -30,13 +31,19 @@ class _AlarmPageState extends State<AlarmPage> {
       child: Scaffold(
         appBar: MyAppBar(title: 'المنبه'),
         drawer: MyDrawer(),
-        body: mainContainer(
+        body: Container(
+          // padding: EdgeInsets.all(8),
           child: ListView(
             children: [
+              alarmBlockTitle(title: 'تذكير القران'),
               quranAlarms(),
+              alarmBlockTitle(title: 'تذكير الصيام'),
               fastAlarms(),
+              alarmBlockTitle(title: 'تذكير الاذكار'),
               azkarAlarms(),
+              alarmBlockTitle(title: 'تذكير الاحاديث'),
               hadithsAlarms(),
+              alarmBlockTitle(title: 'تذكير الاذان'),
               prayTimesAlarms(),
             ],
           ),
@@ -45,202 +52,220 @@ class _AlarmPageState extends State<AlarmPage> {
     );
   }
 
-  Column quranAlarms() {
-    return Column(
-      children: [
-        alarmBlockTitle(title: 'تذكير القران'),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/quranAlarm.png',
-            title: 'قراءة سورة الكهف',
-            subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة',
-            value: alarmCtr.kahfSureProp.isActive.value,
-            alarmProp: alarmCtr.kahfSureProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.kahfSureProp, newValue: newValue);
-            },
+  Widget cardContainer({required Widget child}) {
+    return Container(
+      margin: EdgeInsets.all(MySiezes.cardPadding),
+      decoration: BoxDecoration(
+        color: MyColors.background(),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 5,
           ),
-        ),
-        Obx(
-          () => alarmListTile(
+        ],
+      ),
+      child: child,
+    );
+  }
+
+  Widget quranAlarms() {
+    return cardContainer(
+      child: Column(
+        children: [
+          Obx(
+            () => alarmListTile(
               imagePath: 'assets/images/quranAlarm.png',
-              title: 'قراءة صفحة من القران كل يوم',
-              subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القران',
-              value: alarmCtr.quranPageEveryDayProp.isActive.value,
-              alarmProp: alarmCtr.quranPageEveryDayProp,
+              title: 'قراءة سورة الكهف',
+              subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة',
+              value: alarmsCtr.kahfSureProp.isActive.value,
+              alarmProp: alarmsCtr.kahfSureProp,
               onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.quranPageEveryDayProp, newValue: newValue);
-              }),
-        ),
-        blockDivider(),
-      ],
+                alarmsCtr.changeState(alarmProp: alarmsCtr.kahfSureProp, newValue: newValue);
+              },
+            ),
+          ),
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/quranAlarm.png',
+                title: 'قراءة صفحة من القران كل يوم',
+                subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القران',
+                value: alarmsCtr.quranPageEveryDayProp.isActive.value,
+                alarmProp: alarmsCtr.quranPageEveryDayProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.quranPageEveryDayProp, newValue: newValue);
+                }),
+          ),
+        ],
+      ),
     );
   }
 
-  Column fastAlarms() {
-    return Column(
-      children: [
-        alarmBlockTitle(title: 'تذكير الصيام'),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/fastingAlarm.png',
-              title: 'صيام الاثنين',
-              subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
-              value: alarmCtr.mondayFastProp.isActive.value,
-              alarmProp: alarmCtr.mondayFastProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.mondayFastProp, newValue: newValue);
-              }),
-        ),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/fastingAlarm.png',
-              title: 'صيام الخميس',
-              subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
-              value: alarmCtr.thursdayFastProp.isActive.value,
-              alarmProp: alarmCtr.thursdayFastProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.thursdayFastProp, newValue: newValue);
-              }),
-        ),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/fastingAlarm.png',
-              title: 'صيام الايام البيض',
-              subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
-              value: alarmCtr.whitedayFastProp.isActive.value,
-              alarmProp: alarmCtr.whitedayFastProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.whitedayFastProp, newValue: newValue);
-              }),
-        ),
-        blockDivider(),
-      ],
+  Widget fastAlarms() {
+    return cardContainer(
+      child: Column(
+        children: [
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/fastingAlarm.png',
+                title: 'صيام الاثنين',
+                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+                value: alarmsCtr.mondayFastProp.isActive.value,
+                alarmProp: alarmsCtr.mondayFastProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.mondayFastProp, newValue: newValue);
+                }),
+          ),
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/fastingAlarm.png',
+                title: 'صيام الخميس',
+                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+                value: alarmsCtr.thursdayFastProp.isActive.value,
+                alarmProp: alarmsCtr.thursdayFastProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.thursdayFastProp, newValue: newValue);
+                }),
+          ),
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/fastingAlarm.png',
+                title: 'صيام الايام البيض',
+                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+                value: alarmsCtr.whitedayFastProp.isActive.value,
+                alarmProp: alarmsCtr.whitedayFastProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.whitedayFastProp, newValue: newValue);
+                }),
+          ),
+        ],
+      ),
     );
   }
 
-  Column azkarAlarms() {
-    return Column(
-      children: [
-        alarmBlockTitle(title: 'تذكير الاذكار'),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/azkarAlarm.png',
-              title: 'اذكار الصباح',
-              subtitle: 'سيصلك اشعار لتذكيرك بقراءة اذكار الصباح',
-              value: alarmCtr.morningAzkarProp.isActive.value,
-              alarmProp: alarmCtr.morningAzkarProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.morningAzkarProp, newValue: newValue);
-              }),
-        ),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/azkarAlarm.png',
-              title: 'اذكار المساء',
-              subtitle: 'سيصلك اشعار لتذكيرك بقراءة اذكار المساء',
-              value: alarmCtr.nightAzkarProp.isActive.value,
-              alarmProp: alarmCtr.nightAzkarProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.nightAzkarProp, newValue: newValue);
-              }),
-        ),
-        blockDivider(),
-      ],
+  Widget azkarAlarms() {
+    return cardContainer(
+      child: Column(
+        children: [
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/azkarAlarm.png',
+                title: 'اذكار الصباح',
+                subtitle: 'سيصلك اشعار لتذكيرك بقراءة اذكار الصباح',
+                value: alarmsCtr.morningAzkarProp.isActive.value,
+                alarmProp: alarmsCtr.morningAzkarProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.morningAzkarProp, newValue: newValue);
+                }),
+          ),
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/azkarAlarm.png',
+                title: 'اذكار المساء',
+                subtitle: 'سيصلك اشعار لتذكيرك بقراءة اذكار المساء',
+                value: alarmsCtr.nightAzkarProp.isActive.value,
+                alarmProp: alarmsCtr.nightAzkarProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.nightAzkarProp, newValue: newValue);
+                }),
+          ),
+        ],
+      ),
     );
   }
 
-  Column hadithsAlarms() {
-    return Column(
-      children: [
-        alarmBlockTitle(title: 'تذكير الاحاديث'),
-        Obx(
-          () => alarmListTile(
-              imagePath: 'assets/images/hadithAlarm.png',
-              title: 'حديث يومي',
-              subtitle: 'سيصلك اشعار بحديث جديد كل يوم',
-              value: alarmCtr.hadithEveryDayProp.isActive.value,
-              alarmProp: alarmCtr.hadithEveryDayProp,
-              onChanged: (newValue) {
-                alarmCtr.changeState(alarmProp: alarmCtr.hadithEveryDayProp, newValue: newValue);
-              }),
-        ),
-        blockDivider(),
-      ],
+  Widget hadithsAlarms() {
+    return cardContainer(
+      child: Column(
+        children: [
+          Obx(
+            () => alarmListTile(
+                imagePath: 'assets/images/hadithAlarm.png',
+                title: 'حديث يومي',
+                subtitle: 'سيصلك اشعار بحديث جديد كل يوم',
+                value: alarmsCtr.hadithEveryDayProp.isActive.value,
+                alarmProp: alarmsCtr.hadithEveryDayProp,
+                onChanged: (newValue) {
+                  alarmsCtr.changeState(alarmProp: alarmsCtr.hadithEveryDayProp, newValue: newValue);
+                }),
+          ),
+        ],
+      ),
     );
   }
 
-  Column prayTimesAlarms() {
-    return Column(
-      children: [
-        alarmBlockTitle(title: 'تذكير الاذان'),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/prayAlarm.png',
-            title: 'صلاة الفجر',
-            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
-            value: alarmCtr.fajrPrayProp.isActive.value,
-            alarmProp: alarmCtr.fajrPrayProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.fajrPrayProp, newValue: newValue);
-            },
-            canChange: false,
+  Widget prayTimesAlarms() {
+    return cardContainer(
+      child: Column(
+        children: [
+          Obx(
+            () => alarmListTile(
+              imagePath: 'assets/images/prayAlarm.png',
+              title: 'صلاة الفجر',
+              subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+              value: alarmsCtr.fajrPrayProp.isActive.value,
+              alarmProp: alarmsCtr.fajrPrayProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.fajrPrayProp, newValue: newValue);
+              },
+              canChange: false,
+            ),
           ),
-        ),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/prayAlarm.png',
-            title: 'صلاة الظهر',
-            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
-            value: alarmCtr.duhrPrayProp.isActive.value,
-            alarmProp: alarmCtr.duhrPrayProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.duhrPrayProp, newValue: newValue);
-            },
-            canChange: false,
+          Obx(
+            () => alarmListTile(
+              imagePath: 'assets/images/prayAlarm.png',
+              title: 'صلاة الظهر',
+              subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+              value: alarmsCtr.duhrPrayProp.isActive.value,
+              alarmProp: alarmsCtr.duhrPrayProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.duhrPrayProp, newValue: newValue);
+              },
+              canChange: false,
+            ),
           ),
-        ),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/prayAlarm.png',
-            title: 'صلاة العصر',
-            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
-            value: alarmCtr.asrPrayProp.isActive.value,
-            alarmProp: alarmCtr.asrPrayProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.asrPrayProp, newValue: newValue);
-            },
-            canChange: false,
+          Obx(
+            () => alarmListTile(
+              imagePath: 'assets/images/prayAlarm.png',
+              title: 'صلاة العصر',
+              subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+              value: alarmsCtr.asrPrayProp.isActive.value,
+              alarmProp: alarmsCtr.asrPrayProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.asrPrayProp, newValue: newValue);
+              },
+              canChange: false,
+            ),
           ),
-        ),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/prayAlarm.png',
-            title: 'صلاة المغرب',
-            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
-            value: alarmCtr.maghribPrayProp.isActive.value,
-            alarmProp: alarmCtr.maghribPrayProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.maghribPrayProp, newValue: newValue);
-            },
-            canChange: false,
+          Obx(
+            () => alarmListTile(
+              imagePath: 'assets/images/prayAlarm.png',
+              title: 'صلاة المغرب',
+              subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+              value: alarmsCtr.maghribPrayProp.isActive.value,
+              alarmProp: alarmsCtr.maghribPrayProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.maghribPrayProp, newValue: newValue);
+              },
+              canChange: false,
+            ),
           ),
-        ),
-        Obx(
-          () => alarmListTile(
-            imagePath: 'assets/images/prayAlarm.png',
-            title: 'صلاة العشاء',
-            subtitle: 'سيصلك اشعار قبل مزعد الاذان',
-            value: alarmCtr.ishaPrayProp.isActive.value,
-            alarmProp: alarmCtr.ishaPrayProp,
-            onChanged: (newValue) {
-              alarmCtr.changeState(alarmProp: alarmCtr.ishaPrayProp, newValue: newValue);
-            },
-            canChange: false,
+          Obx(
+            () => alarmListTile(
+              imagePath: 'assets/images/prayAlarm.png',
+              title: 'صلاة العشاء',
+              subtitle: 'سيصلك اشعار قبل مزعد الاذان',
+              value: alarmsCtr.ishaPrayProp.isActive.value,
+              alarmProp: alarmsCtr.ishaPrayProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.ishaPrayProp, newValue: newValue);
+              },
+              canChange: false,
+            ),
           ),
-        ),
-        blockDivider(),
-      ],
+        ],
+      ),
     );
   }
 
@@ -253,6 +278,7 @@ class _AlarmPageState extends State<AlarmPage> {
     required Function(bool) onChanged,
     bool canChange = true,
   }) {
+    GetStorage getStorage = GetStorage();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: MySiezes.betweanAzkarBlock),
       child: Row(
@@ -272,19 +298,51 @@ class _AlarmPageState extends State<AlarmPage> {
             ),
           ),
           Expanded(
-            child: canChange
-                ? IconButton(
-                    onPressed: () async {
-                      TimeOfDay? newTime = await showTimePicker(context: context, initialTime: alarmProp.timeOfDay);
-                      if (newTime == null) return;
-                      alarmProp.timeOfDay = newTime;
-                      GetStorage getStorage = GetStorage();
-                      getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
-                      if (alarmProp.isActive.value) onChanged(true);
-                    },
-                    icon: MyIcons.alarm,
-                  )
-                : Container(),
+            child: Column(
+              children: [
+                IconButton(
+                  onPressed: canChange
+                      ? () async {
+                          TimeOfDay? newTime = await showTimePicker(
+                            context: context,
+                            initialTime: alarmProp.timeOfDay,
+                            builder: (BuildContext context, Widget? child) {
+                              return Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (newTime == null) return;
+                          alarmProp.timeOfDay = newTime;
+
+                          getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
+                          if (alarmProp.isActive.value) onChanged(true);
+                        }
+                      : () {
+                          Get.dialog(
+                            AlertDialog(
+                              title: MyTexts.settingsTitle(context, title: 'غير مسموح'),
+                              content: MyTexts.settingsContent(context,
+                                  title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'),
+                              actions: [
+                                TextButton(
+                                  child: MyTexts.settingsContent(context, title: 'حسنا'),
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                ),
+                              ],
+                            ),
+                            transitionDuration: Duration(milliseconds: 300),
+                            transitionCurve: Curves.easeInCirc,
+                          );
+                        },
+                  icon: MyIcons.alarm,
+                ),
+                MyTexts.settingsContent(context, title: '${alarmProp.timeOfDay.hour}:${alarmProp.timeOfDay.minute}'),
+              ],
+            ),
           ),
           Expanded(child: MySwitch(value: value, onChanged: onChanged)),
         ],
@@ -294,10 +352,6 @@ class _AlarmPageState extends State<AlarmPage> {
 
   ListTile alarmBlockTitle({required String title}) {
     return ListTile(leading: MyTexts.outsideHeader(context, title: title));
-  }
-
-  Divider blockDivider() {
-    return Divider(height: 5, indent: 10, endIndent: 10, thickness: 1);
   }
 }
 
@@ -462,10 +516,22 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذان الفجر',
     notificationBody: 'تبفى القليل لموعد اذان الفجر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الفجر',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان الفجر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان الفجر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار اذان الفجر',
-    alarmPeriod: ALarmPeriod.once,
+    alarmPeriod: ALarmPeriod.daily,
+  );
+  AlarmProp sunPrayProp = AlarmProp(
+    id: 9,
+    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    storageKey: 'sunPrayProp',
+    notificationTitle: 'شروق الشمس',
+    notificationBody: 'تبفى القليل لموعد شروق الشمس',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير شروق الشمس',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بموعد شروق الشمس',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار  شروق الشمس',
+    alarmPeriod: ALarmPeriod.daily,
   );
   AlarmProp duhrPrayProp = AlarmProp(
     id: 10,
@@ -474,10 +540,10 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذان الظهر',
     notificationBody: 'تبفى القليل لموعد اذان الظهر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الظهر',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان الظهر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان الظهر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار اذان الظهر',
-    alarmPeriod: ALarmPeriod.once,
+    alarmPeriod: ALarmPeriod.daily,
   );
   AlarmProp asrPrayProp = AlarmProp(
     id: 11,
@@ -486,10 +552,10 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذان العصر',
     notificationBody: 'تبفى القليل لموعد اذان العصر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العصر',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان العصر',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان العصر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار اذان العصر',
-    alarmPeriod: ALarmPeriod.once,
+    alarmPeriod: ALarmPeriod.daily,
   );
   AlarmProp maghribPrayProp = AlarmProp(
     id: 12,
@@ -498,10 +564,10 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذان المغرب',
     notificationBody: 'تبفى القليل لموعد اذان المغرب',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان المغرب',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان المغرب',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان المغرب',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار اذان المغرب',
-    alarmPeriod: ALarmPeriod.once,
+    alarmPeriod: ALarmPeriod.daily,
   );
   AlarmProp ishaPrayProp = AlarmProp(
     id: 13,
@@ -510,12 +576,13 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذان العشاء',
     notificationBody: 'تبفى القليل لموعد اذان العشاء',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العشاء',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة باذان العشاء',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان العشاء',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار اذان العشاء',
-    alarmPeriod: ALarmPeriod.once,
+    alarmPeriod: ALarmPeriod.daily,
   );
 
+  int distanceBetweenAlarmAndAzan = 10;
   AlarmsCtr() {
 //!------------- quran ----------------------------
     getStorage.read(kahfSureProp.storageKey) != null
@@ -606,22 +673,32 @@ class AlarmsCtr extends GetxController {
 
   setPrayTimesAlarms({
     required Time fajrTime,
+    required Time sunTime,
     required Time duhrTime,
     required Time asrTime,
     required Time maghribTime,
     required Time ishaTime,
   }) {
-    fajrPrayProp.timeOfDay = TimeOfDay(hour: fajrTime.hour, minute: fajrTime.minute);
-    duhrPrayProp.timeOfDay = TimeOfDay(hour: duhrTime.hour, minute: duhrTime.minute);
-    asrPrayProp.timeOfDay = TimeOfDay(hour: asrTime.hour, minute: asrTime.minute);
-    maghribPrayProp.timeOfDay = TimeOfDay(hour: maghribTime.hour, minute: maghribTime.minute);
-    ishaPrayProp.timeOfDay = TimeOfDay(hour: ishaTime.hour, minute: ishaTime.minute);
+    updatePrayTimeAlarm(alarmProp: fajrPrayProp, time: fajrTime);
+    updatePrayTimeAlarm(alarmProp: sunPrayProp, time: sunTime);
+    updatePrayTimeAlarm(alarmProp: duhrPrayProp, time: duhrTime);
+    updatePrayTimeAlarm(alarmProp: asrPrayProp, time: asrTime);
+    updatePrayTimeAlarm(alarmProp: maghribPrayProp, time: maghribTime);
+    updatePrayTimeAlarm(alarmProp: ishaPrayProp, time: ishaTime);
+  }
 
-    getStorage.write(fajrPrayProp.storageKey, jsonEncode(fajrPrayProp.toJson()));
-    getStorage.write(duhrPrayProp.storageKey, jsonEncode(duhrPrayProp.toJson()));
-    getStorage.write(asrPrayProp.storageKey, jsonEncode(asrPrayProp.toJson()));
-    getStorage.write(maghribPrayProp.storageKey, jsonEncode(maghribPrayProp.toJson()));
-    getStorage.write(ishaPrayProp.storageKey, jsonEncode(ishaPrayProp.toJson()));
+  void updatePrayTimeAlarm({required AlarmProp alarmProp, required Time time}) {
+    DateTime tmpDateTime = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      alarmProp.timeOfDay.hour,
+      alarmProp.timeOfDay.minute,
+    ).subtract(Duration(minutes: distanceBetweenAlarmAndAzan));
+
+    alarmProp.timeOfDay = TimeOfDay(hour: tmpDateTime.hour, minute: tmpDateTime.minute);
+
+    getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
   }
 
   _showSnackBar({required Widget icon, required String title, required String message}) {
