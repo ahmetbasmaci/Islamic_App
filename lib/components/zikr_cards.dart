@@ -1,6 +1,4 @@
-import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../classes/zikr_data.dart';
@@ -16,231 +14,212 @@ import 'audio_play_stop_btn.dart';
 import 'my_circular_progress_indecator.dart';
 
 class ZikrCard2 {
-  
-  static quranCard(){
-
-  }
-}
-
-
-
-
-class ZikrCard extends StatefulWidget {
-  ZikrCard({
-    Key? key,
-    required this.zikrData,
-    this.onDeleteFromFavorite,
-    this.haveMargin = false,
-    this.scrollController,
-  }) : super(key: key);
-  ZikrCard.withRandomData({required ZikrType zikrType}) {
-    zikrData.zikrType = zikrType;
-  }
-  ZikrData zikrData = ZikrData();
-  VoidCallback? onDeleteFromFavorite;
-  bool haveMargin = false;
-  ScrollController? scrollController;
-
-  @override
-  State<ZikrCard> createState() => _ZikrCardState();
-}
-
-class _ZikrCardState extends State<ZikrCard> {
   bool isLoading = false;
-  bool zikrCountComplated = false;
-  bool initilized = false;
-  @override
-  void initState() {
-    super.initState();
-    getRandomData();
-  }
+  bool haveMargin = false;
+  VoidCallback? onDeleteFromFavorite;
+  ZikrCard2({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
 
-  // checkIfNewData() async {
-  //   if (initilized)
-  //     await getOldData();
-  //   else
-  //     await getRandomData();
-  // }
-
-  // getOldData() async {
-  //   GetStorage storage = GetStorage();
-  //   var data = await storage.read(widget.zikrData.zikrType.name);
-  //   widget.zikrData.fromJson(data);
-  //   if (mounted) setState(() {});
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.zikrData.zikrType == ZikrType.quran
-        ? quranCard()
-        : widget.zikrData.zikrType == ZikrType.hadith
-            ? hadithCard()
-            : widget.zikrData.zikrType == ZikrType.azkar
-                ? azkarCard()
-                : widget.zikrData.zikrType == ZikrType.allahNames
-                    ? allahNamesCard()
-                    : Container();
-  }
-
-  Widget basicZikrCard({
-    String outsideTitle = '',
-    Widget? firstChild,
-    Widget? secondChild,
-    bool canPress = false,
+  Widget outContainer({
+    required Widget child,
+    String? outsideTitle,
+    VoidCallback? onTap,
   }) {
-    return Container(
-      padding: EdgeInsets.only(bottom: widget.haveMargin ? MySiezes.betweanAzkarBlock : 0),
-      margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
-      child: Column(
-        children: <Widget>[
-          //outside header
-          Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(context, title: outsideTitle)),
-          AnimatedButtonTapping(
-            onTap: zikrCountComplated || !canPress
-                ? null
-                : () {
-                    if (widget.zikrData.count > 0) {
-                      widget.zikrData.count--;
-                      // writeDataToDb();
-                      // setState(() {});
-                    }
-                    if (widget.zikrData.count == 0) {
-                      setState(() {
-                        zikrCountComplated = true;
-                      });
-                      widget.scrollController!
-                          .animateTo(2000, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                    }
-                  },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                color: MyColors.zikrCard(),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-                  BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
-                ],
-              ),
-              padding: EdgeInsets.all(MySiezes.cardPadding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      firstChild ?? Container(),
-                      Expanded(child: Center(child: MyTexts.zikrTitle(context, title: widget.zikrData.title))),
-                      secondChild ?? Container(),
+    return StatefulBuilder(builder: (context, setState) {
+      return Container(
+        // duration: Duration(milliseconds: 1000),
+        padding: EdgeInsets.only(bottom: haveMargin ? MySiezes.betweanAzkarBlock : 0),
+        margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding, vertical: MySiezes.screenPadding),
+        child: Column(
+          children: <Widget>[
+            //outside header
+            outsideTitle != null
+                ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(context, title: outsideTitle))
+                : Container(),
+            AnimatedButtonTapping(
+              onTap: onTap,
+              child: AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                    color: MyColors.zikrCard(),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
+                      BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
                     ],
                   ),
-                  isLoading
-                      ? const MyCircularProgressIndecator()
-                      : MyTexts.content(context, title: widget.zikrData.content),
-                  widget.zikrData.description != ''
-                      ? Row(
-                          children: [
-                            MyIcons.info,
-                            Expanded(child: MyTexts.info(context, title: widget.zikrData.description)),
-                          ],
-                        )
-                      : Container(),
-                  ZikrBlockButtons(zikrData: widget.zikrData, onDeleteFromFavorite: widget.onDeleteFromFavorite)
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget quranCard() {
-    return basicZikrCard(
-      outsideTitle: 'اية من القران الكريم',
-      firstChild: widget.onDeleteFromFavorite == null
-          ? IconButton(onPressed: () => getRandomData(), icon: MyIcons.refresh)
-          : null,
-      secondChild: AudioPlayStopBtn(
-        zikrData: widget.zikrData,
-        onComplite: () async {
-          isLoading = true;
-          if (mounted) setState(() {});
-          widget.zikrData = await JsonService.getSpesificQuranData(
-              numberInQuran: widget.zikrData.numberInQuran + 1, surahNumber: widget.zikrData.surahNumber);
-          checkIfIsFavorite();
-          isLoading = false;
-          if (mounted) setState(() {});
-        },
-      ),
-    );
-  }
-
-  Widget hadithCard() {
-    return basicZikrCard(
-      outsideTitle: 'بلّفو عني ولو اية',
-      firstChild: widget.onDeleteFromFavorite == null
-          ? IconButton(onPressed: () => getRandomData(), icon: MyIcons.refresh)
-          : null,
-    );
-  }
-
-  Widget azkarCard() {
-    return basicZikrCard(
-        firstChild: widget.zikrData.count < 0
-            ? Container()
-            : Container(
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80),
-                  color: zikrCountComplated ? MyColors.currect() : MyColors.zikrCard(),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-5, 0),
-                      color:
-                          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.black : MyColors.lightModeShadow,
-                      blurRadius: 5,
+                  padding: EdgeInsets.all(MySiezes.cardPadding),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 150, //minimum height
+                      minWidth: double.maxFinite, // minimum width
                     ),
-                  ],
+                    child: child,
+                  )),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget insideContainer({
+    required ZikrData zikrData,
+    Widget? firstChild,
+    Widget? secondChild,
+  }) {
+    return StatefulBuilder(builder: (context, setState) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              firstChild ?? Container(),
+              Expanded(child: Center(child: MyTexts.zikrTitle(context, title: zikrData.title))),
+              secondChild ?? Container(),
+            ],
+          ),
+          MyTexts.content(context, title: zikrData.content),
+          zikrData.description != ''
+              ? Row(children: [MyIcons.info, Expanded(child: MyTexts.info(context, title: zikrData.description))])
+              : Container(),
+          ZikrBlockButtons(zikrData: zikrData, onDeleteFromFavorite: onDeleteFromFavorite)
+        ],
+      );
+    });
+  }
+
+  Widget byType(ZikrData zikrData) {
+    Widget child = Container();
+    if (zikrData.zikrType == ZikrType.quran)
+      child = quranCard(quranZikrData: zikrData);
+    else if (zikrData.zikrType == ZikrType.hadith)
+      child = hadithCard(hadithZikrData: zikrData);
+    else if (zikrData.zikrType == ZikrType.azkar)
+      child = azkarCard(zikrData);
+    else if (zikrData.zikrType == ZikrType.allahNames) child = allahNamesCard(zikrData);
+
+    return child;
+  }
+
+  Widget quranCard({ZikrData? quranZikrData}) {
+    Future myFuture = Future.delayed(Duration(seconds: 0));
+    if (quranZikrData == null) myFuture = JsonService.getQuranData();
+    return outContainer(
+      outsideTitle: 'اية من القران الكريم',
+      child: StatefulBuilder(builder: (context, setState) {
+        return FutureBuilder(
+            future: myFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasError)
+                return Text(snapshot.error.toString());
+              else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
+              quranZikrData ??= snapshot.data as ZikrData;
+              return insideContainer(
+                zikrData: quranZikrData!,
+                firstChild: onDeleteFromFavorite == null
+                    ? IconButton(
+                        onPressed: () async {
+                          quranZikrData = null;
+
+                          myFuture = JsonService.getQuranData();
+                          setState(() {});
+                        },
+                        icon: MyIcons.refresh)
+                    : null,
+                secondChild: AudioPlayStopBtn(
+                  zikrData: quranZikrData!,
+                  onComplite: () async {
+                    myFuture = JsonService.getSpesificQuranData(
+                        numberInQuran: quranZikrData!.numberInQuran, surahNumber: quranZikrData!.surahNumber);
+                    checkIfIsFavorite(quranZikrData!);
+
+                    setState(() {});
+                  },
                 ),
-                child: MyTexts.content(context, title: '${widget.zikrData.count}'),
-              ),
-        canPress: true);
+              );
+            });
+      }),
+    );
   }
 
-  Widget allahNamesCard() {
-    return basicZikrCard();
+  Widget hadithCard({ZikrData? hadithZikrData}) {
+    Future myFuture = Future.delayed(Duration(seconds: 0));
+    if (hadithZikrData == null) myFuture = JsonService.getHadithData();
+    return outContainer(
+      outsideTitle: 'بلّفو عني ولو اية',
+      child: StatefulBuilder(builder: (context, setState) {
+        return FutureBuilder(
+            future: myFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) return Text(snapshot.error.toString());
+              if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
+              hadithZikrData ??= snapshot.data as ZikrData;
+
+              return insideContainer(
+                zikrData: hadithZikrData!,
+                firstChild: onDeleteFromFavorite == null
+                    ? IconButton(
+                        onPressed: () {
+                          hadithZikrData = null;
+                          myFuture = JsonService.getHadithData();
+                          setState(() {});
+                        },
+                        icon: MyIcons.refresh)
+                    : null,
+              );
+            });
+      }),
+    );
   }
 
-  Future getRandomData() async {
-    isLoading = true;
-    if (mounted) setState(() {});
-    await Future.delayed(Duration(milliseconds: 300));
-    if (ZikrType.quran == widget.zikrData.zikrType)
-      widget.zikrData = await JsonService.getQuranData(true);
-    else if (ZikrType.hadith == widget.zikrData.zikrType)
-      widget.zikrData = await JsonService.getHadithData();
-    else if (ZikrType.sermon == widget.zikrData.zikrType) return;
-
-    writeDataToDb();
-    initilized = true;
-
-    checkIfIsFavorite();
-    isLoading = false;
-    if (mounted) setState(() {});
+  Widget azkarCard(ZikrData azkarZikrData) {
+    return StatefulBuilder(builder: (context, setState) {
+      return outContainer(
+        onTap: azkarZikrData.count > 0
+            ? () {
+                if (azkarZikrData.count > 0) {
+                  azkarZikrData.count--;
+                  setState(() {});
+                }
+              }
+            : null,
+        child: insideContainer(
+          zikrData: azkarZikrData,
+          firstChild: azkarZikrData.count < 0
+              ? Container()
+              : Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    color: azkarZikrData.count <= 0 ? MyColors.currect() : MyColors.zikrCard(),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(-5, 0),
+                        color:
+                            ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.black : MyColors.lightModeShadow,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: MyTexts.content(context, title: '${azkarZikrData.count}'),
+                ),
+        ),
+      );
+    });
   }
 
-  writeDataToDb() {
-    GetStorage storage = GetStorage();
-    storage.write(widget.zikrData.zikrType.name, widget.zikrData.toJson());
+  Widget allahNamesCard(ZikrData allahNamesZikrData) {
+    return outContainer(child: insideContainer(zikrData: allahNamesZikrData));
   }
 
-  checkIfIsFavorite() async {
-    widget.zikrData.isFavorite = false;
+  checkIfIsFavorite(ZikrData zikrData) async {
+    zikrData.isFavorite = false;
     SqlDb sqlDb = SqlDb();
     List<Map> data = await sqlDb.readData(SqlDb.dbName);
     for (var i = 0; i < data.length; i++) {
-      if (data[i]['content'] == widget.zikrData.content) {
-        widget.zikrData.isFavorite = true;
+      if (data[i]['content'] == zikrData.content) {
+        zikrData.isFavorite = true;
         break;
       }
     }

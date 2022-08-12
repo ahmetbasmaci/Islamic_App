@@ -6,10 +6,10 @@ import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
-import '../pages/prayer_times.dart';
+import '../pages/prayerTimesPage/prayer_times.dart';
 import '../services/theme_service.dart';
 import '../constents/icons.dart';
-import '../pages/alarms_page.dart';
+import '../pages/alarmsPage/alarms_page.dart';
 import '../pages/ayahsTest/first_ayahs_in_pages_page.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -25,9 +25,7 @@ class MyDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: MyTexts.drawerTitle(context, title: 'اقسام البرنامج'),
             accountEmail: Text(''),
-            decoration: ThemeService().getThemeMode() == ThemeMode.dark
-                ? BoxDecoration(color: MyColors.primaryDark)
-                : BoxDecoration(color: MyColors.primary()),
+            decoration:  BoxDecoration(color: MyColors.primary()),
             otherAccountsPictures: [
               CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -65,7 +63,7 @@ class MyDrawer extends StatelessWidget {
           // ),
           drawerItem(
             title: 'المنبه',
-            icon: MyIcons.notification,
+            icon: MyIcons.notification(),
             routeName: AlarmPage.id,
             onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
           ),
@@ -77,7 +75,7 @@ class MyDrawer extends StatelessWidget {
           ),
           drawerItem(
             title: 'اوقات الصلاة',
-            icon: MyIcons.prayersTime,
+            icon: MyIcons.prayersTime(),
             routeName: PrayerTimes.id,
             onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
           ),
@@ -117,13 +115,13 @@ class MyDrawer extends StatelessWidget {
           curve: Curves.decelerate,
         );
 
-      if (Get.currentRoute.contains(HomePage.id))
-        Get.offAll(
-          HomePage(),
-          transition: Transition.size,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.decelerate,
-        );
+      if (Get.currentRoute.contains(HomePage.id)) Get.back();
+      // Get.offAll(
+      //   HomePage(),
+      //   transition: Transition.size,
+      //   duration: Duration(milliseconds: 500),
+      //   curve: Curves.decelerate,
+      // );
     } else
       Get.back();
   }

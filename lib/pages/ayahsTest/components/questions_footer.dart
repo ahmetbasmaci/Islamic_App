@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/ayahsTest/enums/question_type.dart';
+import '../../../moduls/enums.dart';
 import '../../../services/theme_service.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
@@ -10,7 +10,7 @@ import '../controller/first_ayahs_in_pages_ctr.dart';
 
 class QuestionsFooter extends StatelessWidget {
   QuestionsFooter({Key? key, required this.pageSetState}) : super(key: key);
-  VoidCallback pageSetState;
+  final VoidCallback pageSetState;
   final FirstAyahsInPagesCtr ctr = Get.find<FirstAyahsInPagesCtr>();
 
   @override

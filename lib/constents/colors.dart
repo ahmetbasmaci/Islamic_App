@@ -5,8 +5,10 @@ class MyColors {
   // static const Color backgroundLight = Color.fromARGB(255, 241, 240, 228);
   static const Color backgroundLight = Color(0xffdbe2e7);
   static const Color backgroundDark = Color.fromARGB(255, 30, 30, 30);
+  static const Color _quranSecond = Color.fromARGB(255, 185, 121, 31);
+  static const Color _quranSecondDark = Color.fromARGB(255, 136, 91, 29);
   static const Color quranBackGroundLight = Color.fromARGB(255, 235, 235, 235);
-  static const Color quranBackGroundDark = Color.fromARGB(255, 53, 53, 53);
+  static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
   static const Color primary_ = Color.fromARGB(255, 2, 111, 111);
   static const Color primaryDark = Color.fromARGB(255, 58, 126, 143);
   static const Color lightModeShadow = Color.fromARGB(255, 63, 63, 63);
@@ -26,39 +28,25 @@ class MyColors {
   static const Color _trueDark = Color.fromARGB(255, 19, 85, 16);
   static const Color false_ = Color.fromARGB(255, 203, 40, 40);
 
-  static Color background() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? backgroundDark : backgroundLight;
-  }
+  static Color background() => ThemeService().getThemeMode() == ThemeMode.dark ? backgroundDark : backgroundLight;
 
-  static Color whiteBlack() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? black : white;
-  }
+  static Color whiteBlack() => ThemeService().getThemeMode() == ThemeMode.dark ? white : black;
 
-  static Color quranBackGround() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;
-  }
+  static Color quranText() => ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundLight : black;
+  static Color quranSecond() => ThemeService().getThemeMode() == ThemeMode.dark ? _quranSecondDark : _quranSecond;
 
-  static Color primary() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
-  }
+  static Color quranBackGround() =>
+      ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;
 
-  static Color currect() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? _trueDark : true_;
-  }
+  static Color primary() => ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
 
-  static Color second() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? secondDark : second_;
-  }
+  static Color currect() => ThemeService().getThemeMode() == ThemeMode.dark ? _trueDark : true_;
 
-  static Color shadow() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? black : black;
-  }
+  static Color second() => ThemeService().getThemeMode() == ThemeMode.dark ? secondDark : second_;
 
-  static Color zikrCard() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? _zikrCardDark : _zikrCard;
-  }
+  static Color shadow() => ThemeService().getThemeMode() == ThemeMode.dark ? black : black;
 
-  static Color shadowPrimary() {
-    return ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
-  }
+  static Color zikrCard() => ThemeService().getThemeMode() == ThemeMode.dark ? _zikrCardDark : _zikrCard;
+
+  static Color shadowPrimary() => ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
 }

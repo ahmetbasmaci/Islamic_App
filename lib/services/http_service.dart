@@ -25,7 +25,6 @@ class HttpService {
   static Future downloadAllQuranAyahs() async {
     for (var i = 0; i <= 6236; i++) {
       await _downloadFile(url: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/$i.mp3', numberInQuran: i);
-      print('$i ayah downloaded');
     }
   }
 

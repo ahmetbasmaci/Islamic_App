@@ -5,16 +5,16 @@ import '../../../constents/sizes.dart';
 import '../../../constents/texts.dart';
 import '../../../constents/colors.dart';
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
+import '../../../moduls/enums.dart';
 import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
-import '../enums/question_type.dart';
 
 class OptionButton extends StatefulWidget {
-  OptionButton({Key? key, required this.selectedAyah, required this.optionBtnProps}) : super(key: key);
-  AyahProp selectedAyah;
-  List<OptionBtnProps> optionBtnProps;
+  const OptionButton({Key? key, required this.selectedAyah, required this.optionBtnProps}) : super(key: key);
+  final AyahProp selectedAyah;
+  final List<OptionBtnProps> optionBtnProps;
   @override
   State<OptionButton> createState() => _OptionButtonState();
 }
@@ -81,15 +81,13 @@ class _OptionButtonState extends State<OptionButton> {
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         decoration: BoxDecoration(
-            // color: ThemeService().getThemeMode() == ThemeMode.dark ? Color(0xff2e3239) : MyColors.background,
+            
             color: optionBtnProps.color,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 offset: -distance,
-                color: ThemeService().getThemeMode() == ThemeMode.dark
-                    ? Color.fromARGB(255, 0, 0, 0)
-                    : Color.fromARGB(255, 255, 255, 255),
+                color: MyColors.whiteBlack(),
                 blurRadius: blure,
                 inset: isPressed,
               ),

@@ -28,21 +28,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   IconButton settingsPageButton() {
     return IconButton(
-      onPressed: () {
-        Get.to(SettingsPage());
-      },
+      onPressed: () =>
+          Get.to(() => SettingsPage(), transition: Transition.upToDown, duration: Duration(milliseconds: 500)),
       icon: MyIcons.settings,
     );
   }
 
   Widget backButton(BuildContext context) {
     return !ModalRoute.of(context)!.isFirst
-        ? IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: MyIcons.backArrow,
-          )
+        ? IconButton(onPressed: () => Get.back(), icon: MyIcons.backArrow)
         : Container();
   }
 }

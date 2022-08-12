@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
-import 'package:zad_almumin/components/main_container.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/zikr_cards.dart';
-import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import '../components/my_drawer.dart';
@@ -26,7 +24,7 @@ class _AzkarPageState extends State<AzkarPage> {
   List<ZikrData> zikrDataList = [];
   List<Widget> zikrCardList = [];
   String bigTitle = "";
-  var scrollController= ScrollController();
+  var scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -61,26 +59,26 @@ class _AzkarPageState extends State<AzkarPage> {
                                 totalIndex++;
                                 return AnimationService.animationListItemDownToUp(
                                   index: totalIndex,
-                                  child: ZikrCard(
-                                      haveMargin: true,
-                                      zikrData: ZikrData(
-                                        zikrType: widget.zikrType,
-                                        title: index2 > 0
-                                            ? "${zikrDataList[index].title} ${index2 + 1}"
-                                            : zikrDataList[index].title,
-                                        content: zikrDataList[index].list[index2]['zekr'] ?? "",
-                                      )),
+                                  child: ZikrCard2(
+                                    haveMargin: true,
+                                  ).azkarCard(
+                                    ZikrData(
+                                      zikrType: widget.zikrType,
+                                      title: index2 > 0
+                                          ? "${zikrDataList[index].title} ${index2 + 1}"
+                                          : zikrDataList[index].title,
+                                      content: zikrDataList[index].list[index2]['zekr'] ?? "",
+                                    ),
+                                  ),
                                 );
                               });
                         } else {
                           totalIndex++;
                           return AnimationService.animationListItemDownToUp(
                             index: totalIndex,
-                            child: ZikrCard(
-                              zikrData: zikrDataList[index],
+                            child: ZikrCard2(
                               haveMargin: index != zikrDataList.length - 1 ? true : false,
-                              scrollController: scrollController,
-                            ),
+                            ).azkarCard(zikrDataList[index]),
                           );
                         }
                       },

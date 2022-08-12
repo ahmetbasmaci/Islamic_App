@@ -1,21 +1,19 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/ayahsTest/controller/first_ayahs_in_pages_ctr.dart';
-import 'package:zad_almumin/pages/ayahsTest/enums/question_type.dart';
-
 import '../../../animations/my_animations.dart';
-import '../../../services/theme_service.dart';
 import '../../../components/my_circular_progress_indecator.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/sizes.dart';
 import '../../../constents/texts.dart';
+import '../../../moduls/enums.dart';
 import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'option_button.dart';
 
+// ignore: must_be_immutable
 class Question extends StatelessWidget {
   Question({Key? key}) : super(key: key);
 

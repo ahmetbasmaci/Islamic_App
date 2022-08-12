@@ -5,10 +5,9 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 
 import 'package:zad_almumin/services/http_service.dart';
-import 'package:zad_almumin/services/json_service.dart';
 
 class AudioService {
-  VoidCallback setState;
+  Function setState;
   late AnimationController animationCtr;
   ZikrData zikrData;
   bool isLoading = false;
@@ -40,7 +39,7 @@ class AudioService {
     isLoading = false;
     setState();
 
-   animationCtr.forward();
+    animationCtr.forward();
 
     await player.play(DeviceFileSource(file.path));
   }

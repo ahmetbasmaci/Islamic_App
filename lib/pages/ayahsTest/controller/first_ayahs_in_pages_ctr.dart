@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/pages/ayahsTest/enums/question_type.dart';
+
+import '../../../moduls/enums.dart';
 
 class FirstAyahsInPagesCtr extends GetxController {
   GetStorage getStorage = GetStorage();

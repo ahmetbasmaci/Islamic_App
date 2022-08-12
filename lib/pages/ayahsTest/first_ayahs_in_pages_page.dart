@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zad_almumin/components/main_container.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/question.dart';

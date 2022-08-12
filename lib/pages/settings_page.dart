@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import '../components/main_container.dart';
 import '../constents/icons.dart';
 import '../constents/texts.dart';
 import '../components/my_switch.dart';

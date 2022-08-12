@@ -8,8 +8,7 @@ import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../constents/icons.dart';
-import '../components/main_container.dart';
-import 'quran_page.dart';
+import 'quranPage/quran_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   List<Widget> items = [
     MyIcons.home(color: MyColors.background()),
     MyIcons.quran(color: MyColors.background()),
@@ -40,30 +39,36 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
-        drawer: currentIndex != 1 ? MyDrawer() : null,
-        bottomNavigationBar: currentIndex != 1
-            ? CurvedNavigationBar(
-                height: MySiezes.navigationTap,
-                items: items,
-                color: MyColors.primary(),
-                backgroundColor: MyColors.background(),
-                animationCurve: Curves.easeInOut,
-                animationDuration: Duration(milliseconds: 300),
-                index: currentIndex,
-                onTap: (newIndex) {
-                  updateCurrentIndex(newIndex);
-                },
-              )
-            : null,
-        body: RefreshIndicator(
-            onRefresh: () async {
-              await Future.delayed(Duration(seconds: 1));
-              Get.offAll(() => HomePage(), transition: Transition.fadeIn);
-              // setState(() {});
-            },
-            child: screens[currentIndex]),
+      child: SafeArea(
+        top: currentIndex == 1,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
+          drawer: currentIndex != 1 ? MyDrawer() : null,
+          bottomNavigationBar: currentIndex != 1
+              ? CurvedNavigationBar(
+                  height: MySiezes.navigationTap,
+                  items: items,
+                  color: MyColors.primary(),
+                  backgroundColor: MyColors.background(),
+                  animationCurve: Curves.easeInOut,
+                  animationDuration: Duration(milliseconds: 300),
+                  index: currentIndex,
+                  onTap: (newIndex) {
+                    updateCurrentIndex(newIndex);
+                  },
+                )
+              : null,
+          body: currentIndex != 1
+              ? RefreshIndicator(
+                  onRefresh: () async {
+                    await Future.delayed(Duration(seconds: 1));
+                    Get.offAll(() => HomePage(), transition: Transition.fadeIn);
+                    // setState(() {});
+                  },
+                  child: screens[currentIndex])
+              : screens[currentIndex],
+        ),
       ),
     );
   }

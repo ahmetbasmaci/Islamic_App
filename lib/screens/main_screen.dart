@@ -10,7 +10,6 @@ import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import '../classes/block_data.dart';
-import '../services/json_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -28,12 +27,11 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           AnimationService.animationListItemDownToUp(
             index: 1,
-            child: ZikrCard.withRandomData(zikrType: ZikrType.quran),
-            // child: ZikrCard(zikrData:   JsonService.getQuranData(),)
+            child: ZikrCard2().quranCard(),
           ),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
-              index: 2, child: ZikrCard.withRandomData(zikrType: ZikrType.hadith)),
+              index: 2, child: ZikrCard2().hadithCard()),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
             child: azkarBlocks(outsideTitle: 'مختلف الاذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),

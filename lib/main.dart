@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/pages/alarms_page.dart';
-import 'package:zad_almumin/pages/quran_page.dart';
+import 'package:zad_almumin/pages/alarmsPage/alarms_page.dart';
+import 'package:zad_almumin/pages/quranPage/quran_page.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-import 'package:zad_almumin/pages/account_page.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
 import 'classes/controllers.dart';
-import 'database/sqldb.dart';
 import 'pages/favorite_page.dart';
 import 'services/navigation_service.dart';
 

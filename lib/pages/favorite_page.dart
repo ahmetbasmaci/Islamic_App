@@ -9,7 +9,6 @@ import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import '../components/main_container.dart';
 import '../components/my_drawer.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -71,8 +70,7 @@ class _FavoritePageState extends State<FavoritePage> {
           ),
           drawer: MyDrawer(),
           body: Container(
-      margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
-
+            margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
             child: FutureBuilder(
               future: readFuture,
               builder: (context, snapshot) {
@@ -87,12 +85,12 @@ class _FavoritePageState extends State<FavoritePage> {
                   return AnimatedList(
                     key: listKey,
                     initialItemCount: selectedZikrDataList.length,
+                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     itemBuilder: (context, index, animation) {
                       return SizeTransition(
                         key: UniqueKey(),
                         sizeFactor: animation,
-                        child: ZikrCard(
-                          zikrData: selectedZikrDataList[index],
+                        child: ZikrCard2(
                           haveMargin: true,
                           onDeleteFromFavorite: () {
                             ZikrData deletingZikrData = selectedZikrDataList[index];
@@ -102,17 +100,16 @@ class _FavoritePageState extends State<FavoritePage> {
                               (context, animation) {
                                 return SizeTransition(
                                   sizeFactor: animation,
-                                  child: ZikrCard(
+                                  child: ZikrCard2(
                                     haveMargin: true,
-                                    zikrData: deletingZikrData,
-                                  ),
+                                  ).allahNamesCard(deletingZikrData),
                                 );
                               },
                             );
                             zikrDataList.remove(selectedZikrDataList[index]);
                             selectedZikrDataList.removeAt(index);
                           },
-                        ),
+                        ).byType(selectedZikrDataList[index]),
                       );
                     },
                   );
@@ -136,7 +133,6 @@ class _FavoritePageState extends State<FavoritePage> {
           description: listMap[i]['description'],
           numberInQuran: listMap[i]['numberInQuran'],
           surahNumber: listMap[i]['surahNumber'],
-          count: listMap[i]['count'],
           isFavorite: true,
         ),
       );

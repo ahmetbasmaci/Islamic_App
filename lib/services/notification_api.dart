@@ -7,8 +7,9 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:zad_almumin/pages/alarms_page.dart';
 
+import '../moduls/enums.dart';
+import '../pages/alarmsPage/classes/alarm_prop.dart';
 import 'json_service.dart';
 
 enum NotificationSound { hadith, random }

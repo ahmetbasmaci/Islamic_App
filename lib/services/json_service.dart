@@ -1,24 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 
 import 'navigation_service.dart';
 
 class JsonService {
-  static Future<ZikrData> getQuranData(bool isNewData) async {
-    GetStorage storage = GetStorage();
-    if (!isNewData) {
-      //check old data
-      var oldData = await storage.read(ZikrType.quran.name);
-      if (oldData != null) {
-        ZikrData zikrData = ZikrData();
-        return zikrData.fromJson(oldData);
-      }
-    }
+  static Future<ZikrData> getQuranData() async {
+    await Future.delayed(Duration(milliseconds: 500));
 
     int randomSure = Random().nextInt(114) + 1;
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
@@ -34,28 +24,17 @@ class JsonService {
       numberInQuran: allSureAyahs[randomAyah]['numberInQuran'],
       surahNumber: randomSure,
     );
-
-    storage.write(ZikrType.quran.name, zikrData.toJson());
     return zikrData;
-    // return ZikrData(
-    //   zikrType: ZikrType.quran,
-    //   title: 'اعوذ بالله من الشيطان الرجيم',
-    //   content: allSureAyahs[randomAyah]['text'],
-    //   numberInQuran: allSureAyahs[randomAyah]['numberInQuran'],
-    //   surahNumber: randomSure,
-    // );
   }
 
   static Future<ZikrData> getSpesificQuranData({required int numberInQuran, required int surahNumber}) async {
-    print('numberInQuran $numberInQuran');
-    print('surahNumber $surahNumber');
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
         .loadString('assets/database/quran/surahs/$surahNumber.json');
     Map<String, dynamic> data = json.decode(jsonString);
     List<dynamic> allSureAyahs = data['ayahs'];
     for (var i = 0; i < allSureAyahs.length; i++) {
       // print(allSureAyahs[i]['numberInQuran']);
-      if (allSureAyahs[i]['numberInQuran'] == numberInQuran) {
+      if (allSureAyahs[i]['numberInQuran'] == numberInQuran + 1) {
         return ZikrData(
           zikrType: ZikrType.quran,
           title: 'اعوذ بالله من الشيطان الرجيم',
@@ -66,10 +45,11 @@ class JsonService {
         );
       }
     }
-    return getSpesificQuranData(numberInQuran: numberInQuran + 1, surahNumber: surahNumber + 1);
+    return getSpesificQuranData(numberInQuran: numberInQuran, surahNumber: surahNumber + 1);
   }
 
   static Future<ZikrData> getHadithData() async {
+    await Future.delayed(Duration(milliseconds: 500));
     int randomBook = Random().nextInt(20);
     String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
         .loadString('assets/database/hadith/book_${randomBook + 1}.json');
@@ -82,7 +62,6 @@ class JsonService {
       return ZikrData();
     }
     int randomHadith = Random().nextInt(hadithsMap.length);
-    return ZikrData(
-        zikrType: ZikrType.hadith, title: 'قال عليه الصلاة والسلام', content: hadithsMap[randomHadith]['text']);
+    return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ', content: hadithsMap[randomHadith]['text']);
   }
 }

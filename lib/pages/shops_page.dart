@@ -3,16 +3,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
-import 'package:zad_almumin/components/zikr_cards.dart';
 import 'package:zad_almumin/constents/icons.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
-import 'package:zad_almumin/moduls/enums.dart';
-import '../services/theme_service.dart';
 import '../constents/colors.dart';
 import '../components/my_switch.dart';
 
@@ -109,14 +105,14 @@ class _ShopsPageState extends State<ShopsPage> {
         ),
         body: ListView(
           children: <Widget>[
-            ZikrCard(
-              zikrData: ZikrData(
-                zikrType: ZikrType.hadith,
-                title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
-                content:
-                    'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
-              ),
-            ),
+            // ZikrCard(
+            //   zikrData: ZikrData(
+            //     zikrType: ZikrType.hadith,
+            //     title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
+            //     content:
+            //         'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
+            //   ),
+            // ),
             Divider(),
             isloading
                 ? MyCircularProgressIndecator()
@@ -235,7 +231,7 @@ class _ShopsPageState extends State<ShopsPage> {
           backgroundColor: MyColors.background(),
           titleStyle: Theme.of(context).textTheme.headline1!,
           descStyle: TextStyle(
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
+            color: MyColors.whiteBlack(),
             fontSize: 14,
           ),
         )).show();
@@ -358,7 +354,7 @@ class _ShopsPageState extends State<ShopsPage> {
                   textAlign: TextAlign.right,
                   controller: _shopCtr,
                   style: TextStyle(
-                      color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black),
+                      color: MyColors.whiteBlack()),
                   decoration: InputDecoration(
                       border: UnderlineInputBorder(), hintText: 'اسم السوق : ', hintStyle: TextStyle(fontSize: 14)),
                 ),
@@ -403,7 +399,7 @@ class _ShopsPageState extends State<ShopsPage> {
               if (_shopCtr.text.isEmpty) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من ادخال اسم السوق !!!',
                     backgroundColor: MyColors.background(),
-                    colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
+                    colorText: MyColors.whiteBlack(),
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -412,7 +408,7 @@ class _ShopsPageState extends State<ShopsPage> {
               if (shopsList.any((element) => element.shopName == _shopCtr.text)) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'اسم السوق موجود بالفعل !!!',
                     backgroundColor: MyColors.background(),
-                    colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
+                    colorText: MyColors.whiteBlack(),
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -421,7 +417,7 @@ class _ShopsPageState extends State<ShopsPage> {
               if (!isLocationReady) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من جلب موقعك الحالي !!!',
                     backgroundColor: MyColors.background(),
-                    colorText: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
+                    colorText: MyColors.whiteBlack(),
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -440,7 +436,7 @@ class _ShopsPageState extends State<ShopsPage> {
           backgroundColor: MyColors.background(),
           titleStyle: Theme.of(context).textTheme.headline1!,
           descStyle: TextStyle(
-            color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black,
+            color: MyColors.whiteBlack(),
             fontSize: 14,
           ),
         )).show();

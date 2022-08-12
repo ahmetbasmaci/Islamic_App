@@ -7,6 +7,6 @@ class OptionBtnProps {
   int juz;
   int page;
   Color color = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() :  MyColors.background();
-  Color textColor = ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.white : MyColors.black;
+  Color textColor = MyColors.whiteBlack();
   OptionBtnProps({required this.juz, required this.page});
 }

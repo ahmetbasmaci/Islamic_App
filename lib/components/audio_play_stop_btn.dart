@@ -20,6 +20,12 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
   void initState() {
     super.initState();
     animationCtr = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    audioService = AudioService(
+      animationCtr: animationCtr,
+      zikrData: widget.zikrData,
+      setState: () => setState(() {}),
+      onComplite: () => widget.onComplite.call(),
+    );
   }
 
   @override
@@ -43,7 +49,7 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
         animationCtr: animationCtr,
         zikrData: widget.zikrData,
         setState: () => setState(() {}),
-        onComplite: () async {
+        onComplite: () {
           widget.onComplite();
         },
       );
