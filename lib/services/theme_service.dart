@@ -36,7 +36,7 @@ TextStyle _bodyText2 = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info)
 
 TextStyle _subtitle1 = GoogleFonts.harmattan();
 
-TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 18);
+TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 16);
 
 class ThemeService {
   final ThemeData lightThemeMode = ThemeData.light().copyWith(

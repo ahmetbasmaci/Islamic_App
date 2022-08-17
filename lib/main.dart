@@ -24,7 +24,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     // SqlDb().deleteDB();
 
     return GetMaterialApp(
@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeService().darkThemeMode,
       themeMode: ThemeService().getThemeMode(),
       home: HomePage(),
-      // home: QuranPage(),
     );
   }
 }

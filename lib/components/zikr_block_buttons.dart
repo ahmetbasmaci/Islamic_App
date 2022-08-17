@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
+import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/services/audio_service.dart';
 import '../constents/icons.dart';
@@ -17,7 +19,6 @@ class ZikrBlockButtons extends StatefulWidget {
 }
 
 class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
-  bool isCopyed = false;
   @override
   void initState() {
     super.initState();
@@ -29,71 +30,84 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        IconButton(
-          onPressed: () => copy(),
-          icon: isCopyed ? MyIcons.copyFilled : MyIcons.copy,
-        ),
-        IconButton(
-          onPressed: () => share(),
-          icon: MyIcons.share,
-        ),
-        IconButton(
-          onPressed: () => favorite(),
-          icon: widget.zikrData.isFavorite ? MyIcons.favoriteFilled : MyIcons.favorite,
-        ),
-      ],
+      children: [copyButton(), shareButton(), favoriteButton()],
     );
   }
 
-  copy() {
-    Clipboard.setData(ClipboardData(text: widget.zikrData.content));
+  favoriteButton() {
+    return StatefulBuilder(builder: ((context, favoriteSetState) {
+      return IconButton(
+        onPressed: () {
+          SqlDb sqlDb = SqlDb();
+          String toastText = '';
+          if (widget.zikrData.isFavorite) {
+            sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
+            toastText = 'تم حذف النص من المفضلة';
+            Get.find<AudioServiceCtr>().stopAudioById(widget.zikrData.numberInQuran);
+          } else {
+            sqlDb.insertData('favorite', {
+              'zikrType': widget.zikrData.zikrType.index,
+              'title': widget.zikrData.title,
+              'content': widget.zikrData.content,
+              'description': widget.zikrData.description,
+              'numberInQuran': widget.zikrData.numberInQuran,
+              'surahNumber': widget.zikrData.surahNumber,
+              'count': -1,
+            });
+            toastText = 'تم إضافة النص إلى المفضلة';
+          }
+          Fluttertoast.showToast(msg: toastText, backgroundColor: Colors.black);
+          if (widget.zikrData.isFavorite) widget.onDeleteFromFavorite?.call();
 
-    setState(() {
-      isCopyed = true;
-    });
-    Future.delayed(Duration(seconds: 2)).then((_) {
-      setState(() {
-        isCopyed = false;
-      });
-    });
+          widget.zikrData.isFavorite = !widget.zikrData.isFavorite;
+          favoriteSetState(() {});
+        },
+        icon: AnimatedSwitcher(
+          duration: Duration(milliseconds: 300),
+          child: widget.zikrData.isFavorite ? MyIcons.favoriteFilled() : Container(child: MyIcons.favorite()),
+        ),
+      );
+    }));
+  }
 
-    Fluttertoast.showToast(
-      msg: 'تم نسخ النص بنجاح',
+  copyButton() {
+    bool isCopyed = false;
+    return StatefulBuilder(builder: ((context, copySetState) {
+      return IconButton(
+        onPressed: () {
+          Clipboard.setData(ClipboardData(text: widget.zikrData.content));
+
+          copySetState(() {
+            isCopyed = true;
+          });
+          Future.delayed(Duration(seconds: 2)).then((_) {
+            copySetState(() {
+              isCopyed = false;
+            });
+          });
+
+          Fluttertoast.showToast(
+            msg: 'تم نسخ النص بنجاح',
+          );
+
+          Clipboard.getData(Clipboard.kTextPlain).then((value) {});
+        },
+        icon: AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: isCopyed ? MyIcons.copyFilled : Container(child: MyIcons.copy)),
+      );
+    }));
+  }
+
+  shareButton() {
+    return StatefulBuilder(
+      builder: ((context, copySetState) {
+        return IconButton(
+          onPressed: () => Share.share(widget.zikrData.content, subject: widget.zikrData.title),
+          icon: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: MyIcons.share),
+        );
+      }),
     );
-
-    Clipboard.getData(Clipboard.kTextPlain).then((value) {});
-  }
-
-  share() {
-    Share.share(widget.zikrData.content, subject: widget.zikrData.title);
-  }
-
-  favorite() async {
-    SqlDb sqlDb = SqlDb();
-    String toastText = '';
-    if (widget.zikrData.isFavorite) {
-      sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
-      toastText = 'تم حذف النص من المفضلة';
-      Get.find<AudioServiceCtr>().stopAudioById(widget.zikrData.numberInQuran);
-    } else {
-      sqlDb.insertData('favorite', {
-        'zikrType': widget.zikrData.zikrType.index,
-        'title': widget.zikrData.title,
-        'content': widget.zikrData.content,
-        'description': widget.zikrData.description,
-        'numberInQuran': widget.zikrData.numberInQuran,
-        'surahNumber': widget.zikrData.surahNumber,
-        'count': -1,
-      });
-      toastText = 'تم إضافة النص إلى المفضلة';
-    }
-    Fluttertoast.showToast(msg: toastText, backgroundColor: Colors.black);
-    if (widget.zikrData.isFavorite) widget.onDeleteFromFavorite?.call();
-
-    setState(() {
-      widget.zikrData.isFavorite = !widget.zikrData.isFavorite;
-    });
   }
 
   void checkIfIsFavorite() async {

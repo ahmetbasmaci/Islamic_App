@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../moduls/enums.dart';
 import '../../alarmsPage/controllers/alarm_page_ctr.dart';
-
 
 class PrayerTimeCtr extends GetxController {
   Rx<PrayerTimeType> nextPrayType = PrayerTimeType.fajr.obs;
@@ -177,17 +179,23 @@ class PrayerTimeCtr extends GetxController {
 
   Future _setPrayTimes() async {
     String api = _getApi();
-    try {
-      http.Response responce = await http.get(Uri.parse(api));
-      fajrTime.value = _getPrayTime(jsonDecode(responce.body), 'Fajr');
-      sunTime.value = _getPrayTime(jsonDecode(responce.body), 'Sunrise');
-      duhrTime.value = _getPrayTime(jsonDecode(responce.body), 'Dhuhr');
-      asrTime.value = _getPrayTime(jsonDecode(responce.body), 'Asr');
-      maghribTime.value = _getPrayTime(jsonDecode(responce.body), 'Maghrib');
-      ishaTime.value = _getPrayTime(jsonDecode(responce.body), 'Isha');
-    } catch (e) {
-      // ignore: avoid_print
-      print('ERROR:::: NO INTERNET... ON GET  ADHAN TİMES');
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
+      return;
+    } else {
+      try {
+        http.Response responce = await http.get(Uri.parse(api));
+        fajrTime.value = _getPrayTime(jsonDecode(responce.body), 'Fajr');
+        sunTime.value = _getPrayTime(jsonDecode(responce.body), 'Sunrise');
+        duhrTime.value = _getPrayTime(jsonDecode(responce.body), 'Dhuhr');
+        asrTime.value = _getPrayTime(jsonDecode(responce.body), 'Asr');
+        maghribTime.value = _getPrayTime(jsonDecode(responce.body), 'Maghrib');
+        ishaTime.value = _getPrayTime(jsonDecode(responce.body), 'Isha');
+      } catch (e) {
+        // ignore: avoid_print
+        print('ERROR:::: NO INTERNET... ON GET  ADHAN TİMES');
+      }
     }
   }
 

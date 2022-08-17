@@ -25,7 +25,7 @@ class MyDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: MyTexts.drawerTitle(context, title: 'اقسام البرنامج'),
             accountEmail: Text(''),
-            decoration:  BoxDecoration(color: MyColors.primary()),
+            decoration: BoxDecoration(color: MyColors.primary()),
             otherAccountsPictures: [
               CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -47,20 +47,20 @@ class MyDrawer extends StatelessWidget {
             onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
           ),
 
-          // drawerItem(
-          //   context: context,
-          //   title: 'مواقع الاسواق',
-          //   icon: MyIcons.shop,
-          //   routeName: ShopsPage.id,
-          //   onTap: () async {
-          //     var route = ModalRoute.of(context);
-          //     if (route!.settings.name != ShopsPage.id) {
-          //       await Get.to(ShopsPage());
-          //       if (Get.currentRoute.contains(HomePage.id)) Get.offAll(HomePage());
-          //     } else
-          //       Get.back();
-          //   },
-          // ),
+          // // drawerItem(
+          // //   context: context,
+          // //   title: 'مواقع الاسواق',
+          // //   icon: MyIcons.shop,
+          // //   routeName: ShopsPage.id,
+          // //   onTap: () async {
+          // //     var route = ModalRoute.of(context);
+          // //     if (route!.settings.name != ShopsPage.id) {
+          // //       await Get.to(ShopsPage());
+          // //       if (Get.currentRoute.contains(HomePage.id)) Get.offAll(HomePage());
+          // //     } else
+          // //       Get.back();
+          // //   },
+          // // ),
           drawerItem(
             title: 'المنبه',
             icon: MyIcons.notification(),
@@ -82,7 +82,7 @@ class MyDrawer extends StatelessWidget {
           Divider(height: 50, thickness: 2),
           drawerItem(
             title: 'المفضلة',
-            icon: MyIcons.favoriteFilled,
+            icon: MyIcons.favoriteFilled(),
             routeName: FavoritePage.id,
             onTap: () async => navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage()),
           ),

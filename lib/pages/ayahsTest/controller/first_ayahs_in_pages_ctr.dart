@@ -21,7 +21,7 @@ class FirstAyahsInPagesCtr extends GetxController {
     pageFrom.value = getStorage.read('pageFrom') ?? 1;
     pageTo.value = getStorage.read('pageTo') ?? 1;
     juzFrom.value = getStorage.read('juzFrom') ?? 1;
-    juzTo.value = getStorage.read('juzTo') ?? 1;
+    juzTo.value = getStorage.read('juzTo') ?? 30;
   }
   increaseQuestionCounter() {
     quastionNumber.value++;

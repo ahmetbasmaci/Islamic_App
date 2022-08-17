@@ -11,12 +11,14 @@ dependencies:
   audioplayers: ^1.0.1
   badges: ^2.0.3
   circle_bottom_navigation_bar: ^1.0.0
+  connectivity_plus: ^2.3.6+1
   cupertino_icons: ^1.0.5
   curved_navigation_bar: ^1.0.3
   dio: ^4.0.6
   flutter:
     sdk: flutter
   flutter_inset_box_shadow: ^1.0.8
+  flutter_launcher_icons: ^0.10.0
   flutter_local_notifications: ^9.7.0
   flutter_native_timezone: ^2.0.0
   flutter_staggered_animations: ^1.0.0
@@ -27,7 +29,9 @@ dependencies:
   google_fonts: ^3.0.1
   hijri: ^3.0.0
   http: ^0.13.4
+  like_button: ^2.0.4
   path_provider: ^2.0.11
+  rename: ^2.0.1
   rflutter_alert: ^2.0.4
   share_plus: ^4.0.10
   sqflite: ^2.0.3
@@ -37,6 +41,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_logo.png"
+
 flutter:
   uses-material-design: true
   assets:

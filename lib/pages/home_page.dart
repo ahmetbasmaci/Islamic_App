@@ -18,11 +18,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   List<Widget> items = [
-    MyIcons.home(color: MyColors.background()),
-    MyIcons.quran(color: MyColors.background()),
-    MyIcons.azkar(color: MyColors.background()),
+    MyIcons.home(color: MyColors.white),
+    MyIcons.quran(color: MyColors.white),
+    MyIcons.azkar(color: MyColors.white),
   ];
   List<Widget> screens = [
     MainScreen(),
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
-        top: currentIndex == 1,
+        top: currentIndex == 0,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               ? RefreshIndicator(
                   onRefresh: () async {
                     await Future.delayed(Duration(seconds: 1));
-                    Get.offAll(() => HomePage(), transition: Transition.fadeIn);
+                    Get.offAll(() => HomePage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
                     // setState(() {});
                   },
                   child: screens[currentIndex])

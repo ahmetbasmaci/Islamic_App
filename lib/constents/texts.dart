@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+
 class MyTexts {
   static Text outsideHeader(BuildContext context, {required String title}) {
     return Text(
@@ -79,6 +81,12 @@ class MyTexts {
     return Text(
       title,
       style: Theme.of(context).textTheme.subtitle2,
+    );
+  }
+  static Text quranSecondTitle(BuildContext context, {required String title,double?size}) {
+    return Text(
+      title,
+     style: TextStyle(color: MyColors.quranSecond(), fontSize: size??16, fontWeight: FontWeight.bold),
     );
   }
 }

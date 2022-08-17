@@ -19,10 +19,70 @@ class QuestionsFooter extends StatelessWidget {
       children: <Widget>[
         Divider(thickness: 1, endIndent: 50, indent: 50),
         questionInfoAndNextButton(context),
-        selectSpesificJuzAndPage(context),
-        answersInfo(context),
+        boodumSheetHandleButton(),
       ],
     );
+  }
+
+  Widget boodumSheetHandleButton() {
+    bool isBottomSheetActive = false;
+    return StatefulBuilder(builder: ((context, iconSetState) {
+      return IconButton(
+        onPressed: () {
+          getBottomSheet(context, isBottomSheetActive);
+          isBottomSheetActive = !isBottomSheetActive;
+          iconSetState(() {});
+        },
+        icon: AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: isBottomSheetActive ? Icon(Icons.keyboard_arrow_down) : Icon(Icons.keyboard_arrow_up)),
+      );
+    }));
+  }
+
+  getBottomSheet(BuildContext context, bool isBottomSheetActive) {
+    // if (isBottomSheetActive) {
+    //   Navigator.pop(context);
+    //   return;
+    // }
+
+    showBottomSheet(
+        context: context,
+        builder: ((context) {
+          return AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: MyColors.background(),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: MyColors.shadow(),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                )
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                ),
+                selectSpesificJuzAndPage(context),
+                answersInfo(context),
+              ],
+            ),
+          );
+        }));
   }
 
   Row questionInfoAndNextButton(BuildContext context) {
@@ -111,7 +171,10 @@ class QuestionsFooter extends StatelessWidget {
   Row selectDifferentTestType(BuildContext context) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(context, title: 'نوع الاختبار:  ',),
+        MyTexts.dropDownMenuTitle(
+          context,
+          title: 'نوع الاختبار:  ',
+        ),
         DropdownButton<QuestionType>(
           value: ctr.questionType.value,
           iconEnabledColor: MyColors.primary(),
