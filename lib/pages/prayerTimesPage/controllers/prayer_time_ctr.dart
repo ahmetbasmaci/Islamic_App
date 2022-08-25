@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../moduls/enums.dart';
-import '../../alarmsPage/controllers/alarm_page_ctr.dart';
+import '../../alarmsPage/controllers/alarm_ctr.dart';
 
 class PrayerTimeCtr extends GetxController {
   Rx<PrayerTimeType> nextPrayType = PrayerTimeType.fajr.obs;
@@ -55,9 +55,8 @@ class PrayerTimeCtr extends GetxController {
     isLoading.value = true;
     await _setCurrentPosition();
     await _setPrayTimes();
-    if (newTime == null) {
-      updatePrayerAlarms();
-    }
+    if (newTime == null) updatePrayerAlarms(); //just in current day
+
     // await _setPrayTimes();
     checkNextPrayTime();
     updateCurrentTime();
@@ -65,19 +64,6 @@ class PrayerTimeCtr extends GetxController {
   }
 
   Time differenceTimes(DateTime time1, DateTime time2) {
-    // double dTime1 = time1.hour.toDouble() + (time1.minute.toDouble() / 60) + (time1.second.toDouble() / (60 * 60));
-    // double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60) + (time2.second.toDouble() / (60 * 60));
-
-    // double timeDiff = dTime1 - dTime2;
-    // //TODO fix time after isha
-    // int hr = timeDiff.truncate();
-    // double minute = (timeDiff - timeDiff.truncate()) * 60;
-    // double second = (minute - minute.truncate()) * 60;
-    // // print('minute $minute');
-    // // print('second $second');
-    // // return Time(hr, minute.toInt(), second.toInt());
-    // return Time(hr, minute.toInt(), second.toInt());
-
     int hr = time1.difference(time2).inHours;
     int minute = time1.difference(time2).inMinutes - (hr * 60);
     int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
@@ -88,6 +74,7 @@ class PrayerTimeCtr extends GetxController {
   }
 
   bool compareTimes(Time time1, Time time2) {
+    //TODO fix this
     double dTime1 = time1.hour.toDouble() + (time1.minute.toDouble() / 60);
     double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60);
 
@@ -119,6 +106,13 @@ class PrayerTimeCtr extends GetxController {
 
     timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
     if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkNextPrayTime();
+
+    if (leftTime.hour == 0 &&
+        leftTime.minute == 0 &&
+        leftTime.second == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan) {
+      Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+    }
+
     updateCurrentTime();
   }
 
@@ -186,12 +180,12 @@ class PrayerTimeCtr extends GetxController {
     } else {
       try {
         http.Response responce = await http.get(Uri.parse(api));
-        fajrTime.value = _getPrayTime(jsonDecode(responce.body), 'Fajr');
-        sunTime.value = _getPrayTime(jsonDecode(responce.body), 'Sunrise');
-        duhrTime.value = _getPrayTime(jsonDecode(responce.body), 'Dhuhr');
-        asrTime.value = _getPrayTime(jsonDecode(responce.body), 'Asr');
-        maghribTime.value = _getPrayTime(jsonDecode(responce.body), 'Maghrib');
-        ishaTime.value = _getPrayTime(jsonDecode(responce.body), 'Isha');
+        fajrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Fajr');
+        sunTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Sunrise');
+        duhrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Dhuhr');
+        asrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Asr');
+        maghribTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Maghrib');
+        ishaTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Isha');
       } catch (e) {
         // ignore: avoid_print
         print('ERROR:::: NO INTERNET... ON GET  ADHAN TİMES');
@@ -199,7 +193,7 @@ class PrayerTimeCtr extends GetxController {
     }
   }
 
-  Time _getPrayTime(Map map, String prayName) {
+  Time _getPrayTimeData(Map map, String prayName) {
     int hour = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[0]);
     int minute = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[1]);
     return Time(hour, minute);

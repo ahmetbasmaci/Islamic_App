@@ -10,15 +10,15 @@ import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
-class OptionButton extends StatefulWidget {
-  const OptionButton({Key? key, required this.selectedAyah, required this.optionBtnProps}) : super(key: key);
+class QuestionButton extends StatefulWidget {
+  const QuestionButton({Key? key, required this.selectedAyah, required this.questionBtnProps}) : super(key: key);
   final AyahProp selectedAyah;
-  final List<OptionBtnProps> optionBtnProps;
+  final List<OptionBtnProps> questionBtnProps;
   @override
-  State<OptionButton> createState() => _OptionButtonState();
+  State<QuestionButton> createState() => _QuestionButtonState();
 }
 
-class _OptionButtonState extends State<OptionButton> {
+class _QuestionButtonState extends State<QuestionButton> {
   bool isPressed = false;
   FirstAyahsInPagesCtr ctr = Get.find<FirstAyahsInPagesCtr>();
   @override
@@ -31,16 +31,16 @@ class _OptionButtonState extends State<OptionButton> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            optionButton(optionBtnProps: widget.optionBtnProps[0]),
-            optionButton(optionBtnProps: widget.optionBtnProps[1]),
+            optionButton(optionBtnProps: widget.questionBtnProps[0]),
+            optionButton(optionBtnProps: widget.questionBtnProps[1]),
           ],
         ),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            optionButton(optionBtnProps: widget.optionBtnProps[2]),
-            optionButton(optionBtnProps: widget.optionBtnProps[3]),
+            optionButton(optionBtnProps: widget.questionBtnProps[2]),
+            optionButton(optionBtnProps: widget.questionBtnProps[3]),
           ],
         )
       ],
@@ -58,10 +58,10 @@ class _OptionButtonState extends State<OptionButton> {
           ? null
           : () {
               bool currectAnswerIsTrue = false;
-              if (ctr.questionType.value == QuestionType.ayahInJusAndPage) {
+              if (ctr.questionType.value == QuestionType.ayahInJuzAndPage) {
                 if (optionBtnProps.juz == widget.selectedAyah.juz && optionBtnProps.page == widget.selectedAyah.page)
                   currectAnswerIsTrue = true;
-              } else if (ctr.questionType.value == QuestionType.surahInJus) if (optionBtnProps.juz ==
+              } else if (ctr.questionType.value == QuestionType.surahInJuz) if (optionBtnProps.juz ==
                   widget.selectedAyah.juz) currectAnswerIsTrue = true;
 
               if (currectAnswerIsTrue) {
@@ -78,7 +78,9 @@ class _OptionButtonState extends State<OptionButton> {
               setState(() {});
             },
       child: AnimatedContainer(
+        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
         duration: Duration(milliseconds: 200),
+        width: MediaQuery.of(context).size.width * .4,
         decoration: BoxDecoration(color: optionBtnProps.color, borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
             offset: -distance,
@@ -94,21 +96,18 @@ class _OptionButtonState extends State<OptionButton> {
             inset: isPressed,
           ),
         ]),
-        padding: EdgeInsets.all(12),
-        child: Center(
-          child: Text(
-            ctr.questionType.value == QuestionType.ayahInJusAndPage
-                ? 'الجزء: ${optionBtnProps.juz}\nالصفحة: ${optionBtnProps.page}'
-                : 'الجزء: ${optionBtnProps.juz}',
-            style: TextStyle(color: optionBtnProps.textColor, fontSize: 16),
-          ),
+        child: Text(
+          ctr.questionType.value == QuestionType.ayahInJuzAndPage
+              ? '- الجزء: ${optionBtnProps.juz}\n- الصفحة: ${optionBtnProps.page}'
+              : '- الجزء: ${optionBtnProps.juz}',
+          style: TextStyle(color: optionBtnProps.textColor, fontSize: 16),
         ),
       ),
     );
   }
 
   findCurrectAnswer() {
-    for (OptionBtnProps optionBtnProps in widget.optionBtnProps)
+    for (OptionBtnProps optionBtnProps in widget.questionBtnProps)
       if (optionBtnProps.juz == widget.selectedAyah.juz && optionBtnProps.page == widget.selectedAyah.page) {
         optionBtnProps.color = MyColors.true_;
         optionBtnProps.textColor = MyColors.white;

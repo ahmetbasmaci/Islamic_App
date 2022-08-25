@@ -12,10 +12,10 @@ class FirstAyahsInPagesCtr extends GetxController {
   RxInt pageTo = 20.obs;
   RxInt juzFrom = 1.obs;
   RxInt juzTo = 30.obs;
-  Rx<QuestionType> questionType = QuestionType.ayahInJusAndPage.obs;
+  Rx<QuestionType> questionType = QuestionType.ayahInJuzAndPage.obs;
   int get getTrueAnwersCounter => trueAnswersCounter.value;
   FirstAyahsInPagesCtr() {
-    int typeIndex = getStorage.read('questionType') ?? QuestionType.ayahInJusAndPage.index;
+    int typeIndex = getStorage.read('questionType') ?? QuestionType.ayahInJuzAndPage.index;
     questionType.value = QuestionType.values[typeIndex];
 
     pageFrom.value = getStorage.read('pageFrom') ?? 1;

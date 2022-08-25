@@ -7,7 +7,7 @@ class MyColors {
   static const Color backgroundDark = Color.fromARGB(255, 30, 30, 30);
   static const Color _quranSecond = Color.fromARGB(255, 185, 121, 31);
   static const Color _quranSecondDark = Color.fromARGB(255, 136, 91, 29);
-  static const Color quranBackGroundLight = Color.fromARGB(255, 235, 235, 235);
+  static const Color quranBackGroundLight = Color.fromARGB(255, 239, 237, 227);
   static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
   static const Color primary_ = Color.fromARGB(255, 2, 111, 111);
   static const Color primaryDark = Color.fromARGB(255, 58, 126, 143);
@@ -34,6 +34,9 @@ class MyColors {
 
   static Color quranText() => ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundLight : black;
   static Color quranSecond() => ThemeService().getThemeMode() == ThemeMode.dark ? _quranSecondDark : _quranSecond;
+  static Color quranStatus() => ThemeService().getThemeMode() == ThemeMode.dark
+      ? Color.fromARGB(255, 0, 0, 0)
+      : Color.fromARGB(255, 210, 195, 174);
 
   static Color quranBackGround() =>
       ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;

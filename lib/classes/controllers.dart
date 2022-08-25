@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../pages/alarmsPage/controllers/alarm_page_ctr.dart';
+import '../pages/alarmsPage/controllers/alarm_ctr.dart';
 import '../pages/prayerTimesPage/controllers/prayer_time_ctr.dart';
 import '../pages/quranPage/controllers/quran_page_ctr.dart';
 import '../services/http_service.dart';

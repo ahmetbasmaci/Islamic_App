@@ -313,6 +313,24 @@ class AlarmsCtr extends GetxController {
     getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
   }
 
+  void setAzanAlarm({required PrayerTimeType nextPrayType}) {
+    AlarmProp alarmProp;
+    if (nextPrayType == PrayerTimeType.fajr)
+      alarmProp = fajrPrayProp;
+    else if (nextPrayType == PrayerTimeType.sun)
+      alarmProp = sunPrayProp;
+    else if (nextPrayType == PrayerTimeType.duhr)
+      alarmProp = duhrPrayProp;
+    else if (nextPrayType == PrayerTimeType.asr)
+      alarmProp = asrPrayProp;
+    else if (nextPrayType == PrayerTimeType.maghrib)
+      alarmProp = maghribPrayProp;
+    else
+      alarmProp = ishaPrayProp;
+
+    NotificationService.setOnceNotification(alarmProp: alarmProp);
+  }
+
   _showSnackBar({required Widget icon, required String title, required String message}) {
     Get.closeCurrentSnackbar();
     Get.snackbar(
@@ -322,25 +340,21 @@ class AlarmsCtr extends GetxController {
       message,
       icon: icon,
       snackPosition: SnackPosition.BOTTOM,
-      colorText:MyColors.whiteBlack(),
+      colorText: MyColors.whiteBlack(),
       backgroundColor: MyColors.background(),
       boxShadows: [BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
       titleText: Directionality(
         textDirection: TextDirection.rtl,
         child: Text(
           title,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: MyColors.whiteBlack()),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack()),
         ),
       ),
       messageText: Directionality(
         textDirection: TextDirection.rtl,
         child: Text(
           message,
-          style: TextStyle(
-              fontSize: 16, color: MyColors.whiteBlack()),
+          style: TextStyle(fontSize: 16, color: MyColors.whiteBlack()),
         ),
       ),
     );

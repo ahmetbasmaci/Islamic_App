@@ -77,6 +77,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                     ElevatedButton(
                       onPressed: () async {
                         await prayerTimeCtr.updatePrayerTimes();
+                        if(mounted)
                         setState(() {});
                       },
                       child: Text('تحديث'),

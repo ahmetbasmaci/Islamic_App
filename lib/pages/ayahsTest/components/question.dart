@@ -11,7 +11,7 @@ import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
 import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
-import 'option_button.dart';
+import 'question_button.dart';
 
 // ignore: must_be_immutable
 class Question extends StatelessWidget {
@@ -56,12 +56,12 @@ class Question extends StatelessWidget {
                       ),
                       child: MyTexts.content(
                         context,
-                        title: ctr.questionType.value == QuestionType.ayahInJusAndPage
+                        title: ctr.questionType.value == QuestionType.ayahInJuzAndPage
                             ? selectedAyah.ayah
                             : selectedAyah.surah,
                       ),
                     ),
-                    OptionButton(selectedAyah: selectedAyah, optionBtnProps: getRandomJuzAndPages()),
+                    QuestionButton(selectedAyah: selectedAyah, questionBtnProps: getRandomJuzAndPages()),
                   ],
                 ),
               ),
@@ -90,14 +90,53 @@ class Question extends StatelessWidget {
 
   List<OptionBtnProps> getRandomJuzAndPages() {
     List<OptionBtnProps> list = [];
-    list.add(OptionBtnProps(juz: selectedAyah.juz, page: selectedAyah.page));
-    for (int i = 1; i <= 3; i++) {
-      int randomJuz = Random().nextInt(30) + 1;
-      int randomPage = ctr.pageFrom.value;
-      if (ctr.pageFrom != ctr.pageTo)
-        randomPage = Random().nextInt(ctr.pageTo.value - ctr.pageFrom.value) + ctr.pageFrom.value;
-      list.add(OptionBtnProps(juz: randomJuz, page: randomPage));
+    int page1 = 0;
+    int page2 = 0;
+    int page3 = 0;
+    int juz1 = 0;
+    int juz2 = 0;
+    int juz3 = 0;
+
+    //check if page1 is not the same as page2 and in arrange betwean 1 and 20
+    int random = Random().nextInt(3);
+    if (random == 0) {
+      page1 = selectedAyah.page - 1 > 0 ? selectedAyah.page - 1 : selectedAyah.page + 1;
+      page2 = selectedAyah.page - 2 > 0 ? selectedAyah.page - 2 : selectedAyah.page + 2;
+      page3 = selectedAyah.page - 3 > 0 ? selectedAyah.page - 3 : selectedAyah.page + 3;
+
+      juz1 = selectedAyah.juz - 1 > 0 ? selectedAyah.juz - 1 : selectedAyah.juz + 1;
+      juz2 = selectedAyah.juz - 2 > 0 ? selectedAyah.juz - 2 : selectedAyah.juz + 2;
+      juz3 = selectedAyah.juz - 3 > 0 ? selectedAyah.juz - 3 : selectedAyah.juz + 3;
+    } else if (random == 1) {
+      page1 = selectedAyah.page - 1 > 0 ? selectedAyah.page - 1 : selectedAyah.page + 2;
+      page2 = selectedAyah.page - 2 > 0 ? selectedAyah.page - 2 : selectedAyah.page + 3;
+      page3 = selectedAyah.page + 1 < 21 ? selectedAyah.page + 1 : selectedAyah.page - 3;
+
+      juz1 = selectedAyah.juz - 1 > 0 ? selectedAyah.juz - 1 : selectedAyah.juz + 2;
+      juz2 = selectedAyah.juz - 2 > 0 ? selectedAyah.juz - 2 : selectedAyah.juz + 3;
+      juz3 = selectedAyah.juz + 1 < 31 ? selectedAyah.juz + 1 : selectedAyah.juz - 3;
+    } else if (random == 2) {
+      page1 = selectedAyah.page - 1 > 0 ? selectedAyah.page - 2 : selectedAyah.page + 3;
+      page2 = selectedAyah.page + 1 < 21 ? selectedAyah.page + 1 : selectedAyah.page - 1;
+      page3 = selectedAyah.page + 2 < 21 ? selectedAyah.page + 2 : selectedAyah.page - 2;
+
+      juz1 = selectedAyah.juz - 1 > 0 ? selectedAyah.juz - 2 : selectedAyah.juz + 3;
+      juz2 = selectedAyah.juz + 1 < 31 ? selectedAyah.juz + 1 : selectedAyah.juz - 1;
+      juz3 = selectedAyah.juz + 2 < 31 ? selectedAyah.juz + 2 : selectedAyah.juz - 2;
+    } else if (random == 3) {
+      page1 = selectedAyah.page + 1 < 21 ? selectedAyah.page + 1 : selectedAyah.page - 1;
+      page2 = selectedAyah.page + 2 < 21 ? selectedAyah.page + 2 : selectedAyah.page - 2;
+      page3 = selectedAyah.page + 3 < 21 ? selectedAyah.page + 3 : selectedAyah.page - 3;
+
+      juz1 = selectedAyah.juz + 1 < 31 ? selectedAyah.juz + 1 : selectedAyah.juz - 1;
+      juz2 = selectedAyah.juz + 2 < 31 ? selectedAyah.juz + 2 : selectedAyah.juz - 2;
+      juz3 = selectedAyah.juz + 3 < 31 ? selectedAyah.juz + 3 : selectedAyah.juz - 3;
     }
+
+    list.add(OptionBtnProps(juz: selectedAyah.juz, page: selectedAyah.page));
+    list.add(OptionBtnProps(juz: juz1, page: page1));
+    list.add(OptionBtnProps(juz: juz2, page: page2));
+    list.add(OptionBtnProps(juz: juz3, page: page3));
     list.shuffle(); //resort randomly
     return list;
   }

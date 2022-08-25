@@ -27,60 +27,91 @@ class QuestionsFooter extends StatelessWidget {
   Widget boodumSheetHandleButton() {
     bool isBottomSheetActive = false;
     return StatefulBuilder(builder: ((context, iconSetState) {
-      return IconButton(
-        onPressed: () {
-          getBottomSheet(context, isBottomSheetActive);
-          isBottomSheetActive = !isBottomSheetActive;
-          iconSetState(() {});
-        },
-        icon: AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: isBottomSheetActive ? Icon(Icons.keyboard_arrow_down) : Icon(Icons.keyboard_arrow_up)),
+      return SizedBox(
+        width: 120,
+        child: MaterialButton(
+          onPressed: () {
+            getBottomSheet(context, isBottomSheetActive);
+            isBottomSheetActive = !isBottomSheetActive;
+            iconSetState(() {});
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.keyboard_arrow_up),
+              MyTexts.normal(context, title: ' خيارات '),
+              Icon(Icons.keyboard_arrow_up),
+            ],
+          ),
+        ),
       );
     }));
   }
 
   getBottomSheet(BuildContext context, bool isBottomSheetActive) {
-    // if (isBottomSheetActive) {
-    //   Navigator.pop(context);
-    //   return;
-    // }
-
     showBottomSheet(
         context: context,
         builder: ((context) {
-          return AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: MyColors.background(),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: MyColors.shadow(),
-                  blurRadius: 10,
-                  spreadRadius: 5,
-                )
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.keyboard_arrow_down),
+          return Stack(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: MyColors.background(),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: MyColors.shadow(),
+                      blurRadius: 10,
+                      spreadRadius: 5,
+                    )
+                  ],
                 ),
-                selectSpesificJuzAndPage(context),
-                answersInfo(context),
-              ],
-            ),
+                child: Obx(
+                  () => Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          selectDifferentTestType(context),
+                        ],
+                      ),
+                      selectSpecificPage(context),
+                      ctr.questionType.value == QuestionType.ayahInJuzAndPage
+                          ? selectSpecificJuz(context)
+                          : Container(),
+                      answersInfo(context),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 10,
+                top: 10,
+                child: Container(
+                  padding: EdgeInsets.all(2),
+                  decoration:
+                      BoxDecoration(color: MyColors.background(), borderRadius: BorderRadius.circular(100), boxShadow: [
+                    BoxShadow(
+                      color: MyColors.primary().withOpacity(.2),
+                      blurRadius: 10,
+                      spreadRadius: 5,
+                    )
+                  ]),
+                  child: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                  ),
+                ),
+              ),
+            ],
           );
         }));
   }
@@ -103,69 +134,22 @@ class QuestionsFooter extends StatelessWidget {
     );
   }
 
-  Container answersInfo(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: MySiezes.cardPadding),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: MyColors.zikrCard(),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),
+  Widget answersInfo(BuildContext context) {
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          correctAndWrongAnswersLabels(context, isCorrect: true),
+          Expanded(child: Container()),
+          correctAndWrongAnswersLabels(context, isCorrect: false),
         ],
       ),
-      child: Obx(
-        () => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            correctAndWrongAnswersLabels(context, isCorrect: true),
-            correctAndWrongAnswersLabels(context, isCorrect: false),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Row correctAndWrongAnswersLabels(BuildContext context, {required bool isCorrect}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
-        MyTexts.normal(
-          context,
-          title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
-          color: isCorrect ? MyColors.true_ : MyColors.false_,
-          size: 15,
-        ),
-        Material(
-          borderRadius: BorderRadius.circular(100),
-          elevation: 1,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: MyTexts.normal(context,
-                title: isCorrect ? '${ctr.trueAnswersCounter}' : '${ctr.wrongAnwersCounter}',
-                color: isCorrect ? MyColors.true_ : MyColors.false_),
-          ),
-        )
-      ],
     );
   }
 
   void getNextQuestion() {
     ctr.increaseQuestionCounter();
     pageSetState();
-  }
-
-  Widget selectSpesificJuzAndPage(BuildContext context) {
-    return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          selectDifferentTestType(context),
-          selectFromOption(context),
-          selectToOption(context),
-        ],
-      ),
-    );
   }
 
   Row selectDifferentTestType(BuildContext context) {
@@ -186,38 +170,51 @@ class QuestionsFooter extends StatelessWidget {
           },
           items: [
             DropdownMenuItem(
-                value: QuestionType.ayahInJusAndPage, child: MyTexts.dropDownMenuItem(context, title: 'الايات')),
-            DropdownMenuItem(value: QuestionType.surahInJus, child: MyTexts.dropDownMenuItem(context, title: 'السور')),
+                value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem(context, title: 'الايات')),
+            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem(context, title: 'السور')),
           ],
         ),
       ],
     );
   }
 
-  Row selectToOption(BuildContext context) {
+  Widget selectSpecificPage(BuildContext context) {
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          selectFromOption(context, true),
+          selectToOption(context, true),
+        ],
+      ),
+    );
+  }
+
+  Widget selectSpecificJuz(BuildContext context) {
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          selectFromOption(context, false),
+          selectToOption(context, false),
+        ],
+      ),
+    );
+  }
+
+  Row selectFromOption(BuildContext context, bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(
-          context,
-          title: ctr.questionType.value == QuestionType.ayahInJusAndPage ? 'الى الصفحة    ' : 'الى الجزء    ',
-        ),
+        MyTexts.dropDownMenuTitle(context, title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
         DropdownButton<int>(
           items: List.generate(
-            ctr.questionType.value == QuestionType.ayahInJusAndPage ? 21 - ctr.pageFrom.value : 31 - ctr.juzFrom.value,
-            (index) => DropdownMenuItem(
-                value: ctr.questionType.value == QuestionType.ayahInJusAndPage
-                    ? ctr.pageFrom.value + index
-                    : ctr.juzFrom.value + index,
-                child: MyTexts.dropDownMenuItem(
-                  context,
-                  title: ctr.questionType.value == QuestionType.ayahInJusAndPage
-                      ? '${ctr.pageFrom.value + index}'
-                      : '${ctr.juzFrom.value + index}',
-                )),
+            isPage ? 20 : 30,
+            (index) =>
+                DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(context, title: '${index + 1}')),
           ),
-          value: ctr.questionType.value == QuestionType.ayahInJusAndPage ? ctr.pageTo.value : ctr.juzTo.value,
+          value: isPage ? ctr.pageFrom.value : ctr.juzFrom.value,
           onChanged: (val) {
-            ctr.questionType.value == QuestionType.ayahInJusAndPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!);
+            isPage ? ctr.changePageFrom(val!) : ctr.changeJuzFrom(val!);
           },
           iconEnabledColor: MyColors.primary(),
         ),
@@ -225,26 +222,69 @@ class QuestionsFooter extends StatelessWidget {
     );
   }
 
-  Row selectFromOption(BuildContext context) {
+  Row selectToOption(BuildContext context, bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(context,
-            title: ctr.questionType.value == QuestionType.ayahInJusAndPage ? 'من الصفحة    ' : 'من الجزء    '),
+        MyTexts.dropDownMenuTitle(
+          context,
+          title: isPage ? 'الى الصفحة    ' : 'الى الجزء    ',
+        ),
         DropdownButton<int>(
           items: List.generate(
-            ctr.questionType.value == QuestionType.ayahInJusAndPage ? 20 : 30,
-            (index) =>
-                DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(context, title: '${index + 1}')),
+            isPage ? 21 - ctr.pageFrom.value : 31 - ctr.juzFrom.value,
+            (index) => DropdownMenuItem(
+                value: isPage ? ctr.pageFrom.value + index : ctr.juzFrom.value + index,
+                child: MyTexts.dropDownMenuItem(
+                  context,
+                  title: isPage ? '${ctr.pageFrom.value + index}' : '${ctr.juzFrom.value + index}',
+                )),
           ),
-          value: ctr.questionType.value == QuestionType.ayahInJusAndPage ? ctr.pageFrom.value : ctr.juzFrom.value,
+          value: isPage ? ctr.pageTo.value : ctr.juzTo.value,
           onChanged: (val) {
-            ctr.questionType.value == QuestionType.ayahInJusAndPage
-                ? ctr.changePageFrom(val!)
-                : ctr.changeJuzFrom(val!);
+            isPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!);
           },
           iconEnabledColor: MyColors.primary(),
         ),
       ],
+    );
+  }
+
+  Widget correctAndWrongAnswersLabels(BuildContext context, {required bool isCorrect}) {
+    return Expanded(
+      flex: 6,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(MySiezes.cardPadding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: MyColors.background(),
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(.2), blurRadius: 1, offset: Offset(0, 10)),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
+            MyTexts.normal(
+              context,
+              title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
+              color: isCorrect ? MyColors.true_ : MyColors.false_,
+              size: 10,
+            ),
+            Material(
+              borderRadius: BorderRadius.circular(100),
+              elevation: 1,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: MyTexts.normal(context,
+                    title: isCorrect ? '${ctr.trueAnswersCounter}' : '${ctr.wrongAnwersCounter}',
+                    color: isCorrect ? MyColors.true_ : MyColors.false_),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

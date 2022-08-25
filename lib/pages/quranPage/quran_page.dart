@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +14,7 @@ import 'package:zad_almumin/constents/icons.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/services/audio_service.dart';
 import 'package:zad_almumin/services/http_service.dart';
+import 'package:zad_almumin/services/navigation_service.dart';
 
 import '../../services/theme_service.dart';
 import '../home_page.dart';
@@ -57,28 +59,42 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     });
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     screenW = MediaQuery.of(context).size.width;
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        key: _key,
-        endDrawer: myEndDrawer(),
-        drawer: MyDrawer(),
-        body: Stack(
-          children: [
-            DefaultTabController(
-              // initialIndex: 20,
-              length: 604,
-              child: TabBarView(
-                controller: tabCtr,
-                children: [for (var i = 1; i <= 604; i++) quranPage(index: i)],
+    return WillPopScope(
+      onWillPop: () async {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+        Get.offAll(HomePage());
+        return false;
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          key: _key,
+          endDrawer: myEndDrawer(),
+          drawer: MyDrawer(),
+          body: Stack(
+            children: [
+              DefaultTabController(
+                // initialIndex: 20,
+                length: 604,
+                child: TabBarView(
+                  controller: tabCtr,
+                  children: [for (var i = 1; i <= 604; i++) quranPage(index: i)],
+                ),
               ),
-            ),
-            upPart(),
-            downPart()
-          ],
-        ));
+              upPart(),
+              downPart()
+            ],
+          )),
+    );
   }
 
   Widget downPart() {
@@ -150,7 +166,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                         BoxShadow(color: MyColors.quranSecond().withOpacity(0.2), blurRadius: 30, spreadRadius: 10),
                       ],
                     ),
-                    child: MyTexts.quranSecondTitle(context, title: 'ياسر سلامة'),
+                    child: MyTexts.quranSecondTitle(context, title: 'العفاسي'),
                   ),
                   Row(
                     children: [
@@ -487,6 +503,10 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                       onPressed: () => _key.currentState!.openEndDrawer(),
                       icon: MyIcons.book(color: MyColors.quranSecond()),
                     ),
+                    // IconButton(
+                    //   onPressed: () => Get.offAll(HomePage()),
+                    //   icon: MyIcons.leftArrow,
+                    // ),
                   ],
                 ),
               ),
@@ -561,19 +581,30 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         break;
       }
 
-    return isBannerWidget(
-      isMarked: isMarked,
-      child: InkWell(
-        onTap: () => changeOnShownState(!quranCtr.onShown.value),
-        onLongPress: () => showMarkDialog(),
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: animationDurationMilliseconds),
-          color: MyColors.quranBackGround(),
-          child: Stack(
-            children: [
-              Image.asset('assets/images/quran pages/00$index.png', fit: BoxFit.cover, color: MyColors.quranText()),
-              Image.asset('assets/images/quran pages/000$index.png', fit: BoxFit.cover),
-            ],
+    return Center(
+      child: isBannerWidget(
+        isMarked: isMarked,
+        child: InkWell(
+          onTap: () => changeOnShownState(!quranCtr.onShown.value),
+          onLongPress: () => showMarkDialog(),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: animationDurationMilliseconds),
+            color: MyColors.quranBackGround(),
+            child: Stack(
+              children: [
+                Center(
+                    child: Image.asset(
+                  'assets/images/quran pages/00$index.png',
+                  height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
+                  color: MyColors.quranText(),
+                )),
+                Center(
+                    child: Image.asset(
+                  'assets/images/quran pages/000$index.png',
+                  height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
+                )),
+              ],
+            ),
           ),
         ),
       ),
@@ -581,6 +612,11 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
   }
 
   changeOnShownState(bool value) {
+    if (value)
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    else
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
     quranCtr.onShown.value = value;
     setState(() {});
   }

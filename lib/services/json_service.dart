@@ -33,7 +33,6 @@ class JsonService {
     Map<String, dynamic> data = json.decode(jsonString);
     List<dynamic> allSureAyahs = data['ayahs'];
     for (var i = 0; i < allSureAyahs.length; i++) {
-      // print(allSureAyahs[i]['numberInQuran']);
       if (allSureAyahs[i]['numberInQuran'] == numberInQuran + 1) {
         return ZikrData(
           zikrType: ZikrType.quran,

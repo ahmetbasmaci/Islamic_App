@@ -10,7 +10,7 @@ import '../../components/my_switch.dart';
 import '../../constents/icons.dart';
 import '../../constents/texts.dart';
 import 'classes/alarm_prop.dart';
-import 'controllers/alarm_page_ctr.dart';
+import 'controllers/alarm_ctr.dart';
 
 class AlarmPage extends StatefulWidget {
   const AlarmPage({Key? key}) : super(key: key);

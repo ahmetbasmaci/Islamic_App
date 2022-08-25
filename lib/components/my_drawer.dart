@@ -99,7 +99,9 @@ class MyDrawer extends StatelessWidget {
 
   navigateTo({required BuildContext context, required String routeName, required Widget page}) async {
     var route = ModalRoute.of(context);
-    if (route!.settings.name != routeName) {
+    if (route!.settings.name!.contains(routeName)) {
+      Get.back();
+    } else {
       if (Get.currentRoute.contains(HomePage.id))
         await Get.to(
           page,
@@ -116,14 +118,7 @@ class MyDrawer extends StatelessWidget {
         );
 
       if (Get.currentRoute.contains(HomePage.id)) Get.back();
-      // Get.offAll(
-      //   HomePage(),
-      //   transition: Transition.size,
-      //   duration: Duration(milliseconds: 500),
-      //   curve: Curves.decelerate,
-      // );
-    } else
-      Get.back();
+    }
   }
 }
 

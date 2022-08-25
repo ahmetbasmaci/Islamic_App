@@ -129,7 +129,7 @@ class NotificationService {
       _getNotificationDetails(
         notificationSound: selectedAlarmType,
         bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigBody: (await JsonService.getHadithData()).content,
       ),
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
