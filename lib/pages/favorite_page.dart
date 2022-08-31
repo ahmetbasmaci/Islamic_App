@@ -33,92 +33,89 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-          appBar: MyAppBar(
-            title: 'المفضلة',
-            actions: [
-              MyIcons.menu(),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
-                  child: DropdownButton<ZikrType>(
-                      icon: Container(),
-                      value: selectedZikrType,
-                      items: [
-                        DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(context, title: 'الكل')),
-                        DropdownMenuItem(
-                            value: ZikrType.allahNames,
-                            child: MyTexts.dropDownMenuItem(context, title: 'أسماء الله الحسنى')),
-                        DropdownMenuItem(
-                            value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(context, title: 'الاذكار')),
-                        DropdownMenuItem(
-                            value: ZikrType.quran, child: MyTexts.dropDownMenuItem(context, title: 'القران')),
-                        DropdownMenuItem(
-                            value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(context, title: 'الحديث')),
-                      ],
-                      onChanged: (newSelectedType) {
-                        getStorage.write('selectedZikrType', newSelectedType!.index);
-                        setState(() {
-                          selectedZikrType = newSelectedType;
-                        });
-                      }),
-                ),
+    return Scaffold(
+        appBar: MyAppBar(
+          title: 'المفضلة',
+          actions: [
+            MyIcons.menu(),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
+                child: DropdownButton<ZikrType>(
+                    icon: Container(),
+                    value: selectedZikrType,
+                    items: [
+                      DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem( title: 'الكل')),
+                      DropdownMenuItem(
+                          value: ZikrType.allahNames,
+                          child: MyTexts.dropDownMenuItem( title: 'أسماء الله الحسنى')),
+                      DropdownMenuItem(
+                          value: ZikrType.azkar, child: MyTexts.dropDownMenuItem( title: 'الاذكار')),
+                      DropdownMenuItem(
+                          value: ZikrType.quran, child: MyTexts.dropDownMenuItem( title: 'القران')),
+                      DropdownMenuItem(
+                          value: ZikrType.hadith, child: MyTexts.dropDownMenuItem( title: 'الحديث')),
+                    ],
+                    onChanged: (newSelectedType) {
+                      getStorage.write('selectedZikrType', newSelectedType!.index);
+                      setState(() {
+                        selectedZikrType = newSelectedType;
+                      });
+                    }),
               ),
-            ],
-          ),
-          drawer: MyDrawer(),
-          body: Container(
-            margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
-            child: FutureBuilder(
-              future: readFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<ZikrData> selectedZikrDataList = [];
-                  if (selectedZikrType == ZikrType.all)
-                    selectedZikrDataList.addAll(zikrDataList);
-                  else
-                    for (var element in zikrDataList)
-                      if (element.zikrType == selectedZikrType) selectedZikrDataList.add(element);
-
-                  return AnimatedList(
-                    key: listKey,
-                    initialItemCount: selectedZikrDataList.length,
-                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                    itemBuilder: (context, index, animation) {
-                      return SizeTransition(
-                        key: UniqueKey(),
-                        sizeFactor: animation,
-                        child: ZikrCard2(
-                          haveMargin: true,
-                          onDeleteFromFavorite: () {
-                            ZikrData deletingZikrData = selectedZikrDataList[index];
-                            listKey.currentState!.removeItem(
-                              index,
-                              duration: Duration(milliseconds: 500),
-                              (context, animation) {
-                                return SizeTransition(
-                                  sizeFactor: animation,
-                                  child: ZikrCard2(
-                                    haveMargin: true,
-                                  ).allahNamesCard(deletingZikrData),
-                                );
-                              },
-                            );
-                            zikrDataList.remove(selectedZikrDataList[index]);
-                            selectedZikrDataList.removeAt(index);
-                          },
-                        ).byType(selectedZikrDataList[index]),
-                      );
-                    },
-                  );
-                } else
-                  return MyCircularProgressIndecator();
-              },
             ),
-          )),
-    );
+          ],
+        ),
+        drawer: MyDrawer(),
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
+          child: FutureBuilder(
+            future: readFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<ZikrData> selectedZikrDataList = [];
+                if (selectedZikrType == ZikrType.all)
+                  selectedZikrDataList.addAll(zikrDataList);
+                else
+                  for (var element in zikrDataList)
+                    if (element.zikrType == selectedZikrType) selectedZikrDataList.add(element);
+
+                return AnimatedList(
+                  key: listKey,
+                  initialItemCount: selectedZikrDataList.length,
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                  itemBuilder: (context, index, animation) {
+                    return SizeTransition(
+                      key: UniqueKey(),
+                      sizeFactor: animation,
+                      child: ZikrCard2(
+                        haveMargin: true,
+                        onDeleteFromFavorite: () {
+                          ZikrData deletingZikrData = selectedZikrDataList[index];
+                          listKey.currentState!.removeItem(
+                            index,
+                            duration: Duration(milliseconds: 500),
+                            (context, animation) {
+                              return SizeTransition(
+                                sizeFactor: animation,
+                                child: ZikrCard2(
+                                  haveMargin: true,
+                                ).allahNamesCard(deletingZikrData),
+                              );
+                            },
+                          );
+                          zikrDataList.remove(selectedZikrDataList[index]);
+                          selectedZikrDataList.removeAt(index);
+                        },
+                      ).byType(selectedZikrDataList[index]),
+                    );
+                  },
+                );
+              } else
+                return MyCircularProgressIndecator();
+            },
+          ),
+        ));
   }
 
   Future readDataFromDb() async {
@@ -131,7 +128,7 @@ class _FavoritePageState extends State<FavoritePage> {
           title: listMap[i]['title'],
           content: listMap[i]['content'],
           description: listMap[i]['description'],
-          numberInQuran: listMap[i]['numberInQuran'],
+          ayahNumber: listMap[i]['numberInQuran'],
           surahNumber: listMap[i]['surahNumber'],
           isFavorite: true,
         ),

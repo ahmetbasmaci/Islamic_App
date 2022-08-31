@@ -18,6 +18,8 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_inset_box_shadow: ^1.0.8
   flutter_launcher_icons: ^0.10.0
   flutter_local_notifications: ^9.7.0
@@ -30,6 +32,7 @@ dependencies:
   google_fonts: ^3.0.1
   hijri: ^3.0.0
   http: ^0.13.4
+  intl: ^0.17.0
   like_button: ^2.0.4
   path_provider: ^2.0.11
   rename: ^2.0.1
@@ -58,3 +61,15 @@ flutter:
     - assets/database/quran/surahs/
     - assets/database/quran/firstAyahsFromEachPage/
     - assets/images/quran pages/
+    - assets/database/quran/
+    - assets/lang/
+  # fonts:
+  #   - family: Almarai
+  #     fonts:
+  #        - asset: assets/fonts/Almarai-Light.ttf
+  #          weight: 700
+    # - family: Schyler
+    #   fonts:
+    #     - asset: assets/fonts/me_quran_volt_newmet.ttf
+    #     - asset: assets/fonts/noorehira.ttf
+        

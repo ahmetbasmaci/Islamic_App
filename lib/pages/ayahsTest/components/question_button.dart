@@ -26,7 +26,7 @@ class _QuestionButtonState extends State<QuestionButton> {
     return Column(
       children: <Widget>[
         const SizedBox(height: MySiezes.betweanCardItems * 2),
-        MyTexts.outsideHeader(context, title: 'اختر الصفحة والجزء'),
+        MyTexts.outsideHeader( title: 'اختر الصفحة والجزء'),
         const SizedBox(height: MySiezes.betweanCardItems),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

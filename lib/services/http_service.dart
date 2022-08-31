@@ -1,52 +1,72 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:zad_almumin/pages/quranPage/controllers/quran_page_ctr.dart';
 
-import '../pages/quranPage/classes/surah.dart';
-import 'navigation_service.dart';
+import '../constents/constents.dart';
+import '../pages/quranPage/classes/ayah.dart';
 
 class HttpService {
   static HttpServiceCtr httpServiceCtrl = Get.find<HttpServiceCtr>();
-  static Future<File?> getAyah({required int numberInQuran, required bool showToast}) async {
-    return _downloadFile(
-        url: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/$numberInQuran.mp3',
-        numberInQuran: numberInQuran,
-        showToast: showToast);
-  }
 
-  static Future<List<Surah>> getSurah({required int surahNumber}) async {
-    List<Surah> list = [];
-    String jsonString = await DefaultAssetBundle.of(NavigationService.navigatorKey.currentContext!)
-        .loadString('assets/database/quran/surahs/$surahNumber.json');
-    Map data = jsonDecode(jsonString);
-    List ayahs = data['ayahs'];
-    // Fluttertoast.showToast(msg: 'جار فحص وتنزيل ايات السورة');
-    httpServiceCtrl.isLoading.value = true;
-    httpServiceCtrl.totalAyahsDownload.value = ayahs.length;
-    httpServiceCtrl.isStopDownload.value = false;
-    for (var i = 0; i < ayahs.length; i++) {
-      if (httpServiceCtrl.isStopDownload.value) break;
-      int numberInQuran = ayahs[i]['numberInQuran'];
-      httpServiceCtrl.downloadingIndex.value = i + 1;
-      File? file = await getAyah(numberInQuran: numberInQuran, showToast: false);
+  static Future<List<Ayah>> getSurah({required int surahNumber}) async {
+    bool isDownloadedBefore =
+        GetStorage().read('${Get.find<QuranPageCtr>().selectedQuranReader.value.name}$surahNumber') ?? false;
 
-      list.add(Surah(file: file!, numberInQuran: numberInQuran));
-    }
-    httpServiceCtrl.isLoading.value = false;
-    return list;
-  }
-
-  static Future<File?> _downloadFile({required String url, required int numberInQuran, required bool showToast}) async {
     String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File('$dir/${numberInQuran.toString()}.mp3');
+
+    List<Ayah> ayahsList = [];
+    if (!isDownloadedBefore) {
+      httpServiceCtrl.totalAyahsDownload.value = Get.find<QuranPageCtr>().totalAyahsCount.value;
+      httpServiceCtrl.isLoading.value = true;
+      httpServiceCtrl.isStopDownload.value = false;
+    }
+    for (var i = 1; i <= Get.find<QuranPageCtr>().totalAyahsCount.value; i++) {
+      if (!isDownloadedBefore && httpServiceCtrl.isStopDownload.value) break;
+
+      Ayah newAyah = Ayah(file: File(''), surahNumber: surahNumber, ayahNumber: i);
+      String filePath =
+          '$dir/${Get.find<QuranPageCtr>().selectedQuranReader.value.name}/${newAyah.formatedSurahNumber}${newAyah.formatedAyahNumber}.mp3';
+
+      newAyah.file = File(filePath);
+      if (!isDownloadedBefore) {
+        httpServiceCtrl.downloadingIndex.value = i + 1;
+        bool exists = await newAyah.file.exists();
+        if (!exists)
+          newAyah.file = await _downloadFile(ayah: newAyah, filePath: filePath, showToast: false) ?? newAyah.file;
+      }
+      ayahsList.add(newAyah);
+    }
+    if (!isDownloadedBefore) {
+      httpServiceCtrl.isLoading.value = false;
+      if (ayahsList.length == Get.find<QuranPageCtr>().totalAyahsCount.value) {
+        GetStorage().write('${Get.find<QuranPageCtr>().selectedQuranReader.value.name}$surahNumber', true);
+      }
+    }
+    return ayahsList;
+  }
+
+  static Future<File?> getAyah({required Ayah ayah, required String dir, required bool showToast}) async {
+    String filePath =
+        '$dir/${Get.find<QuranPageCtr>().selectedQuranReader.value.name}/${ayah.formatedSurahNumber}${ayah.formatedAyahNumber}.mp3';
+    File file = File(filePath);
     bool exists = await file.exists();
     if (exists) return file;
+    return await _downloadFile(ayah: ayah, filePath: filePath, showToast: showToast);
+  }
 
+  static Future<File?> _downloadFile({required Ayah ayah, required String filePath, bool showToast = false}) async {
+    String jsonString = await DefaultAssetBundle.of(Constants.navigatorKey.currentContext!)
+        .loadString('assets/database/quran/readers_url.json');
+    Map data = jsonDecode(jsonString);
+    String readerUrl = data[Get.find<QuranPageCtr>().selectedQuranReader.value.name];
+    String url = '$readerUrl${ayah.formatedSurahNumber}${ayah.formatedAyahNumber}.mp3';
+    File file = await File(filePath).create(recursive: true);
     // var result = await Connectivity().checkConnectivity();
     // if (result == ConnectivityResult.none) {
     //   Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
@@ -71,13 +91,6 @@ class HttpService {
     }
     return file;
     // }
-  }
-
-  static Future downloadAllQuranAyahs() async {
-    for (var i = 0; i <= 6236; i++) {
-      await _downloadFile(
-          url: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/$i.mp3', numberInQuran: i, showToast: false);
-    }
   }
 }
 

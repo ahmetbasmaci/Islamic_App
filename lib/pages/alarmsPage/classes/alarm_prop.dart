@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
 import '../../../moduls/enums.dart';
+import '../../../services/notification_api.dart';
 
 class AlarmProp {
   AlarmProp({
     required this.id,
-    required this.timeOfDay,
+    required this.time,
     required this.storageKey,
     required this.notificationTitle,
     required this.notificationBody,
@@ -16,11 +18,12 @@ class AlarmProp {
     required this.snackBarDesabeldBody,
     required this.alarmPeriod,
     this.alarmType = ALarmType.none,
+    this.notificationSound = NotificationSound.random,
     this.day = 0,
   });
   RxBool isActive = false.obs;
   int id;
-  TimeOfDay timeOfDay;
+  Rx<Time> time;
   String storageKey;
   String notificationTitle;
   String notificationBody;
@@ -31,14 +34,16 @@ class AlarmProp {
   int day;
   ALarmPeriod alarmPeriod;
   ALarmType alarmType;
+  NotificationSound notificationSound;
+
   Map<String, dynamic> toJson() => {
-        'hour': timeOfDay.hour.toString(),
-        'minute': timeOfDay.minute.toString(),
+        'hour': time.value.hour.toString(),
+        'minute': time.value.minute.toString(),
         'isActive': isActive.value,
       };
 
   fromJson(Map<String, dynamic> json) {
-    timeOfDay = TimeOfDay(hour: int.parse(json['hour']), minute: int.parse(json['minute']));
+    time.value = Time(int.parse(json['hour']), int.parse(json['minute']));
     isActive.value = json['isActive'];
   }
 }

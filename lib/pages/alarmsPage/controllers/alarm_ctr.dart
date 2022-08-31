@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../moduls/enums.dart';
+import '../../../services/json_service.dart';
 import '../../../services/notification_api.dart';
 import '../classes/alarm_prop.dart';
 
@@ -17,7 +18,7 @@ class AlarmsCtr extends GetxController {
 //!------------- quran ----------------------------
   AlarmProp kahfSureProp = AlarmProp(
     id: 4,
-    timeOfDay: const TimeOfDay(hour: 9, minute: 50),
+    time: Time(9, 50).obs,
     storageKey: 'kahfSure',
     notificationTitle: 'لا تنسا قراءة سورة الكهف ',
     notificationBody:
@@ -31,7 +32,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp quranPageEveryDayProp = AlarmProp(
     id: 5,
-    timeOfDay: const TimeOfDay(hour: 12, minute: 0),
+    time: Time(12, 0).obs,
     storageKey: 'quranPageEveryDay',
     notificationTitle: 'لا تنسا قراءة وردك اليومي من القران ',
     notificationBody:
@@ -45,7 +46,7 @@ class AlarmsCtr extends GetxController {
 //!------------- fast ----------------------------
   AlarmProp mondayFastProp = AlarmProp(
     id: 1,
-    timeOfDay: const TimeOfDay(hour: 20, minute: 0),
+    time: Time(20, 0).obs,
     storageKey: 'mondayFast',
     notificationTitle: 'لا تنسا صيام غدا الاثنين ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
@@ -58,7 +59,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp thursdayFastProp = AlarmProp(
     id: 2,
-    timeOfDay: const TimeOfDay(hour: 20, minute: 0),
+    time: Time(20, 0).obs,
     storageKey: 'thursdayFast',
     notificationTitle: 'لا تنسا صيام غدا الخميس ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
@@ -71,7 +72,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp whitedayFastProp = AlarmProp(
     id: 3,
-    timeOfDay: const TimeOfDay(hour: 20, minute: 0),
+    time: Time(20, 0).obs,
     storageKey: 'whiteDaysFast',
     notificationTitle: 'لا تنسا صيام غدا فهو من الايام البيض ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم ثلاثة ايام من كل شهر هجري',
@@ -84,7 +85,7 @@ class AlarmsCtr extends GetxController {
 //!------------- azkar ----------------------------
   AlarmProp morningAzkarProp = AlarmProp(
     id: 6,
-    timeOfDay: const TimeOfDay(hour: 7, minute: 0),
+    time: Time(7, 0).obs,
     storageKey: 'morningAzkar',
     notificationTitle: 'لا تنسا قراءة اذكار الصباح ',
     notificationBody: 'لاذكار الصباح فضل عظيم لا تفوته',
@@ -96,7 +97,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp nightAzkarProp = AlarmProp(
     id: 7,
-    timeOfDay: const TimeOfDay(hour: 17, minute: 0),
+    time: Time(17, 0).obs,
     storageKey: 'nightAzkar',
     notificationTitle: 'لا تنسا قراءة اذكار المساء ',
     notificationBody: 'لاذكار المساء فضل عظيم لا تفوته',
@@ -109,7 +110,7 @@ class AlarmsCtr extends GetxController {
 //!------------- hadith ----------------------------
   AlarmProp hadithEveryDayProp = AlarmProp(
     id: 8,
-    timeOfDay: const TimeOfDay(hour: 13, minute: 0),
+    time: Time(13, 0).obs,
     storageKey: 'hadithEveryDay',
     notificationTitle: 'كل يوم حديث عن رسول الله',
     notificationBody: '',
@@ -119,11 +120,12 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
     alarmPeriod: ALarmPeriod.daily,
     alarmType: ALarmType.hadith,
+    notificationSound: NotificationSound.hadith,
   );
 //!------------- prayers ----------------------------
   AlarmProp fajrPrayProp = AlarmProp(
     id: 9,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'fajrPrayProp',
     notificationTitle: 'اذان الفجر',
     notificationBody: 'تبفى القليل لموعد اذان الفجر',
@@ -135,7 +137,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp sunPrayProp = AlarmProp(
     id: 9,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'sunPrayProp',
     notificationTitle: 'شروق الشمس',
     notificationBody: 'تبفى القليل لموعد شروق الشمس',
@@ -147,7 +149,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp duhrPrayProp = AlarmProp(
     id: 10,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'duhrPrayProp',
     notificationTitle: 'اذان الظهر',
     notificationBody: 'تبفى القليل لموعد اذان الظهر',
@@ -159,7 +161,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp asrPrayProp = AlarmProp(
     id: 11,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'asrPrayProp',
     notificationTitle: 'اذان العصر',
     notificationBody: 'تبفى القليل لموعد اذان العصر',
@@ -171,7 +173,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp maghribPrayProp = AlarmProp(
     id: 12,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'maghribPrayProp',
     notificationTitle: 'اذان المغرب',
     notificationBody: 'تبفى القليل لموعد اذان المغرب',
@@ -183,7 +185,7 @@ class AlarmsCtr extends GetxController {
   );
   AlarmProp ishaPrayProp = AlarmProp(
     id: 13,
-    timeOfDay: const TimeOfDay(hour: 0, minute: 0),
+    time: Time(0, 0).obs,
     storageKey: 'ishaPrayProp',
     notificationTitle: 'اذان العشاء',
     notificationBody: 'تبفى القليل لموعد اذان العشاء',
@@ -253,7 +255,7 @@ class AlarmsCtr extends GetxController {
         : ishaPrayProp = ishaPrayProp;
   }
 
-  changeState({required AlarmProp alarmProp, required bool newValue}) async {
+  changeState({required AlarmProp alarmProp, required bool newValue, bool showSnackBar = true}) async {
     bool isUpdating = false;
     if (alarmProp.isActive.value) isUpdating = true;
 
@@ -262,24 +264,30 @@ class AlarmsCtr extends GetxController {
     if (newValue) {
       if (alarmProp.alarmPeriod == ALarmPeriod.once)
         NotificationService.setOnceNotification(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.daily)
+      else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
         NotificationService.setDailyNotification(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
+        if (alarmProp.alarmType == ALarmType.hadith) {
+          alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+          NotificationService.setDailyNotification(alarmProp: alarmProp, selectedAlarmType: NotificationSound.hadith);
+        }
+      } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
         NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
       else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)
         NotificationService.setWhiteDaysFastNotification(alarmProp: alarmProp);
-      _showSnackBar(
-        icon: MyIcons.done(),
-        title: isUpdating ? 'تم تحديث وقت الاشعار' : alarmProp.snackBarEnabeldTitle,
-        message: alarmProp.snackBarEnabeldBody,
-      );
+      if (showSnackBar)
+        _showSnackBar(
+          icon: MyIcons.done(),
+          title: isUpdating ? 'تم تحديث وقت الاشعار' : alarmProp.snackBarEnabeldTitle,
+          message: alarmProp.snackBarEnabeldBody,
+        );
     } else {
       NotificationService.cancelNotification(id: alarmProp.id);
-      _showSnackBar(
-        icon: MyIcons.error,
-        title: alarmProp.snackBarDesabledTitle,
-        message: alarmProp.snackBarDesabeldBody,
-      );
+      if (showSnackBar)
+        _showSnackBar(
+          icon: MyIcons.error,
+          title: alarmProp.snackBarDesabledTitle,
+          message: alarmProp.snackBarDesabeldBody,
+        );
     }
   }
 
@@ -304,13 +312,13 @@ class AlarmsCtr extends GetxController {
       DateTime.now().year,
       DateTime.now().month,
       DateTime.now().day,
-      alarmProp.timeOfDay.hour,
-      alarmProp.timeOfDay.minute,
+      time.hour,
+      time.minute,
     ).subtract(Duration(minutes: distanceBetweenAlarmAndAzan));
 
-    alarmProp.timeOfDay = TimeOfDay(hour: tmpDateTime.hour, minute: tmpDateTime.minute);
+    alarmProp.time.value = Time(tmpDateTime.hour, tmpDateTime.minute);
 
-    getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
+    if (alarmProp.isActive.value) changeState(alarmProp: alarmProp, newValue: true, showSnackBar: false);
   }
 
   void setAzanAlarm({required PrayerTimeType nextPrayType}) {
@@ -343,19 +351,13 @@ class AlarmsCtr extends GetxController {
       colorText: MyColors.whiteBlack(),
       backgroundColor: MyColors.background(),
       boxShadows: [BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
-      titleText: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack()),
-        ),
+      titleText: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack()),
       ),
-      messageText: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Text(
-          message,
-          style: TextStyle(fontSize: 16, color: MyColors.whiteBlack()),
-        ),
+      messageText: Text(
+        message,
+        style: TextStyle(fontSize: 16, color: MyColors.whiteBlack()),
       ),
     );
   }

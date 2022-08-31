@@ -1,25 +1,22 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/icons.dart';
 import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/audio_service.dart';
 import 'package:zad_almumin/services/http_service.dart';
-import 'package:zad_almumin/services/navigation_service.dart';
-
+import 'package:zad_almumin/services/json_service.dart';
 import '../../services/theme_service.dart';
 import '../home_page.dart';
 import 'classes/page_prop.dart';
-import 'classes/surah.dart';
+import 'classes/ayah.dart';
 import 'controllers/quran_page_ctr.dart';
 
 class QuranPage extends StatefulWidget {
@@ -40,30 +37,29 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
   final double _upPartHeight = 70;
   double screenW = 0;
   int animationDurationMilliseconds = 600;
-  int userIndex = 0;
+  Map<String, dynamic> quranMap = {};
+  late AudioService audioService;
+
   @override
   void initState() {
     super.initState();
     tabCtr = TabController(length: 604, vsync: this);
-    animationCtr = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    tabCtr.index = GetStorage().read('pageIndex') ?? 0;
+
     quranCtr.pageNumber.value = tabCtr.index + 1;
-    tabCtr.index = GetStorage().read('userIndex') ?? 0;
+
+    animationCtr = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+
+    updateCurrentPage();
 
     changeOnShownState(false);
     tabCtr.addListener(() {
-      quranCtr.pageNumber.value = tabCtr.index + 1;
-      quranCtr.juz.value = getJuzNumberByPage(page: tabCtr.index + 1);
-      quranCtr.surahName.value = getSurahNameByPage(page: tabCtr.index + 1);
-      getSurahAyahsNumber();
-      GetStorage().write('userIndex', tabCtr.index);
+      updateCurrentPage();
     });
-  }
 
-
-  @override
-  void dispose() {
-    super.dispose();
-
+    audioService = AudioService(onPause: () {
+      animationCtr.reverse();
+    });
   }
 
   @override
@@ -76,25 +72,36 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         return false;
       },
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: _key,
-          endDrawer: myEndDrawer(),
-          drawer: MyDrawer(),
-          body: Stack(
-            children: [
-              DefaultTabController(
-                // initialIndex: 20,
-                length: 604,
-                child: TabBarView(
-                  controller: tabCtr,
-                  children: [for (var i = 1; i <= 604; i++) quranPage(index: i)],
-                ),
+        resizeToAvoidBottomInset: false,
+        key: _key,
+        endDrawer: myEndDrawer(),
+        drawer: MyDrawer(),
+        body: Stack(
+          children: [
+            DefaultTabController(
+              length: 604,
+              child: TabBarView(
+                controller: tabCtr,
+                children: [for (var i = 1; i <= 604; i++) quranPage(index: i)],
               ),
-              upPart(),
-              downPart()
-            ],
-          )),
+            ),
+            upPart(),
+            downPart()
+          ],
+        ),
+      ),
     );
+  }
+
+  updateCurrentPage() async {
+    quranCtr.pageNumber.value = tabCtr.index + 1;
+    quranCtr.juz.value = getJuzNumberByPage(page: tabCtr.index + 1);
+    quranCtr.surahName.value = getSurahNameByPage(page: tabCtr.index + 1);
+
+    updateSurahAyahsNumber();
+    GetStorage().write('pageIndex', tabCtr.index);
+
+    quranMap = await JsonService.readQuranJson(getSurahNumberByName(quranCtr.surahName.value));
   }
 
   Widget downPart() {
@@ -120,82 +127,54 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    MyTexts.quranSecondTitle(context, title: getSurahNameByPage(page: quranCtr.pageNumber.value)),
-                    MyTexts.quranSecondTitle(context, title: quranCtr.pageNumber.value.toString()),
-                    MyTexts.quranSecondTitle(context, title: 'الجزء ${quranCtr.juz}'),
+                    MyTexts.quranSecondTitle( title: getSurahNameByPage(page: quranCtr.pageNumber.value)),
+                    MyTexts.quranSecondTitle( title: quranCtr.pageNumber.value.toString()),
+                    MyTexts.quranSecondTitle( title: 'الجزء ${quranCtr.juz}'),
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    children: [
-                      MyTexts.quranSecondTitle(context, title: 'من الاية:  '),
-                      FutureBuilder(
-                          future: getSurahAyahsNumber(),
-                          builder: (context, snapShot) {
-                            if (quranCtr.startNum.value > quranCtr.numberOfAyahs.value) quranCtr.startNum.value = 1;
-                            if (snapShot.connectionState == ConnectionState.waiting)
-                              return DropdownButton<int>(
-                                  value: quranCtr.startNum.value, onChanged: (value) {}, items: []);
-                            return Obx(
-                              () => DropdownButton<int>(
-                                value: quranCtr.startNum.value,
-                                onChanged: (value) {
-                                  quranCtr.startNum.value = value ?? 1;
-                                  if (quranCtr.startNum.value > quranCtr.endNum.value)
-                                    quranCtr.endNum.value = quranCtr.numberOfAyahs.value;
-                                },
-                                borderRadius: BorderRadius.circular(10),
-                                dropdownColor: MyColors.quranBackGround(),
-                                iconEnabledColor: MyColors.quranSecond(),
-                                items: dropDownItemList(1, quranCtr.numberOfAyahs.value),
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: animationDurationMilliseconds),
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: MyColors.quranBackGround(),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(color: MyColors.quranSecond().withOpacity(0.2), blurRadius: 30, spreadRadius: 10),
+              FutureBuilder(
+                  future: updateSurahAyahsNumber(),
+                  builder: (context, snapShot) {
+                    if (snapShot.connectionState == ConnectionState.waiting)
+                      return DropdownButton<int>(value: quranCtr.ayahStartNum.value, onChanged: (value) {}, items: []);
+
+                    if (quranCtr.ayahStartNum.value > quranCtr.totalAyahsCount.value) quranCtr.ayahStartNum.value = 1;
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        selectStartEndAyah(true),
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: animationDurationMilliseconds),
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: MyColors.quranBackGround(),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              // BoxShadow(color: MyColors.quranSecond().withOpacity(0.2), blurRadius: 30, spreadRadius: 10),
+                            ],
+                          ),
+                          child: Obx(
+                            () => DropdownButton<QuranReaders>(
+                              value: quranCtr.selectedQuranReader.value,
+                              onChanged: (newVal) {
+                                quranCtr.selectedQuranReader.value = newVal!;
+                                GetStorage().write('selectedQuranReader', quranCtr.selectedQuranReader.value.index);
+                              },
+                              items: [
+                                for (QuranReaders item in QuranReaders.values)
+                                  DropdownMenuItem(
+                                    value: item,
+                                    child: MyTexts.quranSecondTitle( title: item.arabicName),
+                                  )
+                              ],
+                            ),
+                          ),
+                        ),
+                        selectStartEndAyah(false),
                       ],
-                    ),
-                    child: MyTexts.quranSecondTitle(context, title: 'العفاسي'),
-                  ),
-                  Row(
-                    children: [
-                      MyTexts.quranSecondTitle(context, title: 'الى الاية:  '),
-                      FutureBuilder(
-                          future: getSurahAyahsNumber(),
-                          builder: (context, snapShot) {
-                            if (quranCtr.endNum.value > quranCtr.numberOfAyahs.value)
-                              quranCtr.endNum.value = quranCtr.numberOfAyahs.value;
-                            if (snapShot.connectionState == ConnectionState.waiting)
-                              return DropdownButton<int>(
-                                  value: quranCtr.endNum.value, onChanged: (value) {}, items: []);
-                            return Obx(
-                              () => DropdownButton<int>(
-                                value: quranCtr.endNum.value,
-                                onChanged: (value) {
-                                  quranCtr.endNum.value = value ?? 1;
-                                },
-                                borderRadius: BorderRadius.circular(10),
-                                dropdownColor: MyColors.quranBackGround(),
-                                iconEnabledColor: MyColors.quranSecond(),
-                                items: dropDownItemList(quranCtr.startNum.value, quranCtr.numberOfAyahs.value),
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
-                ],
-              ),
+                    );
+                  }),
               Obx(
                 () => AnimatedOpacity(
                   duration: Duration(milliseconds: 300),
@@ -220,7 +199,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                             child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            MyTexts.quranSecondTitle(context,
+                            MyTexts.quranSecondTitle(
                                 title:
                                     '${Get.find<HttpServiceCtr>().downloadingIndex}/${Get.find<HttpServiceCtr>().totalAyahsDownload}'),
                             IconButton(
@@ -276,27 +255,355 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     );
   }
 
-  playAudio() async {
-    animationCtr.forward();
-    int surahNumber = getSurahNumber(getSurahNameByPage());
-    List<Surah> ayahsFileList = await HttpService.getSurah(surahNumber: surahNumber);
-    AudioService(onPause: () {
-      animationCtr.reverse();
-    }).playSurahAudio(ayahsFileList);
+  Widget selectStartEndAyah(bool isStartAyah) {
+    return Row(
+      children: [
+        MyTexts.quranSecondTitle( title: isStartAyah ? 'من الاية:  ' : 'الى الاية:  '),
+        Obx(
+          () => SizedBox(
+              width: 80,
+              child: MaterialButton(
+                shape: Border.all(color: MyColors.quranSecond()),
+                onPressed: () {
+                  Get.dialog(
+                    AlertDialog(
+                      title: MyTexts.quranSecondTitle( title: 'اختر الاية:  '),
+                      content: SizedBox(
+                        height: 400,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: getSurahAyahsList(isStartAyah),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    MyTexts.content(
+                        title: isStartAyah
+                            ? quranCtr.ayahStartNum.value.toString()
+                            : quranCtr.ayahEndNum.value.toString()),
+                    Icon(Icons.keyboard_arrow_down, color: MyColors.quranSecond()),
+                  ],
+                ),
+              )),
+        ),
+      ],
+    );
   }
 
-  getSurahAyahsNumber() async {
-    int surahNumber = getSurahNumber(getSurahNameByPage());
+  playAudio() async {
+    animationCtr.forward();
+    int surahNumber = getSurahNumberByName(getSurahNameByPage());
+    List<Ayah> ayahsFileList = await HttpService.getSurah(surahNumber: surahNumber);
+    audioService.playSurahAudio(ayahsFileList);
+  }
+
+  updateSurahAyahsNumber() async {
+    int surahNumber = getSurahNumberByName(getSurahNameByPage());
     String jsonString =
         await DefaultAssetBundle.of(context).loadString('assets/database/quran/surahs/$surahNumber.json');
     Map data = jsonDecode(jsonString);
 
-    quranCtr.numberOfAyahs.value = data['numberOfAyahs'];
-    if (quranCtr.startNum.value > quranCtr.numberOfAyahs.value) quranCtr.startNum.value = 1;
-    if (quranCtr.endNum.value > quranCtr.numberOfAyahs.value) quranCtr.endNum.value = quranCtr.numberOfAyahs.value;
+    quranCtr.totalAyahsCount.value = data['numberOfAyahs'];
+    quranCtr.ayahStartNum = 1.obs;
+    quranCtr.ayahEndNum = quranCtr.totalAyahsCount.value.obs;
   }
 
-  int getSurahNumber(String surahName) {
+  List<Widget> getSurahAyahsList(bool isStartNum) {
+    List<Widget> list = [];
+    int startFrom = isStartNum ? 1 : quranCtr.ayahStartNum.value;
+    for (var i = startFrom; i <= quranCtr.totalAyahsCount.value; i++) {
+      String ayah = '';
+      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i - 1]['text'].toString();
+
+      list.add(MaterialButton(
+        onPressed: () {
+          if (isStartNum)
+            quranCtr.ayahStartNum.value = i;
+          else
+            quranCtr.ayahEndNum.value = i;
+          Get.back();
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 4.0),
+          color: isStartNum
+              ? i == quranCtr.ayahStartNum.value
+                  ? MyColors.quranSecond().withOpacity(.4)
+                  : Colors.transparent
+              : i == quranCtr.ayahEndNum.value
+                  ? MyColors.quranSecond().withOpacity(.4)
+                  : Colors.transparent,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              '$i -$ayah',
+              textAlign: TextAlign.start,
+              style: GoogleFonts.harmattan(
+                fontSize: 16,
+                height: 2.2,
+                fontWeight: FontWeight.w300,
+                wordSpacing: 3.5,
+              ),
+            ),
+            // child: MyTexts.content(context, title: '$i -$ayah'),
+          ),
+        ),
+      ));
+    }
+
+    return list;
+  }
+
+  Widget upPart() {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 300),
+      top: quranCtr.onShown.value ? 0 : -_upPartHeight,
+      child: AnimatedContainer(
+          duration: Duration(milliseconds: animationDurationMilliseconds),
+          height: _upPartHeight,
+          width: screenW,
+          decoration: BoxDecoration(
+            color: MyColors.quranBackGround(),
+            boxShadow: [
+              BoxShadow(
+                  color: MyColors.whiteBlack().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
+            ],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    onPressed: () => Get.offAll(() => HomePage()),
+                    icon: MyIcons.home(color: MyColors.quranSecond()),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    MyTexts.quranSecondTitle( title: 'الصفحة:   '),
+                    SizedBox(
+                      width: 40,
+                      child: TextField(
+                        controller: goToPageCtr,
+                        keyboardType: TextInputType.number,
+                        maxLength: 3,
+                        cursorHeight: 20,
+                        showCursor: false,
+                        onSubmitted: (val) {
+                          goToPageCtr.clear();
+                          changeOnShownState(false);
+                        },
+                        onTap: () => goToPageCtr.clear(),
+                        onChanged: (val) {
+                          if (goToPageCtr.text == '') return;
+                          if (int.parse(goToPageCtr.text) > 604 || int.parse(goToPageCtr.text) < 1) {
+                            Fluttertoast.showToast(msg: 'صفحة غير موجودة');
+                            return;
+                          }
+                          tabCtr.index = int.parse(goToPageCtr.text) - 1;
+                        },
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
+                          border: OutlineInputBorder(),
+                          counterText: "",
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => showMarkDialog(),
+                      icon: MyIcons.mark(color: MyColors.quranSecond()),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        bool isDark = ThemeService().getThemeMode() == ThemeMode.dark;
+                        ThemeService().changeThemeMode(!isDark);
+                        setState(() {});
+                      },
+                      icon: MyIcons.animated_Light_Dark(color: MyColors.quranSecond()),
+                    ),
+                    IconButton(
+                      onPressed: () => _key.currentState!.openEndDrawer(),
+                      icon: MyIcons.book(color: MyColors.quranSecond()),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+
+  Widget myEndDrawer() {
+    quranCtr.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
+    return Drawer(
+      backgroundColor: MyColors.quranBackGround(),
+      width: 220,
+      child: Column(
+        children: [
+          Container(
+              height: 60,
+              alignment: Alignment.center,
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                  color: MyColors.quranBackGround(),
+                  border: Border(bottom: BorderSide(color: MyColors.quranSecond())),
+                  boxShadow: [
+                    BoxShadow(
+                        color: MyColors.quranSecond().withOpacity(0.5),
+                        offset: Offset(-5, 0),
+                        blurRadius: 10,
+                        spreadRadius: 5)
+                  ]),
+              child: MyTexts.quranSecondTitle( title: 'الملاحظات')),
+          Expanded(
+            child: Scrollbar(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                itemCount: quranCtr.markedList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: index != quranCtr.markedList.length - 1 ? 10 : 0),
+                    child: markedListTile(index),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget markedListTile(int index) {
+    return ListTile(
+      title: MyTexts.settingsTitle( title: 'الجزء ${quranCtr.markedList[index].juz}'),
+      subtitle: MyTexts.settingsContent(
+          title: '${quranCtr.markedList[index].surahName}  |  الصفحة ${quranCtr.markedList[index].pageNumber}'),
+      shape: Border(bottom: BorderSide(color: MyColors.quranSecond())),
+      onTap: () {
+        tabCtr.index = quranCtr.markedList[index].pageNumber - 1;
+        changeOnShownState(false);
+        Get.back();
+        goToPageCtr.text = '${quranCtr.markedList[index].pageNumber}';
+        setState(() {});
+      },
+    );
+  }
+
+  Widget quranPage({required int index}) {
+    bool isMarked = false;
+    for (var element in quranCtr.markedList)
+      if (element.pageNumber == index) if (element.isMarked) {
+        isMarked = true;
+        break;
+      }
+
+    return isBannerWidget(
+      isMarked: isMarked,
+      child: InkWell(
+        onTap: () => changeOnShownState(!quranCtr.onShown.value),
+        onLongPress: () => showMarkDialog(),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: animationDurationMilliseconds),
+          color: MyColors.quranBackGround(),
+          child: Stack(
+            children: [
+              Center(
+                child: Image.asset(
+                  'assets/images/quran pages/00$index.png',
+                  // height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
+                  color: MyColors.quranText(),
+                ),
+              ),
+              Center(
+                child: Image.asset(
+                  'assets/images/quran pages/000$index.png',
+                  // height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void changeOnShownState(bool value) {
+    if (value)
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+
+    quranCtr.onShown.value = value;
+    setState(() {});
+  }
+
+  Widget isBannerWidget({required bool isMarked, required Widget child}) {
+    Widget parent = Container(child: child);
+    if (isMarked) parent = Banner(message: '', location: BannerLocation.bottomStart, child: child);
+    return parent;
+  }
+
+  showMarkDialog() {
+    var pageProp = PageProp(
+        pageNumber: tabCtr.index + 1, juz: getJuzNumberByPage(), surahName: getSurahNameByPage(), isMarked: false);
+    for (var element in quranCtr.markedList)
+      if (element.pageNumber == pageProp.pageNumber) if (element.isMarked) {
+        pageProp.isMarked = true;
+        break;
+      }
+    String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
+    String content =
+        pageProp.isMarked ? 'هل تود ازالة علامة القراءة على هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
+
+    return Get.dialog(
+      AlertDialog(
+        title: Text(title, style: TextStyle(color: MyColors.quranText())),
+        content: Text(content, style: TextStyle(color: MyColors.quranText())),
+        actionsAlignment: MainAxisAlignment.spaceAround,
+        backgroundColor: MyColors.quranBackGround(),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('الغاء'),
+          ),
+          TextButton(
+            onPressed: () {
+              if (pageProp.isMarked) {
+                quranCtr.markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
+                Fluttertoast.showToast(msg: 'تم ازالة العلامة');
+              } else {
+                pageProp.isMarked = true;
+                quranCtr.markedList.add(pageProp);
+                quranCtr.updateDb(pageProp);
+                Fluttertoast.showToast(msg: 'تم اضافة العلامة');
+              }
+              Get.back();
+              setState(() {});
+            },
+            child: Text('تأكيد'),
+          ),
+        ],
+      ),
+      transitionDuration: Duration(milliseconds: 500),
+    );
+  }
+
+  int getSurahNumberByName(String surahName) {
     int number = 1;
 
     if (surahName == 'الفاتحة') number = 1;
@@ -414,265 +721,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     if (surahName == 'الفلق') number = 113;
     if (surahName == 'الناس') number = 114;
     return number;
-  }
-
-  List<DropdownMenuItem<int>> dropDownItemList(int min, int max) {
-    List<DropdownMenuItem<int>> list = [];
-    for (var i = min; i <= max; i++) {
-      list.add(
-        DropdownMenuItem(value: i, child: Text('$i')),
-      );
-    }
-    return list;
-  }
-
-  Widget upPart() {
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: 300),
-      top: quranCtr.onShown.value ? 0 : -_upPartHeight,
-      child: AnimatedContainer(
-          duration: Duration(milliseconds: animationDurationMilliseconds),
-          height: _upPartHeight,
-          width: screenW,
-          decoration: BoxDecoration(
-            color: MyColors.quranBackGround(),
-            boxShadow: [
-              BoxShadow(
-                  color: MyColors.whiteBlack().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
-            ],
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    onPressed: () => Get.offAll(() => HomePage()),
-                    icon: MyIcons.home(color: MyColors.quranSecond()),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    MyTexts.quranSecondTitle(context, title: 'الصفحة:   '),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: goToPageCtr,
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                        cursorHeight: 20,
-                        showCursor: false,
-                        onSubmitted: (val) {
-                          goToPageCtr.clear();
-                          changeOnShownState(false);
-                        },
-                        onTap: () => goToPageCtr.clear(),
-                        onChanged: (val) {
-                          if (goToPageCtr.text == '') return;
-                          if (int.parse(goToPageCtr.text) > 604 || int.parse(goToPageCtr.text) < 1) {
-                            Fluttertoast.showToast(msg: 'صفحة غير موجودة');
-                            return;
-                          }
-                          tabCtr.index = int.parse(goToPageCtr.text) - 1;
-                        },
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
-                          border: OutlineInputBorder(),
-                          counterText: "",
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => showMarkDialog(),
-                      icon: MyIcons.mark(color: MyColors.quranSecond()),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        bool isDark = ThemeService().getThemeMode() == ThemeMode.dark;
-                        ThemeService().changeThemeMode(!isDark);
-                        setState(() {});
-                      },
-                      icon: MyIcons.animated_Light_Dark(color: MyColors.quranSecond()),
-                    ),
-                    IconButton(
-                      onPressed: () => _key.currentState!.openEndDrawer(),
-                      icon: MyIcons.book(color: MyColors.quranSecond()),
-                    ),
-                    // IconButton(
-                    //   onPressed: () => Get.offAll(HomePage()),
-                    //   icon: MyIcons.leftArrow,
-                    // ),
-                  ],
-                ),
-              ),
-            ],
-          )),
-    );
-  }
-
-  Widget myEndDrawer() {
-    quranCtr.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
-    return Drawer(
-      backgroundColor: MyColors.quranBackGround(),
-      width: 220,
-      child: Column(
-        children: [
-          Container(
-              height: 60,
-              alignment: Alignment.center,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: MyColors.quranBackGround(),
-                  border: Border(bottom: BorderSide(color: MyColors.quranSecond())),
-                  boxShadow: [
-                    BoxShadow(
-                        color: MyColors.quranSecond().withOpacity(0.5),
-                        offset: Offset(-5, 0),
-                        blurRadius: 10,
-                        spreadRadius: 5)
-                  ]),
-              child: MyTexts.quranSecondTitle(context, title: 'الملاحظات')),
-          Expanded(
-            child: Scrollbar(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                itemCount: quranCtr.markedList.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: index != quranCtr.markedList.length - 1 ? 10 : 0),
-                    child: markedListTile(index),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget markedListTile(int index) {
-    return ListTile(
-      title: MyTexts.settingsTitle(context, title: 'الجزء ${quranCtr.markedList[index].juz}'),
-      subtitle: MyTexts.settingsContent(context,
-          title: '${quranCtr.markedList[index].surahName}  |  الصفحة ${quranCtr.markedList[index].pageNumber}'),
-      shape: Border(bottom: BorderSide(color: MyColors.quranSecond())),
-      onTap: () {
-        tabCtr.index = quranCtr.markedList[index].pageNumber - 1;
-        changeOnShownState(false);
-        Get.back();
-        goToPageCtr.text = '${quranCtr.markedList[index].pageNumber}';
-        setState(() {});
-      },
-    );
-  }
-
-  Widget quranPage({required int index}) {
-    bool isMarked = false;
-    for (var element in quranCtr.markedList)
-      if (element.pageNumber == index) if (element.isMarked) {
-        isMarked = true;
-        break;
-      }
-
-    return Center(
-      child: isBannerWidget(
-        isMarked: isMarked,
-        child: InkWell(
-          onTap: () => changeOnShownState(!quranCtr.onShown.value),
-          onLongPress: () => showMarkDialog(),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: animationDurationMilliseconds),
-            color: MyColors.quranBackGround(),
-            child: Stack(
-              children: [
-                Center(
-                    child: Image.asset(
-                  'assets/images/quran pages/00$index.png',
-                  height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
-                  color: MyColors.quranText(),
-                )),
-                Center(
-                    child: Image.asset(
-                  'assets/images/quran pages/000$index.png',
-                  height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
-                )),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  changeOnShownState(bool value) {
-    if (value)
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-    else
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-
-    quranCtr.onShown.value = value;
-    setState(() {});
-  }
-
-  Widget isBannerWidget({required bool isMarked, required Widget child}) {
-    Widget parent = Container(child: child);
-    if (isMarked) parent = Banner(message: '', location: BannerLocation.bottomStart, child: child);
-    return parent;
-  }
-
-  showMarkDialog() {
-    var pageProp = PageProp(
-        pageNumber: tabCtr.index + 1, juz: getJuzNumberByPage(), surahName: getSurahNameByPage(), isMarked: false);
-    for (var element in quranCtr.markedList)
-      if (element.pageNumber == pageProp.pageNumber) if (element.isMarked) {
-        pageProp.isMarked = true;
-        break;
-      }
-    String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
-    String content =
-        pageProp.isMarked ? 'هل تود ازالة علامة القراءة على هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
-
-    return Get.dialog(
-      Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          title: Text(title, style: TextStyle(color: MyColors.quranText())),
-          content: Text(content, style: TextStyle(color: MyColors.quranText())),
-          actionsAlignment: MainAxisAlignment.spaceAround,
-          backgroundColor: MyColors.quranBackGround(),
-          actions: [
-            TextButton(
-              onPressed: () => Get.back(),
-              child: Text('الغاء'),
-            ),
-            TextButton(
-              onPressed: () {
-                if (pageProp.isMarked) {
-                  quranCtr.markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
-                  Fluttertoast.showToast(msg: 'تم ازالة العلامة');
-                } else {
-                  pageProp.isMarked = true;
-                  quranCtr.markedList.add(pageProp);
-                  quranCtr.updateDb(pageProp);
-                  Fluttertoast.showToast(msg: 'تم اضافة العلامة');
-                }
-                Get.back();
-                setState(() {});
-              },
-              child: Text('تأكيد'),
-            ),
-          ],
-        ),
-      ),
-      transitionDuration: Duration(milliseconds: 500),
-    );
   }
 
   int getJuzNumberByPage({int? page}) {

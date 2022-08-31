@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../classes/zikr_data.dart';
@@ -29,7 +30,7 @@ class ZikrCard2 {
           children: <Widget>[
             //outside header
             outsideTitle != null && !isFavorite
-                ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(context, title: outsideTitle))
+                ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader( title: outsideTitle))
                 : Container(),
             AnimatedButtonTapping(
               onTap: onTap,
@@ -71,13 +72,17 @@ class ZikrCard2 {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               firstChild ?? Container(),
-              Expanded(child: Center(child: MyTexts.zikrTitle(context, title: zikrData.title))),
+              Expanded(child: Center(child: MyTexts.zikrTitle( title: zikrData.title))),
               secondChild ?? Container(),
             ],
           ),
-          MyTexts.content(context, title: zikrData.content),
+          MyTexts.content( title: zikrData.content),
+          // Text(
+          //   zikrData.content,
+          //   style: GoogleFonts.kadwa(color: Colors.black, fontSize: 16, height: 1.8, wordSpacing: 3.5),
+          // ),
           zikrData.description != ''
-              ? Row(children: [MyIcons.info, Expanded(child: MyTexts.info(context, title: zikrData.description))])
+              ? Row(children: [MyIcons.info, Expanded(child: MyTexts.info( title: zikrData.description))])
               : Container(),
           ZikrBlockButtons(zikrData: zikrData, onDeleteFromFavorite: onDeleteFromFavorite)
         ],
@@ -132,7 +137,7 @@ class ZikrCard2 {
                 autoPlay: autoPlaySound,
                 onComplite: () async {
                   myFuture = JsonService.getSpesificQuranData(
-                      numberInQuran: quranZikrData!.numberInQuran, surahNumber: quranZikrData!.surahNumber);
+                      ayahNumber: quranZikrData!.ayahNumber, surahNumber: quranZikrData!.surahNumber);
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 
@@ -217,7 +222,7 @@ class ZikrCard2 {
                       ),
                     ],
                   ),
-                  child: MyTexts.content(context, title: '${azkarZikrData.count}')),
+                  child: MyTexts.content( title: '${azkarZikrData.count}')),
             ),
           ),
         ),

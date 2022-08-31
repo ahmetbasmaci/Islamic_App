@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import '../../../constents/constents.dart';
 import '../../../moduls/enums.dart';
 import '../../alarmsPage/controllers/alarm_ctr.dart';
 
@@ -53,8 +54,8 @@ class PrayerTimeCtr extends GetxController {
     // currentTime=Time(newTime.hour, newTime.minute);
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
-    await _setCurrentPosition();
-    await _setPrayTimes();
+    await _getCurrentPosition();
+    await _getPrayTimes();
     if (newTime == null) updatePrayerAlarms(); //just in current day
 
     // await _setPrayTimes();
@@ -63,78 +64,88 @@ class PrayerTimeCtr extends GetxController {
     isLoading.value = false;
   }
 
-  Time differenceTimes(DateTime time1, DateTime time2) {
-    int hr = time1.difference(time2).inHours;
-    int minute = time1.difference(time2).inMinutes - (hr * 60);
-    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
-    if (hr < 0) hr = 0;
-    if (minute < 0) minute = 0;
-    if (second < 0) second = 0;
-    return Time(hr, minute, second);
-  }
+  _getCurrentPosition() async => _currentPosition = await _determinePosition();
 
-  bool compareTimes(Time time1, Time time2) {
-    //TODO fix this
-    double dTime1 = time1.hour.toDouble() + (time1.minute.toDouble() / 60);
-    double dTime2 = time2.hour.toDouble() + (time2.minute.toDouble() / 60);
-
-    double dcompare = dTime1 - dTime2;
-
-    if (dcompare > 0)
-      return true;
-    else
-      return false;
-  }
-
-  updateCurrentTime() async {
-    await Future.delayed(Duration(seconds: 1));
-    Time leftTime = differenceTimes(
-      DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        nextPrayTime.value.hour,
-        nextPrayTime.value.minute,
-        nextPrayTime.value.second,
-      ),
-      DateTime.now(),
-    );
-
-    String houreTimeLeftTxt = leftTime.hour < 10 ? '0${leftTime.hour}' : '${leftTime.hour}';
-    String minuteTimeLeftTxt = leftTime.minute < 10 ? '0${leftTime.minute}' : '${leftTime.minute}';
-    String secondTimeLeftTxt = leftTime.second < 10 ? '0${leftTime.second}' : '${leftTime.second}';
-
-    timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
-    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkNextPrayTime();
-
-    if (leftTime.hour == 0 &&
-        leftTime.minute == 0 &&
-        leftTime.second == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan) {
-      Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+  Future _getPrayTimes() async {
+    String api = _getApi();
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
+      return;
+    } else {
+      try {
+        http.Response responce = await http.get(Uri.parse(api));
+        fajrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Fajr');
+        sunTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Sunrise');
+        duhrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Dhuhr');
+        asrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Asr');
+        maghribTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Maghrib');
+        ishaTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Isha');
+      } catch (e) {
+        // ignore: avoid_print
+        print('ERROR:::: NO INTERNET... ON GET  ADHAN TİMES');
+      }
     }
+  }
 
-    updateCurrentTime();
+  String _getApi() {
+    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&method=${13}&month=${curerntDate.value.month}&year=${curerntDate.value.year}';
+  }
+
+  Time _getPrayTimeData(Map map, String prayName) {
+    int hour = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[0]);
+    int minute = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[1]);
+    return Time(hour, minute);
+  }
+
+  updatePrayerAlarms() {
+    Get.find<AlarmsCtr>().setPrayTimesAlarms(
+      fajrTime: fajrTime.value,
+      sunTime: sunTime.value,
+      duhrTime: duhrTime.value,
+      asrTime: asrTime.value,
+      maghribTime: maghribTime.value,
+      ishaTime: ishaTime.value,
+    );
   }
 
   void checkNextPrayTime() {
-    Time fajr = Time(fajrTime.value.hour, fajrTime.value.minute);
-    Time sun = Time(sunTime.value.hour, sunTime.value.minute);
-    Time duhr = Time(duhrTime.value.hour, duhrTime.value.minute);
-    Time asr = Time(asrTime.value.hour, asrTime.value.minute);
-    Time maghrib = Time(maghribTime.value.hour, maghribTime.value.minute);
-    Time isha = Time(ishaTime.value.hour, ishaTime.value.minute);
-
-    if (compareTimes(currentTime, isha))
+    if (compareTimes(currentTime, ishaTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.fajr);
-    else if (compareTimes(currentTime, maghrib))
+    else if (compareTimes(currentTime, maghribTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.isha);
-    else if (compareTimes(currentTime, asr))
+    else if (compareTimes(currentTime, asrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
-    else if (compareTimes(currentTime, duhr))
+    else if (compareTimes(currentTime, duhrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.asr);
-    else if (compareTimes(currentTime, sun))
+    else if (compareTimes(currentTime, sunTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
-    else if (compareTimes(currentTime, fajr)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, fajrTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+  }
+
+  bool compareTimes(Time time1, Time time2) {
+    DateTime t1 = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      time1.hour,
+      time1.minute,
+      time1.second,
+    );
+    DateTime t2 = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      time2.hour,
+      time2.minute,
+      time1.second,
+    );
+
+    Duration fiffrenc = t1.difference(t2);
+    if (fiffrenc.inSeconds > 0)
+      return true;
+    else
+      return false;
   }
 
   setNextPrayTime({required PrayerTimeType prayTimeType}) {
@@ -165,48 +176,43 @@ class PrayerTimeCtr extends GetxController {
     }
   }
 
-  _setCurrentPosition() async => _currentPosition = await _determinePosition();
-
-  String _getApi() {
-    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&method=${13}&month=${curerntDate.value.month}&year=${curerntDate.value.year}';
-  }
-
-  Future _setPrayTimes() async {
-    String api = _getApi();
-    var result = await Connectivity().checkConnectivity();
-    if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
-      return;
-    } else {
-      try {
-        http.Response responce = await http.get(Uri.parse(api));
-        fajrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Fajr');
-        sunTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Sunrise');
-        duhrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Dhuhr');
-        asrTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Asr');
-        maghribTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Maghrib');
-        ishaTime.value = _getPrayTimeData(jsonDecode(responce.body), 'Isha');
-      } catch (e) {
-        // ignore: avoid_print
-        print('ERROR:::: NO INTERNET... ON GET  ADHAN TİMES');
-      }
-    }
-  }
-
-  Time _getPrayTimeData(Map map, String prayName) {
-    int hour = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[0]);
-    int minute = int.parse(map['data'][curerntDate.value.day - 1]['timings'][prayName].split(' ')[0].split(':')[1]);
-    return Time(hour, minute);
-  }
-
-  updatePrayerAlarms() {
-    Get.find<AlarmsCtr>().setPrayTimesAlarms(
-      fajrTime: Time(fajrTime.value.hour, fajrTime.value.minute),
-      sunTime: sunTime.value,
-      duhrTime: Time(duhrTime.value.hour, duhrTime.value.minute),
-      asrTime: Time(asrTime.value.hour, asrTime.value.minute),
-      maghribTime: Time(maghribTime.value.hour, maghribTime.value.minute),
-      ishaTime: Time(ishaTime.value.hour, ishaTime.value.minute),
+  updateCurrentTime() async {
+    await Future.delayed(Duration(seconds: 1));
+    Time leftTime = differenceTimes(
+      DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        nextPrayTime.value.hour,
+        nextPrayTime.value.minute,
+        nextPrayTime.value.second,
+      ),
+      DateTime.now(),
     );
+
+    String houreTimeLeftTxt = Constants.format2.format(leftTime.hour);
+    String minuteTimeLeftTxt = Constants.format2.format(leftTime.minute);
+    String secondTimeLeftTxt = Constants.format2.format(leftTime.second);
+
+    timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
+    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkNextPrayTime();
+
+    if (leftTime.hour == 0 &&
+        leftTime.minute == 0 &&
+        leftTime.second == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan) {
+      Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+    }
+
+    updateCurrentTime();
+  }
+
+  Time differenceTimes(DateTime time1, DateTime time2) {
+    int hr = time1.difference(time2).inHours;
+    int minute = time1.difference(time2).inMinutes - (hr * 60);
+    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
+    if (hr < 0) hr = 0;
+    if (minute < 0) minute = 0;
+    if (second < 0) second = 0;
+    return Time(hr, minute, second);
   }
 }

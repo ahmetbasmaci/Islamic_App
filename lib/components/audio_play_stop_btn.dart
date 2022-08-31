@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/pages/quranPage/classes/ayah.dart';
 import 'package:zad_almumin/services/audio_service.dart';
 
 import '../constents/icons.dart';
@@ -69,12 +71,13 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
     setState(() {
       isLoading = true;
     });
-    File? file = await HttpService.getAyah(numberInQuran: widget.zikrData.numberInQuran, showToast: true);
+     String dir = (await getApplicationDocumentsDirectory()).path;
+    File? file = await HttpService.getAyah(ayah:Ayah(file: File(''), surahNumber: widget.zikrData.surahNumber, ayahNumber: widget.zikrData.ayahNumber),dir:dir, showToast: true);
     isLoading = false;
     if (mounted) setState(() {});
     if (file == null) return;
     await animationCtr.forward();
-    audioServiceCtr.playAudio(MyAudioPlayer(audioPlayer: player, id: widget.zikrData.numberInQuran));
+    audioServiceCtr.playAudio(MyAudioPlayer(audioPlayer: player, id: widget.zikrData.ayahNumber));
     await player.play(DeviceFileSource(file.path));
   }
 

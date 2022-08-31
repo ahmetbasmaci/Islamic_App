@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
@@ -23,7 +24,7 @@ class MyDrawer extends StatelessWidget {
         physics: PageScrollPhysics(),
         children: [
           UserAccountsDrawerHeader(
-            accountName: MyTexts.drawerTitle(context, title: 'اقسام البرنامج'),
+            accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'),
             accountEmail: Text(''),
             decoration: BoxDecoration(color: MyColors.primary()),
             otherAccountsPictures: [
@@ -68,17 +69,18 @@ class MyDrawer extends StatelessWidget {
             onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
           ),
           drawerItem(
-            title: 'مراجعة القران',
-            icon: MyIcons.ayahsTest,
-            routeName: FirstAyahsInPages.id,
-            onTap: () async => navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages()),
-          ),
-          drawerItem(
             title: 'اوقات الصلاة',
             icon: MyIcons.prayersTime(),
             routeName: PrayerTimes.id,
             onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
           ),
+          drawerItem(
+            title: 'مراجعة القران',
+            icon: MyIcons.ayahsTest,
+            routeName: FirstAyahsInPages.id,
+            onTap: () async => navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages()),
+          ),
+
           Divider(height: 50, thickness: 2),
           drawerItem(
             title: 'المفضلة',
@@ -126,7 +128,8 @@ Widget drawerItem(
     {required String title, required Widget icon, required String routeName, required VoidCallback onTap}) {
   return ListTile(
     leading: icon,
-    title: Text(title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+    title: Text(title, style: GoogleFonts.harmattan(fontSize: 17, fontWeight: FontWeight.bold)),
+    // title: MyTexts.normal(title: title, size: 17, fontWeight: FontWeight.bold),
     selected: Get.currentRoute.contains(routeName),
     selectedColor: MyColors.white,
     iconColor: MyColors.primary(),

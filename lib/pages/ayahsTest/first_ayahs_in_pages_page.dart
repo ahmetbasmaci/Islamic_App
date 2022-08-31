@@ -24,29 +24,26 @@ class _FirstAyahsInPagesState extends State<FirstAyahsInPages> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: MyAppBar(title: 'مراجعة القران'),
-        drawer: MyDrawer(),
-        body: Container(
-            margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Question(),
+    return Scaffold(
+      appBar: MyAppBar(title: 'مراجعة القران'),
+      drawer: MyDrawer(),
+      body: Container(
+          margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
+          child: Column(
+            children: [
+              Expanded(
+                child: Question(),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: QuestionsFooter(
+                  pageSetState: () {
+                    setState(() {});
+                  },
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: QuestionsFooter(
-                    pageSetState: () {
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
-            )),
-      ),
+              ),
+            ],
+          )),
     );
   }
 }

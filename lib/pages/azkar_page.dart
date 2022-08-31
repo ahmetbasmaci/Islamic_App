@@ -34,58 +34,55 @@ class _AzkarPageState extends State<AzkarPage> {
   @override
   Widget build(BuildContext context) {
     int totalIndex = 0;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: MyAppBar(title: bigTitle),
-        drawer: MyDrawer(),
-        body: widget.zikrType == ZikrType.none
-            ? Container()
-            : isLoading
-                ? Center(child: CircularProgressIndicator())
-                : AnimationLimiter(
-                    child: ListView.builder(
-                      controller: scrollController,
-                      shrinkWrap: true,
-                      itemCount: zikrDataList.length,
-                      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                      itemBuilder: (context, index) {
-                        if (zikrDataList[index].haveList) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: zikrDataList[index].list.length,
-                              itemBuilder: (context, index2) {
-                                totalIndex++;
-                                return AnimationService.animationListItemDownToUp(
-                                  index: totalIndex,
-                                  child: ZikrCard2(
-                                    haveMargin: true,
-                                  ).azkarCard(
-                                    ZikrData(
-                                      zikrType: widget.zikrType,
-                                      title: index2 > 0
-                                          ? "${zikrDataList[index].title} ${index2 + 1}"
-                                          : zikrDataList[index].title,
-                                      content: zikrDataList[index].list[index2]['zekr'] ?? "",
-                                    ),
+    return Scaffold(
+      appBar: MyAppBar(title: bigTitle),
+      drawer: MyDrawer(),
+      body: widget.zikrType == ZikrType.none
+          ? Container()
+          : isLoading
+              ? Center(child: CircularProgressIndicator())
+              : AnimationLimiter(
+                  child: ListView.builder(
+                    controller: scrollController,
+                    shrinkWrap: true,
+                    itemCount: zikrDataList.length,
+                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    itemBuilder: (context, index) {
+                      if (zikrDataList[index].haveList) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: zikrDataList[index].list.length,
+                            itemBuilder: (context, index2) {
+                              totalIndex++;
+                              return AnimationService.animationListItemDownToUp(
+                                index: totalIndex,
+                                child: ZikrCard2(
+                                  haveMargin: true,
+                                ).azkarCard(
+                                  ZikrData(
+                                    zikrType: widget.zikrType,
+                                    title: index2 > 0
+                                        ? "${zikrDataList[index].title} ${index2 + 1}"
+                                        : zikrDataList[index].title,
+                                    content: zikrDataList[index].list[index2]['zekr'] ?? "",
                                   ),
-                                );
-                              });
-                        } else {
-                          totalIndex++;
-                          return AnimationService.animationListItemDownToUp(
-                            index: totalIndex,
-                            child: ZikrCard2(
-                              haveMargin: index != zikrDataList.length - 1 ? true : false,
-                            ).azkarCard(zikrDataList[index]),
-                          );
-                        }
-                      },
-                    ),
+                                ),
+                              );
+                            });
+                      } else {
+                        totalIndex++;
+                        return AnimationService.animationListItemDownToUp(
+                          index: totalIndex,
+                          child: ZikrCard2(
+                            haveMargin: index != zikrDataList.length - 1 ? true : false,
+                          ).azkarCard(zikrDataList[index]),
+                        );
+                      }
+                    },
                   ),
-     ),
-    );
+                ),
+     );
   }
 
   void readData() async {

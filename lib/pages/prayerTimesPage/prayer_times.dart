@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -25,90 +24,86 @@ class _PrayerTimesState extends State<PrayerTimes> {
   int hDay = HijriCalendar.fromDate(DateTime.now()).hDay;
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: MyAppBar(title: ''),
-        drawer: MyDrawer(),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: MySiezes.betweanAzkarBlock),
-                      decoration: BoxDecoration(
-                        color: MyColors.background(),
-                        borderRadius: BorderRadius.circular(100),
-                        boxShadow: [
-                          BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3)),
-                          BoxShadow(color: MyColors.shadowPrimary(), blurRadius: 6, offset: Offset(0, 3)),
+    return Scaffold(
+      appBar: MyAppBar(title: ''),
+      drawer: MyDrawer(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: MySiezes.betweanAzkarBlock),
+                    decoration: BoxDecoration(
+                      color: MyColors.background(),
+                      borderRadius: BorderRadius.circular(100),
+                      boxShadow: [
+                        BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3)),
+                        BoxShadow(color: MyColors.shadowPrimary(), blurRadius: 6, offset: Offset(0, 3)),
+                      ],
+                    ),
+                    width: 170,
+                    height: 170,
+                    child: Obx(
+                      () => Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          MyTexts.normal(
+                           
+                            title: prayerTimeCtr.nextPrayName.value,
+                            size: 26,
+                            color: MyColors.second(),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          MyTexts.normal(
+                           
+                            title: prayerTimeCtr.timeLeftToNextPrayTime.value,
+                            size: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ],
                       ),
-                      width: 170,
-                      height: 170,
-                      child: Obx(
-                        () => Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            MyTexts.normal(
-                              context,
-                              title: prayerTimeCtr.nextPrayName.value,
-                              size: 26,
-                              color: MyColors.second(),
-                              fontWeight: FontWeight.bold,
-                            ),
-                            MyTexts.normal(
-                              context,
-                              title: prayerTimeCtr.timeLeftToNextPrayTime.value,
-                              size: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
-                    SizedBox(height: MySiezes.betweanAzkarBlock),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await prayerTimeCtr.updatePrayerTimes();
-                        if(mounted)
-                        setState(() {});
-                      },
-                      child: Text('تحديث'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        await prayerTimeCtr.updatePrayerTimes(
-                            newTime: prayerTimeCtr.curerntDate.value.add(Duration(days: 1)));
+                  ),
+                  SizedBox(height: MySiezes.betweanAzkarBlock),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await prayerTimeCtr.updatePrayerTimes();
+                      if (mounted) setState(() {});
+                    },
+                    child: Text('تحديث'),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      await prayerTimeCtr.updatePrayerTimes(
+                          newTime: prayerTimeCtr.curerntDate.value.add(Duration(days: 1)));
 
-                        setState(() {});
-                      },
-                      icon: const Icon(Icons.arrow_back_ios),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        await prayerTimeCtr.updatePrayerTimes(
-                            newTime: prayerTimeCtr.curerntDate.value.subtract(Duration(days: 1)));
-                        setState(() {});
-                      },
-                      icon: const Icon(Icons.arrow_forward_ios),
-                    ),
-                  ],
-                ),
-                _prayTimeContainer(),
-              ],
-            ),
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      await prayerTimeCtr.updatePrayerTimes(
+                          newTime: prayerTimeCtr.curerntDate.value.subtract(Duration(days: 1)));
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios),
+                  ),
+                ],
+              ),
+              _prayTimeContainer(),
+            ],
           ),
         ),
       ),
@@ -129,10 +124,10 @@ class _PrayerTimesState extends State<PrayerTimes> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  MyTexts.settingsTitle(context, title: 'التاريخ الميلادي'),
+                  MyTexts.settingsTitle(title: 'التاريخ الميلادي'),
                   Obx(
                     () => MyTexts.normal(
-                      context,
+                     
                       title:
                           '${prayerTimeCtr.curerntDate.value.year}-${prayerTimeCtr.curerntDate.value.month}-${prayerTimeCtr.curerntDate.value.day}',
                       fontWeight: FontWeight.bold,
@@ -143,10 +138,10 @@ class _PrayerTimesState extends State<PrayerTimes> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  MyTexts.settingsTitle(context, title: 'التاريخ الهجري'),
+                  MyTexts.settingsTitle(title: 'التاريخ الهجري'),
                   Obx(
                     () => MyTexts.normal(
-                      context,
+                     
                       title:
                           '${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hYear}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hMonth}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hDay}',
                       fontWeight: FontWeight.bold,
@@ -224,13 +219,13 @@ class _PrayerTimesState extends State<PrayerTimes> {
               : BoxDecoration(),
           child: Column(
             children: [
-              MyTexts.settingsTitle(context, title: title),
+              MyTexts.settingsTitle(title: title),
               AnimatedSwitcher(
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: prayerTimeCtr.isLoading.value
                     ? MyCircularProgressIndecator()
-                    : MyTexts.normal(context, title: time, fontWeight: FontWeight.bold),
+                    : MyTexts.normal(title: time, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -239,4 +234,3 @@ class _PrayerTimesState extends State<PrayerTimes> {
     );
   }
 }
-

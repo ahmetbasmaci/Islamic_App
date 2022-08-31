@@ -55,7 +55,6 @@ class Question extends StatelessWidget {
                         ],
                       ),
                       child: MyTexts.content(
-                        context,
                         title: ctr.questionType.value == QuestionType.ayahInJuzAndPage
                             ? selectedAyah.ayah
                             : selectedAyah.surah,

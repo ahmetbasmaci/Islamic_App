@@ -7,8 +7,6 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-
-import '../moduls/enums.dart';
 import '../pages/alarmsPage/classes/alarm_prop.dart';
 import 'json_service.dart';
 
@@ -107,7 +105,7 @@ class NotificationService {
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
       _getNotificationDetails(
-        notificationSound: NotificationSound.random,
+        notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
@@ -115,17 +113,13 @@ class NotificationService {
   }
 
 //! -----------------------------  daily alarm ----------------------------- //
-  static Future setDailyNotification({required AlarmProp alarmProp}) async {
-    NotificationSound selectedAlarmType = NotificationSound.random;
-    if (alarmProp.alarmType == ALarmType.hadith) {
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
-      selectedAlarmType = NotificationSound.hadith;
-    }
+  static Future setDailyNotification(
+      {required AlarmProp alarmProp, NotificationSound selectedAlarmType = NotificationSound.random}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
-      _selectHourAndMinute(hour: alarmProp.timeOfDay.hour, minute: alarmProp.timeOfDay.minute),
+      _selectHourAndMinute(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: selectedAlarmType,
         bigTitle: alarmProp.notificationTitle,
@@ -143,9 +137,9 @@ class NotificationService {
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
-      _selectDateTime(dateTime: alarmProp.day, hour: alarmProp.timeOfDay.hour, minute: alarmProp.timeOfDay.minute),
+      _selectDateTime(dateTime: alarmProp.day, hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
-        notificationSound: NotificationSound.random,
+        notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
@@ -163,7 +157,7 @@ class NotificationService {
       alarmProp.notificationBody,
       _selectHicriDateTime(hour: 21, minute: 4),
       _getNotificationDetails(
-        notificationSound: NotificationSound.random,
+        notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),

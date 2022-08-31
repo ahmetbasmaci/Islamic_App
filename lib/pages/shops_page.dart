@@ -69,119 +69,116 @@ class _ShopsPageState extends State<ShopsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: MyAppBar(
-          title: 'مواقع الاسواق المضافة',
-          leading: Builder(builder: (context2) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context2).openDrawer();
-              },
-              icon: MyIcons.drawer,
-            );
-          }),
-          actions: [
-            selectedItems > 0
-                ? IconButton(
-                    onPressed: () {
-                      selectedItems = 0;
-                      for (var element in shopsList) {
-                        element.isSelected = true;
-                        selectedItems++;
-                      }
-                      setState(() {});
-                    },
-                    icon: MyIcons.selectAll,
-                  )
-                : Container(),
-          ],
-        ),
-        drawer: MyDrawer(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => showAddShopDialog(),
-          child: Icon(Icons.add),
-        ),
-        body: ListView(
-          children: <Widget>[
-            // ZikrCard(
-            //   zikrData: ZikrData(
-            //     zikrType: ZikrType.hadith,
-            //     title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
-            //     content:
-            //         'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
-            //   ),
-            // ),
-            Divider(),
-            isloading
-                ? MyCircularProgressIndecator()
-                : ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: shopsList.length,
-                    itemBuilder: ((context, index) => Container(
-                          margin: index != shopsList.length - 1
-                              ? EdgeInsets.only(bottom: MySiezes.betweanCardItems)
-                              : EdgeInsets.zero,
-                          decoration: BoxDecoration(
-                            color: shopsList[index].isSelected ? Color.fromARGB(70, 145, 145, 145) : null,
-                            border: Border(
-                                bottom: BorderSide(
-                              color: shopsList[index].isSelected ? MyColors.primaryDark : Colors.grey,
-                            )),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
-                          child: InkWell(
-                            onLongPress: () {
-                              shopsList[index].isSelected = true;
-                              selectedItems++;
-                              setState(() {});
-                            },
-                            onTap: () {
-                              if (shopsList[index].isSelected) {
-                                shopsList[index].isSelected = false;
-                                selectedItems--;
-                              } else {
-                                if (selectedItems > 0) {
-                                  shopsList[index].isSelected = true;
-                                  selectedItems++;
-                                }
+    return Scaffold(
+      appBar: MyAppBar(
+        title: 'مواقع الاسواق المضافة',
+        leading: Builder(builder: (context2) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context2).openDrawer();
+            },
+            icon: MyIcons.drawer,
+          );
+        }),
+        actions: [
+          selectedItems > 0
+              ? IconButton(
+                  onPressed: () {
+                    selectedItems = 0;
+                    for (var element in shopsList) {
+                      element.isSelected = true;
+                      selectedItems++;
+                    }
+                    setState(() {});
+                  },
+                  icon: MyIcons.selectAll,
+                )
+              : Container(),
+        ],
+      ),
+      drawer: MyDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showAddShopDialog(),
+        child: Icon(Icons.add),
+      ),
+      body: ListView(
+        children: <Widget>[
+          // ZikrCard(
+          //   zikrData: ZikrData(
+          //     zikrType: ZikrType.hadith,
+          //     title: 'عن عمر بن الخطاب ـ رضي الله عنه ـ أن رسول الله صلى الله عليه  وسلم قال',
+          //     content:
+          //         'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.',
+          //   ),
+          // ),
+          Divider(),
+          isloading
+              ? MyCircularProgressIndecator()
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: shopsList.length,
+                  itemBuilder: ((context, index) => Container(
+                        margin: index != shopsList.length - 1
+                            ? EdgeInsets.only(bottom: MySiezes.betweanCardItems)
+                            : EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                          color: shopsList[index].isSelected ? Color.fromARGB(70, 145, 145, 145) : null,
+                          border: Border(
+                              bottom: BorderSide(
+                            color: shopsList[index].isSelected ? MyColors.primaryDark : Colors.grey,
+                          )),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
+                        child: InkWell(
+                          onLongPress: () {
+                            shopsList[index].isSelected = true;
+                            selectedItems++;
+                            setState(() {});
+                          },
+                          onTap: () {
+                            if (shopsList[index].isSelected) {
+                              shopsList[index].isSelected = false;
+                              selectedItems--;
+                            } else {
+                              if (selectedItems > 0) {
+                                shopsList[index].isSelected = true;
+                                selectedItems++;
                               }
-                              setState(() {});
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: MyTexts.settingsTitle(context, title: shopsList[index].shopName),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    MyTexts.settingsContent(context, title: 'تفعيل الاشعار'),
-                                    MySwitch(
-                                      value: shopsList[index].isActive,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          shopsList[index].isActive = newValue;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      deleteShop(shopsList[index].shopName);
+                            }
+                            setState(() {});
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: MyTexts.settingsTitle(title: shopsList[index].shopName),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  MyTexts.settingsContent(title: 'تفعيل الاشعار'),
+                                  MySwitch(
+                                    value: shopsList[index].isActive,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        shopsList[index].isActive = newValue;
+                                      });
                                     },
-                                    icon: MyIcons.delete),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    deleteShop(shopsList[index].shopName);
+                                  },
+                                  icon: MyIcons.delete),
+                            ],
                           ),
-                        )),
-                  )
-          ],
-        ),
+                        ),
+                      )),
+                )
+        ],
       ),
     );
   }
@@ -272,14 +269,14 @@ class _ShopsPageState extends State<ShopsPage> {
             context: context,
             type: AlertType.success,
             title: 'انت الان داخل سوق  ......',
-            content: MyTexts.content(context,
+            content: MyTexts.content(
                 title:
                     'من دخل السوق فقال لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير كتب الله له ألف ألف حسنة ومحا عنه ألف ألف سيئة ورفع له ألف ألف درجة.'),
             buttons: [
               DialogButton(
                 onPressed: () => Get.back(),
                 color: MyColors.primary(),
-                child: MyTexts.content(context, title: 'تم'),
+                child: MyTexts.content( title: 'تم'),
               )
             ],
             style: AlertStyle(
@@ -341,49 +338,46 @@ class _ShopsPageState extends State<ShopsPage> {
         context: context,
         type: AlertType.info,
         title: 'اضافة سوق جديد',
-        content: Directionality(
-          textDirection: TextDirection.rtl,
-          child: StatefulBuilder(builder: (context, dialogSetState) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyTexts.content(context, title: 'ادخل اسم السوق'),
-                SizedBox(height: 10),
-                TextField(
-                  maxLength: 18,
-                  textAlign: TextAlign.right,
-                  controller: _shopCtr,
-                  style: TextStyle(
-                      color: MyColors.whiteBlack()),
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(), hintText: 'اسم السوق : ', hintStyle: TextStyle(fontSize: 14)),
-                ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    OutlinedButton(
-                      onPressed: () async {
-                        isLoading = true;
-                        dialogSetState(() {});
-                        pos = await _determinePosition();
-                        isLocationReady = true;
-                        isLoading = false;
-                        dialogSetState(() {});
-                      },
-                      child: MyTexts.content(context, title: 'اجلب موقعك الحالي'),
-                    ),
-                    isLoading
-                        ? MyCircularProgressIndecator()
-                        : isLocationReady
-                            ? MyIcons.done()
-                            : MyIcons.error,
-                  ],
-                )
-              ],
-            );
-          }),
-        ),
+        content: StatefulBuilder(builder: (context, dialogSetState) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyTexts.content(title: 'ادخل اسم السوق'),
+              SizedBox(height: 10),
+              TextField(
+                maxLength: 18,
+                textAlign: TextAlign.right,
+                controller: _shopCtr,
+                style: TextStyle(
+                    color: MyColors.whiteBlack()),
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(), hintText: 'اسم السوق : ', hintStyle: TextStyle(fontSize: 14)),
+              ),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  OutlinedButton(
+                    onPressed: () async {
+                      isLoading = true;
+                      dialogSetState(() {});
+                      pos = await _determinePosition();
+                      isLocationReady = true;
+                      isLoading = false;
+                      dialogSetState(() {});
+                    },
+                    child: MyTexts.content(title: 'اجلب موقعك الحالي'),
+                  ),
+                  isLoading
+                      ? MyCircularProgressIndecator()
+                      : isLocationReady
+                          ? MyIcons.done()
+                          : MyIcons.error,
+                ],
+              )
+            ],
+          );
+        }),
         buttons: [
           DialogButton(
             onPressed: () => Get.back(),

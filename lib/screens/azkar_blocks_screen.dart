@@ -33,7 +33,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         children: [
           Align(
             alignment: Alignment.centerRight,
-            child: MyTexts.outsideHeader(context, title: 'مختلف الاذكار'),
+            child: MyTexts.outsideHeader( title: 'مختلف الاذكار'),
           ),
           ListView.builder(
             itemCount: BlockData.list.length,
@@ -56,7 +56,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
                   ),
                   margin: EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
                   child: ListTile(
-                    title: MyTexts.blockTitle(context, title: BlockData.list[index].title),
+                    title: MyTexts.blockTitle(title: BlockData.list[index].title),
                     leading: Image.asset(BlockData.list[index].imageSource),
                     trailing: MyIcons.leftArrow,
                     onTap: () {
@@ -96,7 +96,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
           ),
           margin: EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
           child: ListTile(
-            title: MyTexts.blockTitle(context, title: BlockData.list[index].title),
+            title: MyTexts.blockTitle(title: BlockData.list[index].title),
             leading: Image.asset(BlockData.list[index].imageSource),
             trailing: MyIcons.leftArrow,
             onTap: () {

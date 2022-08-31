@@ -18,7 +18,7 @@ class QuestionsFooter extends StatelessWidget {
     return Column(
       children: <Widget>[
         Divider(thickness: 1, endIndent: 50, indent: 50),
-        questionInfoAndNextButton(context),
+        questionInfoAndNextButton(),
         boodumSheetHandleButton(),
       ],
     );
@@ -39,7 +39,7 @@ class QuestionsFooter extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.keyboard_arrow_up),
-              MyTexts.normal(context, title: ' خيارات '),
+              MyTexts.normal( title: ' خيارات '),
               Icon(Icons.keyboard_arrow_up),
             ],
           ),
@@ -80,14 +80,14 @@ class QuestionsFooter extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          selectDifferentTestType(context),
+                          selectDifferentTestType(),
                         ],
                       ),
-                      selectSpecificPage(context),
+                      selectSpecificPage(),
                       ctr.questionType.value == QuestionType.ayahInJuzAndPage
                           ? selectSpecificJuz(context)
                           : Container(),
-                      answersInfo(context),
+                      answersInfo(),
                     ],
                   ),
                 ),
@@ -116,7 +116,7 @@ class QuestionsFooter extends StatelessWidget {
         }));
   }
 
-  Row questionInfoAndNextButton(BuildContext context) {
+  Row questionInfoAndNextButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -126,22 +126,22 @@ class QuestionsFooter extends StatelessWidget {
           color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() : MyColors.background(),
           onPressed: () => getNextQuestion(),
           child: Row(
-            children: [MyIcons.rightArrow(color: MyColors.primary()), MyTexts.normal(context, title: 'التالي')],
+            children: [MyIcons.rightArrow(color: MyColors.primary()), MyTexts.normal(title: 'التالي')],
           ),
         ),
-        MyTexts.normal(context, title: ' السؤال رقم ${ctr.quastionNumber.value}')
+        MyTexts.normal(title: ' السؤال رقم ${ctr.quastionNumber.value}')
       ],
     );
   }
 
-  Widget answersInfo(BuildContext context) {
+  Widget answersInfo() {
     return Obx(
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          correctAndWrongAnswersLabels(context, isCorrect: true),
+          correctAndWrongAnswersLabels( isCorrect: true),
           Expanded(child: Container()),
-          correctAndWrongAnswersLabels(context, isCorrect: false),
+          correctAndWrongAnswersLabels(isCorrect: false),
         ],
       ),
     );
@@ -152,11 +152,11 @@ class QuestionsFooter extends StatelessWidget {
     pageSetState();
   }
 
-  Row selectDifferentTestType(BuildContext context) {
+  Row selectDifferentTestType() {
     return Row(
       children: [
         MyTexts.dropDownMenuTitle(
-          context,
+        
           title: 'نوع الاختبار:  ',
         ),
         DropdownButton<QuestionType>(
@@ -170,21 +170,21 @@ class QuestionsFooter extends StatelessWidget {
           },
           items: [
             DropdownMenuItem(
-                value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem(context, title: 'الايات')),
-            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem(context, title: 'السور')),
+                value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem( title: 'الايات')),
+            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem( title: 'السور')),
           ],
         ),
       ],
     );
   }
 
-  Widget selectSpecificPage(BuildContext context) {
+  Widget selectSpecificPage() {
     return Obx(
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          selectFromOption(context, true),
-          selectToOption(context, true),
+          selectFromOption( true),
+          selectToOption( true),
         ],
       ),
     );
@@ -195,22 +195,22 @@ class QuestionsFooter extends StatelessWidget {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          selectFromOption(context, false),
-          selectToOption(context, false),
+          selectFromOption( false),
+          selectToOption(false),
         ],
       ),
     );
   }
 
-  Row selectFromOption(BuildContext context, bool isPage) {
+  Row selectFromOption(bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(context, title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
+        MyTexts.dropDownMenuTitle( title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
         DropdownButton<int>(
           items: List.generate(
             isPage ? 20 : 30,
             (index) =>
-                DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(context, title: '${index + 1}')),
+                DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem( title: '${index + 1}')),
           ),
           value: isPage ? ctr.pageFrom.value : ctr.juzFrom.value,
           onChanged: (val) {
@@ -222,11 +222,11 @@ class QuestionsFooter extends StatelessWidget {
     );
   }
 
-  Row selectToOption(BuildContext context, bool isPage) {
+  Row selectToOption( bool isPage) {
     return Row(
       children: [
         MyTexts.dropDownMenuTitle(
-          context,
+        
           title: isPage ? 'الى الصفحة    ' : 'الى الجزء    ',
         ),
         DropdownButton<int>(
@@ -235,7 +235,7 @@ class QuestionsFooter extends StatelessWidget {
             (index) => DropdownMenuItem(
                 value: isPage ? ctr.pageFrom.value + index : ctr.juzFrom.value + index,
                 child: MyTexts.dropDownMenuItem(
-                  context,
+                
                   title: isPage ? '${ctr.pageFrom.value + index}' : '${ctr.juzFrom.value + index}',
                 )),
           ),
@@ -249,7 +249,7 @@ class QuestionsFooter extends StatelessWidget {
     );
   }
 
-  Widget correctAndWrongAnswersLabels(BuildContext context, {required bool isCorrect}) {
+  Widget correctAndWrongAnswersLabels({required bool isCorrect}) {
     return Expanded(
       flex: 6,
       child: AnimatedContainer(
@@ -267,7 +267,7 @@ class QuestionsFooter extends StatelessWidget {
           children: <Widget>[
             Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
             MyTexts.normal(
-              context,
+            
               title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
               color: isCorrect ? MyColors.true_ : MyColors.false_,
               size: 10,
@@ -277,7 +277,7 @@ class QuestionsFooter extends StatelessWidget {
               elevation: 1,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: MyTexts.normal(context,
+                child: MyTexts.normal(
                     title: isCorrect ? '${ctr.trueAnswersCounter}' : '${ctr.wrongAnwersCounter}',
                     color: isCorrect ? MyColors.true_ : MyColors.false_),
               ),

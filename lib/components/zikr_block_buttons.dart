@@ -43,14 +43,14 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           if (widget.zikrData.isFavorite) {
             sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
             toastText = 'تم حذف النص من المفضلة';
-            Get.find<AudioServiceCtr>().stopAudioById(widget.zikrData.numberInQuran);
+            Get.find<AudioServiceCtr>().stopAudioById(widget.zikrData.ayahNumber);
           } else {
             sqlDb.insertData('favorite', {
               'zikrType': widget.zikrData.zikrType.index,
               'title': widget.zikrData.title,
               'content': widget.zikrData.content,
               'description': widget.zikrData.description,
-              'numberInQuran': widget.zikrData.numberInQuran,
+              'numberInQuran': widget.zikrData.ayahNumber,
               'surahNumber': widget.zikrData.surahNumber,
               'count': -1,
             });

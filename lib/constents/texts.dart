@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/constents/constents.dart';
 
 import 'colors.dart';
 
 class MyTexts {
-  static Text outsideHeader(BuildContext context, {required String title}) {
+  static BuildContext context = Constants.navigatorKey.currentState!.context;
+  static Text outsideHeader({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline1,
     );
   }
 
-  static Text zikrTitle(BuildContext context, {required String title}) {
+  static Text zikrTitle({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline2,
@@ -18,14 +20,14 @@ class MyTexts {
     );
   }
 
-  static Text blockTitle(BuildContext context, {required String title}) {
+  static Text blockTitle({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline3,
     );
   }
 
-  static Text content(BuildContext context, {required String title}) {
+  static Text content({required String title}) {
     return Text(
       title,
       textAlign: TextAlign.center,
@@ -33,7 +35,7 @@ class MyTexts {
     );
   }
 
-  static Text info(BuildContext context, {required String title}) {
+  static Text info({required String title}) {
     return Text(
       title,
       textAlign: TextAlign.center,
@@ -41,52 +43,53 @@ class MyTexts {
     );
   }
 
-  static Text normal(BuildContext context, {required String title, Color? color,double ?size,FontWeight? fontWeight}) {
+  static Text normal({required String title, Color? color, double? size, FontWeight? fontWeight}) {
     return Text(
       title,
-      textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.subtitle2!.copyWith(color: color,fontSize: size,fontWeight: fontWeight),
+      // textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.subtitle2!.copyWith(color: color, fontSize: size, fontWeight: fontWeight),
     );
   }
 
-  static Text settingsTitle(BuildContext context, {required String title}) {
+  static Text settingsTitle({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline4,
     );
   }
 
-  static Text settingsContent(BuildContext context, {required String title}) {
+  static Text settingsContent({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline5,
     );
   }
 
-  static Text drawerTitle(BuildContext context, {required String title}) {
+  static Text drawerTitle({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.headline6,
     );
   }
 
-  static Text dropDownMenuItem(BuildContext context, {required String title}) {
+  static Text dropDownMenuItem({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.subtitle1,
     );
   }
 
-  static Text dropDownMenuTitle(BuildContext context, {required String title}) {
+  static Text dropDownMenuTitle({required String title}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.subtitle2,
     );
   }
-  static Text quranSecondTitle(BuildContext context, {required String title,double?size}) {
+
+  static Text quranSecondTitle({required String title, double? size}) {
     return Text(
       title,
-     style: TextStyle(color: MyColors.quranSecond(), fontSize: size??16, fontWeight: FontWeight.bold),
+      style: TextStyle(color: MyColors.quranSecond(), fontSize: size ?? 16, fontWeight: FontWeight.bold),
     );
   }
 }

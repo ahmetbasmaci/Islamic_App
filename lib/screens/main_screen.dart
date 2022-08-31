@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
       children: <Widget>[
         Align(
           alignment: Alignment.centerRight,
-          child: MyTexts.outsideHeader(context, title: outsideTitle),
+          child: MyTexts.outsideHeader( title: outsideTitle),
         ),
         Align(
           alignment: Alignment.centerRight,
@@ -84,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        MyTexts.blockTitle(context, title: azkars[index].title),
+                        MyTexts.blockTitle(title: azkars[index].title),
                         Container(
                           constraints: BoxConstraints(minWidth: MySiezes.minAzkarBlockWidth),
                           child: Row(

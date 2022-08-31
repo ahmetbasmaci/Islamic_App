@@ -30,9 +30,10 @@ TextStyle _headLine5 = GoogleFonts.harmattan(fontSize: 14, color: MyColors.setti
 
 TextStyle _headLine6 = GoogleFonts.harmattan(fontSize: 20, fontWeight: FontWeight.bold);
 
-TextStyle _bodyText1 = GoogleFonts.harmattan(fontSize: 19, height: 1.8, wordSpacing: 2.5);
+// TextStyle _bodyText1 = GoogleFonts.kadwa(, fontSize: 16, height: 1.8, wordSpacing: 3.5);
+TextStyle _bodyText1 = GoogleFonts.almarai(fontSize: 16, height: 2.2, fontWeight: FontWeight.w300, wordSpacing: 3.5,);
 
-TextStyle _bodyText2 = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info);
+TextStyle _bodyText2 = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info, wordSpacing: 3.5);
 
 TextStyle _subtitle1 = GoogleFonts.harmattan();
 
@@ -40,6 +41,7 @@ TextStyle _subtitle2 = GoogleFonts.harmattan(fontSize: 16);
 
 class ThemeService {
   final ThemeData lightThemeMode = ThemeData.light().copyWith(
+    // fontFamily: 'me_quran_volt_newmet',
     listTileTheme: ListTileThemeData(
       selectedColor: MyColors.primary_,
       iconColor: MyColors.primary_,

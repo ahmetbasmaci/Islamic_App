@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'colors.dart';
 
 class Constants {
@@ -18,4 +19,9 @@ class Constants {
     systemNavigationBarDividerColor: Colors.transparent,
     statusBarBrightness: Brightness.dark,
   );
+
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static NumberFormat format3 = NumberFormat('000');
+  static NumberFormat format2 = NumberFormat('00');
 }

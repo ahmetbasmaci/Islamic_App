@@ -6,7 +6,7 @@ class ZikrData {
     this.title = '',
     this.content = '',
     this.description = '',
-    this.numberInQuran = 0,
+    this.ayahNumber = 0,
     this.count = -1,
     this.haveList = false,
     this.list,
@@ -21,7 +21,7 @@ class ZikrData {
   bool isFavorite;
   String description;
 
-  int numberInQuran;
+  int ayahNumber;
   int count;
   int surahNumber;
   bool haveList;
@@ -36,7 +36,7 @@ class ZikrData {
         'content': content,
         'isFavorite': isFavorite,
         'description': description,
-        'numberInQuran': numberInQuran,
+        'numberInQuran': ayahNumber,
         'count': count,
         'surahNumber': surahNumber,
         'haveList': haveList,
@@ -50,7 +50,7 @@ class ZikrData {
     content = data['content'];
     isFavorite = data['isFavorite'];
     description = data['description'];
-    numberInQuran = data['numberInQuran'];
+    ayahNumber = data['numberInQuran'];
     count = data['count'];
     surahNumber = data['surahNumber'];
     haveList = data['haveList'];

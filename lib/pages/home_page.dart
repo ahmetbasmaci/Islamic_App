@@ -44,53 +44,50 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: currentIndex != 1 ? Constants.systemUiOverlayStyleDefault : Constants.systemUiOverlayStyleQuran,
-        child: SafeArea(
-          bottom: false,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
-            drawer: currentIndex != 1 ? MyDrawer() : null,
-            bottomNavigationBar: currentIndex != 1
-                ? CurvedNavigationBar(
-                    height: MySiezes.navigationTap,
-                    items: icons,
-                    color: MyColors.primary(),
-                    backgroundColor: MyColors.background(),
-                    animationCurve: Curves.easeInOut,
-                    animationDuration: Duration(milliseconds: 300),
-                    index: currentIndex,
-                    onTap: (newIndex) {
-                      updateCurrentIndex(newIndex);
-                    },
-                  )
-                : null,
-            // bottomNavigationBar: ConvexAppBar.badge(
-            //   const <int, dynamic>{3: '99+'},
-            //   style: TabStyle.react,
-            //   activeColor: MyColors.white,
-            //   backgroundColor: MyColors.primary(),
-            //   color: MyColors.background(),
-            //   badgeColor: Colors.red,
-            //   items: <TabItem>[
-            //     for (final entry in icons) TabItem(icon: entry, title: ''),
-            //   ],
-            //   onTap: (newIndex) => updateCurrentIndex(newIndex),
-            // ),
-            body: currentIndex != 1
-                ? RefreshIndicator(
-                    onRefresh: () async {
-                      await Future.delayed(Duration(seconds: 1));
-                      Get.offAll(() => HomePage(),
-                          transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
-                      // setState(() {});
-                    },
-                    child: screens[currentIndex])
-                : screens[currentIndex],
-          ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: currentIndex != 1 ? Constants.systemUiOverlayStyleDefault : Constants.systemUiOverlayStyleQuran,
+      child: SafeArea(
+        bottom: false,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
+          drawer: currentIndex != 1 ? MyDrawer() : null,
+          bottomNavigationBar: currentIndex != 1
+              ? CurvedNavigationBar(
+                  height: MySiezes.navigationTap,
+                  items: icons,
+                  color: MyColors.primary(),
+                  backgroundColor: MyColors.background(),
+                  animationCurve: Curves.easeInOut,
+                  animationDuration: Duration(milliseconds: 300),
+                  index: currentIndex,
+                  onTap: (newIndex) {
+                    updateCurrentIndex(newIndex);
+                  },
+                )
+              : null,
+          // bottomNavigationBar: ConvexAppBar.badge(
+          //   const <int, dynamic>{3: '99+'},
+          //   style: TabStyle.react,
+          //   activeColor: MyColors.white,
+          //   backgroundColor: MyColors.primary(),
+          //   color: MyColors.background(),
+          //   badgeColor: Colors.red,
+          //   items: <TabItem>[
+          //     for (final entry in icons) TabItem(icon: entry, title: ''),
+          //   ],
+          //   onTap: (newIndex) => updateCurrentIndex(newIndex),
+          // ),
+          body: currentIndex != 1
+              ? RefreshIndicator(
+                  onRefresh: () async {
+                    await Future.delayed(Duration(seconds: 1));
+                    Get.offAll(() => HomePage(),
+                        transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
+                    // setState(() {});
+                  },
+                  child: screens[currentIndex])
+              : screens[currentIndex],
         ),
       ),
     );

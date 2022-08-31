@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -7,6 +8,7 @@ import 'package:zad_almumin/constents/sizes.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_drawer.dart';
 import '../../components/my_switch.dart';
+import '../../constents/constents.dart';
 import '../../constents/icons.dart';
 import '../../constents/texts.dart';
 import 'classes/alarm_prop.dart';
@@ -23,25 +25,22 @@ class _AlarmPageState extends State<AlarmPage> {
   var alarmsCtr = Get.find<AlarmsCtr>();
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: MyAppBar(title: 'المنبه'),
-        drawer: MyDrawer(),
-        body: ListView(
-          children: [
-            alarmBlockTitle(title: 'تذكير القران'),
-            quranAlarms(),
-            alarmBlockTitle(title: 'تذكير الصيام'),
-            fastAlarms(),
-            alarmBlockTitle(title: 'تذكير الاذكار'),
-            azkarAlarms(),
-            alarmBlockTitle(title: 'تذكير الاحاديث'),
-            hadithsAlarms(),
-            alarmBlockTitle(title: 'تذكير الاذان'),
-            prayTimesAlarms(),
-          ],
-        ),
+    return Scaffold(
+      appBar: MyAppBar(title: 'المنبه'),
+      drawer: MyDrawer(),
+      body: ListView(
+        children: [
+          alarmBlockTitle(title: 'تذكير القران'),
+          quranAlarms(),
+          alarmBlockTitle(title: 'تذكير الصيام'),
+          fastAlarms(),
+          alarmBlockTitle(title: 'تذكير الاذكار'),
+          azkarAlarms(),
+          alarmBlockTitle(title: 'تذكير الاحاديث'),
+          hadithsAlarms(),
+          alarmBlockTitle(title: 'تذكير الاذان'),
+          prayTimesAlarms(),
+        ],
       ),
     );
   }
@@ -74,7 +73,8 @@ class _AlarmPageState extends State<AlarmPage> {
               title: 'قراءة سورة الكهف',
               subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة',
               value: alarmsCtr.kahfSureProp.isActive.value,
-              alarmProp: alarmsCtr.kahfSureProp,
+              alarmProp:
+                  alarmsCtr.kahfSureProp.time.value.minute == 0 ? alarmsCtr.kahfSureProp : alarmsCtr.kahfSureProp,
               onChanged: (newValue) {
                 alarmsCtr.changeState(alarmProp: alarmsCtr.kahfSureProp, newValue: newValue);
               },
@@ -286,8 +286,8 @@ class _AlarmPageState extends State<AlarmPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MyTexts.settingsTitle(context, title: title),
-                MyTexts.settingsContent(context, title: subtitle),
+                MyTexts.settingsTitle(title: title),
+                MyTexts.settingsContent(title: subtitle),
               ],
             ),
           ),
@@ -299,29 +299,23 @@ class _AlarmPageState extends State<AlarmPage> {
                       ? () async {
                           TimeOfDay? newTime = await showTimePicker(
                             context: context,
-                            initialTime: alarmProp.timeOfDay,
-                            builder: (BuildContext context, Widget? child) {
-                              return Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: child!,
-                              );
-                            },
+                            initialTime:
+                                TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
+                            builder: (BuildContext context, Widget? child) => child!,
                           );
                           if (newTime == null) return;
-                          alarmProp.timeOfDay = newTime;
-
+                          alarmProp.time.value = Time(newTime.hour, newTime.minute);
                           getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
-                          if (alarmProp.isActive.value) onChanged(true);
+                          onChanged(true);
                         }
                       : () {
                           Get.dialog(
                             AlertDialog(
-                              title: MyTexts.settingsTitle(context, title: 'غير مسموح'),
-                              content: MyTexts.settingsContent(context,
-                                  title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'),
+                              title: MyTexts.settingsTitle(title: 'غير مسموح'),
+                              content: MyTexts.settingsContent(title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'),
                               actions: [
                                 TextButton(
-                                  child: MyTexts.settingsContent(context, title: 'حسنا'),
+                                  child: MyTexts.settingsContent(title: 'حسنا'),
                                   onPressed: () {
                                     Get.back();
                                   },
@@ -334,7 +328,9 @@ class _AlarmPageState extends State<AlarmPage> {
                         },
                   icon: MyIcons.alarm,
                 ),
-                MyTexts.settingsContent(context, title: '${alarmProp.timeOfDay.hour}:${alarmProp.timeOfDay.minute}'),
+                MyTexts.settingsContent(
+                    title:
+                        '${Constants.format2.format(alarmProp.time.value.hour)}:${Constants.format2.format(alarmProp.time.value.minute)}'),
               ],
             ),
           ),
@@ -345,8 +341,6 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 
   ListTile alarmBlockTitle({required String title}) {
-    return ListTile(leading: MyTexts.outsideHeader(context, title: title));
+    return ListTile(leading: MyTexts.outsideHeader(title: title));
   }
 }
-
-
