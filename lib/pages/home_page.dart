@@ -7,12 +7,11 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/pages/quranPage/quran_text.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../constents/icons.dart';
-import 'quranPage/quran_page.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import '../services/json_service.dart';
+import 'quran/quran_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,6 +21,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Constants.setNewOpendPageId(HomePage.id);
+  }
+
   int currentIndex = 0;
   List<Widget> icons = [
     MyIcons.home(color: MyColors.white),
@@ -82,8 +87,7 @@ class _HomePageState extends State<HomePage> {
               ? RefreshIndicator(
                   onRefresh: () async {
                     await Future.delayed(Duration(seconds: 1));
-                    Get.offAll(() => HomePage(),
-                        transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
+                    Get.offAll(() => HomePage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
                     // setState(() {});
                   },
                   child: screens[currentIndex])

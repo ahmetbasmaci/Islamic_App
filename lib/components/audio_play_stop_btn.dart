@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import 'package:zad_almumin/pages/quranPage/classes/ayah.dart';
+import 'package:zad_almumin/pages/quran/classes/ayah.dart';
 import 'package:zad_almumin/services/audio_service.dart';
 
 import '../constents/icons.dart';

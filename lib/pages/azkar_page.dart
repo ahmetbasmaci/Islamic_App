@@ -29,6 +29,7 @@ class _AzkarPageState extends State<AzkarPage> {
   void initState() {
     super.initState();
     readData();
+    
   }
 
   @override
@@ -57,7 +58,7 @@ class _AzkarPageState extends State<AzkarPage> {
                               totalIndex++;
                               return AnimationService.animationListItemDownToUp(
                                 index: totalIndex,
-                                child: ZikrCard2(
+                                child: ZikrCard(
                                   haveMargin: true,
                                 ).azkarCard(
                                   ZikrData(
@@ -74,7 +75,7 @@ class _AzkarPageState extends State<AzkarPage> {
                         totalIndex++;
                         return AnimationService.animationListItemDownToUp(
                           index: totalIndex,
-                          child: ZikrCard2(
+                          child: ZikrCard(
                             haveMargin: index != zikrDataList.length - 1 ? true : false,
                           ).azkarCard(zikrDataList[index]),
                         );
@@ -82,7 +83,7 @@ class _AzkarPageState extends State<AzkarPage> {
                     },
                   ),
                 ),
-     );
+    );
   }
 
   void readData() async {

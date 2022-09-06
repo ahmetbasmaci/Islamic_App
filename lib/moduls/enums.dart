@@ -2,8 +2,6 @@ enum ZikrType { all, azkar, allahNames, quran, hadith, sermon, none }
 
 enum ALarmPeriod { daily, weekly, monthly, once }
 
-enum ALarmType { none, hadith }
-
 enum QuestionType { ayahInJuzAndPage, surahInJuz }
 
 enum PrayerTimeType { fajr, sun, duhr, asr, maghrib, isha }
@@ -56,3 +54,6 @@ extension QuranReadersExtention on QuranReaders {
     print('meow');
   }
 }
+
+enum NotificationType { kahfQuran,randomQuran,fast,moorningAzkar,nightAzkar, hadith,pray  }
+enum NotificationSound { random,hadith, azhan }

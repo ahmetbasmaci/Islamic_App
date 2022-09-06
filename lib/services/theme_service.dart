@@ -5,9 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import '../constents/sizes.dart';
 
-TextStyle _headLine1 = GoogleFonts.harmattan(
-  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-);
+TextStyle _headLine1 = GoogleFonts.lateef(fontSize: 22, height: 1.8, wordSpacing: 5.5, fontWeight: FontWeight.w500);
 
 TextStyle _headLine2 = GoogleFonts.harmattan(
   fontSize: 18,
@@ -30,8 +28,7 @@ TextStyle _headLine5 = GoogleFonts.harmattan(fontSize: 14, color: MyColors.setti
 
 TextStyle _headLine6 = GoogleFonts.harmattan(fontSize: 20, fontWeight: FontWeight.bold);
 
-// TextStyle _bodyText1 = GoogleFonts.kadwa(, fontSize: 16, height: 1.8, wordSpacing: 3.5);
-TextStyle _bodyText1 = GoogleFonts.almarai(fontSize: 16, height: 2.2, fontWeight: FontWeight.w300, wordSpacing: 3.5,);
+TextStyle _bodyText1 = GoogleFonts.kadwa(fontSize: 16, height: 1.8, wordSpacing: 3.5);
 
 TextStyle _bodyText2 = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info, wordSpacing: 3.5);
 
@@ -45,7 +42,7 @@ class ThemeService {
     listTileTheme: ListTileThemeData(
       selectedColor: MyColors.primary_,
       iconColor: MyColors.primary_,
-      textColor: MyColors.primary_,
+      textColor: MyColors.black,
       selectedTileColor: MyColors.primary_.withOpacity(.8),
     ),
     scaffoldBackgroundColor: MyColors.backgroundLight,
@@ -90,7 +87,7 @@ class ThemeService {
     indicatorColor: MyColors.primary_,
     bottomAppBarColor: MyColors.primary_,
     textTheme: TextTheme(
-      headline1: _headLine1.copyWith(color: MyColors.primary_),
+      headline1: _headLine1.copyWith(color: Colors.black),
       headline2: _headLine2.copyWith(color: MyColors.second_),
       headline3: _headLine3,
       headline4: _headLine4.copyWith(color: MyColors.settingsTitle),
@@ -107,7 +104,7 @@ class ThemeService {
     listTileTheme: ListTileThemeData(
       selectedColor: MyColors.primaryDark,
       iconColor: MyColors.primaryDark,
-      textColor: MyColors.primaryDark,
+      textColor: MyColors.white,
       selectedTileColor: MyColors.primaryDark.withOpacity(.8),
     ),
     scaffoldBackgroundColor: MyColors.backgroundDark,
@@ -153,7 +150,7 @@ class ThemeService {
     indicatorColor: MyColors.primaryDark,
     bottomAppBarColor: MyColors.primaryDark,
     textTheme: TextTheme(
-      headline1: _headLine1.copyWith(color: MyColors.primaryDark),
+      headline1: _headLine1.copyWith(color: Colors.white),
       headline2: _headLine2.copyWith(color: MyColors.second_),
       headline3: _headLine3,
       headline4: _headLine4.copyWith(color: MyColors.white),
@@ -169,20 +166,14 @@ class ThemeService {
   final _getStorage = GetStorage();
   final _darkKeyTheme = 'isDarkMode';
 
-  void _saveThemeData(bool newThemeMode) {
-    _getStorage.write(_darkKeyTheme, newThemeMode);
-  }
+  void _saveThemeData(bool newThemeMode) => _getStorage.write(_darkKeyTheme, newThemeMode);
 
-  bool _isSavedDarkMode() {
-    return _getStorage.read<bool>(_darkKeyTheme) ?? false;
-  }
+  bool _isSavedDarkMode() => _getStorage.read<bool>(_darkKeyTheme) ?? false;
 
-  ThemeMode getThemeMode() {
-    return _isSavedDarkMode() ? ThemeMode.dark : ThemeMode.light;
-  }
+  ThemeMode getThemeMode() => _isSavedDarkMode() ? ThemeMode.dark : ThemeMode.light;
 
-  void changeThemeMode(bool newThemeMode) {
-    _saveThemeData(newThemeMode);
-    Get.changeThemeMode(newThemeMode ? ThemeMode.dark : ThemeMode.light);
+  void changeThemeMode(bool isDarkMode) {
+    _saveThemeData(isDarkMode);
+    Get.changeThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
   }
 }

@@ -25,12 +25,9 @@ class _MainScreenState extends State<MainScreen> {
       child: ListView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: [
-          AnimationService.animationListItemDownToUp(
-            index: 1,
-            child: ZikrCard2().quranCard(),
-          ),
+          AnimationService.animationListItemDownToUp(index: 1, child: ZikrCard().quranCard()),
           const SizedBox(height: MySiezes.betweanCards),
-          AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard2().hadithCard()),
+          AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard().hadithCard()),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
             child: azkarBlocks(outsideTitle: 'مختلف الاذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),
@@ -55,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
       children: <Widget>[
         Align(
           alignment: Alignment.centerRight,
-          child: MyTexts.outsideHeader( title: outsideTitle),
+          child: MyTexts.outsideHeader(title: outsideTitle),
         ),
         Align(
           alignment: Alignment.centerRight,

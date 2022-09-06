@@ -3,12 +3,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/quranPage/controllers/quran_page_ctr.dart';
-import '../pages/quranPage/classes/ayah.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import '../pages/quran/classes/ayah.dart';
 
 class AudioService {
   static final AudioServiceCtr audioServiceCtr = Get.find<AudioServiceCtr>();
-  static final QuranPageCtr quranPageCtr = Get.find<QuranPageCtr>();
+  static final QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
   final AudioPlayer player = AudioPlayer();
   static late Ayah nextSurah;
   static Ayah currentAyah = Ayah(file: File(''), surahNumber: 0, ayahNumber: 0);
@@ -58,10 +58,11 @@ class AudioService {
       surahList.clear();
       isSurahEnd = false;
       //some check for selected start and end ayahs of surah
-      if (quranPageCtr.ayahStartNum.value > list.length) quranPageCtr.ayahStartNum.value = list.length;
-      if (quranPageCtr.ayahEndNum.value > list.length) quranPageCtr.ayahEndNum.value = list.length;
+      if (quranCtr.selectedSurah.startAyahNum.value > list.length)
+        quranCtr.selectedSurah.startAyahNum.value = list.length;
+      if (quranCtr.selectedSurah.endAyahNum.value > list.length) quranCtr.selectedSurah.endAyahNum.value = list.length;
 
-      for (var i = quranPageCtr.ayahStartNum.value - 1; i <= quranPageCtr.ayahEndNum.value - 1; i++)
+      for (var i = quranCtr.selectedSurah.startAyahNum.value - 1; i <= quranCtr.selectedSurah.endAyahNum.value - 1; i++)
         surahList.add(list[i]);
       currentAyah = surahList.first;
     }

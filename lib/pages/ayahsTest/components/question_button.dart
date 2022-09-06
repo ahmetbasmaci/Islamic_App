@@ -10,15 +10,15 @@ import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
-class QuestionButton extends StatefulWidget {
-  const QuestionButton({Key? key, required this.selectedAyah, required this.questionBtnProps}) : super(key: key);
+class QuestionButtons extends StatefulWidget {
+  const QuestionButtons({Key? key, required this.selectedAyah, required this.questionBtnProps}) : super(key: key);
   final AyahProp selectedAyah;
   final List<OptionBtnProps> questionBtnProps;
   @override
-  State<QuestionButton> createState() => _QuestionButtonState();
+  State<QuestionButtons> createState() => _QuestionButtonsState();
 }
 
-class _QuestionButtonState extends State<QuestionButton> {
+class _QuestionButtonsState extends State<QuestionButtons> {
   bool isPressed = false;
   FirstAyahsInPagesCtr ctr = Get.find<FirstAyahsInPagesCtr>();
   @override
@@ -26,7 +26,7 @@ class _QuestionButtonState extends State<QuestionButton> {
     return Column(
       children: <Widget>[
         const SizedBox(height: MySiezes.betweanCardItems * 2),
-        MyTexts.outsideHeader( title: 'اختر الصفحة والجزء'),
+        MyTexts.outsideHeader(title: 'اختر الصفحة والجزء'),
         const SizedBox(height: MySiezes.betweanCardItems),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -48,7 +48,7 @@ class _QuestionButtonState extends State<QuestionButton> {
   }
 
   Widget optionButton({required OptionBtnProps optionBtnProps}) {
-    double blure = isPressed ? 5 : 30;
+    double blure = isPressed ? 5 : 10;
     Offset distance = isPressed ? Offset(1, 1) : Offset(2, 2);
     return InkWell(
       //  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -84,7 +84,7 @@ class _QuestionButtonState extends State<QuestionButton> {
         decoration: BoxDecoration(color: optionBtnProps.color, borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
             offset: -distance,
-            color: MyColors.black.withOpacity(.2),
+            color: MyColors.whiteBlack().withOpacity(.2),
             blurRadius: blure,
             inset: isPressed,
           ),

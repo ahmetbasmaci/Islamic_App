@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/pages/alarmsPage/alarms_page.dart';
-import 'package:zad_almumin/pages/quranPage/quran_page.dart';
-import 'package:zad_almumin/pages/quranPage/quran_text.dart';
+import 'package:zad_almumin/pages/alarms/alarms_page.dart';
+import 'package:zad_almumin/pages/quran/quran_page.dart';
+import 'package:zad_almumin/pages/quran/quran_text.dart';
 import 'package:zad_almumin/services/app_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
@@ -12,7 +12,7 @@ import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
 import 'classes/controllers.dart';
 import 'constents/constents.dart';
-import 'pages/favorite_page.dart';
+import 'pages/favorite/favorite_page.dart';
 
 void main() async {
   await GetStorage.init();
@@ -21,14 +21,19 @@ void main() async {
 
   Controllers();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  String lastOpendPageId = '';
+
   @override
   Widget build(BuildContext context) {
     // SqlDb().deleteDB();
+
+    lastOpendPageId = Constants.getNewOpendPageId();
 
     return GetMaterialApp(
       navigatorKey: Constants.navigatorKey,
@@ -37,7 +42,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [const Locale('ar'), const Locale('en')],
+      supportedLocales: [const Locale('ar')],
       localeResolutionCallback: (locales, supportedLocales) {
         return supportedLocales.first;
       },
@@ -51,7 +56,7 @@ class MyApp extends StatelessWidget {
         AzkarPage.id: (context) => AzkarPage(),
         QuranPage.id: (context) => QuranPage(),
       },
-      initialRoute: HomePage.id,
+      initialRoute: lastOpendPageId,
       debugShowCheckedModeBanner: false,
       theme: ThemeService().lightThemeMode,
       darkTheme: ThemeService().darkThemeMode,

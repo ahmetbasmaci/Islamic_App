@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import '../../../constents/colors.dart';
 import '../../../constents/sizes.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
+import '../../../services/json_service.dart';
 import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'question_button.dart';
@@ -25,7 +25,7 @@ class Question extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: MySiezes.betweanAzkarBlock),
       child: FutureBuilder(
-          future: getRandomAyah(context),
+          future: JsonService.getAyahForQuestion(context),
           builder: (context, AsyncSnapshot<AyahProp> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return MyCircularProgressIndecator();
@@ -60,31 +60,13 @@ class Question extends StatelessWidget {
                             : selectedAyah.surah,
                       ),
                     ),
-                    QuestionButton(selectedAyah: selectedAyah, questionBtnProps: getRandomJuzAndPages()),
+                    QuestionButtons(selectedAyah: selectedAyah, questionBtnProps: getRandomJuzAndPages()),
                   ],
                 ),
               ),
             );
           }),
     );
-  }
-
-  Future<AyahProp> getRandomAyah(BuildContext context) async {
-    String jsonString = await DefaultAssetBundle.of(context)
-        .loadString('assets/database/quran/firstAyahsFromEachPage/first_ayahs_from_each_page.json');
-
-    List juzs = json.decode(jsonString);
-
-    int randomJuz = ctr.juzFrom.value - 1;
-    if (ctr.juzTo.value != ctr.juzFrom.value)
-      randomJuz = Random().nextInt(ctr.juzTo.value - ctr.juzFrom.value) + ctr.juzFrom.value;
-
-    int randomPage = ctr.pageFrom.value - 1;
-    if (ctr.pageTo.value != ctr.pageFrom.value)
-      randomPage = Random().nextInt(ctr.pageTo.value - ctr.pageFrom.value) + ctr.pageFrom.value;
-
-    AyahProp selectedAyah = AyahProp.fromJson(juzs[randomJuz][randomPage]);
-    return selectedAyah;
   }
 
   List<OptionBtnProps> getRandomJuzAndPages() {

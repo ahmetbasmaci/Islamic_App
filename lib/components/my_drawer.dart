@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
-import 'package:zad_almumin/pages/favorite_page.dart';
+import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
-import '../pages/prayerTimesPage/prayer_times.dart';
+import '../pages/prayerTimes/prayer_times.dart';
 import '../services/theme_service.dart';
 import '../constents/icons.dart';
-import '../pages/alarmsPage/alarms_page.dart';
+import '../pages/alarms/alarms_page.dart';
 import '../pages/ayahsTest/first_ayahs_in_pages_page.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -34,6 +34,7 @@ class MyDrawer extends StatelessWidget {
                   onPressed: () {
                     bool isDark = ThemeService().getThemeMode() == ThemeMode.dark;
                     ThemeService().changeThemeMode(!isDark);
+                    // Get.find<SettingsCtr>().changeDarkModeState(!isDark);
                   },
                   icon: MyIcons.animated_Light_Dark(),
                 ),
@@ -62,6 +63,7 @@ class MyDrawer extends StatelessWidget {
           // //       Get.back();
           // //   },
           // // ),
+          
           drawerItem(
             title: 'المنبه',
             icon: MyIcons.notification(),
@@ -104,20 +106,25 @@ class MyDrawer extends StatelessWidget {
     if (route!.settings.name!.contains(routeName)) {
       Get.back();
     } else {
-      if (Get.currentRoute.contains(HomePage.id))
+      if (Get.currentRoute.contains(HomePage.id)) {
+        Get.back();
+
         await Get.to(
           page,
           transition: Transition.rightToLeft,
           duration: Duration(milliseconds: 500),
           curve: Curves.decelerate,
         );
-      else
+      } else {
+        Get.back();
+
         await Get.off(
           page,
           transition: Transition.rightToLeft,
           duration: Duration(milliseconds: 500),
           curve: Curves.decelerate,
         );
+      }
 
       if (Get.currentRoute.contains(HomePage.id)) Get.back();
     }

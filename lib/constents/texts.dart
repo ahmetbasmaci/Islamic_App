@@ -8,7 +8,7 @@ class MyTexts {
   static Text outsideHeader({required String title}) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.headline1,
+      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
     );
   }
 
@@ -27,11 +27,26 @@ class MyTexts {
     );
   }
 
-  static Text content({required String title}) {
+  static Text content({required String title, double? size}) {
     return Text(
       title,
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.bodyText1,
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: size),
+    );
+  }
+
+  static Text quran({
+    required String title,
+    TextAlign textAlign = TextAlign.center,
+    TextOverflow? overflow,
+    FontWeight? fontWeight,
+    Color? color,
+  }) {
+    return Text(
+      title,
+      textAlign: textAlign,
+      overflow: overflow,
+      style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: fontWeight,color:color),
     );
   }
 
@@ -52,6 +67,8 @@ class MyTexts {
   }
 
   static Text settingsTitle({required String title}) {
+    print(Theme.of(context).toString());
+
     return Text(
       title,
       style: Theme.of(context).textTheme.headline4,
@@ -86,10 +103,10 @@ class MyTexts {
     );
   }
 
-  static Text quranSecondTitle({required String title, double? size}) {
+  static Text quranSecondTitle({required String title, double? size, FontWeight? fontWeight}) {
     return Text(
       title,
-      style: TextStyle(color: MyColors.quranSecond(), fontSize: size ?? 16, fontWeight: FontWeight.bold),
+      style: TextStyle(color: MyColors.quranSecond(), fontSize: size ?? 16, fontWeight: fontWeight),
     );
   }
 }

@@ -39,7 +39,7 @@ class QuestionsFooter extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.keyboard_arrow_up),
-              MyTexts.normal( title: ' خيارات '),
+              MyTexts.normal(title: ' خيارات ', color: MyColors.whiteBlack()),
               Icon(Icons.keyboard_arrow_up),
             ],
           ),
@@ -126,10 +126,13 @@ class QuestionsFooter extends StatelessWidget {
           color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() : MyColors.background(),
           onPressed: () => getNextQuestion(),
           child: Row(
-            children: [MyIcons.rightArrow(color: MyColors.primary()), MyTexts.normal(title: 'التالي')],
+            children: [
+              MyIcons.rightArrow(color: MyColors.primary()),
+              MyTexts.normal(title: 'التالي', color: MyColors.whiteBlack())
+            ],
           ),
         ),
-        MyTexts.normal(title: ' السؤال رقم ${ctr.quastionNumber.value}')
+        MyTexts.normal(title: ' السؤال رقم ${ctr.quastionNumber.value}', color: MyColors.whiteBlack())
       ],
     );
   }
@@ -139,7 +142,7 @@ class QuestionsFooter extends StatelessWidget {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          correctAndWrongAnswersLabels( isCorrect: true),
+          correctAndWrongAnswersLabels(isCorrect: true),
           Expanded(child: Container()),
           correctAndWrongAnswersLabels(isCorrect: false),
         ],
@@ -155,10 +158,7 @@ class QuestionsFooter extends StatelessWidget {
   Row selectDifferentTestType() {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(
-        
-          title: 'نوع الاختبار:  ',
-        ),
+        MyTexts.dropDownMenuTitle(title: 'نوع الاختبار:  '),
         DropdownButton<QuestionType>(
           value: ctr.questionType.value,
           iconEnabledColor: MyColors.primary(),
@@ -169,9 +169,8 @@ class QuestionsFooter extends StatelessWidget {
             }
           },
           items: [
-            DropdownMenuItem(
-                value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem( title: 'الايات')),
-            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem( title: 'السور')),
+            DropdownMenuItem(value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem(title: 'الايات')),
+            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem(title: 'السور')),
           ],
         ),
       ],
@@ -183,8 +182,8 @@ class QuestionsFooter extends StatelessWidget {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          selectFromOption( true),
-          selectToOption( true),
+          selectFromOption(true),
+          selectToOption(true),
         ],
       ),
     );
@@ -195,7 +194,7 @@ class QuestionsFooter extends StatelessWidget {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          selectFromOption( false),
+          selectFromOption(false),
           selectToOption(false),
         ],
       ),
@@ -205,12 +204,11 @@ class QuestionsFooter extends StatelessWidget {
   Row selectFromOption(bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle( title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
+        MyTexts.dropDownMenuTitle(title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
         DropdownButton<int>(
           items: List.generate(
             isPage ? 20 : 30,
-            (index) =>
-                DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem( title: '${index + 1}')),
+            (index) => DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(title: '${index + 1}')),
           ),
           value: isPage ? ctr.pageFrom.value : ctr.juzFrom.value,
           onChanged: (val) {
@@ -222,28 +220,22 @@ class QuestionsFooter extends StatelessWidget {
     );
   }
 
-  Row selectToOption( bool isPage) {
+  Row selectToOption(bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(
-        
-          title: isPage ? 'الى الصفحة    ' : 'الى الجزء    ',
-        ),
+        MyTexts.dropDownMenuTitle(title: isPage ? 'الى الصفحة    ' : 'الى الجزء    '),
         DropdownButton<int>(
+          onChanged: (val) => isPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!),
+          value: isPage ? ctr.pageTo.value : ctr.juzTo.value,
+          iconEnabledColor: MyColors.primary(),
           items: List.generate(
             isPage ? 21 - ctr.pageFrom.value : 31 - ctr.juzFrom.value,
             (index) => DropdownMenuItem(
-                value: isPage ? ctr.pageFrom.value + index : ctr.juzFrom.value + index,
-                child: MyTexts.dropDownMenuItem(
-                
-                  title: isPage ? '${ctr.pageFrom.value + index}' : '${ctr.juzFrom.value + index}',
-                )),
+              value: isPage ? ctr.pageFrom.value + index : ctr.juzFrom.value + index,
+              child: MyTexts.dropDownMenuItem(
+                  title: isPage ? '${ctr.pageFrom.value + index}' : '${ctr.juzFrom.value + index}'),
+            ),
           ),
-          value: isPage ? ctr.pageTo.value : ctr.juzTo.value,
-          onChanged: (val) {
-            isPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!);
-          },
-          iconEnabledColor: MyColors.primary(),
         ),
       ],
     );
@@ -267,7 +259,6 @@ class QuestionsFooter extends StatelessWidget {
           children: <Widget>[
             Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
             MyTexts.normal(
-            
               title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
               color: isCorrect ? MyColors.true_ : MyColors.false_,
               size: 10,

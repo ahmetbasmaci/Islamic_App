@@ -2,15 +2,20 @@
 
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import '../pages/alarmsPage/classes/alarm_prop.dart';
+import 'package:zad_almumin/pages/azkar_page.dart';
+import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/prayerTimes/prayer_times.dart';
+import 'package:zad_almumin/pages/quran/quran_page.dart';
+import '../moduls/enums.dart';
+import '../pages/alarms/classes/alarm_prop.dart';
 import 'json_service.dart';
-
-enum NotificationSound { hadith, random }
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -19,6 +24,7 @@ class NotificationService {
   }
   static init() async {
     await _configureLocalTimeZone();
+
     await _flutterLocalNotificationsPlugin.initialize(
       InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -29,7 +35,32 @@ class NotificationService {
         ),
         macOS: MacOSInitializationSettings(),
       ),
+      onSelectNotification: onSelectedNotification,
     );
+  }
+
+  static void onSelectedNotification(String? payload) async {
+    Transition _getRandomTransition() => Transition.values.elementAt(Random().nextInt(Transition.values.length));
+    void goToPage(Widget page) =>
+        Get.to(page, transition: _getRandomTransition(), duration: Duration(milliseconds: 500));
+
+    if (payload != null) {
+      Get.closeAllSnackbars();
+
+      if (payload == NotificationType.kahfQuran.name)
+        goToPage(QuranPage(showInKahf: true));
+      else if (payload == NotificationType.randomQuran.name)
+        goToPage(QuranPage());
+      else if (payload == NotificationType.fast.name)
+        goToPage(HomePage());
+      else if (payload == NotificationType.moorningAzkar.name)
+        goToPage(AzkarPage(zikrType: ZikrType.azkar, zikrIndexInJson: 0));
+      else if (payload == NotificationType.nightAzkar.name)
+        goToPage(AzkarPage(zikrType: ZikrType.azkar, zikrIndexInJson: 1));
+      else if (payload == NotificationType.hadith.name)
+        goToPage(HomePage());
+      else if (payload == NotificationType.pray.name) goToPage(PrayerTimes());
+    }
   }
 
   static Future<void> _configureLocalTimeZone() async {
@@ -46,25 +77,30 @@ class NotificationService {
     print('pending alarms ${pendingNotificationRequests.length}');
   }
 
-  static String _getRandomNotificationSound() {
-    String soundName = '';
-    int randomSound = Random().nextInt(3);
+  static NotificationDetails _getNotificationDetails({
+    required NotificationSound notificationSound,
+    required String bigTitle,
+    required String bigBody,
+  }) {
+    String _getRandomNotificationSound() {
+      String soundName = '';
+      int randomSound = Random().nextInt(3);
 
-    if (randomSound == 0)
-      soundName = 'subhan_allah';
-    else if (randomSound == 1)
-      soundName = 'alhamdulillah';
-    else
-      soundName = 'allah_akbar';
+      if (randomSound == 0)
+        soundName = 'subhan_allah';
+      else if (randomSound == 1)
+        soundName = 'alhamdulillah';
+      else
+        soundName = 'allah_akbar';
 
-    return soundName;
-  }
+      return soundName;
+    }
 
-  static NotificationDetails _getNotificationDetails(
-      {required NotificationSound notificationSound, required String bigTitle, required String bigBody}) {
     String soundName = '';
     if (notificationSound == NotificationSound.hadith)
       soundName = 'hadith_alarm';
+    else if (notificationSound == NotificationSound.azhan)
+      soundName = 'adhanMadina';
     else
       soundName = _getRandomNotificationSound();
     return NotificationDetails(
@@ -109,22 +145,25 @@ class NotificationService {
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
+      payload: alarmProp.notificationType.name,
     );
   }
 
 //! -----------------------------  daily alarm ----------------------------- //
-  static Future setDailyNotification(
-      {required AlarmProp alarmProp, NotificationSound selectedAlarmType = NotificationSound.random}) async {
+  static Future setDailyNotification({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
       _selectHourAndMinute(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
-        notificationSound: selectedAlarmType,
+        notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
-        bigBody: (await JsonService.getHadithData()).content,
+        bigBody: alarmProp.notificationType == NotificationType.hadith
+            ? (await JsonService.getHadithData()).content
+            : alarmProp.notificationBody,
       ),
+      payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
@@ -143,6 +182,7 @@ class NotificationService {
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
+      payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
@@ -161,6 +201,7 @@ class NotificationService {
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
+      payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
