@@ -46,7 +46,7 @@ class MyTexts {
       title,
       textAlign: textAlign,
       overflow: overflow,
-      style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: fontWeight,color:color),
+      style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: fontWeight, color: color),
     );
   }
 
@@ -67,8 +67,6 @@ class MyTexts {
   }
 
   static Text settingsTitle({required String title}) {
-    print(Theme.of(context).toString());
-
     return Text(
       title,
       style: Theme.of(context).textTheme.headline4,
@@ -106,7 +104,12 @@ class MyTexts {
   static Text quranSecondTitle({required String title, double? size, FontWeight? fontWeight}) {
     return Text(
       title,
-      style: TextStyle(color: MyColors.quranSecond(), fontSize: size ?? 16, fontWeight: fontWeight),
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        color: MyColors.quranSecond(),
+        fontSize: size ?? 16,
+        fontWeight: fontWeight,
+      ),
     );
   }
 }

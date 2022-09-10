@@ -51,10 +51,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     audioService = AudioService(onPause: () => animationCtr.reverse());
 
     JsonService.loadQuranData();
-
-    print(QuranHelper().normalise('ٱللَّهُ ٱلصَّمَدُ'));
-    print('الصمد');
-    print(QuranHelper().normalise('ٱللَّهُ ٱلصَّمَدُ').contains('الصمد'));
   }
 
   @override
@@ -515,42 +511,44 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
  */
   Widget myEndDrawer() {
     quranCtr.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
-    return Drawer(
-      backgroundColor: MyColors.quranBackGround(),
-      width: 220,
-      child: Column(
-        children: [
-          Container(
-              height: 60,
-              alignment: Alignment.center,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: MyColors.quranBackGround(),
-                  border: Border(bottom: BorderSide(color: MyColors.quranSecond())),
-                  boxShadow: [
-                    BoxShadow(
-                        color: MyColors.quranSecond().withOpacity(0.5),
-                        offset: Offset(-5, 0),
-                        blurRadius: 10,
-                        spreadRadius: 5)
-                  ]),
-              child: MyTexts.quranSecondTitle(title: 'الملاحظات')),
-          Expanded(
-            child: Scrollbar(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                itemCount: quranCtr.markedList.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: index != quranCtr.markedList.length - 1 ? 10 : 0),
-                    child: markedListTile(index),
-                  );
-                },
+    return SafeArea(
+      child: Drawer(
+        backgroundColor: MyColors.quranBackGround(),
+        width: 220,
+        child: Column(
+          children: [
+            Container(
+                height: 60,
+                alignment: Alignment.center,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    color: MyColors.quranBackGround(),
+                    border: Border(bottom: BorderSide(color: MyColors.quranSecond())),
+                    boxShadow: [
+                      BoxShadow(
+                          color: MyColors.quranSecond().withOpacity(0.5),
+                          offset: Offset(-5, 0),
+                          blurRadius: 10,
+                          spreadRadius: 5)
+                    ]),
+                child: MyTexts.quranSecondTitle(title: 'الملاحظات')),
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                  itemCount: quranCtr.markedList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: index != quranCtr.markedList.length - 1 ? 10 : 0),
+                      child: markedListTile(index),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

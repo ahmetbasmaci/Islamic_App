@@ -1,9 +1,8 @@
-
 class SearchedAyah {
-  SearchedAyah({required this.ayahNumber, required this.ayahTxt, required this.numberOfPage, required this.surahName});
+  SearchedAyah({required this.ayahNumber, required this.ayahText, required this.page, required this.surahName});
 
   int ayahNumber;
-  String ayahTxt;
+  String ayahText;
   String surahName;
-  int numberOfPage;
+  int page;
 }

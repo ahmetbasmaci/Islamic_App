@@ -39,7 +39,7 @@ class AudioService {
 
     try {
       bool exsist = await currentAyah.file.exists();
-      if (exsist)
+      if (exsist) 
         await player.play(DeviceFileSource(currentAyah.file.path));
       else {
         Fluttertoast.showToast(msg: 'حدث خطأ أثناء تشغيل الصوت');

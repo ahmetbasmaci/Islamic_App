@@ -2,6 +2,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -57,6 +59,48 @@ class _HomePageState extends State<HomePage> {
           resizeToAvoidBottomInset: false,
           appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
           drawer: currentIndex != 1 ? MyDrawer() : null,
+          floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                AudioPlayer player = AudioPlayer();
+                await player.setSkipSilenceEnabled(false);
+                await player.setPitch(1.01);
+                // player.setLoopMode(LoopMode.one);
+                // await player.setFilePath('assets/Adhan Halab.mp3'); // not playing yet because not ready
+                await player.setAudioSource(
+                  AudioSource.uri(
+                    Uri.file('assets/Adhan Halab.mp3'),
+                    tag: MediaItem(
+                      // Specify a unique ID for each media item:
+                      id: '12312',
+                      // Metadata to display in the notification:
+                      album: "Album name",
+                      title: "Song name",
+                      artUri: Uri.file('assets/Adhan Halab.mp3'),
+                    ),
+                  ),
+                  preload: false,
+                );
+                // await player.setAudioSource(
+                //   AudioSource.uri(
+                //     Uri.parse('https://www.everyayah.com/data/AbdulSamad_64kbps_QuranExplorer.Com/006005.mp3'),
+                //     tag: MediaItem(
+                //       // Specify a unique ID for each media item:
+                //       id: '12312',
+                //       // Metadata to display in the notification:
+                //       album: "Album name",
+                //       title: "Song name",
+                //       artUri:
+                //           Uri.parse('https://www.everyayah.com/data/AbdulSamad_64kbps_QuranExplorer.Com/006005.mp3'),
+                //     ),
+                //   ),
+                //   preload: false,
+                // );
+                await player
+                    .load(); // audio will start playing after the load completes because the processing state has become "ready"
+                // player.play();
+                // player.dispose();
+              },
+              child: MyIcons.ayahsTest),
           bottomNavigationBar: currentIndex != 1
               ? CurvedNavigationBar(
                   height: MySiezes.navigationTap,

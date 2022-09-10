@@ -223,15 +223,14 @@ class QuranDownPart extends StatelessWidget {
 
   Future<List<Widget>> getSurahAyahsList(bool isStartAyah) async {
     List<Widget> list = [];
-    Map quranMap = await JsonService.getAllHadithData(quranCtr.selectedSurah.surahNumber.value);
+    Map quranMap = await JsonService.getAllQuranData(quranCtr.selectedSurah.surahNumber.value);
     int startFrom = isStartAyah ? 1 : quranCtr.selectedSurah.startAyahNum.value;
     for (var i = startFrom; i <= quranCtr.selectedSurah.totalAyahsNum.value; i++) {
       String ayah = '';
-      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i - 1]['text'].toString();
+      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i-1]['text'].toString();
 
       list.add(
         Container(
-          //TODO make the ayahs in one line
           height: Get.height * .08,
           width: double.maxFinite,
           alignment: Alignment.centerRight,

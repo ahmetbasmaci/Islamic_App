@@ -5,16 +5,18 @@ import 'package:zad_almumin/services/theme_service.dart';
 import '../pages/settings_page.dart';
 
 class MyColors {
-  static SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
+  static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
 
   // static const Color backgroundLight = Color.fromARGB(255, 241, 240, 228);
   static const Color backgroundLight = Color(0xffdbe2e7);
   // static const Color backgroundDark = Color.fromARGB(255, 34, 34, 34);
   static const Color backgroundDark = Color(0xff222222);
   static const Color _quranSecond = Color.fromARGB(255, 185, 121, 31);
-  static const Color _quranSecondDark = Color.fromARGB(255, 136, 91, 29);
+  static const Color _quranSecondDark = Color.fromARGB(255, 172, 115, 36);
   static const Color quranBackGroundLight = Color.fromARGB(255, 239, 237, 227);
   static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
+  static const Color quranItemBackGroundLight = Color.fromARGB(255, 239, 237, 227);
+  static const Color quranItemBackGroundDark = Color.fromARGB(255, 0, 0, 0);
   static const Color primary_ = Color.fromARGB(255, 2, 111, 111);
   static const Color primaryDark = Color.fromARGB(255, 2, 111, 111);
   static const Color lightModeShadow = Color.fromARGB(255, 63, 63, 63);
@@ -46,6 +48,8 @@ class MyColors {
 
   static Color quranBackGround() =>
       ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;
+  static Color quranItemBackGround() =>
+      ThemeService().getThemeMode() == ThemeMode.dark ? quranItemBackGroundDark : quranItemBackGroundLight;
 
   static Color primary() => ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
 

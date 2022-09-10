@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
+
 class MySiezes {
-  static const double screenPadding = 10.0;
+  static double screenPadding = Get.height * .02;
   static const double cardPadding = 10.0;
   static const double icon = 20.0;
   static const double betweanCards = 30.0;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/settings_page.dart';
 import 'package:zad_almumin/services/json_service.dart';

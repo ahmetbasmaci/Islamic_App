@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import '../../../constents/constents.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';

@@ -40,9 +40,9 @@ class NotificationService {
   }
 
   static void onSelectedNotification(String? payload) async {
-    Transition _getRandomTransition() => Transition.values.elementAt(Random().nextInt(Transition.values.length));
+    Transition getRandomTransition() => Transition.values.elementAt(Random().nextInt(Transition.values.length));
     void goToPage(Widget page) =>
-        Get.to(page, transition: _getRandomTransition(), duration: Duration(milliseconds: 500));
+        Get.to(page, transition: getRandomTransition(), duration: Duration(milliseconds: 500));
 
     if (payload != null) {
       Get.closeAllSnackbars();
@@ -82,7 +82,7 @@ class NotificationService {
     required String bigTitle,
     required String bigBody,
   }) {
-    String _getRandomNotificationSound() {
+    String getRandomNotificationSound() {
       String soundName = '';
       int randomSound = Random().nextInt(3);
 
@@ -102,7 +102,7 @@ class NotificationService {
     else if (notificationSound == NotificationSound.azhan)
       soundName = 'adhanMadina';
     else
-      soundName = _getRandomNotificationSound();
+      soundName = getRandomNotificationSound();
     return NotificationDetails(
         android: AndroidNotificationDetails(
       soundName,

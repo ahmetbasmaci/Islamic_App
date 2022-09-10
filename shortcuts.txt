@@ -1,0 +1,5 @@
+alt + w => select widget
+alt + a => select betwean brackets
+ctrl + . => wrap with...
+ctrl + . => find selotion
+ctrl + e => open files easly

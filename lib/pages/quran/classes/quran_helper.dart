@@ -129,123 +129,6 @@ class QuranHelper {
     Surah(name: 'الإخلاص', numberOfPage: 604),
     Surah(name: 'الفلق', numberOfPage: 604),
     Surah(name: 'الناس', numberOfPage: 604),
-
-/*
-    'الفاتحة',
-    'البقرة',
-    'آل عمران',
-    'النساء',
-    'المائدة',
-    'الأنعام',
-    'الأعراف',
-    'الأنفال',
-    'التوبة',
-    'يونس',
-    'هود',
-    'يوسف',
-    'الرعد',
-    'إبراهيم',
-    'الحجر',
-    'النحل',
-    'الإسراء',
-    'الكهف',
-    'مريم',
-    'طه',
-    'الأنبياء',
-    'الحج',
-    'المؤمنون',
-    'النور',
-    'الفرقان',
-    'الشعراء',
-    'النمل',
-    'القصص',
-    'العنكبوت',
-    'الروم',
-    'لقمان',
-    'السجدة',
-    'الأحزاب',
-    'سبإ',
-    'فاطر',
-    'يس',
-    'الصافات',
-    'ص',
-    'الزمر',
-    'غافر',
-    'فصلت',
-    'الشورى',
-    'الزخرف',
-    'الدخان',
-    'الجاثية',
-    'الأحقاف',
-    'محمد',
-    'الفتح',
-    'الحجرات',
-    'ق',
-    'الذاريات',
-    'الطور',
-    'النجم',
-    'القمر',
-    'الرحمن',
-    'الواقعة',
-    'الحديد',
-    'المجادلة',
-    'الحشر',
-    'الممتحنة',
-    'الصف',
-    'الجمعة',
-    'المنافقون',
-    'التغابن',
-    'الطلاق',
-    'التحريم',
-    'الملك',
-    'القلم',
-    'الحاقة',
-    'المعارج',
-    'نوح',
-    'الجن',
-    'المزمل',
-    'المدثر',
-    'القيامة',
-    'الإنسان',
-    'المرسلات',
-    'النبأ',
-    'النازعات',
-    'عبس',
-    'التكوير',
-    'الإنفطار',
-    'المطففين',
-    'الإنشقاق',
-    'البروج',
-    'الطارق',
-    'الأعلى',
-    'الغاشية',
-    'الفجر',
-    'البلد',
-    'الشمس',
-    'الليل',
-    'الضحى',
-    'الشرح',
-    'التين',
-    'العلق',
-    'القدر',
-    'البينة',
-    'الزلزلة',
-    'العاديات',
-    'القارعة',
-    'التكاثر',
-    'العصر',
-    'الهمزة',
-    'الفيل',
-    'قريش',
-    'الماعون',
-    'الكوثر',
-    'الكافرون',
-    'النصر',
-    'المسد',
-    'الإخلاص',
-    'الفلق',
-    'الناس',
-    */
   ];
 
   showMarkDialog() {
@@ -283,7 +166,7 @@ class QuranHelper {
               } else {
                 pageProp.isMarked = true;
                 quranCtr.markedList.add(pageProp);
-                quranCtr.updateDb(pageProp);
+                quranCtr.updateMarkedPageList(pageProp);
                 Fluttertoast.showToast(msg: 'تم اضافة العلامة');
               }
               Get.back();
@@ -310,11 +193,14 @@ class QuranHelper {
   }
 
   changeCurrentPageToWhereStartRead() async {
-    String jsonString = await DefaultAssetBundle.of(Constants.navigatorKey.currentContext!)
-        .loadString('assets/database/quran/surahs/${quranCtr.selectedSurah.surahNumber.value}.json');
-    Map<String, dynamic> data = json.decode(jsonString);
+    Map data = await JsonService.getAllQuranData(quranCtr.selectedSurah.surahNumber.value);
     List ayahsList = data['ayahs'];
-    quranCtr.tabCtr.index = ayahsList[quranCtr.selectedSurah.startAyahNum.value - 1]['page'] - 1;
+    for (var i = 0; i < ayahsList.length; i++) {
+      if (ayahsList[i]['numberInSurah'] == quranCtr.selectedSurah.startAyahNum.value) {
+        quranCtr.tabCtr.index = ayahsList[i]['page'] - 1;
+        break;
+      }
+    }
   }
 
   int getSurahNumberByName(String surahName) {
@@ -327,6 +213,20 @@ class QuranHelper {
 
   List<Surah> getMatchedSurahs(String query) =>
       allSurahsNames.where((element) => element.name.contains(query)).toList();
+
+  List<int> getMatchedPages(String query) {
+    List<int> resultList = [];
+
+    int? num = int.tryParse(query);
+    if (num == null) return resultList;
+
+    if (num > 604 || num < 1) return resultList;
+    for (var i = 1; i <= 604; i++) {
+      if (i.toString().contains(num.toString())) resultList.add(i);
+    }
+
+    return resultList;
+  }
 
   int getJuzNumberByPage(int page) {
     int juz = 1;
@@ -396,12 +296,12 @@ class QuranHelper {
   String getSurahNameByPage(int page) {
     String surahName = '';
     for (var element in allSurahsNames.reversed)
-      if (element.numberOfPage < page) {
+      if (element.numberOfPage <= page) {
         surahName = element.name;
         break;
       }
     return surahName;
-}
+  }
 
   List<SearchedAyah> getMatchedAyahs(String query) {
     List<SearchedAyah> matchedAyahs = [];
@@ -414,8 +314,8 @@ class QuranHelper {
         if (normalise(ayah.toString()).contains(query))
           matchedAyahs.add(SearchedAyah(
             ayahNumber: ayah['numberInSurah'],
-            ayahTxt: ayah['text'],
-            numberOfPage: ayah['page'],
+            ayahText: ayah['text'],
+            page: ayah['page'],
             surahName: getSurahNameByPage(ayah['page']),
           ));
         if (matchedAyahs.length == 20) {
@@ -500,7 +400,7 @@ class QuranHelper {
         .replaceAll('\u0624', '\u0648')
 
         //Replace Ta Marbuta by Ha
-        .replaceAll('\u0629', '\u0647')
+        // .replaceAll('\u0629', '\u0647')
 
         //Replace Ya
         // and Ya Hamza Above by Alif Maksura
@@ -514,5 +414,3 @@ class QuranHelper {
         .replaceAll('\u0625', '\u0627');
   }
 }
-
-

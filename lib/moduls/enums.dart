@@ -51,9 +51,10 @@ extension QuranReadersExtention on QuranReaders {
   }
 
   void talk() {
-    print('meow');
+
   }
 }
 
 enum NotificationType { kahfQuran,randomQuran,fast,moorningAzkar,nightAzkar, hadith,pray  }
 enum NotificationSound { random,hadith, azhan }
+enum SearchFilter{surah,ayah,page}
