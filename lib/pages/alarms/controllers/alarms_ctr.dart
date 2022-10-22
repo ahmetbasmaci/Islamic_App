@@ -1,14 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../moduls/enums.dart';
-import '../../../services/json_service.dart';
 import '../../../services/notification_api.dart';
 import '../classes/alarm_prop.dart';
 

@@ -1,12 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
-import 'package:zad_almumin/pages/ayahsTest/components/question.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
-import '../../animations/my_animations.dart';
 import '../../components/my_circular_progress_indecator.dart';
 import '../../constents/colors.dart';
 import '../../constents/icons.dart';

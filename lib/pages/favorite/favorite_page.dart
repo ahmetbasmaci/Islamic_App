@@ -11,9 +11,7 @@ import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_drawer.dart';
-import '../../constents/constents.dart';
 import 'favorite_page_ctr.dart';
 
 class FavoritePage extends StatefulWidget {

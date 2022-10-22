@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import '../constents/constents.dart';
 import '../constents/icons.dart';
 import '../constents/texts.dart';
 import '../components/my_switch.dart';

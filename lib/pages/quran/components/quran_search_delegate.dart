@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/pages/quran/classes/filter_chip_prop.dart';
-
 import '../../../constents/colors.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';

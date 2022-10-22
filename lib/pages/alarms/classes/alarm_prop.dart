@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-
 import '../../../moduls/enums.dart';
-import '../../../services/notification_api.dart';
 
 class AlarmProp {
   AlarmProp({

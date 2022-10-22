@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import '../../../audio_background_service.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
-import '../../../services/audio_service.dart';
 import '../../../services/http_service.dart';
 import '../../../services/json_service.dart';
 import '../classes/ayah.dart';
@@ -14,14 +14,13 @@ import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
 class QuranDownPart extends StatelessWidget {
-  QuranDownPart({Key? key, required this.animationCtr, required this.audioService}) : super(key: key);
+  QuranDownPart({Key? key, required this.animationCtr}) : super(key: key);
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
   final double _downPartHeight = Get.size.height * .2;
   final double _loadingRowHeight = Get.size.height * .03;
 
   int animationDurationMilliseconds = 600;
 
-  late AudioService audioService;
   late AnimationController animationCtr;
   @override
   Widget build(BuildContext context) {
@@ -227,7 +226,7 @@ class QuranDownPart extends StatelessWidget {
     int startFrom = isStartAyah ? 1 : quranCtr.selectedSurah.startAyahNum.value;
     for (var i = startFrom; i <= quranCtr.selectedSurah.totalAyahsNum.value; i++) {
       String ayah = '';
-      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i-1]['text'].toString();
+      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i - 1]['text'].toString();
 
       list.add(
         Container(
@@ -280,16 +279,26 @@ class QuranDownPart extends StatelessWidget {
     animationCtr.forward();
     int surahNumber = quranCtr.selectedSurah.surahNumber.value;
     List<Ayah> ayahsFileList = await HttpService.getSurah(surahNumber: surahNumber);
-    audioService.playSurahAudio(ayahsFileList);
+    Get.find<AudioBacgroundService>().playMultiAudio(
+      ayahList: ayahsFileList,
+      onStop: () => reverseAnimation(),
+      onStart: () => forwardAnimation(),
+    );
+  }
+
+  Future reverseAnimation() async {
+    await animationCtr.reverse();
+  }
+
+  Future forwardAnimation() async {
+    await animationCtr.forward();
   }
 
   void pauseAudio() {
-    animationCtr.reverse();
-    AudioService().pauseAudio();
+    Get.find<AudioBacgroundService>().pauseAudio();
   }
 
   void stopAudio() {
-    animationCtr.reverse();
-    AudioService().stopAudio();
+    Get.find<AudioBacgroundService>().stopAudio();
   }
 }

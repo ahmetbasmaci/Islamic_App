@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/pages/quran/classes/searched_ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/surah.dart';
 import 'package:zad_almumin/services/json_service.dart';
@@ -14,6 +11,8 @@ import '../controllers/quran_page_ctr.dart';
 
 class QuranHelper {
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
+
+
   List<Surah> allSurahsNames = [
     Surah(name: 'الفاتحة', numberOfPage: 1),
     Surah(name: 'البقرة', numberOfPage: 2),
@@ -209,6 +208,12 @@ class QuranHelper {
       if (allSurahsNames[i].name.contains(surahName)) number = i + 1;
     }
     return number;
+  }
+
+  String getSurahNameByNumber(int surahNumber) {
+    String surahName = "";
+    if (surahNumber > 0 && surahNumber <= 114) surahName = allSurahsNames[surahNumber - 1].name;
+    return surahName;
   }
 
   List<Surah> getMatchedSurahs(String query) =>

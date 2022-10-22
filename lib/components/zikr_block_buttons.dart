@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:like_button/like_button.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:zad_almumin/audio_background_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
-import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/database/sqldb.dart';
-import 'package:zad_almumin/services/audio_service.dart';
 import '../constents/icons.dart';
 
 class ZikrBlockButtons extends StatefulWidget {
@@ -43,7 +41,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           if (widget.zikrData.isFavorite) {
             sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
             toastText = 'تم حذف النص من المفضلة';
-            Get.find<AudioServiceCtr>().stopAudioById(widget.zikrData.ayahNumber);
+            Get.find<AudioBacgroundService>().stopAudio();
           } else {
             sqlDb.insertData('favorite', {
               'zikrType': widget.zikrData.zikrType.index,
