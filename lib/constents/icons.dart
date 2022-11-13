@@ -1,13 +1,16 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 
+import '../pages/settings/settings_ctr.dart';
+
 class MyIcons {
-  static Icon settings = Icon(Icons.settings);
+  static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   static Icon drawer = Icon(Icons.menu);
   static Icon refresh = Icon(Icons.refresh);
   static Icon copy = Icon(Icons.file_copy_outlined);
@@ -24,7 +27,11 @@ class MyIcons {
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
 
+  static Icon plus({Color? color, double size = MySiezes.icon}) => Icon(Icons.add, color: color, size: size);
+  static Icon minus({Color? color, double size = MySiezes.icon}) =>
+      Icon(CupertinoIcons.minus, color: color, size: size);
   static Icon send({Color? color, double size = MySiezes.icon}) => Icon(Icons.send, color: color, size: size);
+  static Icon settings({Color? color, double size = MySiezes.icon}) => Icon(Icons.settings, color: color, size: size);
   static Icon moreVert({Color? color, double size = MySiezes.icon}) => Icon(Icons.more_vert, color: color, size: size);
   static Icon repeat({Color? color, double size = MySiezes.icon}) => Icon(Icons.repeat, color: color, size: size);
   static Icon stop({Color? color, double size = MySiezes.icon}) => Icon(Icons.stop, color: color, size: size);
@@ -51,45 +58,41 @@ class MyIcons {
   static Icon done({Color? color = Colors.green, double size = MySiezes.icon}) =>
       Icon(Icons.done, color: color, size: size);
 
-  static Widget animated_Light_Dark({Color? color = MyColors.primaryDark, double size = MySiezes.icon}) {
+  static Widget animated_Light_Dark({Color? color, double size = MySiezes.icon}) {
+    color = color ?? MyColors.primaryDark;
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 500),
       firstChild: Icon(Icons.dark_mode, color: color, size: size),
       secondChild: Icon(Icons.light_mode, color: color, size: size),
-      crossFadeState:
-          ThemeService().getThemeMode() == ThemeMode.dark ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      crossFadeState: Get.isDarkMode ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
-  static Widget animatedIcon_Play_Pause({
-    required AnimationController animationCtr,
-    required VoidCallback onTap,
-    Color? color,
-    double? size,
-  })
-   {
-    color = MyColors.primary();
-    size = MySiezes.icon;
-    return InkWell(
-      borderRadius: BorderRadius.circular(100),
-      onTap: () {
-        onTap();
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: MyColors.zikrCard(),
-          boxShadow: [
-            BoxShadow(
-              color: MyColors.black.withOpacity(.6),
-              blurRadius: 5,
-              offset: Offset(0, 5),
-            )
-          ],
-        ),
-        padding: EdgeInsets.all(8),
-        margin: EdgeInsets.only(left: 8),
-        child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr, size: size),
-      ),
-    );
-  }
+
+  // static Widget animatedIcon_Play_Pause({
+  //   required AnimationController animationCtr,
+  //   required VoidCallback onTap,
+  // }) {
+  //   return InkWell(
+  //     borderRadius: BorderRadius.circular(100),
+  //     onTap: () {
+  //       onTap();
+  //     },
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(100),
+  //         color: MyColors.zikrCard(),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: MyColors.black.withOpacity(.6),
+  //             blurRadius: 5,
+  //             offset: Offset(0, 5),
+  //           )
+  //         ],
+  //       ),
+  //       padding: EdgeInsets.all(8),
+  //       margin: EdgeInsets.only(left: 8),
+  //       child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr),
+  //     ),
+  //   );
+  // }
 }

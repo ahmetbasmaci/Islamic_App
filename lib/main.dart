@@ -10,7 +10,7 @@ import 'package:zad_almumin/services/app_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
-import 'package:zad_almumin/pages/settings_page.dart';
+import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'classes/controllers.dart';
 import 'constents/constents.dart';
 import 'pages/favorite/favorite_page.dart';
@@ -60,9 +60,9 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: lastOpendPageId,
       debugShowCheckedModeBanner: false,
-      theme: ThemeService().lightThemeMode,
-      darkTheme: ThemeService().darkThemeMode,
-      themeMode: ThemeService().getThemeMode(),
+      theme: Get.find<ThemeCtr>().lightThemeMode.value,
+      darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,
+      themeMode: Get.find<ThemeCtr>().getThemeMode(),
     );
   }
 }

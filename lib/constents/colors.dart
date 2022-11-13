@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/services/theme_service.dart';
-
-import '../pages/settings_page.dart';
+import '../pages/settings/settings_ctr.dart';
 
 class MyColors {
   static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
-
-  // static const Color backgroundLight = Color.fromARGB(255, 241, 240, 228);
+  static final List<Color> primaryColors = [Color.fromARGB(255, 2, 111, 111), Color.fromARGB(255, 172, 17, 94)];
   static const Color backgroundLight = Color(0xffdbe2e7);
-  // static const Color backgroundDark = Color.fromARGB(255, 34, 34, 34);
   static const Color backgroundDark = Color(0xff222222);
   static const Color _quranSecond = Color.fromARGB(255, 185, 121, 31);
   static const Color _quranSecondDark = Color.fromARGB(255, 172, 115, 36);
@@ -17,8 +13,8 @@ class MyColors {
   static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
   static const Color quranItemBackGroundLight = Color.fromARGB(255, 239, 237, 227);
   static const Color quranItemBackGroundDark = Color.fromARGB(255, 0, 0, 0);
-  static const Color primary_ = Color.fromARGB(255, 2, 111, 111);
-  static const Color primaryDark = Color.fromARGB(255, 2, 111, 111);
+  static Color primary_ = Color.fromARGB(255, 2, 111, 111);
+  static Color primaryDark = Color.fromARGB(255, 2, 111, 111);
   static const Color lightModeShadow = Color.fromARGB(255, 63, 63, 63);
   static const Color second_ = Color.fromARGB(255, 223, 40, 40);
   static const Color secondDark = Color.fromARGB(255, 223, 40, 40);
@@ -36,30 +32,27 @@ class MyColors {
   static const Color _trueDark = Color.fromARGB(255, 19, 85, 16);
   static const Color false_ = Color.fromARGB(255, 203, 40, 40);
 
-  static Color background() => ThemeService().getThemeMode() == ThemeMode.dark ? backgroundDark : backgroundLight;
+  static Color background() => Get.isDarkMode ? backgroundDark : backgroundLight;
 
-  static Color whiteBlack() => ThemeService().getThemeMode() == ThemeMode.dark ? white : black;
+  static Color whiteBlack() => Get.isDarkMode ? white : black;
 
-  static Color quranText() => ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundLight : black;
-  static Color quranSecond() => ThemeService().getThemeMode() == ThemeMode.dark ? _quranSecondDark : _quranSecond;
-  static Color quranStatus() => ThemeService().getThemeMode() == ThemeMode.dark
-      ? Color.fromARGB(255, 0, 0, 0)
-      : Color.fromARGB(255, 210, 195, 174);
+  static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
+  static Color quranSecond() => Get.isDarkMode ? _quranSecondDark : _quranSecond;
+  static Color quranStatus() => Get.isDarkMode ? Color.fromARGB(255, 0, 0, 0) : Color.fromARGB(255, 210, 195, 174);
 
-  static Color quranBackGround() =>
-      ThemeService().getThemeMode() == ThemeMode.dark ? quranBackGroundDark : quranBackGroundLight;
-  static Color quranItemBackGround() =>
-      ThemeService().getThemeMode() == ThemeMode.dark ? quranItemBackGroundDark : quranItemBackGroundLight;
+  static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;
+  static Color quranItemBackGround() => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
 
-  static Color primary() => ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
+  static Color primary() => Get.isDarkMode ? primaryDark : primary_;
 
-  static Color currect() => ThemeService().getThemeMode() == ThemeMode.dark ? _trueDark : true_;
+  static Color currect() => Get.isDarkMode ? _trueDark : true_;
 
-  static Color second() => ThemeService().getThemeMode() == ThemeMode.dark ? secondDark : second_;
+  static Color second() => Get.isDarkMode ? secondDark : second_;
 
-  static Color shadow() => ThemeService().getThemeMode() == ThemeMode.dark ? black : black;
+  static Color shadow() => Get.isDarkMode ? black : black;
 
-  static Color zikrCard() => _settingsCtr.isDarkMode.value ? _zikrCardDark : _zikrCard;
+  static Color zikrCard() => Get.isDarkMode ? _zikrCardDark : _zikrCard;
+  static Color zikrCard2() => Get.isDarkMode ? MyColors.black : MyColors.lightModeShadow;
 
-  static Color shadowPrimary() => ThemeService().getThemeMode() == ThemeMode.dark ? primaryDark : primary_;
+  static Color shadowPrimary() => Get.isDarkMode ? primaryDark : primary_;
 }

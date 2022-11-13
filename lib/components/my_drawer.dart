@@ -6,15 +6,17 @@ import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
-import 'package:zad_almumin/pages/settings_page.dart';
+import 'package:zad_almumin/pages/settings/settings_ctr.dart';
+import 'package:zad_almumin/pages/settings/settings_page.dart';
 import '../pages/prayerTimes/prayer_times.dart';
-import '../services/theme_service.dart';
 import '../constents/icons.dart';
 import '../pages/alarms/alarms_page.dart';
-import '../pages/ayahsTest/first_ayahs_in_pages_page.dart';
+import '../pages/ayahsTest/ayahs_questions.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key}) : super(key: key);
+  MyDrawer({Key? key, }) : super(key: key);
+  final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,10 +33,9 @@ class MyDrawer extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 255, 255, 255),
                 child: IconButton(
-                  onPressed: () {
-                    bool isDark = ThemeService().getThemeMode() == ThemeMode.dark;
-                    ThemeService().changeThemeMode(!isDark);
-                    // Get.find<SettingsCtr>().changeDarkModeState(!isDark);
+                  onPressed: () async {
+                    bool isDark = Get.isDarkMode;
+                    _settingsCtr.changeDarkModeState(!isDark);
                   },
                   icon: MyIcons.animated_Light_Dark(),
                 ),
@@ -63,7 +64,7 @@ class MyDrawer extends StatelessWidget {
           // //       Get.back();
           // //   },
           // // ),
-          
+
           drawerItem(
             title: 'المنبه',
             icon: MyIcons.notification(),
@@ -79,8 +80,8 @@ class MyDrawer extends StatelessWidget {
           drawerItem(
             title: 'مراجعة القران',
             icon: MyIcons.ayahsTest,
-            routeName: FirstAyahsInPages.id,
-            onTap: () async => navigateTo(context: context, routeName: FirstAyahsInPages.id, page: FirstAyahsInPages()),
+            routeName: AyahsQuestions.id,
+            onTap: () async => navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
           ),
 
           Divider(height: 50, thickness: 2),
@@ -92,7 +93,7 @@ class MyDrawer extends StatelessWidget {
           ),
           drawerItem(
             title: 'الإعدادات',
-            icon: MyIcons.settings,
+            icon: MyIcons.settings(),
             routeName: SettingsPage.id,
             onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
           ),

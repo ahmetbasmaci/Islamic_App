@@ -25,9 +25,9 @@ class Constants {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
 
-  static NumberFormat format3 = NumberFormat('000');
-  static NumberFormat format2 = NumberFormat('00');
+  static NumberFormat formatInt3 = NumberFormat('000');
+  static NumberFormat formatInt2 = NumberFormat('00');
 
   static void setNewOpendPageId(String id) => GetStorage().write('lastOpendPageId', id);
-  static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId')??HomePage.id;
+  static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId') ?? HomePage.id;
 }

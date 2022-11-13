@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constents.dart';
 
 import 'colors.dart';
@@ -8,7 +9,7 @@ class MyTexts {
   static Text outsideHeader({required String title}) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
+      style: Theme.of(Get.context??context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
     );
   }
 
@@ -27,21 +28,20 @@ class MyTexts {
     );
   }
 
-  static Text content({required String title, double? size}) {
+  static Text content({required String title, double? size, Color? color}) {
     return Text(
       title,
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: size),
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: size, color: color),
     );
   }
 
-  static Text quran({
-    required String title,
-    TextAlign textAlign = TextAlign.center,
-    TextOverflow? overflow,
-    FontWeight? fontWeight,
-    Color? color,
-  }) {
+  static Text quran(
+      {required String title,
+      TextAlign textAlign = TextAlign.center,
+      TextOverflow? overflow,
+      FontWeight? fontWeight,
+      Color? color}) {
     return Text(
       title,
       textAlign: textAlign,
@@ -67,9 +67,13 @@ class MyTexts {
   }
 
   static Text settingsTitle({required String title}) {
+    int s = Theme.of(context).textTheme.headline4!.color!.value;
+    print("-----");
+    print(s);
+    print("-----");
     return Text(
       title,
-      style: Theme.of(context).textTheme.headline4,
+      style: Theme.of(Get.context??context).textTheme.headline4,
     );
   }
 

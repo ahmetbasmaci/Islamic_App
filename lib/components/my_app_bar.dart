@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/texts.dart';
 import '../constents/icons.dart';
-import '../pages/settings_page.dart';
+import '../pages/settings/settings_page.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.title, this.leading, this.actions, this.bottom}) : super(key: key);
@@ -20,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
         elevation: 0,
-        title: MyTexts.outsideHeader( title: title),
+        title: MyTexts.outsideHeader(title: title),
         leading: leading ?? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer),
         actions: [...actions ?? [], settingsPageButton(), backButton(context)],
         bottom: bottom);
@@ -30,7 +30,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return IconButton(
       onPressed: () =>
           Get.to(() => SettingsPage(), transition: Transition.upToDown, duration: Duration(milliseconds: 500)),
-      icon: MyIcons.settings,
+      icon: MyIcons.settings(),
     );
   }
 

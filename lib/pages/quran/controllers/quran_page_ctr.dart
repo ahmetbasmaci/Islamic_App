@@ -63,4 +63,11 @@ class QuranPageCtr extends GetxController {
 
     storage.write('searchFilterList', listMap);
   }
+
+  void resetAll() {
+    selectedSurah.repeetAllCount.value = 1;
+    selectedSurah.repeetAyahCount.value = 1;
+selectedSurah.isUnlimitRepeatAll.value = false;
+    selectedSurah.isUnlimitRepeatAyah.value = false;
+  }
 }

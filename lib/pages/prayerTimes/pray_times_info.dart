@@ -1,85 +1,85 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
-import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';
-import 'package:zad_almumin/pages/prayerTimes/pray_times_info.dart';
-import 'package:zad_almumin/services/theme_service.dart';
-import '../../components/my_app_bar.dart';
+
 import '../../components/my_circular_progress_indecator.dart';
-import '../../components/my_drawer.dart';
 import '../../constents/colors.dart';
 import '../../constents/sizes.dart';
 import '../../constents/texts.dart';
-
 import '../../moduls/enums.dart';
+import '../../services/theme_service.dart';
+import 'controllers/prayer_time_ctr.dart';
 
-class PrayerTimes extends StatefulWidget {
-  const PrayerTimes({Key? key}) : super(key: key);
-  static String id = 'PrayerTimes';
-  @override
-  State<PrayerTimes> createState() => _PrayerTimesState();
-}
-
-class _PrayerTimesState extends State<PrayerTimes> {
+class PrayTimesInfo extends GetView<ThemeCtr> {
+  PrayTimesInfo({super.key});
   PrayerTimeCtr prayerTimeCtr = Get.find<PrayerTimeCtr>();
-  int hDay = HijriCalendar.fromDate(DateTime.now()).hDay;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(title: ''),
-      drawer: MyDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+    context.theme;
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(color: MyColors.zikrCard(), borderRadius: BorderRadius.circular(20)),
+      // height: 400,
+      // height: double.maxFinite,
+
+      child: Column(
+        children: <Widget>[
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  PrayTmeLeft(),
-                  SizedBox(height: MySiezes.betweanAzkarBlock),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await prayerTimeCtr.updatePrayerTimes();
-                      if (mounted) setState(() {});
-                    },
-                    child: Text('تحديث'),
+                children: <Widget>[
+                  MyTexts.settingsTitle(title: 'التاريخ الميلادي'),
+                  Obx(
+                    () => MyTexts.normal(
+                      title:
+                          '${prayerTimeCtr.curerntDate.value.year}-${prayerTimeCtr.curerntDate.value.month}-${prayerTimeCtr.curerntDate.value.day}',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
-              nextPrevDaysArrows(),
-              PrayTimesInfo(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MyTexts.settingsTitle(title: 'التاريخ الهجري'),
+                  Obx(
+                    () => MyTexts.normal(
+                      title:
+                          '${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hYear}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hMonth}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hDay}',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ),
+          Divider(thickness: 2),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(height: MySiezes.betweanAzkarBlock),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  prayerTime(prayerTimeType: PrayerTimeType.fajr),
+                  prayerTime(prayerTimeType: PrayerTimeType.sun),
+                  prayerTime(prayerTimeType: PrayerTimeType.duhr),
+                ],
+              ),
+              SizedBox(height: MySiezes.betweanAzkarBlock),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  prayerTime(prayerTimeType: PrayerTimeType.asr),
+                  prayerTime(prayerTimeType: PrayerTimeType.maghrib),
+                  prayerTime(prayerTimeType: PrayerTimeType.isha),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget nextPrevDaysArrows() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          onPressed: () async {
-            await prayerTimeCtr.updatePrayerTimes(newTime: prayerTimeCtr.curerntDate.value.add(Duration(days: 1)));
-
-            setState(() {});
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        IconButton(
-          onPressed: () async {
-            await prayerTimeCtr.updatePrayerTimes(newTime: prayerTimeCtr.curerntDate.value.subtract(Duration(days: 1)));
-            setState(() {});
-          },
-          icon: const Icon(Icons.arrow_forward_ios),
-        ),
-      ],
     );
   }
 

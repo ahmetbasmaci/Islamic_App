@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const String id = 'HomePage';
   @override
   void initState() {
     super.initState();
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: currentIndex != 1 ? Constants.systemUiOverlayStyleDefault : Constants.systemUiOverlayStyleQuran,
       child: SafeArea(

@@ -7,7 +7,8 @@ import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/pages/quran/classes/ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
-
+import 'package:zad_almumin/services/theme_service.dart';
+import '../constents/colors.dart';
 import '../constents/icons.dart';
 import '../services/http_service.dart';
 
@@ -45,7 +46,7 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
       transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
       child: isLoading
           ? MyCircularProgressIndecator()
-          : MyIcons.animatedIcon_Play_Pause(
+          : PlayPauseAnimatedBtn(
               animationCtr: animationCtr,
               onTap: () => onPlayTap(),
             ),
@@ -97,5 +98,43 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
 
   Future forwardAnimation() async {
     await animationCtr.forward();
+  }
+}
+
+class PlayPauseAnimatedBtn extends GetView<ThemeCtr> {
+  PlayPauseAnimatedBtn({
+    super.key,
+    required this.animationCtr,
+    required this.onTap,
+  });
+
+  AnimationController animationCtr;
+  VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    context.theme;
+    return InkWell(
+      borderRadius: BorderRadius.circular(100),
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: MyColors.zikrCard(),
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.black.withOpacity(.6),
+              blurRadius: 5,
+              offset: Offset(0, 5),
+            )
+          ],
+        ),
+        padding: EdgeInsets.all(8),
+        margin: EdgeInsets.only(left: 8),
+        child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr),
+      ),
+    );
   }
 }

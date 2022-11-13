@@ -276,7 +276,7 @@ class _ShopsPageState extends State<ShopsPage> {
               DialogButton(
                 onPressed: () => Get.back(),
                 color: MyColors.primary(),
-                child: MyTexts.content( title: 'تم'),
+                child: MyTexts.content(title: 'تم'),
               )
             ],
             style: AlertStyle(
@@ -348,8 +348,7 @@ class _ShopsPageState extends State<ShopsPage> {
                 maxLength: 18,
                 textAlign: TextAlign.right,
                 controller: _shopCtr,
-                style: TextStyle(
-                    color: MyColors.whiteBlack()),
+                style: TextStyle(color: MyColors.whiteBlack()),
                 decoration: InputDecoration(
                     border: UnderlineInputBorder(), hintText: 'اسم السوق : ', hintStyle: TextStyle(fontSize: 14)),
               ),

@@ -6,7 +6,7 @@ import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 
 import '../pages/ayahsTest/classes/ayah_prop.dart';
-import '../pages/ayahsTest/controller/first_ayahs_in_pages_ctr.dart';
+import '../pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 
 class JsonService {
   static List allQuranData = [];
@@ -71,7 +71,7 @@ class JsonService {
   }
 
   static Future<AyahProp> getAyahForQuestion(BuildContext context) async {
-    final FirstAyahsInPagesCtr ctr = Get.find<FirstAyahsInPagesCtr>();
+    final AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
 
     String jsonString =
         await DefaultAssetBundle.of(context).loadString('assets/database/quran/first_ayahs_from_each_page.json');

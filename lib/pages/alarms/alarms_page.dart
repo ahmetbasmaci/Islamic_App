@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_drawer.dart';
 import '../../components/my_switch.dart';
 import '../../constents/constents.dart';
 import '../../constents/icons.dart';
 import '../../constents/texts.dart';
+import 'alarm_card.dart';
 import 'classes/alarm_prop.dart';
 import 'controllers/alarms_ctr.dart';
 
@@ -25,46 +27,33 @@ class _AlarmPageState extends State<AlarmPage> {
   var alarmsCtr = Get.find<AlarmsCtr>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(title: 'المنبه'),
-      drawer: MyDrawer(),
-      body: ListView(
-        children: [
-          alarmBlockTitle(title: 'تذكير القران'),
-          quranAlarms(),
-          alarmBlockTitle(title: 'تذكير الصيام'),
-          fastAlarms(),
-          alarmBlockTitle(title: 'تذكير الاذكار'),
-          azkarAlarms(),
-          alarmBlockTitle(title: 'تذكير الاحاديث'),
-          hadithsAlarms(),
-          alarmBlockTitle(title: 'تذكير الاذان'),
-          prayTimesAlarms(),
-        ],
-      ),
-    );
-  }
-
-  Widget cardContainer({required Widget child}) {
-    return Container(
-      margin: EdgeInsets.all(MySiezes.cardPadding),
-      decoration: BoxDecoration(
-        color: MyColors.background(),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            spreadRadius: 5,
+    return Obx(
+      () {
+        Get.find<ThemeCtr>().isDarkMode.value;
+        return Scaffold(
+          appBar: MyAppBar(title: 'المنبه'),
+          drawer: MyDrawer(),
+          body: ListView(
+            children: [
+              alarmBlockTitle(title: 'تذكير القران'),
+              quranAlarms(),
+              alarmBlockTitle(title: 'تذكير الصيام'),
+              fastAlarms(),
+              alarmBlockTitle(title: 'تذكير الاذكار'),
+              azkarAlarms(),
+              alarmBlockTitle(title: 'تذكير الاحاديث'),
+              hadithsAlarms(),
+              alarmBlockTitle(title: 'تذكير الاذان'),
+              prayTimesAlarms(),
+            ],
           ),
-        ],
-      ),
-      child: child,
+        );
+      },
     );
   }
 
   Widget quranAlarms() {
-    return cardContainer(
+    return AlarmCard(
       child: Column(
         children: [
           Obx(
@@ -97,7 +86,7 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 
   Widget fastAlarms() {
-    return cardContainer(
+    return AlarmCard(
       child: Column(
         children: [
           Obx(
@@ -139,7 +128,7 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 
   Widget azkarAlarms() {
-    return cardContainer(
+    return AlarmCard(
       child: Column(
         children: [
           Obx(
@@ -170,7 +159,7 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 
   Widget hadithsAlarms() {
-    return cardContainer(
+    return AlarmCard(
       child: Column(
         children: [
           Obx(
@@ -190,7 +179,7 @@ class _AlarmPageState extends State<AlarmPage> {
   }
 
   Widget prayTimesAlarms() {
-    return cardContainer(
+    return AlarmCard(
       child: Column(
         children: [
           Obx(
@@ -333,7 +322,7 @@ class _AlarmPageState extends State<AlarmPage> {
                 ),
                 MyTexts.settingsContent(
                     title:
-                        '${Constants.format2.format(alarmProp.time.value.hour)}:${Constants.format2.format(alarmProp.time.value.minute)}'),
+                        '${Constants.formatInt2.format(alarmProp.time.value.hour)}:${Constants.formatInt2.format(alarmProp.time.value.minute)}'),
               ],
             ),
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/settings_page.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../classes/zikr_data.dart';
 import '../constents/colors.dart';
@@ -15,59 +14,30 @@ import 'zikr_block_buttons.dart';
 import 'audio_play_stop_btn.dart';
 import 'my_circular_progress_indecator.dart';
 
-class ZikrCard {
-  bool isLoading = false;
-  bool haveMargin = false;
+class InsideContainer extends GetView<ThemeCtr> {
+  InsideContainer({
+    required this.zikrData,
+    this.firstChild,
+    this.secondChild,
+    this.onDeleteFromFavorite,
+  });
+  ZikrData zikrData;
+  Widget? firstChild;
+  Widget? secondChild;
   VoidCallback? onDeleteFromFavorite;
-  ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
-
-  Widget outContainer({required Widget child, String? outsideTitle, VoidCallback? onTap, required bool isFavorite}) {
+  @override
+  Widget build(BuildContext context) {
+    context.theme;
     return Container(
-      // duration: Duration(milliseconds: 1000),
-      padding: EdgeInsets.only(bottom: haveMargin ? MySiezes.betweanAzkarBlock : 0),
-      margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding, vertical: MySiezes.screenPadding),
-      child: Column(
-        children: <Widget>[
-          //outside header
-          outsideTitle != null && !isFavorite
-              ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(title: outsideTitle))
-              : Container(),
-          AnimatedButtonTapping(
-            onTap: onTap,
-            child: Obx(
-              () => AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                  color: Get.find<SettingsCtr>().isDarkMode.value ? MyColors.zikrCard() : MyColors.zikrCard(),
-                  boxShadow: [
-                    BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-                    BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
-                  ],
-                ),
-                padding: EdgeInsets.all(MySiezes.cardPadding),
-                child: Container(
-                  constraints: BoxConstraints(
-                    minHeight: 150, //minimum height
-                    minWidth: double.maxFinite, // minimum width
-                  ),
-                  child: child,
-                ),
-              ),
-            ),
-          ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+        color: MyColors.zikrCard(),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
+          BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
         ],
       ),
-    );
-  }
-
-  Widget insideContainer({
-    required ZikrData zikrData,
-    Widget? firstChild,
-    Widget? secondChild,
-  }) {
-    return StatefulBuilder(builder: (context, setState) {
-      return Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
@@ -84,8 +54,39 @@ class ZikrCard {
               : Container(),
           ZikrBlockButtons(zikrData: zikrData, onDeleteFromFavorite: onDeleteFromFavorite)
         ],
-      );
-    });
+      ),
+    );
+  }
+}
+
+class ZikrCard {
+  bool isLoading = false;
+  bool haveMargin = false;
+  VoidCallback? onDeleteFromFavorite;
+  ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
+
+  Widget outContainer({required Widget child, String? outsideTitle, VoidCallback? onTap, required bool isFavorite}) {
+    return Container(
+      // duration: Duration(milliseconds: 1000),
+      padding: EdgeInsets.only(bottom: haveMargin ? MySiezes.betweanAzkarBlock : 0),
+      margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding, vertical: MySiezes.screenPadding),
+      child: Column(
+        children: <Widget>[
+          outsideTitle != null && !isFavorite
+              ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(title: outsideTitle))
+              : Container(),
+          AnimatedButtonTapping(
+            onTap: onTap,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(MySiezes.blockRadius)),
+              padding: EdgeInsets.all(MySiezes.cardPadding),
+              child: Container(constraints: BoxConstraints(minHeight: 150, minWidth: double.maxFinite), child: child),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget byType(ZikrData zikrData) {
@@ -117,7 +118,7 @@ class ZikrCard {
               return Text(snapshot.error.toString());
             else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
-            return insideContainer(
+            return InsideContainer(
               zikrData: quranZikrData!,
               firstChild: onDeleteFromFavorite == null
                   ? IconButton(
@@ -163,7 +164,7 @@ class ZikrCard {
               if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
               hadithZikrData ??= snapshot.data as ZikrData;
 
-              return insideContainer(
+              return InsideContainer(
                 zikrData: hadithZikrData!,
                 firstChild: onDeleteFromFavorite == null
                     ? IconButton(
@@ -200,7 +201,7 @@ class ZikrCard {
                   }
                 }
               : null,
-          child: insideContainer(
+          child: InsideContainer(
             zikrData: azkarZikrData,
             firstChild: AnimatedOpacity(
               duration: Duration(milliseconds: 5000),
@@ -214,8 +215,7 @@ class ZikrCard {
                     boxShadow: [
                       BoxShadow(
                         offset: Offset(-5, 0),
-                        color:
-                            ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.black : MyColors.lightModeShadow,
+                        color: MyColors.zikrCard(),
                         blurRadius: 5,
                       ),
                     ],
@@ -231,7 +231,7 @@ class ZikrCard {
   Widget allahNamesCard(ZikrData allahNamesZikrData) {
     return outContainer(
       isFavorite: allahNamesZikrData.isFavorite,
-      child: insideContainer(zikrData: allahNamesZikrData),
+      child: InsideContainer(zikrData: allahNamesZikrData),
     );
   }
 

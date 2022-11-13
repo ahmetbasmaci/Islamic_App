@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../moduls/enums.dart';
+import '../../../services/json_service.dart';
 import '../../../services/notification_api.dart';
 import '../classes/alarm_prop.dart';
 
@@ -275,13 +276,10 @@ class AlarmsCtr extends GetxController {
       if (alarmProp.alarmPeriod == ALarmPeriod.once)
         NotificationService.setOnceNotification(alarmProp: alarmProp);
       else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
+        if (alarmProp.notificationType == NotificationType.hadith)
+          alarmProp.notificationBody = (await JsonService.getHadithData()).content;
 
-        if (alarmProp.notificationType == NotificationType.hadith) {
-          // alarmProp.notificationBody = (await JsonService.getHadithData()).content;
-          NotificationService.setDailyNotification(alarmProp: alarmProp);
-        } else
-          NotificationService.setDailyNotification(alarmProp: alarmProp);
-      
+        NotificationService.setDailyNotification(alarmProp: alarmProp);
       } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
         NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
       else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)

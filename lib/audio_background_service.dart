@@ -6,14 +6,12 @@ import 'package:audio_manager/audio_manager.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/pages/quran/classes/ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 
 import 'pages/quran/controllers/quran_page_ctr.dart';
 
 class AudioBacgroundService extends GetxController {
-
   @override
   void dispose() {
     AudioManager.instance.release();
@@ -30,6 +28,8 @@ class AudioBacgroundService extends GetxController {
   num curIndex = 0;
   final String _imgPath = "assets/images/app_logo.png";
   List<AudioInfo> audioList = [];
+  int currentAyahRepeatCount = 0;
+  int currentOfAllRepeatCount = 0;
 
   void playNewAudioFile(String audioPath) async {
     AudioInfo info = AudioInfo("file://$audioPath", title: "my file", desc: "my local file", coverUrl: _imgPath);
@@ -63,12 +63,30 @@ class AudioBacgroundService extends GetxController {
     }
     setAudioEvents(
       onEnded: () {
-        bool isEnded = AudioManager.instance.curIndex == ayahList.length - 1;
-        bool inLimits = AudioManager.instance.curIndex + 1 < quranCtr.selectedSurah.endAyahNum.value;
-        if (isEnded || !inLimits)
-          stopAudio();
-        else
-          AudioManager.instance.next();
+        currentAyahRepeatCount++;
+        bool isEnded = AudioManager.instance.curIndex + 1 >= quranCtr.selectedSurah.endAyahNum.value;
+        if (isEnded) {
+          currentOfAllRepeatCount++;
+          bool unLimitRepeet = quranCtr.selectedSurah.isUnlimitRepeatAll.value;
+          bool inRepeetLimit = quranCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
+          if (inRepeetLimit || unLimitRepeet)
+            AudioManager.instance.play(index: 0);
+          else {
+            currentOfAllRepeatCount;
+            stopAudio();
+          }
+        } else {
+          bool unLimitRepeet = quranCtr.selectedSurah.isUnlimitRepeatAyah.value;
+          bool inRepeetLimit = quranCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
+
+          if (inRepeetLimit || unLimitRepeet) {
+            AudioManager.instance.play(index: AudioManager.instance.curIndex);
+          } else {
+            currentAyahRepeatCount = 0;
+            AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
+            //AudioManager.instance.next();
+          }
+        }
       },
       onStop: onStop,
       onStart: onStart,

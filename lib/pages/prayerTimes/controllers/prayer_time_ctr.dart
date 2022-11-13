@@ -58,7 +58,7 @@ class PrayerTimeCtr extends GetxController {
     if (newTime == null) updatePrayerAlarms(); //just in current day
 
     // await _setPrayTimes();
-    checkNextPrayTime();
+    checkAndSetNextPrayTime();
     updateCurrentTime();
     isLoading.value = false;
   }
@@ -108,20 +108,6 @@ class PrayerTimeCtr extends GetxController {
     );
   }
 
-  void checkNextPrayTime() {
-    if (compareTimes(currentTime, ishaTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.fajr);
-    else if (compareTimes(currentTime, maghribTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.isha);
-    else if (compareTimes(currentTime, asrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
-    else if (compareTimes(currentTime, duhrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
-    else if (compareTimes(currentTime, sunTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
-    else if (compareTimes(currentTime, fajrTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
-  }
-
   bool compareTimes(Time time1, Time time2) {
     DateTime t1 = DateTime(
       DateTime.now().year,
@@ -145,6 +131,60 @@ class PrayerTimeCtr extends GetxController {
       return true;
     else
       return false;
+  }
+
+  updateCurrentTime() async {
+    await Future.delayed(Duration(seconds: 1));
+    Time leftTime = differenceTimes(
+      DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        nextPrayTime.value.hour,
+        nextPrayTime.value.minute,
+        nextPrayTime.value.second,
+      ),
+      DateTime.now(),
+    );
+
+    String houreTimeLeftTxt = Constants.formatInt2.format(leftTime.hour);
+    String minuteTimeLeftTxt = Constants.formatInt2.format(leftTime.minute);
+    String secondTimeLeftTxt = Constants.formatInt2.format(leftTime.second);
+
+    timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
+    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkAndSetNextPrayTime();
+
+    if (leftTime.hour == 0 &&
+        leftTime.minute == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan &&
+        leftTime.second == 0) {
+      Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+    }
+
+    updateCurrentTime();
+  }
+
+  Time differenceTimes(DateTime time1, DateTime time2) {
+    int hr = time1.difference(time2).inHours;
+    int minute = time1.difference(time2).inMinutes - (hr * 60);
+    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
+    if (hr < 0) hr = 0;
+    if (minute < 0) minute = 0;
+    if (second < 0) second = 0;
+    return Time(hr, minute, second);
+  }
+
+  void checkAndSetNextPrayTime() {
+    if (compareTimes(currentTime, ishaTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.fajr);
+    else if (compareTimes(currentTime, maghribTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.isha);
+    else if (compareTimes(currentTime, asrTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
+    else if (compareTimes(currentTime, duhrTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
+    else if (compareTimes(currentTime, sunTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
+    else if (compareTimes(currentTime, fajrTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
   }
 
   setNextPrayTime({required PrayerTimeType prayTimeType}) {
@@ -173,45 +213,5 @@ class PrayerTimeCtr extends GetxController {
       nextPrayName.value = 'العشاء';
       nextPrayType = PrayerTimeType.isha.obs;
     }
-  }
-
-  updateCurrentTime() async {
-    await Future.delayed(Duration(seconds: 1));
-    Time leftTime = differenceTimes(
-      DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        nextPrayTime.value.hour,
-        nextPrayTime.value.minute,
-        nextPrayTime.value.second,
-      ),
-      DateTime.now(),
-    );
-
-    String houreTimeLeftTxt = Constants.format2.format(leftTime.hour);
-    String minuteTimeLeftTxt = Constants.format2.format(leftTime.minute);
-    String secondTimeLeftTxt = Constants.format2.format(leftTime.second);
-
-    timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
-    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkNextPrayTime();
-
-    if (leftTime.hour == 0 &&
-        leftTime.minute == 0 &&
-        leftTime.second == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan) {
-      Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
-    }
-
-    updateCurrentTime();
-  }
-
-  Time differenceTimes(DateTime time1, DateTime time2) {
-    int hr = time1.difference(time2).inHours;
-    int minute = time1.difference(time2).inMinutes - (hr * 60);
-    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
-    if (hr < 0) hr = 0;
-    if (minute < 0) minute = 0;
-    if (second < 0) second = 0;
-    return Time(hr, minute, second);
   }
 }

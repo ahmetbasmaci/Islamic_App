@@ -3,8 +3,9 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../moduls/enums.dart';
 
-class FirstAyahsInPagesCtr extends GetxController {
+class AyahsQuestionsCtr extends GetxController {
   GetStorage getStorage = GetStorage();
+  RxBool isPressed = false.obs;
   RxInt quastionNumber = 1.obs;
   RxInt trueAnswersCounter = 0.obs;
   RxInt wrongAnwersCounter = 0.obs;
@@ -14,7 +15,7 @@ class FirstAyahsInPagesCtr extends GetxController {
   RxInt juzTo = 30.obs;
   Rx<QuestionType> questionType = QuestionType.ayahInJuzAndPage.obs;
   int get getTrueAnwersCounter => trueAnswersCounter.value;
-  FirstAyahsInPagesCtr() {
+  AyahsQuestionsCtr() {
     int typeIndex = getStorage.read('questionType') ?? QuestionType.ayahInJuzAndPage.index;
     questionType.value = QuestionType.values[typeIndex];
 

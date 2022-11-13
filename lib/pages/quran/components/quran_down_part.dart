@@ -29,69 +29,25 @@ class QuranDownPart extends StatelessWidget {
       bottom: quranCtr.onShown.value ? 0 : -_downPartHeight,
       child: Obx(
         () => AnimatedContainer(
-            duration: Duration(milliseconds: animationDurationMilliseconds),
-            height: Get.find<HttpServiceCtr>().isLoading.value ? _downPartHeight + _loadingRowHeight : _downPartHeight,
-            width: Get.size.width,
-            decoration: BoxDecoration(
-              color: MyColors.quranBackGround(),
-              boxShadow: [
-                BoxShadow(
-                  color: MyColors.whiteBlack().withOpacity(0.2),
-                  offset: Offset(0, 5),
-                  blurRadius: 30,
-                  spreadRadius: .5,
-                )
-              ],
-            ),
-            child: Column(
+          duration: Duration(milliseconds: animationDurationMilliseconds),
+          // height: Get.find<HttpServiceCtr>().isLoading.value ? _downPartHeight + _loadingRowHeight : _downPartHeight,
+          height: Get.find<HttpServiceCtr>().isLoading.value ? _downPartHeight : _downPartHeight,
+          width: Get.size.width,
+          decoration: BoxDecoration(
+            color: MyColors.quranBackGround(),
+            boxShadow: [
+              BoxShadow(
+                color: MyColors.whiteBlack().withOpacity(0.2),
+                offset: Offset(0, 5),
+                blurRadius: 30,
+                spreadRadius: .5,
+              )
+            ],
+          ),
+          child: Obx(
+            () => Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Obx(
-                  () => Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.surahName.value),
-                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.pageNumber.value.toString()),
-                      MyTexts.quranSecondTitle(title: 'الجزء ${quranCtr.selectedSurah.juz.value}'),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    selectStartEndAyah(true),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: animationDurationMilliseconds),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: MyColors.quranBackGround(),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          // BoxShadow(color: MyColors.quranSecond().withOpacity(0.2), blurRadius: 30, spreadRadius: 10),
-                        ],
-                      ),
-                      child: Obx(
-                        () => DropdownButton<QuranReaders>(
-                          value: quranCtr.selectedSurah.selectedQuranReader.value,
-                          onChanged: (newVal) {
-                            quranCtr.selectedSurah.selectedQuranReader.value = newVal!;
-                            GetStorage()
-                                .write('selectedQuranReader', quranCtr.selectedSurah.selectedQuranReader.value.index);
-                          },
-                          items: [
-                            for (QuranReaders item in QuranReaders.values)
-                              DropdownMenuItem(
-                                value: item,
-                                child: MyTexts.quranSecondTitle(title: item.arabicName),
-                              )
-                          ],
-                        ),
-                      ),
-                    ),
-                    selectStartEndAyah(false),
-                  ],
-                ),
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 600),
                   opacity: Get.find<HttpServiceCtr>().isLoading.value ? 1 : 0,
@@ -131,12 +87,24 @@ class QuranDownPart extends StatelessWidget {
                     ),
                   ),
                 ),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.selectedQuranReader.value.arabicName),
+                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.surahName.value),
+                      MyTexts.quranSecondTitle(title: 'الصفحة :${quranCtr.selectedSurah.pageNumber.value}'),
+                      MyTexts.quranSecondTitle(title: 'الجزء  :${quranCtr.selectedSurah.juz.value}'),
+                    ],
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                        icon: MyIcons.repeat(color: MyColors.quranSecond()), onPressed: () async => showRepeatDialog()),
+                        icon: MyIcons.settings(color: MyColors.quranSecond()),
+                        onPressed: () async => showResitationSettings()),
                     IconButton(
                       icon: AnimatedIcon(
                         icon: AnimatedIcons.play_pause,
@@ -155,12 +123,94 @@ class QuranDownPart extends StatelessWidget {
                   ],
                 ),
               ],
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  Widget selectStartEndAyah(bool isStartAyah) {
+  void showResitationSettings() {
+    Get.dialog(
+      AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            MyTexts.quranSecondTitle(title: 'اعدادات القراءة'),
+          ],
+        ),
+        content: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(200)),
+          height: Get.size.height * .5,
+          width: Get.size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              selectReader(),
+              Divider(),
+              selectAyahsLimits(),
+              Divider(),
+              selectRepeet(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget selectReader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        MyTexts.quranSecondTitle(title: 'القارئ:', fontWeight: FontWeight.bold),
+        AnimatedContainer(
+          duration: Duration(milliseconds: animationDurationMilliseconds),
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Obx(
+            () => DropdownButton<QuranReaders>(
+              value: quranCtr.selectedSurah.selectedQuranReader.value,
+              menuMaxHeight: Get.size.height * .3,
+              onChanged: (newVal) {
+                quranCtr.selectedSurah.selectedQuranReader.value = newVal!;
+                GetStorage().write('selectedQuranReader', quranCtr.selectedSurah.selectedQuranReader.value.index);
+              },
+              items: [
+                for (QuranReaders item in QuranReaders.values)
+                  DropdownMenuItem(
+                    value: item,
+                    child: MyTexts.quranSecondTitle(title: item.arabicName),
+                  )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget selectAyahsLimits() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyTexts.quranSecondTitle(title: 'تحديد المقطع:', fontWeight: FontWeight.bold),
+            MyTexts.quranSecondTitle(
+              title: QuranHelper().getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value),
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+        startEndAyahsSelections(true),
+        startEndAyahsSelections(false),
+      ],
+    );
+  }
+
+  Widget startEndAyahsSelections(bool isStartAyah) {
     return Row(
       children: [
         MyTexts.quranSecondTitle(title: isStartAyah ? 'من الاية:  ' : 'الى الاية:  '),
@@ -175,7 +225,8 @@ class QuranDownPart extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       MyTexts.quranSecondTitle(title: 'اختر الاية:  '),
-                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.surahNumber.value.toString()),
+                      MyTexts.quranSecondTitle(
+                          title: QuranHelper().getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value)),
                     ],
                   ),
                   content: Container(
@@ -215,6 +266,69 @@ class QuranDownPart extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget selectRepeet() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyTexts.quranSecondTitle(title: 'تكرار التلاوة:  ', fontWeight: FontWeight.bold),
+        Row(
+          children: <Widget>[
+            MyTexts.quranSecondTitle(title: 'المقطع :  '),
+            Obx(
+              () => MyTexts.quranSecondTitle(
+                  title: quranCtr.selectedSurah.repeetAllCount.value.toString(), fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              onPressed: () => quranCtr.selectedSurah.repeetAllCount.value++,
+              icon: MyIcons.plus(color: MyColors.quranSecond()),
+            ),
+            IconButton(
+              onPressed: () {
+                if (quranCtr.selectedSurah.repeetAllCount.value != 1) quranCtr.selectedSurah.repeetAllCount.value--;
+              },
+              icon: MyIcons.minus(color: MyColors.quranSecond()),
+            ),
+            Obx(
+              () => Checkbox(
+                fillColor: MaterialStateProperty.all(MyColors.quranSecond()),
+                value: quranCtr.selectedSurah.isUnlimitRepeatAll.value,
+                onChanged: ((value) => quranCtr.selectedSurah.isUnlimitRepeatAll.value = value ?? false),
+              ),
+            ),
+            MyTexts.quranSecondTitle(title: 'لا محدود'),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            MyTexts.quranSecondTitle(title: 'الاية      :  '),
+            Obx(
+              () => MyTexts.quranSecondTitle(
+                  title: quranCtr.selectedSurah.repeetAyahCount.value.toString(), fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              onPressed: () => quranCtr.selectedSurah.repeetAyahCount.value++,
+              icon: MyIcons.plus(color: MyColors.quranSecond()),
+            ),
+            IconButton(
+              onPressed: () {
+                if (quranCtr.selectedSurah.repeetAyahCount.value != 1) quranCtr.selectedSurah.repeetAyahCount.value--;
+              },
+              icon: MyIcons.minus(color: MyColors.quranSecond()),
+            ),
+            Obx(
+              () => Checkbox(
+                fillColor: MaterialStateProperty.all(MyColors.quranSecond()),
+                value: quranCtr.selectedSurah.isUnlimitRepeatAyah.value,
+                onChanged: ((value) => quranCtr.selectedSurah.isUnlimitRepeatAyah.value = value ?? false),
+              ),
+            ),
+            MyTexts.quranSecondTitle(title: 'لا محدود'),
+          ],
         ),
       ],
     );
@@ -273,8 +387,6 @@ class QuranDownPart extends StatelessWidget {
     return list;
   }
 
-  void showRepeatDialog() {}
-
   void playAudio() async {
     animationCtr.forward();
     int surahNumber = quranCtr.selectedSurah.surahNumber.value;
@@ -294,11 +406,13 @@ class QuranDownPart extends StatelessWidget {
     await animationCtr.forward();
   }
 
-  void pauseAudio() {
+  void pauseAudio() async {
     Get.find<AudioBacgroundService>().pauseAudio();
+    await reverseAnimation();
   }
 
-  void stopAudio() {
+  void stopAudio() async {
     Get.find<AudioBacgroundService>().stopAudio();
+    await reverseAnimation();
   }
 }

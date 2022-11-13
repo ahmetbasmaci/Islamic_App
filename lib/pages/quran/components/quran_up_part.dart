@@ -2,41 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/pages/quran/components/menu_options_item.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../constents/texts.dart';
 import '../../../services/theme_service.dart';
 import '../../home_page.dart';
+import '../../settings/settings_ctr.dart';
 import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
-class QuranUpPart extends StatelessWidget {
+class QuranUpPart extends GetView<ThemeCtr> {
   QuranUpPart({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
-  final double _upPartHeight = Get.size.height * .1;
+  final double _upPartHeight = Get.size.height * .07;
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
 
+  final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   var goToPageTextCtr = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    List<MenuItem> menuItemList = [
-      MenuItem(
+    context.theme;
+    List<MenuOptionsItem> menuItemList = [
+      MenuOptionsItem(
         title: 'بحث',
         icon: MyIcons.search(color: MyColors.quranSecond()),
         onTap: () => showSearch(context: context, delegate: QuranSearchDelegate()),
       ),
-      MenuItem(
+      MenuOptionsItem(
         title: 'اضافة علامة',
         icon: MyIcons.mark(color: MyColors.quranSecond()),
         onTap: () => QuranHelper().showMarkDialog(),
       ),
-      MenuItem(
+      MenuOptionsItem(
         title: 'تغير الثيم',
         icon: MyIcons.animated_Light_Dark(color: MyColors.quranSecond()),
         onTap: () {
-          bool isDark = ThemeService().getThemeMode() == ThemeMode.dark;
-          ThemeService().changeThemeMode(!isDark);
+          bool isDark = Get.isDarkMode;
+          _settingsCtr.changeDarkModeState(!isDark);
           quranPageSetState.call();
         },
       ),
@@ -74,6 +78,7 @@ class QuranUpPart extends StatelessWidget {
                           return [
                             ...menuItemList.map((e) => PopupMenuItem(
                                   value: e,
+                                  textStyle: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 10),
                                   child: InkWell(
                                     onTap: () {
                                       Get.back();
@@ -142,11 +147,4 @@ class QuranUpPart extends StatelessWidget {
       ),
     );
   }
-}
-
-class MenuItem {
-  MenuItem({required this.title, required this.icon, required this.onTap});
-  String title;
-  Widget icon;
-  VoidCallback onTap;
 }

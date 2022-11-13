@@ -11,4 +11,8 @@ class SelectedSurah {
   RxInt endAyahNum = 0.obs;
   RxInt totalAyahsNum = 0.obs;
   Rx<QuranReaders> selectedQuranReader = QuranReaders.alafasi.obs;
+  RxInt repeetAllCount = 1.obs;
+  RxInt repeetAyahCount = 1.obs;
+  RxBool isUnlimitRepeatAll = false.obs;
+  RxBool isUnlimitRepeatAyah = false.obs;
 }

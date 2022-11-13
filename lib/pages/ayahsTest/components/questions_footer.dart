@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/theme_service.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../constents/sizes.dart';
 import '../../../constents/texts.dart';
-import '../controller/first_ayahs_in_pages_ctr.dart';
+import '../controller/ayahs_questions_ctr.dart';
 
-class QuestionsFooter extends StatelessWidget {
+class QuestionsFooter extends GetView<ThemeCtr> {
   QuestionsFooter({Key? key, required this.pageSetState}) : super(key: key);
   final VoidCallback pageSetState;
-  final FirstAyahsInPagesCtr ctr = Get.find<FirstAyahsInPagesCtr>();
+  final AyahsQuestionsCtr ayahsQuestionsCtr = Get.find<AyahsQuestionsCtr>();
 
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return Column(
       children: <Widget>[
         Divider(thickness: 1, endIndent: 50, indent: 50),
@@ -84,7 +86,7 @@ class QuestionsFooter extends StatelessWidget {
                         ],
                       ),
                       selectSpecificPage(),
-                      ctr.questionType.value == QuestionType.ayahInJuzAndPage
+                      ayahsQuestionsCtr.questionType.value == QuestionType.ayahInJuzAndPage
                           ? selectSpecificJuz(context)
                           : Container(),
                       answersInfo(),
@@ -123,7 +125,7 @@ class QuestionsFooter extends StatelessWidget {
         MaterialButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
           elevation: 5,
-          color: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.zikrCard() : MyColors.background(),
+          color: MyColors.zikrCard(),
           onPressed: () => getNextQuestion(),
           child: Row(
             children: [
@@ -132,7 +134,7 @@ class QuestionsFooter extends StatelessWidget {
             ],
           ),
         ),
-        MyTexts.normal(title: ' السؤال رقم ${ctr.quastionNumber.value}', color: MyColors.whiteBlack())
+        MyTexts.normal(title: ' السؤال رقم ${ayahsQuestionsCtr.quastionNumber.value}', color: MyColors.whiteBlack())
       ],
     );
   }
@@ -151,7 +153,8 @@ class QuestionsFooter extends StatelessWidget {
   }
 
   void getNextQuestion() {
-    ctr.increaseQuestionCounter();
+    ayahsQuestionsCtr.increaseQuestionCounter();
+    ayahsQuestionsCtr.isPressed.value = false;
     pageSetState();
   }
 
@@ -160,11 +163,11 @@ class QuestionsFooter extends StatelessWidget {
       children: [
         MyTexts.dropDownMenuTitle(title: 'نوع الاختبار:  '),
         DropdownButton<QuestionType>(
-          value: ctr.questionType.value,
+          value: ayahsQuestionsCtr.questionType.value,
           iconEnabledColor: MyColors.primary(),
           onChanged: (QuestionType? val) {
-            if (ctr.questionType.value != val) {
-              ctr.changeQuestionType(val!);
+            if (ayahsQuestionsCtr.questionType.value != val) {
+              ayahsQuestionsCtr.changeQuestionType(val!);
               getNextQuestion();
             }
           },
@@ -210,9 +213,9 @@ class QuestionsFooter extends StatelessWidget {
             isPage ? 20 : 30,
             (index) => DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(title: '${index + 1}')),
           ),
-          value: isPage ? ctr.pageFrom.value : ctr.juzFrom.value,
+          value: isPage ? ayahsQuestionsCtr.pageFrom.value : ayahsQuestionsCtr.juzFrom.value,
           onChanged: (val) {
-            isPage ? ctr.changePageFrom(val!) : ctr.changeJuzFrom(val!);
+            isPage ? ayahsQuestionsCtr.changePageFrom(val!) : ayahsQuestionsCtr.changeJuzFrom(val!);
           },
           iconEnabledColor: MyColors.primary(),
         ),
@@ -225,15 +228,17 @@ class QuestionsFooter extends StatelessWidget {
       children: [
         MyTexts.dropDownMenuTitle(title: isPage ? 'الى الصفحة    ' : 'الى الجزء    '),
         DropdownButton<int>(
-          onChanged: (val) => isPage ? ctr.changePageTo(val!) : ctr.changeJuzTo(val!),
-          value: isPage ? ctr.pageTo.value : ctr.juzTo.value,
+          onChanged: (val) => isPage ? ayahsQuestionsCtr.changePageTo(val!) : ayahsQuestionsCtr.changeJuzTo(val!),
+          value: isPage ? ayahsQuestionsCtr.pageTo.value : ayahsQuestionsCtr.juzTo.value,
           iconEnabledColor: MyColors.primary(),
           items: List.generate(
-            isPage ? 21 - ctr.pageFrom.value : 31 - ctr.juzFrom.value,
+            isPage ? 21 - ayahsQuestionsCtr.pageFrom.value : 31 - ayahsQuestionsCtr.juzFrom.value,
             (index) => DropdownMenuItem(
-              value: isPage ? ctr.pageFrom.value + index : ctr.juzFrom.value + index,
+              value: isPage ? ayahsQuestionsCtr.pageFrom.value + index : ayahsQuestionsCtr.juzFrom.value + index,
               child: MyTexts.dropDownMenuItem(
-                  title: isPage ? '${ctr.pageFrom.value + index}' : '${ctr.juzFrom.value + index}'),
+                  title: isPage
+                      ? '${ayahsQuestionsCtr.pageFrom.value + index}'
+                      : '${ayahsQuestionsCtr.juzFrom.value + index}'),
             ),
           ),
         ),
@@ -269,7 +274,9 @@ class QuestionsFooter extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: MyTexts.normal(
-                    title: isCorrect ? '${ctr.trueAnswersCounter}' : '${ctr.wrongAnwersCounter}',
+                    title: isCorrect
+                        ? '${ayahsQuestionsCtr.trueAnswersCounter}'
+                        : '${ayahsQuestionsCtr.wrongAnwersCounter}',
                     color: isCorrect ? MyColors.true_ : MyColors.false_),
               ),
             )

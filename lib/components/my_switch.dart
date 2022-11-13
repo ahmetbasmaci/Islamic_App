@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 
 import '../services/theme_service.dart';
 
 class MySwitch extends StatelessWidget {
-  const MySwitch(
+  final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
+  MySwitch(
       {Key? key,
       required this.value,
       // required this.activeColor,
@@ -25,9 +28,8 @@ class MySwitch extends StatelessWidget {
       value: value,
       activeColor: MyColors.primary(),
       activeTrackColor: MyColors.primary(),
-      inactiveThumbColor:
-          ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.settingsContent : MyColors.background(),
-      inactiveTrackColor: ThemeService().getThemeMode() == ThemeMode.dark ? MyColors.black : MyColors.settingsContent,
+      inactiveThumbColor: Get.isDarkMode ? MyColors.settingsContent : MyColors.background(),
+      inactiveTrackColor: Get.isDarkMode ? MyColors.black : MyColors.settingsContent,
       onChanged: onChanged,
     );
   }
