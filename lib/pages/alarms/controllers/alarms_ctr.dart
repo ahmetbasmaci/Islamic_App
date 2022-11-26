@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../constents/colors.dart';
+import '../../../constents/constents.dart';
 import '../../../constents/icons.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/json_service.dart';
@@ -12,7 +13,22 @@ import '../classes/alarm_prop.dart';
 
 class AlarmsCtr extends GetxController {
   final getStorage = GetStorage();
-
+//!------------- hadith ----------------------------
+  AlarmProp hadithEveryDayProp = AlarmProp(
+    id: 8,
+    time: Time(13, 0).obs,
+    storageKey: 'hadithEveryDay',
+    notificationTitle: 'كل يوم حديث عن رسول الله',
+    notificationBody: '',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير حديث عن رسول الله',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة حديث عن رسول الله',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
+    alarmPeriod: ALarmPeriod.repeat,
+    notificationType: NotificationType.hadith,
+    notificationSound: NotificationSound.hadith,
+    zikrRepeat: ZikrRepeat.high,
+  );
 //!------------- quran ----------------------------
   AlarmProp kahfSureProp = AlarmProp(
     id: 4,
@@ -25,8 +41,9 @@ class AlarmsCtr extends GetxController {
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار قراءة سورة الكهف',
-    alarmPeriod: ALarmPeriod.daily,
+    alarmPeriod: ALarmPeriod.weekly,
     notificationType: NotificationType.kahfQuran,
+    notificationSound: NotificationSound.random,
     day: DateTime.friday,
   );
   AlarmProp quranPageEveryDayProp = AlarmProp(
@@ -41,6 +58,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار قراءة الورد اليومي للقران',
     alarmPeriod: ALarmPeriod.daily,
+    notificationSound: NotificationSound.random,
     notificationType: NotificationType.randomQuran,
   );
 //!------------- fast ----------------------------
@@ -56,6 +74,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الاثنين',
     alarmPeriod: ALarmPeriod.weekly,
     notificationType: NotificationType.fast,
+    notificationSound: NotificationSound.random,
     day: DateTime.sunday,
   );
   AlarmProp thursdayFastProp = AlarmProp(
@@ -70,6 +89,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الخميس',
     alarmPeriod: ALarmPeriod.weekly,
     notificationType: NotificationType.fast,
+    notificationSound: NotificationSound.random,
     day: DateTime.wednesday,
   );
   AlarmProp whitedayFastProp = AlarmProp(
@@ -84,8 +104,24 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار صيام الايام البيض',
     alarmPeriod: ALarmPeriod.monthly,
     notificationType: NotificationType.fast,
+    notificationSound: NotificationSound.random,
   );
 //!------------- azkar ----------------------------
+  AlarmProp azkarProp = AlarmProp(
+    id: 4,
+    time: Time(9, 50).obs,
+    storageKey: 'azkar',
+    notificationTitle: 'اذكر الله',
+    notificationBody: '',
+    snackBarEnabeldTitle: 'تم تفعيل الذكر العشوائي',
+    snackBarEnabeldBody: 'سيصلك اشعار باذكار مختلفة',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار الذكر العشوائي',
+    alarmPeriod: ALarmPeriod.repeat,
+    notificationType: NotificationType.azkar,
+    notificationSound: NotificationSound.random,
+    zikrRepeat: ZikrRepeat.high,
+  );
   AlarmProp morningAzkarProp = AlarmProp(
     id: 6,
     time: Time(7, 0).obs,
@@ -98,6 +134,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذكار الصباج',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.moorningAzkar,
+    notificationSound: NotificationSound.random,
   );
   AlarmProp nightAzkarProp = AlarmProp(
     id: 7,
@@ -111,22 +148,9 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.nightAzkar,
+    notificationSound: NotificationSound.random,
   );
-//!------------- hadith ----------------------------
-  AlarmProp hadithEveryDayProp = AlarmProp(
-    id: 8,
-    time: Time(13, 0).obs,
-    storageKey: 'hadithEveryDay',
-    notificationTitle: 'كل يوم حديث عن رسول الله',
-    notificationBody: '',
-    snackBarEnabeldTitle: 'تم تفعيل تذكير حديث عن رسول الله',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة حديث عن رسول الله',
-    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
-    snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
-    alarmPeriod: ALarmPeriod.daily,
-    notificationType: NotificationType.hadith,
-    notificationSound: NotificationSound.hadith,
-  );
+
 //!------------- prayers ----------------------------
   AlarmProp fajrPrayProp = AlarmProp(
     id: 9,
@@ -140,6 +164,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذان الفجر',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
   AlarmProp sunPrayProp = AlarmProp(
     id: 9,
@@ -153,6 +178,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار  شروق الشمس',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
   AlarmProp duhrPrayProp = AlarmProp(
     id: 10,
@@ -166,6 +192,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذان الظهر',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
   AlarmProp asrPrayProp = AlarmProp(
     id: 11,
@@ -179,6 +206,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذان العصر',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
   AlarmProp maghribPrayProp = AlarmProp(
     id: 12,
@@ -192,6 +220,7 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذان المغرب',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
   AlarmProp ishaPrayProp = AlarmProp(
     id: 13,
@@ -205,65 +234,37 @@ class AlarmsCtr extends GetxController {
     snackBarDesabeldBody: 'لن يصلك اشعار اذان العشاء',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.pray,
+    notificationSound: NotificationSound.azhan,
   );
 
   int distanceBetweenAlarmAndAzan = 10;
   AlarmsCtr() {
-//!------------- quran ----------------------------
-    getStorage.read(kahfSureProp.storageKey) != null
-        ? kahfSureProp.fromJson(jsonDecode(getStorage.read(kahfSureProp.storageKey)))
-        : kahfSureProp = kahfSureProp;
-
-    getStorage.read(quranPageEveryDayProp.storageKey) != null
-        ? quranPageEveryDayProp.fromJson(jsonDecode(getStorage.read(quranPageEveryDayProp.storageKey)))
-        : quranPageEveryDayProp = quranPageEveryDayProp;
-
-//!------------- fast ----------------------------
-    getStorage.read(mondayFastProp.storageKey) != null
-        ? mondayFastProp.fromJson(jsonDecode(getStorage.read(mondayFastProp.storageKey)))
-        : mondayFastProp = mondayFastProp;
-
-    getStorage.read(thursdayFastProp.storageKey) != null
-        ? thursdayFastProp.fromJson(jsonDecode(getStorage.read(thursdayFastProp.storageKey)))
-        : thursdayFastProp = thursdayFastProp;
-
-    getStorage.read(whitedayFastProp.storageKey) != null
-        ? whitedayFastProp.fromJson(jsonDecode(getStorage.read(whitedayFastProp.storageKey)))
-        : whitedayFastProp = whitedayFastProp;
 //!------------- azkar ----------------------------
-    getStorage.read(morningAzkarProp.storageKey) != null
-        ? morningAzkarProp.fromJson(jsonDecode(getStorage.read(morningAzkarProp.storageKey)))
-        : morningAzkarProp = morningAzkarProp;
-
-    getStorage.read(nightAzkarProp.storageKey) != null
-        ? nightAzkarProp.fromJson(jsonDecode(getStorage.read(nightAzkarProp.storageKey)))
-        : nightAzkarProp = nightAzkarProp;
-
+    setPropToStorage(prop: azkarProp);
+//!------------- quran ----------------------------
+    setPropToStorage(prop: kahfSureProp);
+    setPropToStorage(prop: quranPageEveryDayProp);
+//!------------- fast ----------------------------
+    setPropToStorage(prop: mondayFastProp);
+    setPropToStorage(prop: thursdayFastProp);
+    setPropToStorage(prop: whitedayFastProp);
+//!------------- azkar ----------------------------
+    setPropToStorage(prop: morningAzkarProp);
+    setPropToStorage(prop: nightAzkarProp);
 //!------------- hadith ----------------------------
-    getStorage.read(hadithEveryDayProp.storageKey) != null
-        ? hadithEveryDayProp.fromJson(jsonDecode(getStorage.read(hadithEveryDayProp.storageKey)))
-        : hadithEveryDayProp = hadithEveryDayProp;
-
+    setPropToStorage(prop: hadithEveryDayProp);
 //!------------- prayers ----------------------------
-    getStorage.read(fajrPrayProp.storageKey) != null
-        ? fajrPrayProp.fromJson(jsonDecode(getStorage.read(fajrPrayProp.storageKey)))
-        : fajrPrayProp = fajrPrayProp;
+    setPropToStorage(prop: fajrPrayProp);
+    setPropToStorage(prop: duhrPrayProp);
+    setPropToStorage(prop: asrPrayProp);
+    setPropToStorage(prop: maghribPrayProp);
+    setPropToStorage(prop: ishaPrayProp);
+  }
 
-    getStorage.read(duhrPrayProp.storageKey) != null
-        ? duhrPrayProp.fromJson(jsonDecode(getStorage.read(duhrPrayProp.storageKey)))
-        : duhrPrayProp = duhrPrayProp;
-
-    getStorage.read(asrPrayProp.storageKey) != null
-        ? asrPrayProp.fromJson(jsonDecode(getStorage.read(asrPrayProp.storageKey)))
-        : asrPrayProp = asrPrayProp;
-
-    getStorage.read(maghribPrayProp.storageKey) != null
-        ? maghribPrayProp.fromJson(jsonDecode(getStorage.read(maghribPrayProp.storageKey)))
-        : maghribPrayProp = maghribPrayProp;
-
-    getStorage.read(ishaPrayProp.storageKey) != null
-        ? ishaPrayProp.fromJson(jsonDecode(getStorage.read(ishaPrayProp.storageKey)))
-        : ishaPrayProp = ishaPrayProp;
+  setPropToStorage({required AlarmProp prop}) {
+    getStorage.read(prop.storageKey) != null
+        ? prop.fromJson(jsonDecode(getStorage.read(prop.storageKey)))
+        : prop = prop;
   }
 
   changeState({required AlarmProp alarmProp, required bool newValue, bool showSnackBar = true}) async {
@@ -275,10 +276,11 @@ class AlarmsCtr extends GetxController {
     if (newValue) {
       if (alarmProp.alarmPeriod == ALarmPeriod.once)
         NotificationService.setOnceNotification(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
+      else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
         if (alarmProp.notificationType == NotificationType.hadith)
           alarmProp.notificationBody = (await JsonService.getHadithData()).content;
-
+        NotificationService.setRepeatNotification(alarmProp: alarmProp);
+      } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
         NotificationService.setDailyNotification(alarmProp: alarmProp);
       } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
         NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
@@ -350,7 +352,7 @@ class AlarmsCtr extends GetxController {
   }
 
   _showSnackBar({required Widget icon, required String title, required String message}) {
-    Get.closeCurrentSnackbar();
+    Get.closeAllSnackbars();
     Get.snackbar(
       title,
       animationDuration: Duration(milliseconds: 500),

@@ -104,7 +104,7 @@ class JsonService {
     if (allHadithData.isEmpty)
       await loadHadithData();
     else
-      await Future.delayed(Duration(milliseconds: 300));
+      await Future.delayed(Duration(milliseconds: 200));
 
     int randomBook = Random().nextInt(20) + 1;
     Map<String, dynamic> hadithBookData = allHadithData[randomBook - 1];

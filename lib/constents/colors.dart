@@ -35,6 +35,7 @@ class MyColors {
   static Color background() => Get.isDarkMode ? backgroundDark : backgroundLight;
 
   static Color whiteBlack() => Get.isDarkMode ? white : black;
+  static Color whiteBlackReversed() => Get.isDarkMode ? black : white;
 
   static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
   static Color quranSecond() => Get.isDarkMode ? _quranSecondDark : _quranSecond;

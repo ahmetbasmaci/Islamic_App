@@ -77,7 +77,7 @@ class QuranDownPart extends StatelessWidget {
                               onPressed: () {
                                 Get.find<HttpServiceCtr>().isStopDownload.value = true;
                                 Get.find<HttpServiceCtr>().isLoading.value = false;
-                                // stopAudio();
+                              //  stopAudio();
                               },
                               icon: MyIcons.close(color: MyColors.quranSecond()),
                             ),

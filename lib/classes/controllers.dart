@@ -10,9 +10,11 @@ import '../services/http_service.dart';
 import '../services/notification_api.dart';
 import '../services/theme_service.dart';
 
-class Controllers {
-  Controllers() {
+class ControllerBinding extends Bindings {
+  @override
+  void dependencies() {
     NotificationService();
+    Get.put(ThemeCtr());
     Get.put(PrayerTimeCtr());
     Get.put(AlarmsCtr());
     Get.put(QuranPageCtr());
@@ -21,7 +23,5 @@ class Controllers {
     Get.put(FavoriteCtr());
     Get.put(SettingsCtr());
     Get.put(AudioBacgroundService());
-    Get.put(ThemeCtr());
-    // JsonService();
   }
 }

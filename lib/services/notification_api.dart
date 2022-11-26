@@ -13,6 +13,7 @@ import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/prayerTimes/prayer_times.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
+import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import '../moduls/enums.dart';
 import '../pages/alarms/classes/alarm_prop.dart';
 import 'json_service.dart';
@@ -42,7 +43,7 @@ class NotificationService {
   static void onSelectedNotification(String? payload) async {
     Transition getRandomTransition() => Transition.values.elementAt(Random().nextInt(Transition.values.length));
     void goToPage(Widget page) =>
-        Get.to(page, transition: getRandomTransition(), duration: Duration(milliseconds: 500));
+        Get.to(()=>page, transition: getRandomTransition(), duration: Duration(milliseconds: 500));
 
     if (payload != null) {
       Get.closeAllSnackbars();
@@ -77,13 +78,10 @@ class NotificationService {
     print('pending alarms ${pendingNotificationRequests.length}');
   }
 
-  static NotificationDetails _getNotificationDetails({
-    required NotificationSound notificationSound,
-    required String bigTitle,
-    required String bigBody,
-  }) {
-    String getRandomNotificationSound() {
-      String soundName = '';
+  static String getNotificationSound(NotificationSound notificationSound) {
+    String soundName = '';
+
+    if (notificationSound == NotificationSound.random) {
       int randomSound = Random().nextInt(3);
 
       if (randomSound == 0)
@@ -92,25 +90,29 @@ class NotificationService {
         soundName = 'alhamdulillah';
       else
         soundName = 'allah_akbar';
-
-      return soundName;
-    }
-
-    String soundName = '';
-    if (notificationSound == NotificationSound.hadith)
+    } else if (notificationSound == NotificationSound.hadith)
       soundName = 'hadith_alarm';
-    else if (notificationSound == NotificationSound.azhan)
-      soundName = 'adhanMadina';
-    else
-      soundName = getRandomNotificationSound();
+    else if (notificationSound == NotificationSound.azhan) soundName = 'adhan_madina';
+
+    return soundName;
+  }
+
+  static NotificationDetails _getNotificationDetails({
+    required NotificationSound notificationSound,
+    required String bigTitle,
+    required String bigBody,
+  }) {
+    String soundName = getNotificationSound(notificationSound);
+    bool isNotificationOn=Get.find<SettingsCtr>().isNotificationSoundOn.value;
     return NotificationDetails(
         android: AndroidNotificationDetails(
-      soundName,
+      soundName+isNotificationOn.toString(),
       soundName,
       channelDescription: 'your channel description',
       importance: Importance.max,
       priority: Priority.high,
-      playSound: true,
+      playSound: isNotificationOn,
+      // playSound: Get.find<SettingsCtr>().isNotificationSoundOn.value,
       sound: RawResourceAndroidNotificationSound(soundName),
       ticker: 'ticker',
       styleInformation: BigTextStyleInformation(
@@ -147,6 +149,39 @@ class NotificationService {
       ),
       payload: alarmProp.notificationType.name,
     );
+  }
+
+  static Future setRepeatNotification({required AlarmProp alarmProp}) async {
+    //set random duration by selected repeat type
+    Duration duration = Duration(seconds: 0);
+    if (alarmProp.zikrRepeat == ZikrRepeat.high)
+      duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
+    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+      duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
+    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+      duration = Duration(minutes: Random().nextInt(150) + 150); //150-300
+    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+      duration = Duration(minutes: Random().nextInt(200) + 600); //300-500
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      alarmProp.id,
+      alarmProp.notificationTitle,
+      alarmProp.notificationBody,
+      tz.TZDateTime.now(tz.local).add(duration),
+      _getNotificationDetails(
+        notificationSound: alarmProp.notificationSound,
+        bigTitle: alarmProp.notificationTitle,
+        bigBody: alarmProp.notificationBody,
+      ),
+      payload: alarmProp.notificationType.name,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+    await Future.delayed(duration * 2);
+    if (alarmProp.notificationType == NotificationType.hadith)
+      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+    if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
   }
 
 //! -----------------------------  daily alarm ----------------------------- //
@@ -195,7 +230,7 @@ class NotificationService {
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
-      _selectHicriDateTime(hour: 21, minute: 4),
+      _selectHicriDateTime(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,

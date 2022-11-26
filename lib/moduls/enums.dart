@@ -1,10 +1,18 @@
 enum ZikrType { all, azkar, allahNames, quran, hadith, sermon, none }
 
-enum ALarmPeriod { daily, weekly, monthly, once }
+enum ALarmPeriod { daily, weekly, monthly, once,repeat }
 
 enum QuestionType { ayahInJuzAndPage, surahInJuz }
 
 enum PrayerTimeType { fajr, sun, duhr, asr, maghrib, isha }
+
+enum NotificationType { azkar,kahfQuran,randomQuran,fast,moorningAzkar,nightAzkar, hadith,pray  }
+
+enum NotificationSound { random,hadith, azhan }
+
+enum SearchFilter{surah,ayah,page}
+
+enum ZikrRepeat {high,normal,low,rare,none}
 
 enum QuranReaders {
   yaserAldosary,
@@ -54,7 +62,3 @@ extension QuranReadersExtention on QuranReaders {
 
   }
 }
-
-enum NotificationType { kahfQuran,randomQuran,fast,moorningAzkar,nightAzkar, hadith,pray  }
-enum NotificationSound { random,hadith, azhan }
-enum SearchFilter{surah,ayah,page}

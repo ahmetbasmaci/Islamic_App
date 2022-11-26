@@ -19,9 +19,7 @@ void main() async {
   await GetStorage.init();
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  Controllers();
-
+    Get.put(ThemeCtr());
   runApp(MyApp());
 }
 
@@ -37,6 +35,7 @@ class MyApp extends StatelessWidget {
     lastOpendPageId = Constants.getNewOpendPageId();
 
     return GetMaterialApp(
+      initialBinding: ControllerBinding(),
       navigatorKey: Constants.navigatorKey,
       localizationsDelegates: [
         AppLocale.delegate,

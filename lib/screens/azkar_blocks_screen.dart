@@ -33,7 +33,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         children: [
           Align(
             alignment: Alignment.centerRight,
-            child: MyTexts.outsideHeader( title: 'مختلف الاذكار'),
+            child: MyTexts.outsideHeader(title: 'مختلف الاذكار'),
           ),
           ListView.builder(
             itemCount: BlockData.list.length,
@@ -58,7 +58,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
                   child: ListTile(
                     title: MyTexts.blockTitle(title: BlockData.list[index].title),
                     leading: Image.asset(BlockData.list[index].imageSource),
-                    trailing: MyIcons.leftArrow,
+                    trailing: MyIcons.leftArrow(color: MyColors.white),
                     onTap: () {
                       Get.to(
                         AzkarPage(
@@ -98,12 +98,12 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
           child: ListTile(
             title: MyTexts.blockTitle(title: BlockData.list[index].title),
             leading: Image.asset(BlockData.list[index].imageSource),
-            trailing: MyIcons.leftArrow,
+            trailing: MyIcons.leftArrow(color: MyColors.white),
             onTap: () {
-              Get.to(AzkarPage(
-                zikrIndexInJson: index,
-                zikrType: ZikrType.azkar,
-              ));
+              Get.to(() => AzkarPage(
+                    zikrIndexInJson: index,
+                    zikrType: ZikrType.azkar,
+                  ));
             },
           ),
         ),

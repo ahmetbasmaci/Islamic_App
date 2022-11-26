@@ -9,7 +9,7 @@ class MyTexts {
   static Text outsideHeader({required String title}) {
     return Text(
       title,
-      style: Theme.of(Get.context??context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
+      style: Theme.of(Get.context ?? context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
     );
   }
 
@@ -66,14 +66,10 @@ class MyTexts {
     );
   }
 
-  static Text settingsTitle({required String title}) {
-    int s = Theme.of(context).textTheme.headline4!.color!.value;
-    print("-----");
-    print(s);
-    print("-----");
+  static Text settingsTitle({required String title, Color? color, double? size}) {
     return Text(
       title,
-      style: Theme.of(Get.context??context).textTheme.headline4,
+      style: Theme.of(context).textTheme.headline4!.copyWith(color: color,fontSize: size),
     );
   }
 

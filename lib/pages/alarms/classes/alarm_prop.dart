@@ -17,6 +17,7 @@ class AlarmProp {
     required this.notificationType,
     this.notificationSound = NotificationSound.random,
     this.day = 0,
+    this.zikrRepeat =ZikrRepeat.none,
   });
   RxBool isActive = false.obs;
   int id;
@@ -32,6 +33,7 @@ class AlarmProp {
   ALarmPeriod alarmPeriod;
   NotificationType notificationType;
   NotificationSound notificationSound;
+  ZikrRepeat zikrRepeat;
 
   Map<String, dynamic> toJson() => {
         'hour': time.value.hour.toString(),

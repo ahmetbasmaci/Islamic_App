@@ -1,63 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:zad_almumin/components/audio_play_stop_btn.dart';
+import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
+import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../classes/zikr_data.dart';
-import '../constents/colors.dart';
-import '../constents/icons.dart';
-import '../constents/sizes.dart';
-import '../constents/texts.dart';
-import '../database/sqldb.dart';
-import '../services/animation_service.dart';
-import '../services/theme_service.dart';
-import 'zikr_block_buttons.dart';
-import 'audio_play_stop_btn.dart';
-import 'my_circular_progress_indecator.dart';
-
-class InsideContainer extends GetView<ThemeCtr> {
-  InsideContainer({
-    required this.zikrData,
-    this.firstChild,
-    this.secondChild,
-    this.onDeleteFromFavorite,
-  });
-  ZikrData zikrData;
-  Widget? firstChild;
-  Widget? secondChild;
-  VoidCallback? onDeleteFromFavorite;
-  @override
-  Widget build(BuildContext context) {
-    context.theme;
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.zikrCard(),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-          BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              firstChild ?? Container(),
-              Expanded(child: Center(child: MyTexts.zikrTitle(title: zikrData.title))),
-              secondChild ?? Container(),
-            ],
-          ),
-          MyTexts.quran(title: zikrData.content),
-          zikrData.description != ''
-              ? Row(children: [MyIcons.info, Expanded(child: MyTexts.info(title: zikrData.description))])
-              : Container(),
-          ZikrBlockButtons(zikrData: zikrData, onDeleteFromFavorite: onDeleteFromFavorite)
-        ],
-      ),
-    );
-  }
-}
+import 'package:zad_almumin/classes/zikr_data.dart';
+import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/constents/icons.dart';
+import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/texts.dart';
 
 class ZikrCard {
   bool isLoading = false;
@@ -118,7 +71,7 @@ class ZikrCard {
               return Text(snapshot.error.toString());
             else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
-            return InsideContainer(
+            return ZikrCardInnerContainer(
               zikrData: quranZikrData!,
               firstChild: onDeleteFromFavorite == null
                   ? IconButton(
@@ -164,7 +117,7 @@ class ZikrCard {
               if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
               hadithZikrData ??= snapshot.data as ZikrData;
 
-              return InsideContainer(
+              return ZikrCardInnerContainer(
                 zikrData: hadithZikrData!,
                 firstChild: onDeleteFromFavorite == null
                     ? IconButton(
@@ -201,7 +154,7 @@ class ZikrCard {
                   }
                 }
               : null,
-          child: InsideContainer(
+          child: ZikrCardInnerContainer(
             zikrData: azkarZikrData,
             firstChild: AnimatedOpacity(
               duration: Duration(milliseconds: 5000),
@@ -231,7 +184,7 @@ class ZikrCard {
   Widget allahNamesCard(ZikrData allahNamesZikrData) {
     return outContainer(
       isFavorite: allahNamesZikrData.isFavorite,
-      child: InsideContainer(zikrData: allahNamesZikrData),
+      child: ZikrCardInnerContainer(zikrData: allahNamesZikrData),
     );
   }
 

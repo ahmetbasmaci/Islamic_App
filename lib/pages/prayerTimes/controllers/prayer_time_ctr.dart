@@ -49,8 +49,6 @@ class PrayerTimeCtr extends GetxController {
   }
 
   updatePrayerTimes({DateTime? newTime}) async {
-    // newTime ??= DateTime.now();
-    // currentTime=Time(newTime.hour, newTime.minute);
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
     await _getCurrentPosition();
@@ -139,7 +137,7 @@ class PrayerTimeCtr extends GetxController {
       DateTime(
         DateTime.now().year,
         DateTime.now().month,
-        DateTime.now().day,
+        nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
         nextPrayTime.value.hour,
         nextPrayTime.value.minute,
         nextPrayTime.value.second,
@@ -164,13 +162,14 @@ class PrayerTimeCtr extends GetxController {
   }
 
   Time differenceTimes(DateTime time1, DateTime time2) {
-    int hr = time1.difference(time2).inHours;
-    int minute = time1.difference(time2).inMinutes - (hr * 60);
-    int second = time1.difference(time2).inSeconds - (hr * 60 * 60) - (minute * 60);
-    if (hr < 0) hr = 0;
-    if (minute < 0) minute = 0;
-    if (second < 0) second = 0;
-    return Time(hr, minute, second);
+    int hour = time1.difference(time2).inHours;
+    int minute = time1.difference(time2).inMinutes - (hour * 60);
+    int second = time1.difference(time2).inSeconds - (hour * 60 * 60) - (minute * 60);
+
+    if (hour < 0) hour = hour * -1;
+    if (minute < 0) minute = minute * -1;
+    if (second < 0) second = second * -1;
+    return Time(hour, minute, second);
   }
 
   void checkAndSetNextPrayTime() {

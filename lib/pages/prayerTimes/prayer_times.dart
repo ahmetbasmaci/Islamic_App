@@ -40,7 +40,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  PrayTmeLeft(),
+                  PrayTmeNextPrayInfo(),
                   SizedBox(height: MySiezes.betweanAzkarBlock),
                   ElevatedButton(
                     onPressed: () async {

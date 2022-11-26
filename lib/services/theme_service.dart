@@ -48,6 +48,7 @@ class ThemeCtr extends GetxController {
 
   updateThemes() {
     lightThemeMode.value = ThemeData.light().copyWith(
+      timePickerTheme: TimePickerThemeData(dialHandColor: MyColors.primary()),
       cardColor: Colors.red,
       primaryColor: MyColors.primary_,
       listTileTheme: ListTileThemeData(
@@ -111,6 +112,7 @@ class ThemeCtr extends GetxController {
       ),
     );
     darkThemeMode.value = ThemeData.dark().copyWith(
+      timePickerTheme: TimePickerThemeData(dialHandColor: MyColors.primary()),
       primaryColor: MyColors.primaryDark,
       listTileTheme: ListTileThemeData(
         selectedColor: MyColors.primaryDark,

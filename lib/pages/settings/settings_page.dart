@@ -52,60 +52,72 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: MyIcons.animated_Light_Dark(size: MySiezes.icon * 1.2),
               ),
               Divider(),
-              ListTile(
-                title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'),
-                subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار لون التطبيق'),
-                leading: MyIcons.animated_Light_Dark(size: MySiezes.icon * 1.2),
-                onTap: () {
-                  showCupertinoDialog(
-                      context: context,
-                      builder: ((context) {
-                        return AlertDialog(
-                          content: Column(
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: MyColors.primaryColors[0],
-                                radius: 20,
-                                child: InkWell(
-                                  onTap: () {
-                                    _settingsCtr.changeThemeColor(MyColors.primaryColors[0]);
-                                    setState(() {});
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                              CircleAvatar(
-                                backgroundColor: MyColors.primaryColors[1],
-                                radius: 20,
-                                child: InkWell(
-                                  onTap: () {
-                                    _settingsCtr.changeThemeColor(MyColors.primaryColors[1]);
-                                    setState(() {});
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                          // content: ListView.builder(
-                          //   itemCount:  MyColors.primaryColors.length,
-                          //     itemBuilder: (context, index) {
-                          //       return CircleAvatar(
-                          //         backgroundColor: MyColors.primaryColors[index],
-                          //         radius: 20,
-                          //         child: InkWell(
-                          //           onTap: () {
-                          //             ThemeService.instance.changeThemeColor(MyColors.primaryColors[index]);
-                          //             setState(() {});
-                          //             Navigator.pop(context);
-                          //           },
-                          //         ),
-                          //       );
-                          //     }),
-                        );
-                      }));
-                },
+              Obx(
+                () => ListTile(
+                  title: MyTexts.settingsTitle(title: 'تشفيل صوت الاشعارات'),
+                  subtitle: MyTexts.settingsContent(title: 'عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات'),
+                  trailing: MySwitch(
+                    value: _settingsCtr.isNotificationSoundOn.value,
+                    onChanged: (newValue) => _settingsCtr.changeNotificationSoundMode(newValue),
+                  ),
+                  leading: MyIcons.audio(size: MySiezes.icon * 1.2),
+                ),
               ),
+              // Divider(),
+              // ListTile(
+              //   title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'),
+              //   subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار لون التطبيق'),
+              //   leading: MyIcons.animated_Light_Dark(size: MySiezes.icon * 1.2),
+              //   onTap: () {
+              //     showCupertinoDialog(
+              //         context: context,
+              //         builder: ((context) {
+              //           return AlertDialog(
+              //             content: Column(
+              //               children: <Widget>[
+              //                 CircleAvatar(
+              //                   backgroundColor: MyColors.primaryColors[0],
+              //                   radius: 20,
+              //                   child: InkWell(
+              //                     onTap: () {
+              //                       _settingsCtr.changeThemeColor(MyColors.primaryColors[0]);
+              //                       setState(() {});
+              //                       Navigator.pop(context);
+              //                     },
+              //                   ),
+              //                 ),
+              //                 CircleAvatar(
+              //                   backgroundColor: MyColors.primaryColors[1],
+              //                   radius: 20,
+              //                   child: InkWell(
+              //                     onTap: () {
+              //                       _settingsCtr.changeThemeColor(MyColors.primaryColors[1]);
+              //                       setState(() {});
+              //                       Navigator.pop(context);
+              //                     },
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //             // content: ListView.builder(
+              //             //   itemCount:  MyColors.primaryColors.length,
+              //             //     itemBuilder: (context, index) {
+              //             //       return CircleAvatar(
+              //             //         backgroundColor: MyColors.primaryColors[index],
+              //             //         radius: 20,
+              //             //         child: InkWell(
+              //             //           onTap: () {
+              //             //             ThemeService.instance.changeThemeColor(MyColors.primaryColors[index]);
+              //             //             setState(() {});
+              //             //             Navigator.pop(context);
+              //             //           },
+              //             //         ),
+              //             //       );
+              //             //     }),
+              //           );
+              //         }));
+              //   },
+              // ),
             ],
           ),
         ),

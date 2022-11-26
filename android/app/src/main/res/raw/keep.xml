@@ -15,5 +15,5 @@
     tools:keep="@raw/allah_akbar"
     />
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@raw/adhanmadina"
+    tools:keep="@raw/adhan_madina"
     />

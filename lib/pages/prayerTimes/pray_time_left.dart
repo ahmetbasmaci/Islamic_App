@@ -6,8 +6,8 @@ import '../../constents/colors.dart';
 import '../../constents/sizes.dart';
 import '../../constents/texts.dart';
 
-class PrayTmeLeft extends GetView<ThemeCtr> {
-  PrayTmeLeft({super.key});
+class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
+  PrayTmeNextPrayInfo({super.key});
   PrayerTimeCtr prayerTimeCtr = Get.find<PrayerTimeCtr>();
   @override
   Widget build(BuildContext context) {

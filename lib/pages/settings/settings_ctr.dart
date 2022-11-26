@@ -6,12 +6,12 @@ import 'package:zad_almumin/constents/colors.dart';
 import '../../services/theme_service.dart';
 
 class SettingsCtr extends GetxController {
-  // RxBool isDarkMode = false.obs;
+  RxBool isNotificationSoundOn = true.obs;
   final getStorage = GetStorage();
   SettingsCtr() {
     // isDarkMode.value = getStorage.read('isDarkMode') ?? false;
 
-    print(getStorage.read('primary_'));
+    isNotificationSoundOn.value = getStorage.read('isNotificationSoundOn') ?? true;
 
     int primaryColor = getStorage.read<int>('primary_') ?? MyColors.primary_.value;
     int primaryDarkColor = getStorage.read<int>('primaryDark') ?? MyColors.primary_.value;
@@ -22,7 +22,10 @@ class SettingsCtr extends GetxController {
     // isDarkMode.value = newValue;
     Get.find<ThemeCtr>().changeThemeMode(newValue);
   }
-
+  changeNotificationSoundMode(bool newValue) async {
+    isNotificationSoundOn.value = newValue;
+    getStorage.write('isNotificationSoundOn', newValue);
+  }
   changeThemeColor(Color newColor) {
     MyColors.primary_ = newColor;
     MyColors.primaryDark = newColor;

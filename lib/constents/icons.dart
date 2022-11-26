@@ -2,21 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_button/like_button.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 
-import '../pages/settings/settings_ctr.dart';
-
 class MyIcons {
-  static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   static Icon drawer = Icon(Icons.menu);
   static Icon refresh = Icon(Icons.refresh);
   static Icon copy = Icon(Icons.file_copy_outlined);
   static Icon copyFilled = Icon(Icons.file_copy);
   static Icon share = Icon(Icons.share_outlined);
-  static Icon leftArrow = Icon(Icons.arrow_forward_ios_rounded, color: Colors.white);
   static Icon error = Icon(Icons.error_outline, color: Colors.red);
   static Icon ayahsTest = Icon(Icons.menu_book_sharp);
   static Icon person = Icon(Icons.person);
@@ -28,6 +22,7 @@ class MyIcons {
   static Icon alarm = Icon(Icons.alarm);
 
   static Icon plus({Color? color, double size = MySiezes.icon}) => Icon(Icons.add, color: color, size: size);
+  static Icon audio({Color? color, double size = MySiezes.icon}) => Icon(Icons.audiotrack_sharp, color: color, size: size);
   static Icon minus({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.minus, color: color, size: size);
   static Icon send({Color? color, double size = MySiezes.icon}) => Icon(Icons.send, color: color, size: size);
@@ -47,6 +42,8 @@ class MyIcons {
       Icon(Icons.notification_important, color: color);
   static Icon rightArrow({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.arrow_back_ios, color: color, size: size);
+  static Icon leftArrow({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.arrow_forward_ios_rounded, color: color, size: size);
   static Icon search({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.search, color: color, size: size);
   static Icon favoriteFilled({Color? color, double size = MySiezes.icon}) =>
@@ -67,32 +64,4 @@ class MyIcons {
       crossFadeState: Get.isDarkMode ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
-
-  // static Widget animatedIcon_Play_Pause({
-  //   required AnimationController animationCtr,
-  //   required VoidCallback onTap,
-  // }) {
-  //   return InkWell(
-  //     borderRadius: BorderRadius.circular(100),
-  //     onTap: () {
-  //       onTap();
-  //     },
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(100),
-  //         color: MyColors.zikrCard(),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: MyColors.black.withOpacity(.6),
-  //             blurRadius: 5,
-  //             offset: Offset(0, 5),
-  //           )
-  //         ],
-  //       ),
-  //       padding: EdgeInsets.all(8),
-  //       margin: EdgeInsets.only(left: 8),
-  //       child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: animationCtr),
-  //     ),
-  //   );
-  // }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/components/zikr_cards.dart';
+import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/constents/icons.dart';
@@ -91,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
                                 azkars[index].imageSource,
                                 width: MySiezes.image,
                               ),
-                              MyIcons.leftArrow
+                              MyIcons.leftArrow(color: MyColors.white)
                             ],
                           ),
                         ),
@@ -100,6 +100,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   onTap: () {
                     Get.to(
+                      ()=>
                       AzkarPage(
                         zikrIndexInJson: index,
                         zikrType: zikrType,
