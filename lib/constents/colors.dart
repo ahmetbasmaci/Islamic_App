@@ -28,8 +28,8 @@ class MyColors {
   static const Color black = Color.fromARGB(255, 0, 0, 0);
   static const Color _zikrCardDark = Color(0xff293539);
   static const Color _zikrCard = Color.fromARGB(255, 243, 243, 243);
-  static const Color true_ = Color.fromARGB(255, 37, 159, 53);
-  static const Color _trueDark = Color.fromARGB(255, 19, 85, 16);
+  static const Color _trueDark = Color.fromARGB(255, 37, 159, 53);
+  static const Color true_ = Color.fromARGB(255, 19, 85, 16);
   static const Color false_ = Color.fromARGB(255, 203, 40, 40);
 
   static Color background() => Get.isDarkMode ? backgroundDark : backgroundLight;

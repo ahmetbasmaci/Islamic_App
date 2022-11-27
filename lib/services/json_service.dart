@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
@@ -11,22 +12,38 @@ import '../pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 class JsonService {
   static List allQuranData = [];
   static List allHadithData = [];
+  static List allZikrDataList = [];
+  static List allAllahNamesList = [];
   JsonService() {
-    loadHadithData();
     loadQuranData();
+    loadHadithData();
+    loadZikrData();
+    loadAllahNamesData();
   }
   static loadQuranData() async {
     if (allQuranData.isNotEmpty) return;
-    String jsonString =
-        await DefaultAssetBundle.of(Get.key.currentContext!).loadString('assets/database/quran/allQuran.json');
+    String jsonString = await rootBundle.loadString('assets/database/quran/allQuran.json');
     allQuranData = json.decode(jsonString);
   }
 
   static loadHadithData() async {
     if (allHadithData.isNotEmpty) return;
-    String jsonString =
-        await DefaultAssetBundle.of(Get.key.currentContext!).loadString('assets/database/hadith/allHadith.json');
+    String jsonString = await rootBundle.loadString('assets/database/hadith/allHadith.json');
     allHadithData = json.decode(jsonString);
+  }
+
+  static loadZikrData() async {
+    if (allZikrDataList.isNotEmpty) return;
+    String jsonString = await rootBundle.loadString('assets/database/azkar/allazkar.json');
+    Map data = json.decode(jsonString);
+    allZikrDataList = data['allAzkar'];
+  }
+
+  static loadAllahNamesData() async {
+    if (allAllahNamesList.isNotEmpty) return;
+    String jsonString = await rootBundle.loadString('assets/database/azkar/allahNames.json');
+    dynamic data = jsonDecode(jsonString);
+    allAllahNamesList = data['list'];
   }
 
   static Future<ZikrData> getRandomQuranAyah() async {
@@ -116,5 +133,53 @@ class JsonService {
 
     int randomHadith = Random().nextInt(hadithsMap.length);
     return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ', content: hadithsMap[randomHadith]['text']);
+  }
+
+  static Future<List<ZikrData>> getAzkarData({required int zikrIndexInJson}) async {
+    if (allZikrDataList.isEmpty) await loadZikrData();
+
+    List<ZikrData> zikrDataList = [];
+
+    List<dynamic> azkarList = allZikrDataList[zikrIndexInJson]['azkarList'];
+    for (int i = 0; i < azkarList.length; i++) {
+      zikrDataList.add(ZikrData(
+        zikrType: ZikrType.azkar,
+        title: azkarList[i]['title'] ?? "",
+        content: azkarList[i]['zekr'] ?? "",
+        count: (azkarList[i]['count'] == '' || azkarList[i]['count'] == null) ? 1 : int.parse(azkarList[i]['count']),
+        description: azkarList[i]['description'] ?? "",
+        haveList: azkarList[i]['haveList'] ?? false,
+        list: azkarList[i]['list'] ?? [],
+      ));
+    }
+    return zikrDataList;
+  }
+
+  static Future<String> getRandomZikr() async {
+    if (allZikrDataList.isEmpty) await loadZikrData();
+
+    int randomZikrIndex = Random().nextInt(allZikrDataList.length);
+
+    List<dynamic> azkarList = allZikrDataList[randomZikrIndex]['azkarList'];
+    int randomAzkarIndex = Random().nextInt(azkarList.length);
+    String zikr = azkarList[randomAzkarIndex]['zekr'];
+
+    return zikr;
+  }
+
+  static Future<List<ZikrData>> getAllahNames() async {
+    if (allAllahNamesList.isEmpty) await loadAllahNamesData();
+
+    List<ZikrData> allahNamesList = [];
+    for (var i = 0; i < allAllahNamesList.length; i++) {
+      allahNamesList.add(
+        ZikrData(
+          zikrType: ZikrType.allahNames,
+          title: allAllahNamesList[i]['name'],
+          content: allAllahNamesList[i]['content'],
+        ),
+      );
+    }
+    return allahNamesList;
   }
 }

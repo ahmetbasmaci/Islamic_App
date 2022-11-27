@@ -36,17 +36,19 @@ class MyTexts {
     );
   }
 
-  static Text quran(
-      {required String title,
-      TextAlign textAlign = TextAlign.center,
-      TextOverflow? overflow,
-      FontWeight? fontWeight,
-      Color? color}) {
+  static Text quran({
+    required String title,
+    TextAlign textAlign = TextAlign.center,
+    TextOverflow? overflow,
+    FontWeight? fontWeight,
+    Color? color,
+    double? size,
+  }) {
     return Text(
       title,
       textAlign: textAlign,
       overflow: overflow,
-      style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: fontWeight, color: color),
+      style: Theme.of(context).textTheme.headline1!.copyWith(fontWeight: fontWeight, color: color, fontSize: size),
     );
   }
 
@@ -69,7 +71,7 @@ class MyTexts {
   static Text settingsTitle({required String title, Color? color, double? size}) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.headline4!.copyWith(color: color,fontSize: size),
+      style: Theme.of(context).textTheme.headline4!.copyWith(color: color, fontSize: size),
     );
   }
 

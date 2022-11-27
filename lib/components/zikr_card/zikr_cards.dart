@@ -31,7 +31,7 @@ class ZikrCard {
           AnimatedButtonTapping(
             onTap: onTap,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 100),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(MySiezes.blockRadius)),
               padding: EdgeInsets.all(MySiezes.cardPadding),
               child: Container(constraints: BoxConstraints(minHeight: 150, minWidth: double.maxFinite), child: child),
@@ -136,44 +136,38 @@ class ZikrCard {
 
   Widget azkarCard(ZikrData azkarZikrData) {
     return StatefulBuilder(builder: (context, setState) {
-      Widget isDoneWidget({required Widget child}) => azkarZikrData.count <= 0
-          ? Banner(
-              location: BannerLocation.topEnd,
-              color: azkarZikrData.count <= 0 ? MyColors.currect() : MyColors.zikrCard(),
-              message: 'تم',
-              child: child)
-          : Container(child: child);
-      return isDoneWidget(
-        child: outContainer(
-          isFavorite: azkarZikrData.isFavorite,
-          onTap: azkarZikrData.count > 0
-              ? () {
-                  if (azkarZikrData.count > 0) {
-                    azkarZikrData.count--;
-                    setState(() {});
-                  }
-                }
-              : null,
-          child: ZikrCardInnerContainer(
-            zikrData: azkarZikrData,
-            firstChild: AnimatedOpacity(
-              duration: Duration(milliseconds: 5000),
-              opacity: 1,
-              child: AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    color: azkarZikrData.count <= 0 ? MyColors.currect() : MyColors.zikrCard(),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(-5, 0),
-                        color: MyColors.zikrCard(),
-                        blurRadius: 5,
-                      ),
-                    ],
+      return outContainer(
+        isFavorite: azkarZikrData.isFavorite,
+        onTap: azkarZikrData.count > 0
+            ? () async {
+                azkarZikrData.count--;
+                await Future.delayed(Duration(milliseconds: 300));
+                setState(() {});
+              }
+            : null,
+        child: ZikrCardInnerContainer(
+          zikrData: azkarZikrData,
+          firstChild: AnimatedOpacity(
+            duration: Duration(milliseconds: 5000),
+            opacity: 1,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(80),
+                color: MyColors.zikrCard(),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 5),
+                    color: MyColors.primary(),
+                    blurRadius: 5,
                   ),
-                  child: MyTexts.content(title: '${azkarZikrData.count}')),
+                ],
+              ),
+              child: MyTexts.content(
+                title: azkarZikrData.count > 0 ? '${azkarZikrData.count}' : 'تم',
+                color: azkarZikrData.count > 0 ? null : MyColors.primary(),
+              ),
             ),
           ),
         ),

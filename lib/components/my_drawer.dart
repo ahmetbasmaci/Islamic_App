@@ -14,7 +14,9 @@ import '../pages/alarms/alarms_page.dart';
 import '../pages/ayahsTest/ayahs_questions.dart';
 
 class MyDrawer extends StatelessWidget {
-  MyDrawer({Key? key, }) : super(key: key);
+  MyDrawer({
+    Key? key,
+  }) : super(key: key);
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
 
   @override
@@ -111,7 +113,7 @@ class MyDrawer extends StatelessWidget {
         Get.back();
 
         await Get.to(
-          page,
+          () => page,
           transition: Transition.rightToLeft,
           duration: Duration(milliseconds: 500),
           curve: Curves.decelerate,

@@ -43,7 +43,7 @@ class NotificationService {
   static void onSelectedNotification(String? payload) async {
     Transition getRandomTransition() => Transition.values.elementAt(Random().nextInt(Transition.values.length));
     void goToPage(Widget page) =>
-        Get.to(()=>page, transition: getRandomTransition(), duration: Duration(milliseconds: 500));
+        Get.to(() => page, transition: getRandomTransition(), duration: Duration(milliseconds: 500));
 
     if (payload != null) {
       Get.closeAllSnackbars();
@@ -103,10 +103,10 @@ class NotificationService {
     required String bigBody,
   }) {
     String soundName = getNotificationSound(notificationSound);
-    bool isNotificationOn=Get.find<SettingsCtr>().isNotificationSoundOn.value;
+    bool isNotificationOn = Get.find<SettingsCtr>().isNotificationSoundOn.value;
     return NotificationDetails(
         android: AndroidNotificationDetails(
-      soundName+isNotificationOn.toString(),
+      soundName + isNotificationOn.toString(),
       soundName,
       channelDescription: 'your channel description',
       importance: Importance.max,
@@ -138,6 +138,11 @@ class NotificationService {
 //! -----------------------------  once alarm ----------------------------- //
   static Future setOnceNotification({required AlarmProp alarmProp}) async {
     await Future.delayed(Duration(seconds: 0));
+    if (alarmProp.notificationType == NotificationType.hadith)
+      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+    else if (alarmProp.notificationType == NotificationType.azkar)
+      alarmProp.notificationBody = await JsonService.getRandomZikr();
+
     await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
       alarmProp.notificationTitle,
@@ -152,6 +157,12 @@ class NotificationService {
   }
 
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
+    //get random content
+    if (alarmProp.notificationType == NotificationType.hadith)
+      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+    else if (alarmProp.notificationType == NotificationType.azkar)
+      alarmProp.notificationBody = await JsonService.getRandomZikr();
+
     //set random duration by selected repeat type
     Duration duration = Duration(seconds: 0);
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
@@ -179,8 +190,7 @@ class NotificationService {
       matchDateTimeComponents: DateTimeComponents.time,
     );
     await Future.delayed(duration * 2);
-    if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+
     if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'colors.dart';
 
 class Constants {
@@ -30,4 +31,14 @@ class Constants {
 
   static void setNewOpendPageId(String id) => GetStorage().write('lastOpendPageId', id);
   static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId') ?? HomePage.id;
+  static Widget getNewOpendPage(){
+    switch (getNewOpendPageId()) {
+      case HomePage.id:
+        return HomePage();
+      case QuranPage.id:
+        return QuranPage();
+      default:
+        return HomePage();
+    }
+  }
 }

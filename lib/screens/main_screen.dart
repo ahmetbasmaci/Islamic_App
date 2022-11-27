@@ -100,11 +100,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   onTap: () {
                     Get.to(
-                      ()=>
-                      AzkarPage(
-                        zikrIndexInJson: index,
-                        zikrType: zikrType,
-                      ),
+                      () => AzkarPage(zikrIndexInJson: index, zikrType: zikrType),
                       transition: Transition.size,
                       duration: Duration(milliseconds: 500),
                     );
