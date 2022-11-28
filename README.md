@@ -11,9 +11,9 @@
 </br>8- اوقات الصلاة حسب المكان الجغرافي للمستخدم
 </br>9- اسماء الله الحسنى مع الشرح
 </br>10- امكانية البحث عن الكلمات في القران الكريم
-</br>
-<a href="#">تحميل التطبيق من غوغل بلاي/a>
-</br>
+</br></br>
+<a href="">تحميل التطبيق من غوغل بلاي</a>
+</br></br>
 <div display: flex>
   <img src="https://user-images.githubusercontent.com/96287253/204239110-751bb7fa-8837-4037-ae18-03496d25f0b6.jpg"width="240 >
   <img src="https://user-images.githubusercontent.com/96287253/204239066-dfd64bb9-9c93-44ab-9cf4-82d32a662023.jpg" width="240" >
