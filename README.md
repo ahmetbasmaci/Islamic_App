@@ -12,7 +12,7 @@
 </br>9- اسماء الله الحسنى مع الشرح
 </br>10- امكانية البحث عن الكلمات في القران الكريم
 </br></br>
-<a href="">تحميل التطبيق من غوغل بلاي</a>
+<a href="https://github.com/Eng-Ahmet/zad_almumin-Mobil_App/blob/main/README.md">تحميل التطبيق من غوغل بلاي</a>
 </br></br>
 <div display: flex>
   <img src="https://user-images.githubusercontent.com/96287253/204239110-751bb7fa-8837-4037-ae18-03496d25f0b6.jpg"width="240 >
