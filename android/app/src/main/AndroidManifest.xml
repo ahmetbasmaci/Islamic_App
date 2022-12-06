@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zad_almumin">
+    package="com.ahmet.zad_almumin">
 
 <!-- To get location  start-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> 
