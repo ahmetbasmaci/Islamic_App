@@ -23,8 +23,8 @@ class _AlarmPageState extends State<AlarmPage> {
       () {
         Get.find<ThemeCtr>().isDarkMode.value;
         return Scaffold(
-          appBar: MyAppBar(title: 'المنبه'),
-          drawer: MyDrawer(),
+          appBar: MyAppBar(title: 'المنبه', leading: Container()),
+          //drawer: MyDrawer(),
           body: ListView(
             children: [
               alarmBlockTitle(title: 'تذكير الاحاديث'),
