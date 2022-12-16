@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:zad_almumin/audio_background_service.dart';
+import 'package:zad_almumin/services/audio_background_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/pages/quran/classes/ayah.dart';

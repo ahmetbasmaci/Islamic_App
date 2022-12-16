@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> icons = [
     MyIcons.home(color: MyColors.white),
     MyIcons.quran(color: MyColors.white),
-    MyIcons.azkar(color: MyColors.white),
+    // MyIcons.azkar(color: MyColors.white),
     // Icon(Icons.home, color: Colors.grey),
     // Icon(Icons.abc),
     // Icon(Icons.safety_check)
@@ -39,12 +39,15 @@ class _HomePageState extends State<HomePage> {
   List<Widget> screens = [
     MainScreen(),
     QuranPage(),
-    AzkarBlockScreen(),
+    //AzkarBlockScreen(),
   ];
 
   updateCurrentIndex(int newIndex) {
     currentIndex = newIndex;
-    setState(() {});
+    if (currentIndex == 1)
+      Get.offAll(() => QuranPage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
+    else
+      setState(() {});
   }
 
   @override

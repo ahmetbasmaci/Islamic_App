@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import '../../../audio_background_service.dart';
+import '../../../services/audio_background_service.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../constents/texts.dart';

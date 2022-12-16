@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/pages/quran/classes/ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 
-import 'pages/quran/controllers/quran_page_ctr.dart';
+import '../pages/quran/controllers/quran_page_ctr.dart';
 
 class AudioBacgroundService extends GetxController {
   @override

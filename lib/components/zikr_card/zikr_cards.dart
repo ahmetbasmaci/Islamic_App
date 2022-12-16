@@ -18,7 +18,12 @@ class ZikrCard {
   VoidCallback? onDeleteFromFavorite;
   ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
 
-  Widget outContainer({required Widget child, String? outsideTitle, VoidCallback? onTap, required bool isFavorite}) {
+  Widget outContainer(
+      {required Widget child,
+      String? outsideTitle,
+      VoidCallback? onTap,
+      VoidCallback? onTapUp,
+      required bool isFavorite}) {
     return Container(
       // duration: Duration(milliseconds: 1000),
       padding: EdgeInsets.only(bottom: haveMargin ? MySiezes.betweanAzkarBlock : 0),
@@ -30,6 +35,7 @@ class ZikrCard {
               : Container(),
           AnimatedButtonTapping(
             onTap: onTap,
+            onTapUp: onTapUp,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 100),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(MySiezes.blockRadius)),
@@ -135,13 +141,21 @@ class ZikrCard {
   }
 
   Widget azkarCard(ZikrData azkarZikrData) {
+    if (azkarZikrData.zikrType == ZikrType.allahNames) return allahNamesCard(azkarZikrData);
     return StatefulBuilder(builder: (context, setState) {
       return outContainer(
         isFavorite: azkarZikrData.isFavorite,
         onTap: azkarZikrData.count > 0
             ? () async {
+                //azkarZikrData.count--;
+                //await Future.delayed(Duration(milliseconds: 300));
+                //setState(() {});
+              }
+            : null,
+        onTapUp: azkarZikrData.count > 0
+            ? () async {
                 azkarZikrData.count--;
-                await Future.delayed(Duration(milliseconds: 300));
+                //await Future.delayed(Duration(milliseconds: 300));
                 setState(() {});
               }
             : null,

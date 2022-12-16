@@ -115,17 +115,6 @@ class _AlarmPageState extends State<AlarmPage> {
               },
             ),
           ),
-          Obx(
-            () => AlarmListTile(
-                imagePath: 'assets/images/quranAlarm.png',
-                title: 'قراءة صفحة من القران كل يوم',
-                subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القران',
-                value: alarmsCtr.quranPageEveryDayProp.isActive.value,
-                alarmProp: alarmsCtr.quranPageEveryDayProp,
-                onChanged: (newValue) {
-                  alarmsCtr.changeState(alarmProp: alarmsCtr.quranPageEveryDayProp, newValue: newValue);
-                }),
-          ),
         ],
       ),
     );

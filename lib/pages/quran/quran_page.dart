@@ -190,14 +190,12 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
               Center(
                 child: Image.asset(
                   'assets/images/quran pages/00$index.png',
-                  // height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
                   color: MyColors.quranText(),
                 ),
               ),
               Center(
                 child: Image.asset(
                   'assets/images/quran pages/000$index.png',
-                  // height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.height * .9,
                 ),
               ),
             ],

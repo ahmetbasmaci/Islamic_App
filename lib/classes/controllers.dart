@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../audio_background_service.dart';
+import '../services/audio_background_service.dart';
 import '../pages/alarms/controllers/alarms_ctr.dart';
 import '../pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 import '../pages/favorite/favorite_page_ctr.dart';

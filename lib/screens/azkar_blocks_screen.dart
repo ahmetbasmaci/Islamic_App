@@ -12,7 +12,7 @@ import '../pages/azkar_page.dart';
 
 class AzkarBlockScreen extends StatefulWidget {
   const AzkarBlockScreen({Key? key}) : super(key: key);
-
+  static String id = 'AzkarBlockScreen';
   @override
   State<AzkarBlockScreen> createState() => _AzkarBlockScreenState();
 }

@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:zad_almumin/constents/texts.dart';
 import '../../../constents/constents.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';
@@ -23,22 +25,69 @@ class PrayerTimeCtr extends GetxController {
   Rx<Time> nextPrayTime = Time().obs;
   Time currentTime = Time(DateTime.now().hour, DateTime.now().minute);
   Rx<DateTime> curerntDate = DateTime.now().obs;
-  late Position _currentPosition;
+  Position? _currentPosition;
   PrayerTimeCtr() {
     updatePrayerTimes();
   }
-  Future<Position> _determinePosition() async {
+  Future<Position?> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return Future.error('Location services are disabled.');
-
+    if (!serviceEnabled) {
+      await Future.delayed(Duration(seconds: 5));
+      await Get.dialog(AlertDialog(
+        title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
+        content: MyTexts.settingsContent(
+            title:
+                "يجمع ذاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              Get.back();
+              await Geolocator.openLocationSettings();
+              serviceEnabled = await Geolocator.isLocationServiceEnabled();
+            },
+            child: MyTexts.normal(title: "حسنا"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: MyTexts.normal(title: "رفض"),
+          ),
+        ],
+      ));
+    }
+    if (!serviceEnabled) return null;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) return Future.error('Location permissions are denied');
+      await Future.delayed(Duration(seconds: 5));
+      await Get.dialog(AlertDialog(
+        title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
+        content: MyTexts.settingsContent(
+            title:
+                "يجمع ذاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              Get.back();
+              //Geolocator.openLocationSettings();
+              permission = await Geolocator.requestPermission();
+            },
+            child: MyTexts.normal(title: "حسنا"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: MyTexts.normal(title: "رفض"),
+          ),
+        ],
+      ));
+
+      if (permission == LocationPermission.denied) return null; // Future.error('Location permissions are denied');
     }
 
     // Permissions are denied forever, handle appropriately.
@@ -52,6 +101,7 @@ class PrayerTimeCtr extends GetxController {
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
     await _getCurrentPosition();
+    if (_currentPosition == null) return;
     await _getPrayTimes();
     if (newTime == null) updatePrayerAlarms(); //just in current day
 
@@ -86,7 +136,7 @@ class PrayerTimeCtr extends GetxController {
   }
 
   String _getApi() {
-    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&method=${13}&month=${curerntDate.value.month}&year=${curerntDate.value.year}';
+    return 'http://api.aladhan.com/v1/calendar?latitude=${_currentPosition!.latitude}&longitude=${_currentPosition!.longitude}&method=${13}&month=${curerntDate.value.month}&year=${curerntDate.value.year}';
   }
 
   Time _getPrayTimeData(Map map, String prayName) {

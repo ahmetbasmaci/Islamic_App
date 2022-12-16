@@ -108,7 +108,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       image: AssetImage('assets/images/app_logo.png'),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   child: Center(

@@ -29,14 +29,15 @@ class NotificationService {
     await _flutterLocalNotificationsPlugin.initialize(
       InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
-        iOS: IOSInitializationSettings(
+        iOS: DarwinInitializationSettings(
           requestAlertPermission: true,
           requestBadgePermission: true,
           requestSoundPermission: true,
         ),
-        macOS: MacOSInitializationSettings(),
+        macOS: DarwinInitializationSettings(),
       ),
-      onSelectNotification: onSelectedNotification,
+
+      //onSelectNotification: onSelectedNotification,
     );
   }
 

@@ -40,9 +40,10 @@ class AnimationService {
 }
 
 class AnimatedButtonTapping extends StatefulWidget {
-  const AnimatedButtonTapping({required this.child, required this.onTap});
+  const AnimatedButtonTapping({required this.child, required this.onTap, required this.onTapUp});
   final Widget child;
   final VoidCallback? onTap;
+  final VoidCallback? onTapUp;
 
   @override
   _AnimatedButtonTappingState createState() => _AnimatedButtonTappingState();
@@ -79,7 +80,10 @@ class _AnimatedButtonTappingState extends State<AnimatedButtonTapping> with Sing
   }
 
   void _onTapUp(TapUpDetails details) {
-    _controller.reverse();
+    if (widget.onTapUp != null) {
+      _controller.reverse();
+      widget.onTapUp!.call();
+    }
   }
 
   @override

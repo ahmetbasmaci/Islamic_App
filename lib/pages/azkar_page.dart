@@ -62,9 +62,7 @@ class _AzkarPageState extends State<AzkarPage> {
                         totalIndex++;
                         return AnimationService.animationListItemDownToUp(
                           index: totalIndex,
-                          child: ZikrCard(
-                            haveMargin: true,
-                          ).azkarCard(
+                          child: ZikrCard(haveMargin: true).azkarCard(
                             ZikrData(
                               zikrType: widget.zikrType,
                               title:
@@ -98,10 +96,8 @@ class _AzkarPageState extends State<AzkarPage> {
   }
 
   Future readData() async {
-    if (widget.zikrType == ZikrType.azkar) 
+    if (widget.zikrType == ZikrType.azkar)
       zikrDataList = await JsonService.getAzkarData(zikrIndexInJson: widget.zikrIndexInJson);
-     else if (widget.zikrType == ZikrType.allahNames) 
-      zikrDataList = await JsonService.getAllahNames();
-    
+    else if (widget.zikrType == ZikrType.allahNames) zikrDataList = await JsonService.getAllahNames();
   }
 }

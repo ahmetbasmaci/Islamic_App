@@ -8,6 +8,7 @@ import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
+import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import '../pages/prayerTimes/prayer_times.dart';
 import '../constents/icons.dart';
 import '../pages/alarms/alarms_page.dart';
@@ -84,6 +85,12 @@ class MyDrawer extends StatelessWidget {
             icon: MyIcons.ayahsTest,
             routeName: AyahsQuestions.id,
             onTap: () async => navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
+          ),
+          drawerItem(
+            title: 'اذكار المسلم',
+            icon: MyIcons.azkar(),
+            routeName: AzkarBlockScreen.id,
+            onTap: () async => navigateTo(context: context, routeName: AzkarBlockScreen.id, page: AzkarBlockScreen()),
           ),
 
           Divider(height: 50, thickness: 2),
