@@ -41,7 +41,7 @@ class PrayerTimeCtr extends GetxController {
         title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
         content: MyTexts.settingsContent(
             title:
-                "يجمع ذاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
         actions: [
           TextButton(
             onPressed: () async {
@@ -68,7 +68,7 @@ class PrayerTimeCtr extends GetxController {
         title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
         content: MyTexts.settingsContent(
             title:
-                "يجمع ذاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
         actions: [
           TextButton(
             onPressed: () async {
