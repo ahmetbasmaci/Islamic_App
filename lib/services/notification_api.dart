@@ -155,6 +155,7 @@ class NotificationService {
       ),
       payload: alarmProp.notificationType.name,
     );
+    setOnceNotification(alarmProp: alarmProp);
   }
 
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
@@ -165,32 +166,43 @@ class NotificationService {
       alarmProp.notificationBody = await JsonService.getRandomZikr();
 
     //set random duration by selected repeat type
-    Duration duration = Duration(seconds: 0);
+    int duration = 0;
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
+      duration = Random().nextInt(40) + 40; //40-80
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
+      duration = Random().nextInt(70) + 100; //70-170
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Duration(minutes: Random().nextInt(150) + 150); //150-300
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Duration(minutes: Random().nextInt(200) + 600); //300-500
+      duration = Random().nextInt(150) + 150; //150-300
+    else if (alarmProp.zikrRepeat == ZikrRepeat.high) duration = Random().nextInt(200) + 600; //300-500
 
-    await _flutterLocalNotificationsPlugin.zonedSchedule(
+    // await _flutterLocalNotificationsPlugin.zonedSchedule(
+    //   alarmProp.id,
+    //   alarmProp.notificationTitle,
+    //   alarmProp.notificationBody,
+    //   tz.TZDateTime.now(tz.local).add(duration),
+    //   _getNotificationDetails(
+    //     notificationSound: alarmProp.notificationSound,
+    //     bigTitle: alarmProp.notificationTitle,
+    //     bigBody: alarmProp.notificationBody,
+    //   ),
+    //   payload: alarmProp.notificationType.name,
+    //   androidAllowWhileIdle: true,
+    //   uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    //   matchDateTimeComponents: DateTimeComponents.time,
+    // );
+    await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
-      tz.TZDateTime.now(tz.local).add(duration),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
       payload: alarmProp.notificationType.name,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
     );
-    await Future.delayed(duration * 2);
+
+    await Future.delayed(Duration(minutes: duration * 2));
 
     if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
   }

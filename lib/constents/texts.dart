@@ -6,10 +6,13 @@ import 'colors.dart';
 
 class MyTexts {
   static BuildContext context = Constants.navigatorKey.currentState!.context;
-  static Text outsideHeader({required String title}) {
+  static Text outsideHeader({required String title, Color? color}) {
     return Text(
       title,
-      style: Theme.of(Get.context ?? context).textTheme.headline6!.copyWith(fontSize: 18, color: MyColors.primary()),
+      style: Theme.of(Get.context ?? context)
+          .textTheme
+          .headline6!
+          .copyWith(fontSize: 18, color: color ?? MyColors.primary()),
     );
   }
 

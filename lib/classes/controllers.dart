@@ -16,7 +16,7 @@ class ControllerBinding extends Bindings {
   void dependencies() {
     NotificationService();
     Get.put(ThemeCtr());
-    Get.put(PrayerTimeCtr());
+    //Get.put(PrayerTimeCtr());
     Get.put(AlarmsCtr());
     Get.put(QuranPageCtr());
     Get.put(HttpServiceCtr());

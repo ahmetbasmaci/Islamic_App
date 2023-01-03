@@ -74,12 +74,12 @@ class MyDrawer extends StatelessWidget {
             routeName: AlarmPage.id,
             onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
           ),
-          drawerItem(
-            title: 'اوقات الصلاة',
-            icon: MyIcons.prayersTime(),
-            routeName: PrayerTimes.id,
-            onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
-          ),
+          // drawerItem(
+          //   title: 'اوقات الصلاة',
+          //   icon: MyIcons.prayersTime(),
+          //   routeName: PrayerTimes.id,
+          //   onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
+          // ),
           drawerItem(
             title: 'مراجعة القران',
             icon: MyIcons.ayahsTest,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/constents/icons.dart';
@@ -28,53 +29,57 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: MyTexts.outsideHeader(title: 'مختلف الاذكار'),
-          ),
-          ListView.builder(
-            itemCount: BlockData.list.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return AnimationService.animationListItemDownToUp(
-                index: index,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                    color: MyColors.primary(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.6),
-                        blurRadius: 5,
-                        offset: Offset(-2, 0),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
-                  child: ListTile(
-                    title: MyTexts.blockTitle(title: BlockData.list[index].title),
-                    leading: Image.asset(BlockData.list[index].imageSource),
-                    trailing: MyIcons.leftArrow(color: MyColors.white),
-                    onTap: () {
-                      Get.to(
-                        AzkarPage(
-                          zikrIndexInJson: index,
-                          zikrType: ZikrType.azkar,
+      child: Scaffold(
+        appBar: MyAppBar(title: 'اذكار المسلم'),
+        body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: MyTexts.outsideHeader(title: 'مختلف الاذكار'),
+            ),
+            ListView.builder(
+              itemCount: BlockData.list.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return AnimationService.animationListItemDownToUp(
+                  index: index,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                      color: MyColors.primary(),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.6),
+                          blurRadius: 5,
+                          offset: Offset(-2, 0),
                         ),
-                        transition: Transition.size,
-                        duration: Duration(milliseconds: 500),
-                      );
-                    },
+                      ],
+                    ),
+                    margin:
+                        EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
+                    child: ListTile(
+                      title: MyTexts.blockTitle(title: BlockData.list[index].title),
+                      leading: Image.asset(BlockData.list[index].imageSource),
+                      trailing: MyIcons.leftArrow(color: MyColors.white),
+                      onTap: () {
+                        Get.to(
+                          AzkarPage(
+                            zikrIndexInJson: index,
+                            zikrType: ZikrType.azkar,
+                          ),
+                          transition: Transition.size,
+                          duration: Duration(milliseconds: 500),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

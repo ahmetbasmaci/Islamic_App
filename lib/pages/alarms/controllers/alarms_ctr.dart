@@ -277,7 +277,7 @@ class AlarmsCtr extends GetxController {
       if (alarmProp.alarmPeriod == ALarmPeriod.once)
         NotificationService.setOnceNotification(alarmProp: alarmProp);
       else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
-        // NotificationService.setOnceNotification(alarmProp: alarmProp);
+        //  NotificationService.setOnceNotification(alarmProp: alarmProp);
         NotificationService.setRepeatNotification(alarmProp: alarmProp);
       } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
         NotificationService.setDailyNotification(alarmProp: alarmProp);
