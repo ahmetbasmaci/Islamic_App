@@ -9,7 +9,6 @@ import 'package:zad_almumin/pages/quran/classes/ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/colors.dart';
-import '../constents/icons.dart';
 import '../services/http_service.dart';
 
 class AudioPlayStopBtn extends StatefulWidget {

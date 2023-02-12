@@ -61,7 +61,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         resizeToAvoidBottomInset: false,
         key: Constants.scaffoldKey,
         endDrawer: myEndDrawer(),
-        drawer: MyDrawer(),
         body: Stack(
           children: [
             DefaultTabController(
@@ -103,7 +102,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       quranCtr.selectedSurah.surahName.value = newSurahName;
       quranCtr.selectedSurah.surahNumber.value =
           QuranHelper().getSurahNumberByName(quranCtr.selectedSurah.surahName.value);
-      quranMap = await JsonService.getAllQuranData(quranCtr.selectedSurah.surahNumber.value);
+      quranMap = await JsonService.getQuranSurahByNumber(quranCtr.selectedSurah.surahNumber.value);
       quranCtr.selectedSurah.totalAyahsNum.value = quranMap['numberOfAyahs'];
       quranCtr.selectedSurah.startAyahNum.value = 1;
       quranCtr.selectedSurah.endAyahNum.value = quranCtr.selectedSurah.totalAyahsNum.value;
@@ -124,10 +123,10 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                     color: MyColors.quranBackGround(),
-                    border: Border(bottom: BorderSide(color: MyColors.quranSecond())),
+                    border: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
                     boxShadow: [
                       BoxShadow(
-                          color: MyColors.quranSecond().withOpacity(0.5),
+                          color: MyColors.quranPrimary().withOpacity(0.5),
                           offset: Offset(-5, 0),
                           blurRadius: 10,
                           spreadRadius: 5)
@@ -159,7 +158,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       title: MyTexts.settingsTitle(title: 'الجزء ${quranCtr.markedList[index].juz}'),
       subtitle: MyTexts.settingsContent(
           title: '${quranCtr.markedList[index].surahName}  |  الصفحة ${quranCtr.markedList[index].pageNumber}'),
-      shape: Border(bottom: BorderSide(color: MyColors.quranSecond())),
+      shape: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
       onTap: () {
         tabCtr.index = quranCtr.markedList[index].pageNumber - 1;
         QuranHelper().changeOnShownState(false);

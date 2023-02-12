@@ -93,14 +93,14 @@ class DraggableFilterChip extends StatelessWidget {
           filterChipProp.isSelected.value = value;
           quranCtr.updateSearchFilterList();
         },
-        selectedColor: MyColors.quranSecond(),
+        selectedColor: MyColors.quranPrimary(),
       ),
     );
     Widget childDragging = FilterChip(
       label: Text('...'),
       selected: false,
       onSelected: (value) {},
-      selectedColor: MyColors.quranSecond(),
+      selectedColor: MyColors.quranPrimary(),
     );
     return Draggable<FilterChipProp>(
       data: filterChipProp,

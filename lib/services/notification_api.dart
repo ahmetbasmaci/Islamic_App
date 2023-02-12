@@ -140,7 +140,7 @@ class NotificationService {
   static Future setOnceNotification({required AlarmProp alarmProp}) async {
     await Future.delayed(Duration(seconds: 0));
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
     else if (alarmProp.notificationType == NotificationType.azkar)
       alarmProp.notificationBody = await JsonService.getRandomZikr();
 
@@ -161,7 +161,7 @@ class NotificationService {
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
     //get random content
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
     else if (alarmProp.notificationType == NotificationType.azkar)
       alarmProp.notificationBody = await JsonService.getRandomZikr();
 
@@ -218,7 +218,7 @@ class NotificationService {
         notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationType == NotificationType.hadith
-            ? (await JsonService.getHadithData()).content
+            ? (await JsonService.getRandomHadith()).content
             : alarmProp.notificationBody,
       ),
       payload: alarmProp.notificationType.name,

@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
+import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'package:zad_almumin/services/app_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
@@ -49,14 +50,16 @@ class MyApp extends StatelessWidget {
       // ],
       routes: {
         SplashPage.id: (context) => SplashPage(),
-        '/${HomePage.id}': (context) => HomePage(),
+        HomePage.id: (context) => HomePage(), //'/${HomePage.id}'
         SettingsPage.id: (context) => SettingsPage(),
         AlarmPage.id: (context) => AlarmPage(),
         FavoritePage.id: (context) => FavoritePage(),
         AzkarPage.id: (context) => AzkarPage(),
         QuranPage.id: (context) => QuranPage(),
+        AyahsQuestions.id: (context) => AyahsQuestions(),
       },
-      initialRoute: SplashPage.id,
+      // home: DebouncedSearchBar(),
+      initialRoute: Constants.isInDebugMode ? HomePage.id : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
       darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,

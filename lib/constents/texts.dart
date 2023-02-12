@@ -111,7 +111,7 @@ class MyTexts {
       title,
       textAlign: TextAlign.right,
       style: TextStyle(
-        color: MyColors.quranSecond(),
+        color: MyColors.quranPrimary(),
         fontSize: size ?? 16,
         fontWeight: fontWeight,
       ),

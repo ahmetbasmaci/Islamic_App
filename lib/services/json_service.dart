@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
@@ -87,11 +86,10 @@ class JsonService {
     return await getRandomQuranAyah();
   }
 
-  static Future<AyahProp> getAyahForQuestion(BuildContext context) async {
+  static Future<AyahProp> getRandomAyah() async {
     final AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
 
-    String jsonString =
-        await DefaultAssetBundle.of(context).loadString('assets/database/quran/first_ayahs_from_each_page.json');
+    String jsonString = await rootBundle.loadString('assets/database/quran/first_ayahs_from_each_page.json');
 
     List juzs = json.decode(jsonString);
 
@@ -107,9 +105,9 @@ class JsonService {
     return selectedAyah;
   }
 
-  static Future<Map> getAllQuranData(int surahNUmber) async {
+  static Future<Map> getQuranSurahByNumber(int surahNumber) async {
     if (allQuranData.isEmpty) await loadQuranData();
-    return allQuranData[surahNUmber - 1];
+    return allQuranData[surahNumber - 1];
   }
 
   static Future<Map> getAllHadithData(int bookNumber) async {
@@ -117,7 +115,7 @@ class JsonService {
     return allHadithData[bookNumber - 1];
   }
 
-  static Future<ZikrData> getHadithData() async {
+  static Future<ZikrData> getRandomHadith() async {
     if (allHadithData.isEmpty)
       await loadHadithData();
     else
@@ -129,13 +127,13 @@ class JsonService {
 
     int randomChapter = Random().nextInt(hadithChaptarsMap.length);
     List hadithsMap = hadithChaptarsMap[randomChapter]['hadiths'];
-    if (hadithsMap.isEmpty) return await getHadithData();
+    if (hadithsMap.isEmpty) return await getRandomHadith();
 
     int randomHadith = Random().nextInt(hadithsMap.length);
     return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ', content: hadithsMap[randomHadith]['text']);
   }
 
-  static Future<List<ZikrData>> getAzkarData({required int zikrIndexInJson}) async {
+  static Future<List<ZikrData>> getRandomAzkar({required int zikrIndexInJson}) async {
     if (allZikrDataList.isEmpty) await loadZikrData();
 
     List<ZikrData> zikrDataList = [];

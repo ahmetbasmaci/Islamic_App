@@ -35,8 +35,8 @@ class _AlarmPageState extends State<AlarmPage> {
               quranAlarms(),
               alarmBlockTitle(title: 'اوقات الصيام'),
               fastAlarms(),
-              alarmBlockTitle(title: 'اوقات الاذان'),
-              prayTimesAlarms(),
+              // alarmBlockTitle(title: 'اوقات الاذان'),
+              // prayTimesAlarms(),
             ],
           ),
         );

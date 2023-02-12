@@ -27,17 +27,17 @@ class QuranUpPart extends GetView<ThemeCtr> {
     List<MenuOptionsItem> menuItemList = [
       MenuOptionsItem(
         title: 'بحث',
-        icon: MyIcons.search(color: MyColors.quranSecond()),
+        icon: MyIcons.search(color: MyColors.quranPrimary()),
         onTap: () => showSearch(context: context, delegate: QuranSearchDelegate()),
       ),
       MenuOptionsItem(
         title: 'اضافة علامة',
-        icon: MyIcons.mark(color: MyColors.quranSecond()),
+        icon: MyIcons.mark(color: MyColors.quranPrimary()),
         onTap: () => QuranHelper().showMarkDialog(),
       ),
       MenuOptionsItem(
         title: 'تغير الثيم',
-        icon: MyIcons.animated_Light_Dark(color: MyColors.quranSecond()),
+        icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary()),
         onTap: () {
           bool isDark = Get.isDarkMode;
           _settingsCtr.changeDarkModeState(!isDark);
@@ -56,7 +56,7 @@ class QuranUpPart extends GetView<ThemeCtr> {
           color: MyColors.quranBackGround(),
           boxShadow: [
             BoxShadow(
-                color: MyColors.quranSecond().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
+                color: MyColors.quranPrimary().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
           ],
         ),
         child: Row(
@@ -69,11 +69,11 @@ class QuranUpPart extends GetView<ThemeCtr> {
                   children: [
                     IconButton(
                       onPressed: () => Get.offAll(() => HomePage()),
-                      icon: MyIcons.home(color: MyColors.quranSecond()),
+                      icon: MyIcons.home(color: MyColors.quranPrimary()),
                     ),
                     PopupMenuButton(
                         color: MyColors.quranBackGround(),
-                        icon: MyIcons.moreVert(color: MyColors.quranSecond()),
+                        icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
                         itemBuilder: (context) {
                           return [
                             ...menuItemList.map((e) => PopupMenuItem(
@@ -89,7 +89,7 @@ class QuranUpPart extends GetView<ThemeCtr> {
                                       children: [
                                         e.icon,
                                         SizedBox(width: Get.width * .04),
-                                        MyTexts.quran(title: e.title, color: MyColors.quranSecond()),
+                                        MyTexts.quran(title: e.title, color: MyColors.quranPrimary()),
                                       ],
                                     ),
                                   ),
@@ -137,7 +137,7 @@ class QuranUpPart extends GetView<ThemeCtr> {
                   ),
                   IconButton(
                     onPressed: () => Constants.scaffoldKey.currentState!.openEndDrawer(),
-                    icon: MyIcons.book(color: MyColors.quranSecond()),
+                    icon: MyIcons.book(color: MyColors.quranPrimary()),
                   ),
                 ],
               ),

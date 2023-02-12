@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
+import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/constents/icons.dart';
@@ -31,6 +32,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
     return AnimationLimiter(
       child: Scaffold(
         appBar: MyAppBar(title: 'اذكار المسلم'),
+        drawer: MyDrawer(),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [

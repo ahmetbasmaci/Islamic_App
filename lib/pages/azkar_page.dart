@@ -97,7 +97,7 @@ class _AzkarPageState extends State<AzkarPage> {
 
   Future readData() async {
     if (widget.zikrType == ZikrType.azkar)
-      zikrDataList = await JsonService.getAzkarData(zikrIndexInJson: widget.zikrIndexInJson);
+      zikrDataList = await JsonService.getRandomAzkar(zikrIndexInJson: widget.zikrIndexInJson);
     else if (widget.zikrType == ZikrType.allahNames) zikrDataList = await JsonService.getAllahNames();
   }
 }

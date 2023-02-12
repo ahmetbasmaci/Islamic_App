@@ -63,7 +63,7 @@ class QuranDownPart extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: Get.find<HttpServiceCtr>().received.value,
                             backgroundColor: Colors.grey,
-                            color: MyColors.quranSecond(),
+                            color: MyColors.quranPrimary(),
                           ),
                         ),
                         Expanded(
@@ -77,9 +77,9 @@ class QuranDownPart extends StatelessWidget {
                               onPressed: () {
                                 Get.find<HttpServiceCtr>().isStopDownload.value = true;
                                 Get.find<HttpServiceCtr>().isLoading.value = false;
-                              //  stopAudio();
+                                //  stopAudio();
                               },
-                              icon: MyIcons.close(color: MyColors.quranSecond()),
+                              icon: MyIcons.close(color: MyColors.quranPrimary()),
                             ),
                           ],
                         ))
@@ -103,13 +103,13 @@ class QuranDownPart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                        icon: MyIcons.settings(color: MyColors.quranSecond()),
+                        icon: MyIcons.settings(color: MyColors.quranPrimary()),
                         onPressed: () async => showResitationSettings()),
                     IconButton(
                       icon: AnimatedIcon(
                         icon: AnimatedIcons.play_pause,
                         progress: animationCtr,
-                        color: MyColors.quranSecond(),
+                        color: MyColors.quranPrimary(),
                         size: 25,
                       ),
                       onPressed: () async {
@@ -119,7 +119,7 @@ class QuranDownPart extends StatelessWidget {
                           pauseAudio();
                       },
                     ),
-                    IconButton(icon: MyIcons.stop(color: MyColors.quranSecond()), onPressed: () => stopAudio()),
+                    IconButton(icon: MyIcons.stop(color: MyColors.quranPrimary()), onPressed: () => stopAudio()),
                   ],
                 ),
               ],
@@ -217,7 +217,7 @@ class QuranDownPart extends StatelessWidget {
         SizedBox(
           width: Get.size.width * .18,
           child: MaterialButton(
-            shape: Border.all(color: MyColors.quranSecond()),
+            shape: Border.all(color: MyColors.quranPrimary()),
             onPressed: () {
               Get.dialog(
                 AlertDialog(
@@ -262,7 +262,7 @@ class QuranDownPart extends StatelessWidget {
                           : quranCtr.selectedSurah.endAyahNum.value.toString(),
                       size: 10),
                 ),
-                Icon(Icons.keyboard_arrow_down, color: MyColors.quranSecond()),
+                Icon(Icons.keyboard_arrow_down, color: MyColors.quranPrimary()),
               ],
             ),
           ),
@@ -285,17 +285,17 @@ class QuranDownPart extends StatelessWidget {
             ),
             IconButton(
               onPressed: () => quranCtr.selectedSurah.repeetAllCount.value++,
-              icon: MyIcons.plus(color: MyColors.quranSecond()),
+              icon: MyIcons.plus(color: MyColors.quranPrimary()),
             ),
             IconButton(
               onPressed: () {
                 if (quranCtr.selectedSurah.repeetAllCount.value != 1) quranCtr.selectedSurah.repeetAllCount.value--;
               },
-              icon: MyIcons.minus(color: MyColors.quranSecond()),
+              icon: MyIcons.minus(color: MyColors.quranPrimary()),
             ),
             Obx(
               () => Checkbox(
-                fillColor: MaterialStateProperty.all(MyColors.quranSecond()),
+                fillColor: MaterialStateProperty.all(MyColors.quranPrimary()),
                 value: quranCtr.selectedSurah.isUnlimitRepeatAll.value,
                 onChanged: ((value) => quranCtr.selectedSurah.isUnlimitRepeatAll.value = value ?? false),
               ),
@@ -312,17 +312,17 @@ class QuranDownPart extends StatelessWidget {
             ),
             IconButton(
               onPressed: () => quranCtr.selectedSurah.repeetAyahCount.value++,
-              icon: MyIcons.plus(color: MyColors.quranSecond()),
+              icon: MyIcons.plus(color: MyColors.quranPrimary()),
             ),
             IconButton(
               onPressed: () {
                 if (quranCtr.selectedSurah.repeetAyahCount.value != 1) quranCtr.selectedSurah.repeetAyahCount.value--;
               },
-              icon: MyIcons.minus(color: MyColors.quranSecond()),
+              icon: MyIcons.minus(color: MyColors.quranPrimary()),
             ),
             Obx(
               () => Checkbox(
-                fillColor: MaterialStateProperty.all(MyColors.quranSecond()),
+                fillColor: MaterialStateProperty.all(MyColors.quranPrimary()),
                 value: quranCtr.selectedSurah.isUnlimitRepeatAyah.value,
                 onChanged: ((value) => quranCtr.selectedSurah.isUnlimitRepeatAyah.value = value ?? false),
               ),
@@ -336,7 +336,7 @@ class QuranDownPart extends StatelessWidget {
 
   Future<List<Widget>> getSurahAyahsList(bool isStartAyah) async {
     List<Widget> list = [];
-    Map quranMap = await JsonService.getAllQuranData(quranCtr.selectedSurah.surahNumber.value);
+    Map quranMap = await JsonService.getQuranSurahByNumber(quranCtr.selectedSurah.surahNumber.value);
     int startFrom = isStartAyah ? 1 : quranCtr.selectedSurah.startAyahNum.value;
     for (var i = startFrom; i <= quranCtr.selectedSurah.totalAyahsNum.value; i++) {
       String ayah = '';
@@ -350,10 +350,10 @@ class QuranDownPart extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 0),
           color: isStartAyah
               ? i == quranCtr.selectedSurah.startAyahNum.value
-                  ? MyColors.quranSecond().withOpacity(.4)
+                  ? MyColors.quranPrimary().withOpacity(.4)
                   : Colors.transparent
               : i == quranCtr.selectedSurah.endAyahNum.value
-                  ? MyColors.quranSecond().withOpacity(.4)
+                  ? MyColors.quranPrimary().withOpacity(.4)
                   : Colors.transparent,
           child: MaterialButton(
             onPressed: () {

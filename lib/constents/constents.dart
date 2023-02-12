@@ -31,7 +31,7 @@ class Constants {
 
   static void setNewOpendPageId(String id) => GetStorage().write('lastOpendPageId', id);
   static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId') ?? HomePage.id;
-  static Widget getNewOpendPage(){
+  static Widget getNewOpendPage() {
     switch (getNewOpendPageId()) {
       case HomePage.id:
         return HomePage();
@@ -40,5 +40,12 @@ class Constants {
       default:
         return HomePage();
     }
+  }
+
+  //to check if in debbug mode or not
+  static bool get isInDebugMode {
+    bool inDebugMode = false;
+    assert(inDebugMode = true);
+    return inDebugMode;
   }
 }

@@ -14,7 +14,7 @@ import 'controller/ayahs_questions_ctr.dart';
 
 class AyahsQuestions extends StatefulWidget {
   const AyahsQuestions({Key? key}) : super(key: key);
-  static String id = 'FirstAyahsInPages';
+  static String id = 'AyahsQuestions';
   @override
   State<AyahsQuestions> createState() => _AyahsQuestionsState();
 }
@@ -43,7 +43,7 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
           children: [
             Expanded(
               child: FutureBuilder(
-                  future: JsonService.getAyahForQuestion(context),
+                  future: JsonService.getRandomAyah(),
                   builder: (context, AsyncSnapshot<AyahProp> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting)
                       return MyCircularProgressIndecator();

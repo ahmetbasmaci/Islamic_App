@@ -111,7 +111,7 @@ class ZikrCard {
 
   Widget hadithCard({ZikrData? hadithZikrData}) {
     Future myFuture = Future.delayed(Duration(seconds: 0));
-    if (hadithZikrData == null) myFuture = JsonService.getHadithData();
+    if (hadithZikrData == null) myFuture = JsonService.getRandomHadith();
     return outContainer(
       outsideTitle: 'بلّفو عني ولو اية',
       isFavorite: hadithZikrData != null,
@@ -129,7 +129,7 @@ class ZikrCard {
                     ? IconButton(
                         onPressed: () {
                           hadithZikrData = null;
-                          myFuture = JsonService.getHadithData();
+                          myFuture = JsonService.getRandomHadith();
                           setState(() {});
                         },
                         icon: MyIcons.refresh)

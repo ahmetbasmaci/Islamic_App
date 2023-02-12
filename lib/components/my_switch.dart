@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/pages/settings/settings_ctr.dart';
-
-import '../services/theme_service.dart';
 
 class MySwitch extends StatelessWidget {
-  final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
-  MySwitch(
+  const MySwitch(
       {Key? key,
       required this.value,
       // required this.activeColor,

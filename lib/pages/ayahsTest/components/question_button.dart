@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 import '../../../constents/sizes.dart';

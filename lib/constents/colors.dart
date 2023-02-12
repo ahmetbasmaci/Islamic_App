@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../pages/settings/settings_ctr.dart';
 
 class MyColors {
-  static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   static final List<Color> primaryColors = [Color.fromARGB(255, 2, 111, 111), Color.fromARGB(255, 172, 17, 94)];
   static const Color backgroundLight = Color(0xffdbe2e7);
   static const Color backgroundDark = Color(0xff222222);
-  static const Color _quranSecond = Color.fromARGB(255, 185, 121, 31);
-  static const Color _quranSecondDark = Color.fromARGB(255, 172, 115, 36);
+  static const Color _quranPrimary = Color.fromARGB(255, 185, 121, 31);
+  static const Color _quranPrimaryDark = Color.fromARGB(255, 172, 115, 36);
   static const Color quranBackGroundLight = Color.fromARGB(255, 239, 237, 227);
   static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
   static const Color quranItemBackGroundLight = Color.fromARGB(255, 239, 237, 227);
@@ -38,7 +36,7 @@ class MyColors {
   static Color whiteBlackReversed() => Get.isDarkMode ? black : white;
 
   static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
-  static Color quranSecond() => Get.isDarkMode ? _quranSecondDark : _quranSecond;
+  static Color quranPrimary() => Get.isDarkMode ? _quranPrimaryDark : _quranPrimary;
   static Color quranStatus() => Get.isDarkMode ? Color.fromARGB(255, 0, 0, 0) : Color.fromARGB(255, 210, 195, 174);
 
   static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;

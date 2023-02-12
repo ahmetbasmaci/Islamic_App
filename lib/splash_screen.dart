@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
 

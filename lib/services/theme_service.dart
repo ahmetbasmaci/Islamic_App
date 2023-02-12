@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import '../constents/sizes.dart';
 
 TextStyle _headLine1 = GoogleFonts.lateef(fontSize: 20, height: 1.8, wordSpacing: 5.5, fontWeight: FontWeight.w500);

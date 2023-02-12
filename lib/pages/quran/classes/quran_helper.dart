@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,8 +13,7 @@ import '../controllers/quran_page_ctr.dart';
 
 class QuranHelper {
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
-
-
+  Timer? _debounceTimer;
   List<Surah> allSurahsNames = [
     Surah(name: 'الفاتحة', numberOfPage: 1),
     Surah(name: 'البقرة', numberOfPage: 2),
@@ -129,7 +130,8 @@ class QuranHelper {
     Surah(name: 'الفلق', numberOfPage: 604),
     Surah(name: 'الناس', numberOfPage: 604),
   ];
-
+  final StreamController<List<SearchedAyah>> _streamController = StreamController<List<SearchedAyah>>.broadcast();
+  Stream<List<SearchedAyah>> get ayahsStream => _streamController.stream;
   showMarkDialog() {
     var pageProp = MarkedPage(
       pageNumber: quranCtr.selectedSurah.pageNumber.value,
@@ -191,8 +193,8 @@ class QuranHelper {
     quranCtr.quranPageSetState();
   }
 
-  changeCurrentPageToWhereStartRead() async {
-    Map data = await JsonService.getAllQuranData(quranCtr.selectedSurah.surahNumber.value);
+  void changeCurrentPageToWhereStartRead() async {
+    Map data = await JsonService.getQuranSurahByNumber(quranCtr.selectedSurah.surahNumber.value);
     List ayahsList = data['ayahs'];
     for (var i = 0; i < ayahsList.length; i++) {
       if (ayahsList[i]['numberInSurah'] == quranCtr.selectedSurah.startAyahNum.value) {
@@ -214,23 +216,6 @@ class QuranHelper {
     String surahName = "";
     if (surahNumber > 0 && surahNumber <= 114) surahName = allSurahsNames[surahNumber - 1].name;
     return surahName;
-  }
-
-  List<Surah> getMatchedSurahs(String query) =>
-      allSurahsNames.where((element) => element.name.contains(query)).toList();
-
-  List<int> getMatchedPages(String query) {
-    List<int> resultList = [];
-
-    int? num = int.tryParse(query);
-    if (num == null) return resultList;
-
-    if (num > 604 || num < 1) return resultList;
-    for (var i = 1; i <= 604; i++) {
-      if (i.toString().contains(num.toString())) resultList.add(i);
-    }
-
-    return resultList;
   }
 
   int getJuzNumberByPage(int page) {
@@ -306,31 +291,6 @@ class QuranHelper {
         break;
       }
     return surahName;
-  }
-
-  List<SearchedAyah> getMatchedAyahs(String query) {
-    List<SearchedAyah> matchedAyahs = [];
-    bool isFull = false;
-    for (var i = 0; i < JsonService.allQuranData.length; i++) {
-      if (isFull) break;
-      Map surahMap = JsonService.allQuranData[i];
-      List ayahs = surahMap['ayahs'];
-      for (var ayah in ayahs) {
-        if (normalise(ayah.toString()).contains(query))
-          matchedAyahs.add(SearchedAyah(
-            ayahNumber: ayah['numberInSurah'],
-            ayahText: ayah['text'],
-            page: ayah['page'],
-            surahName: getSurahNameByPage(ayah['page']),
-          ));
-        if (matchedAyahs.length == 20) {
-          isFull = true;
-          break;
-        }
-      }
-    }
-
-    return matchedAyahs;
   }
 
   String normalise(String input) {
@@ -417,5 +377,45 @@ class QuranHelper {
         .replaceAll('\u0622', '\u0627')
         .replaceAll('\u0623', '\u0627')
         .replaceAll('\u0625', '\u0627');
+  }
+
+  List<int> seachPages(String query) {
+    List<int> resultList = [];
+
+    int? num = int.tryParse(query);
+    if (num == null) return resultList;
+
+    if (num > 604 || num < 1) return resultList;
+    for (var i = 1; i <= 604; i++) {
+      if (i.toString().contains(num.toString())) resultList.add(i);
+    }
+
+    return resultList;
+  }
+
+  List<Surah> searchSurahs(String query) => allSurahsNames.where((element) => element.name.contains(query)).toList();
+
+  void searchAyahs(String query) async {
+    List<SearchedAyah> matchedAyahs = [];
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      for (var i = 0; i < JsonService.allQuranData.length; i++) {
+        String surahName = getSurahNameByNumber(i + 1);
+        Map surahMap = JsonService.allQuranData[i];
+        List ayahs = surahMap['ayahs'];
+        for (var ayah in ayahs) {
+          if (normalise(ayah.toString()).contains(query))
+            matchedAyahs.add(SearchedAyah(
+              ayahNumber: ayah['numberInSurah'],
+              ayahText: ayah['text'],
+              page: ayah['page'],
+              surahName: surahName,
+            ));
+          _streamController.add(matchedAyahs);
+        }
+      }
+    });
   }
 }

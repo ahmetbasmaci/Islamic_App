@@ -9,7 +9,6 @@ import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
-import '../pages/prayerTimes/prayer_times.dart';
 import '../constents/icons.dart';
 import '../pages/alarms/alarms_page.dart';
 import '../pages/ayahsTest/ayahs_questions.dart';

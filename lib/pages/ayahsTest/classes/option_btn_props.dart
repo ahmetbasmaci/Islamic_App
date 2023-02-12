@@ -1,7 +1,4 @@
-import 'package:get/get.dart';
 import 'package:zad_almumin/constents/colors.dart';
-
-import '../../../services/theme_service.dart';
 import 'package:flutter/material.dart';
 
 class OptionBtnProps {
