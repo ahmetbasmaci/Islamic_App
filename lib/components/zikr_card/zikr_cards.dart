@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zad_almumin/components/audio_play_stop_btn.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
@@ -17,7 +20,8 @@ class ZikrCard {
   bool haveMargin = false;
   VoidCallback? onDeleteFromFavorite;
   ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
-
+  final QuranData _quranData = Get.find<QuranData>();
+  final QuranHelper _quranHelper = QuranHelper();
   Widget outContainer(
       {required Widget child,
       String? outsideTitle,
@@ -64,18 +68,25 @@ class ZikrCard {
   Widget quranCard({ZikrData? quranZikrData}) {
     bool isNewAyah = quranZikrData == null;
     bool autoPlaySound = false;
-    Future myFuture = Future.delayed(Duration(seconds: 0));
-    if (isNewAyah) myFuture = JsonService.getRandomQuranAyah();
+    Future<ZikrData?> myFuture = Future.delayed(Duration(seconds: 0));
+    if (isNewAyah) {
+      myFuture = Future.delayed(Duration(seconds: 0)).then((value) async {
+        while (_quranData.isEmpty) await Future.delayed(Duration(seconds: 1));
+
+        return await _quranHelper.getRandomZikrDataAyah();
+      });
+    }
     return outContainer(
       outsideTitle: 'اية من القران الكريم',
       isFavorite: quranZikrData != null,
       child: StatefulBuilder(builder: (context, setState) {
-        return FutureBuilder(
+        return FutureBuilder<ZikrData?>(
           future: myFuture,
           builder: (context, snapshot) {
             if (snapshot.hasError)
               return Text(snapshot.error.toString());
             else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
+            // else if (!snapshot.hasData) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
             return ZikrCardInnerContainer(
               zikrData: quranZikrData!,
@@ -84,9 +95,14 @@ class ZikrCard {
                       onPressed: () async {
                         quranZikrData = null;
 
-                        myFuture = JsonService.getRandomQuranAyah();
+                        myFuture =
+                            Future.delayed(Duration(seconds: 0)).then((value) => _quranHelper.getRandomZikrDataAyah());
                         autoPlaySound = false;
-                        setState(() {});
+                        try {
+                          setState(() {});
+                        } catch (e) {
+                          print("ERROR IN ZIKR CARD: $e");
+                        }
                       },
                       icon: MyIcons.refresh)
                   : null,
@@ -94,12 +110,16 @@ class ZikrCard {
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
-                  myFuture = JsonService.getSpesificQuranAyah(
-                      ayahNumber: quranZikrData!.ayahNumber, surahNumber: quranZikrData!.surahNumber);
+                  myFuture = Future.delayed(Duration(seconds: 0)).then(
+                      (value) => _quranHelper.getZikDataAyah(quranZikrData!.ayahNumber, quranZikrData!.surahNumber));
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 
-                  setState(() {});
+                  try {
+                    setState(() {});
+                  } catch (e) {
+                    print("ERROR IN ZIKR CARD: $e");
+                  }
                 },
               ),
             );

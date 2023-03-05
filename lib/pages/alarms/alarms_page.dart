@@ -169,8 +169,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/hadithAlarm.png',
-                title: 'حديث يومي',
-                subtitle: 'سيصلك اشعار بحديث جديد كل يوم',
+                title: 'حديث رسول الله ﷺ',
+                subtitle: 'سيصلك اشعار بحديث رسول الله ﷺ',
                 value: alarmsCtr.hadithEveryDayProp.isActive.value,
                 alarmProp: alarmsCtr.hadithEveryDayProp,
                 onChanged: (newValue) {

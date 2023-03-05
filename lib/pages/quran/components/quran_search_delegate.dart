@@ -1,22 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/pages/ayahsTest/classes/ayah_prop.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
 import '../classes/quran_helper.dart';
-import '../classes/searched_ayah.dart';
-import '../classes/surah.dart';
+import '../models/surah.dart';
 import '../controllers/quran_page_ctr.dart';
 import 'draggable_filter_chip.dart';
 
 class QuranSearchDelegate extends SearchDelegate {
-  QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
-  QuranHelper quranHelper = QuranHelper();
+  final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
+  final QuranHelper _quranHelper = QuranHelper();
 
   @override
   String get searchFieldLabel => 'بحث عن اية او سورة...';
@@ -49,6 +45,7 @@ class QuranSearchDelegate extends SearchDelegate {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
       child: SingleChildScrollView(
+        physics: query.isEmpty ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,19 +61,19 @@ class QuranSearchDelegate extends SearchDelegate {
   Widget searchSuggestionResultOrder() {
     List<Widget> orderedResult = [
       Obx(
-        () => quranCtr.searchFilterList[0].value.isSelected.value
+        () => _quranCtr.searchFilterList[0].value.isSelected.value
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: quranCtr.searchFilterList[0].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[0].value.text, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
-                  quranCtr.searchFilterList[0].value.searchFilter == SearchFilter.surah
+                  _quranCtr.searchFilterList[0].value.searchFilter == SearchFilter.surah
                       ? surahsSuggestionResult()
-                      : quranCtr.searchFilterList[0].value.searchFilter == SearchFilter.ayah
+                      : _quranCtr.searchFilterList[0].value.searchFilter == SearchFilter.ayah
                           ? ayahsSuggestionResult()
                           : pagesSuggestionresult(),
                   Divider(),
@@ -86,18 +83,18 @@ class QuranSearchDelegate extends SearchDelegate {
             : Container(),
       ),
       Obx(
-        () => quranCtr.searchFilterList[1].value.isSelected.value
+        () => _quranCtr.searchFilterList[1].value.isSelected.value
             ? Column(
                 children: [
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: quranCtr.searchFilterList[1].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[1].value.text, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
-                  quranCtr.searchFilterList[1].value.searchFilter == SearchFilter.surah
+                  _quranCtr.searchFilterList[1].value.searchFilter == SearchFilter.surah
                       ? surahsSuggestionResult()
-                      : quranCtr.searchFilterList[1].value.searchFilter == SearchFilter.ayah
+                      : _quranCtr.searchFilterList[1].value.searchFilter == SearchFilter.ayah
                           ? ayahsSuggestionResult()
                           : pagesSuggestionresult(),
                   Divider(),
@@ -107,18 +104,18 @@ class QuranSearchDelegate extends SearchDelegate {
             : Container(),
       ),
       Obx(
-        () => quranCtr.searchFilterList[2].value.isSelected.value
+        () => _quranCtr.searchFilterList[2].value.isSelected.value
             ? Column(
                 children: [
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: quranCtr.searchFilterList[2].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[2].value.text, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
-                  quranCtr.searchFilterList[2].value.searchFilter == SearchFilter.surah
+                  _quranCtr.searchFilterList[2].value.searchFilter == SearchFilter.surah
                       ? surahsSuggestionResult()
-                      : quranCtr.searchFilterList[2].value.searchFilter == SearchFilter.ayah
+                      : _quranCtr.searchFilterList[2].value.searchFilter == SearchFilter.ayah
                           ? ayahsSuggestionResult()
                           : pagesSuggestionresult(),
                   Divider(),
@@ -134,23 +131,26 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget surahsSuggestionResult() {
     if (query == '') return Container();
-    List<Surah> surahsResult = QuranHelper().searchSurahs(query);
-    return SizedBox(
-      height: Get.size.height * .2,
+    List<Surah> surahsResult = _quranHelper.searchSurahs(query);
+    return Container(
+      constraints: BoxConstraints(maxHeight: Get.size.height * .2),
       child: Scrollbar(
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 5 / 1.5),
           shrinkWrap: true,
-          physics: AlwaysScrollableScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: surahsResult.isEmpty
+              ? NeverScrollableScrollPhysics()
+              : AlwaysScrollableScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: surahsResult.length,
+          cacheExtent: 5,
           itemBuilder: ((context, index) {
             return ListTile(
               onTap: () {
                 Get.back();
-                quranCtr.tabCtr.index = surahsResult[index].numberOfPage - 1;
+                _quranCtr.tabCtr.index = surahsResult[index].startAtPage - 1;
               },
-              title:
-                  MyTexts.quranSecondTitle(title: '${surahsResult[index].name} : ${surahsResult[index].numberOfPage}'),
+              title: MyTexts.quranSecondTitle(
+                  title: '${surahsResult[index].name.replaceAll('سُورَةُ ', '')} : ${surahsResult[index].startAtPage}'),
             );
           }),
         ),
@@ -160,20 +160,20 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget ayahsSuggestionResult() {
     if (query == '') return Container();
-    quranHelper.searchAyahs(query);
-    return SizedBox(
-      height: Get.size.height * .6,
+    _quranHelper.searchAyahs(query);
+    return Container(
+      constraints: BoxConstraints(maxHeight: Get.size.height * .6),
       child: Scrollbar(
-          child: StreamBuilder<List<SearchedAyah>>(
-              stream: quranHelper.ayahsStream,
+          child: StreamBuilder<List<Ayah>>(
+              stream: _quranHelper.ayahsStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  List<SearchedAyah> matchedAyahs = snapshot.data!;
+                  List<Ayah> matchedAyahs = snapshot.data!;
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: AlwaysScrollableScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     itemCount: matchedAyahs.length,
-                    itemBuilder: (context, index) => suggestedAyahItem(searchedAyah: matchedAyahs[index]),
+                    itemBuilder: (context, index) => suggestedAyahItem(ayah: matchedAyahs[index]),
                   );
                 } else {
                   return Center(child: CircularProgressIndicator());
@@ -182,7 +182,7 @@ class QuranSearchDelegate extends SearchDelegate {
     );
   }
 
-  Widget suggestedAyahItem({required SearchedAyah searchedAyah}) {
+  Widget suggestedAyahItem({required Ayah ayah}) {
     return Container(
       margin: EdgeInsets.only(bottom: Get.height * .02, left: Get.height * .02, right: Get.height * .02),
       // padding: EdgeInsets.symmetric(horizontal: Get.height * .02),
@@ -197,7 +197,7 @@ class QuranSearchDelegate extends SearchDelegate {
       child: MaterialButton(
         onPressed: () {
           Get.back();
-          quranCtr.tabCtr.index = searchedAyah.page - 1;
+          _quranCtr.tabCtr.index = ayah.page - 1;
         },
         color: MyColors.quranItemBackGround(),
         child: Column(
@@ -208,19 +208,16 @@ class QuranSearchDelegate extends SearchDelegate {
                 Row(
                   children: [
                     MyTexts.quran(
-                        title: '${searchedAyah.surahName}:', textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                        title: '${ayah.surahName}:', textAlign: TextAlign.right, color: MyColors.whiteBlack()),
                     SizedBox(width: Get.width * .03),
                     MyTexts.quran(
-                        title: searchedAyah.ayahNumber.toString(),
-                        textAlign: TextAlign.right,
-                        color: MyColors.whiteBlack()),
+                        title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
                   ],
                 ),
-                MyTexts.quran(
-                    title: searchedAyah.page.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                MyTexts.quran(title: ayah.page.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
               ],
             ),
-            MyTexts.quran(title: searchedAyah.ayahText, textAlign: TextAlign.right, color: MyColors.quranPrimary()),
+            MyTexts.quran(title: ayah.text, textAlign: TextAlign.right, color: MyColors.quranPrimary()),
           ],
         ),
       ),
@@ -229,19 +226,19 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget pagesSuggestionresult() {
     if (query == '') return Container();
-    List<int> pagesResult = QuranHelper().seachPages(query);
-    return SizedBox(
-      height: Get.size.height * .2,
+    List<int> pagesResult = _quranHelper.searchPages(query);
+    return Container(
+      constraints: BoxConstraints(maxHeight: Get.size.height * .2),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 5 / 1.5),
         shrinkWrap: true,
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: pagesResult.isEmpty ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
         itemCount: pagesResult.length,
         itemBuilder: ((context, index) {
           return ListTile(
             onTap: () {
               Get.back();
-              quranCtr.tabCtr.index = pagesResult[index] - 1;
+              _quranCtr.tabCtr.index = pagesResult[index] - 1;
             },
             title: MyTexts.quranSecondTitle(title: pagesResult[index].toString()),
           );

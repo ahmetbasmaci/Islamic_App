@@ -1,24 +1,23 @@
 // ignore_for_file: avoid_print
-
 import 'dart:io';
-
 import 'package:audio_manager/audio_manager.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/quran/classes/ayah.dart';
-import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
 import '../pages/quran/controllers/quran_page_ctr.dart';
 
-class AudioBacgroundService extends GetxController {
+class AudioCtr extends GetxController {
   @override
   void dispose() {
     AudioManager.instance.release();
     super.dispose();
   }
 
-  static final QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
+  static final QuranData _quranData = Get.find<QuranData>();
+  static final QuranPageCtr quranPageCtr = Get.find<QuranPageCtr>();
   bool isPlaying = false;
   Duration _duration = Duration();
   Duration _position = Duration();
@@ -50,25 +49,43 @@ class AudioBacgroundService extends GetxController {
     _position = Duration();
   }
 
+  void playMultiAudioWithoutAnimation() {}
   void playMultiAudio({
     required List<Ayah> ayahList,
     required VoidCallback onStop,
     required VoidCallback onStart,
-  }) {
+  }) async {
+    AudioManager.instance.nextMode(playMode: PlayMode.sequence);
     if (AudioManager.instance.audioList.isNotEmpty) {
       AudioManager.instance.playOrPause();
       return;
     } else {
       _position = Duration();
     }
+
+    AudioManager.instance.audioList.clear();
+    audioList.clear();
+    for (var item in ayahList) {
+      AudioInfo info = AudioInfo(
+        "file://${item.audioPath}",
+        title: "سورة ${_quranData.getSurahNameByNumber(item.surahNumber)}",
+        desc: "الاية  ${item.ayahNumber}",
+        coverUrl: _imgPath,
+      );
+      audioList.add(info);
+    }
+
+    AudioManager.instance.audioList = audioList;
+    // AudioManager.instance.play(index: quranCtr.selectedSurah.startAyahNum.value - 1);
+    await AudioManager.instance.next();
     setAudioEvents(
       onEnded: () {
         currentAyahRepeatCount++;
-        bool isEnded = AudioManager.instance.curIndex + 1 >= quranCtr.selectedSurah.endAyahNum.value;
+        bool isEnded = AudioManager.instance.curIndex + 1 >= quranPageCtr.selectedSurah.endAyahNum.value;
         if (isEnded) {
           currentOfAllRepeatCount++;
-          bool unLimitRepeet = quranCtr.selectedSurah.isUnlimitRepeatAll.value;
-          bool inRepeetLimit = quranCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
+          bool unLimitRepeet = quranPageCtr.selectedSurah.isUnlimitRepeatAll.value;
+          bool inRepeetLimit = quranPageCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
           if (inRepeetLimit || unLimitRepeet)
             AudioManager.instance.play(index: 0);
           else {
@@ -76,8 +93,8 @@ class AudioBacgroundService extends GetxController {
             stopAudio();
           }
         } else {
-          bool unLimitRepeet = quranCtr.selectedSurah.isUnlimitRepeatAyah.value;
-          bool inRepeetLimit = quranCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
+          bool unLimitRepeet = quranPageCtr.selectedSurah.isUnlimitRepeatAyah.value;
+          bool inRepeetLimit = quranPageCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
 
           if (inRepeetLimit || unLimitRepeet) {
             AudioManager.instance.play(index: AudioManager.instance.curIndex);
@@ -88,24 +105,9 @@ class AudioBacgroundService extends GetxController {
           }
         }
       },
-      onStop: onStop,
-      onStart: onStart,
+      // onStop: onStop,
+      // onStart: onStart,
     );
-
-    AudioManager.instance.audioList.clear();
-    audioList.clear();
-    for (var item in ayahList) {
-      AudioInfo info = AudioInfo(
-        "file://${item.file.path}",
-        title: "سورة ${QuranHelper().getSurahNameByNumber(item.surahNumber)}",
-        desc: "الاية  ${item.ayahNumber}",
-        coverUrl: _imgPath,
-      );
-      audioList.add(info);
-    }
-
-    AudioManager.instance.audioList = audioList;
-    AudioManager.instance.play(index: quranCtr.selectedSurah.startAyahNum.value - 1);
   }
 
   void playSingleAudio({
@@ -148,11 +150,12 @@ class AudioBacgroundService extends GetxController {
         case AudioManagerEvents.start:
           print("audio start event");
           _duration = AudioManager.instance.duration;
+          if (onStart != null) onStart();
           break;
         case AudioManagerEvents.ready:
           print("audio ready event");
-          AudioManager.instance.seekTo(_position);
-          if (onStart != null) onStart();
+          //AudioManager.instance.seekTo(_position);
+          // if (onStart != null) onStart();
           break;
         case AudioManagerEvents.seekComplete:
           print("audio seekComplete event");
@@ -174,7 +177,8 @@ class AudioBacgroundService extends GetxController {
           print("audio timeupdate event");
           if (AudioManager.instance.position != Duration()) _position = AudioManager.instance.position;
           _slider = _position.inMilliseconds / _duration.inMilliseconds;
-          print('position:---------------------------- $_position');
+          // print('position:---------------------------- $_position');
+          print(args);
           break;
         case AudioManagerEvents.error:
           print('audio error event  ${args.toString()}');

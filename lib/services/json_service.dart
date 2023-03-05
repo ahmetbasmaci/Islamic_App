@@ -4,111 +4,137 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-
-import '../pages/ayahsTest/classes/ayah_prop.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import '../pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 
 class JsonService {
-  static List allQuranData = [];
+  // static List allQuranData = [];
+  static final QuranData _quranData = Get.find<QuranData>();
   static List allHadithData = [];
   static List allZikrDataList = [];
   static List allAllahNamesList = [];
-  JsonService() {
-    loadQuranData();
-    loadHadithData();
-    loadZikrData();
-    loadAllahNamesData();
-  }
-  static loadQuranData() async {
-    if (allQuranData.isNotEmpty) return;
-    String jsonString = await rootBundle.loadString('assets/database/quran/allQuran.json');
-    allQuranData = json.decode(jsonString);
+  static Map allReaders = {};
+  // JsonService() {
+  //   loadQuranData();
+  //   loadHadithData();
+  //   loadZikrData();
+  //   loadAllahNamesData();
+  //   loadAllReaders();
+  // }
+  static Future loadData() async {
+    await loadQuranData();
+    await loadHadithData();
+    await loadZikrData();
+    await loadAllahNamesData();
+    await loadAllReaders();
   }
 
-  static loadHadithData() async {
+  static Future loadQuranData() async {
+    List data = [];
+    if (_quranData.isEmpty) {
+      String jsonString = await rootBundle.loadString('assets/database/quran/allQuran.json');
+      List data = json.decode(jsonString);
+      _quranData.setSurahs(data);
+    }
+
+    if (_quranData.questionAyahsisEmpty) {
+      String jsonString = await rootBundle.loadString('assets/database/quran/first_ayahs_from_each_page.json');
+      List juzs = json.decode(jsonString);
+      _quranData.setPagesFirstAyahs(juzs);
+    }
+  }
+
+  static Future loadHadithData() async {
     if (allHadithData.isNotEmpty) return;
     String jsonString = await rootBundle.loadString('assets/database/hadith/allHadith.json');
     allHadithData = json.decode(jsonString);
   }
 
-  static loadZikrData() async {
+  static Future loadZikrData() async {
     if (allZikrDataList.isNotEmpty) return;
     String jsonString = await rootBundle.loadString('assets/database/azkar/allazkar.json');
     Map data = json.decode(jsonString);
     allZikrDataList = data['allAzkar'];
   }
 
-  static loadAllahNamesData() async {
+  static Future loadAllahNamesData() async {
     if (allAllahNamesList.isNotEmpty) return;
     String jsonString = await rootBundle.loadString('assets/database/azkar/allahNames.json');
     dynamic data = jsonDecode(jsonString);
     allAllahNamesList = data['list'];
   }
 
-  static Future<ZikrData> getRandomQuranAyah() async {
-    if (allQuranData.isEmpty)
-      await loadQuranData();
-    else
-      await Future.delayed(Duration(milliseconds: 300));
-
-    int randomSure = Random().nextInt(114) + 1;
-
-    Map<String, dynamic> surahData = allQuranData[randomSure - 1];
-
-    List<dynamic> allSureAyahs = surahData['ayahs'];
-    int randomAyah = Random().nextInt(allSureAyahs.length);
-    ZikrData zikrData = ZikrData(
-      zikrType: ZikrType.quran,
-      title: 'اعوذ بالله من الشيطان الرجيم',
-      content: allSureAyahs[randomAyah]['text'],
-      ayahNumber: allSureAyahs[randomAyah]['numberInSurah'],
-      surahNumber: randomSure,
-    );
-    return zikrData;
+  static Future loadAllReaders() async {
+    if (allReaders.isNotEmpty) return;
+    var allReadersString = await rootBundle.loadString('assets/database/quran/readers_url.json');
+    allReaders = jsonDecode(allReadersString);
   }
 
-  static Future<ZikrData> getSpesificQuranAyah({required int ayahNumber, required int surahNumber}) async {
-    Map<String, dynamic> surahData = allQuranData[surahNumber - 1];
+  // static Future<ZikrData> getRandomQuranAyah() async {
+  //   if (_quranData.isEmpty)
+  //     await loadQuranData();
+  //   else
+  //     await Future.delayed(Duration(milliseconds: 300));
 
-    List<dynamic> allSureAyahs = surahData['ayahs'];
-    for (var i = 0; i < allSureAyahs.length; i++) {
-      if (allSureAyahs[i]['numberInSurah'] == ayahNumber + 1) {
-        return ZikrData(
-          zikrType: ZikrType.quran,
-          title: 'اعوذ بالله من الشيطان الرجيم',
-          content: allSureAyahs[i]['text'],
-          ayahNumber: allSureAyahs[i]['numberInSurah'],
-          surahNumber: surahNumber,
-          isRandomAyah: false,
-        );
-      }
-    }
-    return await getRandomQuranAyah();
-  }
+  //   int randomSure = Random().nextInt(114) + 1;
 
-  static Future<AyahProp> getRandomAyah() async {
-    final AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
+  //   Map<String, dynamic> surahData = allQuranData[randomSure - 1];
 
-    String jsonString = await rootBundle.loadString('assets/database/quran/first_ayahs_from_each_page.json');
+  //   List<dynamic> allSureAyahs = surahData['ayahs'];
+  //   int randomAyah = Random().nextInt(allSureAyahs.length);
+  //   ZikrData zikrData = ZikrData(
+  //     zikrType: ZikrType.quran,
+  //     title: 'اعوذ بالله من الشيطان الرجيم',
+  //     content: allSureAyahs[randomAyah]['text'],
+  //     ayahNumber: allSureAyahs[randomAyah]['numberInSurah'],
+  //     surahNumber: randomSure,
+  //   );
+  //   return zikrData;
+  // }
 
-    List juzs = json.decode(jsonString);
+  // static Future<ZikrData> getSpesificQuranAyah({required int ayahNumber, required int surahNumber}) async {
+  //   Map<String, dynamic> surahData = allQuranData[surahNumber - 1];
 
-    int randomJuz = ctr.juzFrom.value - 1;
-    if (ctr.juzTo.value != ctr.juzFrom.value)
-      randomJuz = Random().nextInt(ctr.juzTo.value - ctr.juzFrom.value) + ctr.juzFrom.value;
+  //   List<dynamic> allSureAyahs = surahData['ayahs'];
+  //   for (var i = 0; i < allSureAyahs.length; i++) {
+  //     if (allSureAyahs[i]['numberInSurah'] == ayahNumber + 1) {
+  //       return ZikrData(
+  //         zikrType: ZikrType.quran,
+  //         title: 'اعوذ بالله من الشيطان الرجيم',
+  //         content: allSureAyahs[i]['text'],
+  //         ayahNumber: allSureAyahs[i]['numberInSurah'],
+  //         surahNumber: surahNumber,
+  //         isRandomAyah: false,
+  //       );
+  //     }
+  //   }
+  //   return await getRandomQuranAyah();
+  // }
 
-    int randomPage = ctr.pageFrom.value - 1;
-    if (ctr.pageTo.value != ctr.pageFrom.value)
-      randomPage = Random().nextInt(ctr.pageTo.value - ctr.pageFrom.value) + ctr.pageFrom.value;
+  // static Future<Ayah> getRandomAyah() async {
+  //   final AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
 
-    AyahProp selectedAyah = AyahProp.fromJson(juzs[randomJuz][randomPage]);
-    return selectedAyah;
-  }
+  //   String jsonString = await rootBundle.loadString('assets/database/quran/first_ayahs_from_each_page.json');
 
-  static Future<Map> getQuranSurahByNumber(int surahNumber) async {
-    if (allQuranData.isEmpty) await loadQuranData();
-    return allQuranData[surahNumber - 1];
-  }
+  //   List juzs = json.decode(jsonString);
+
+  //   int randomJuz = ctr.juzFrom.value - 1;
+  //   if (ctr.juzTo.value != ctr.juzFrom.value)
+  //     randomJuz = Random().nextInt(ctr.juzTo.value - ctr.juzFrom.value) + ctr.juzFrom.value;
+
+  //   int randomPage = ctr.pageFrom.value - 1;
+  //   if (ctr.pageTo.value != ctr.pageFrom.value)
+  //     randomPage = Random().nextInt(ctr.pageTo.value - ctr.pageFrom.value) + ctr.pageFrom.value;
+
+  //   Ayah selectedAyah = Ayah.fromJson(juzs[randomJuz][randomPage]);
+  //   return selectedAyah;
+  // }
+
+  // static Future<Map> getQuranSurahByNumber(int surahNumber) async {
+  //   if (allQuranData.isEmpty) await loadQuranData();
+  //   return allQuranData[surahNumber - 1];
+  // }
 
   static Future<Map> getAllHadithData(int bookNumber) async {
     if (allHadithData.isEmpty) await loadHadithData();
@@ -179,5 +205,11 @@ class JsonService {
       );
     }
     return allahNamesList;
+  }
+
+  static Future<Map> getAllReaders() async {
+    if (allReaders.isEmpty) await loadAllReaders();
+
+    return allReaders;
   }
 }

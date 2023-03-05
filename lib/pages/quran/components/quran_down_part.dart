@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import '../../../services/audio_background_service.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/pages/quran/models/surah.dart';
+import '../../../services/audio_ctr.dart';
 import '../../../constents/colors.dart';
 import '../../../constents/icons.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/http_service.dart';
 import '../../../services/json_service.dart';
-import '../classes/ayah.dart';
+import '../models/ayah.dart';
 import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
@@ -18,9 +20,10 @@ class QuranDownPart extends StatelessWidget {
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
   final double _downPartHeight = Get.size.height * .2;
   final double _loadingRowHeight = Get.size.height * .03;
-
+  AudioCtr audioCtr = Get.find<AudioCtr>();
+  HttpCtr httpCtr = Get.find<HttpCtr>();
   int animationDurationMilliseconds = 600;
-
+  final QuranData _quranData = Get.find<QuranData>();
   late AnimationController animationCtr;
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,8 @@ class QuranDownPart extends StatelessWidget {
       child: Obx(
         () => AnimatedContainer(
           duration: Duration(milliseconds: animationDurationMilliseconds),
-          // height: Get.find<HttpServiceCtr>().isLoading.value ? _downPartHeight + _loadingRowHeight : _downPartHeight,
-          height: Get.find<HttpServiceCtr>().isLoading.value ? _downPartHeight : _downPartHeight,
+          // height: httpCtr.isLoading.value ? _downPartHeight + _loadingRowHeight : _downPartHeight,
+          height: httpCtr.isLoading.value ? _downPartHeight : _downPartHeight,
           width: Get.size.width,
           decoration: BoxDecoration(
             color: MyColors.quranBackGround(),
@@ -50,10 +53,10 @@ class QuranDownPart extends StatelessWidget {
               children: <Widget>[
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 600),
-                  opacity: Get.find<HttpServiceCtr>().isLoading.value ? 1 : 0,
+                  opacity: httpCtr.isLoading.value ? 1 : 0,
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 600),
-                    height: Get.find<HttpServiceCtr>().isLoading.value ? _loadingRowHeight : 0,
+                    height: httpCtr.isLoading.value ? _loadingRowHeight : 0,
                     width: double.maxFinite,
                     decoration: BoxDecoration(boxShadow: []),
                     child: Row(
@@ -61,7 +64,7 @@ class QuranDownPart extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: LinearProgressIndicator(
-                            value: Get.find<HttpServiceCtr>().received.value,
+                            value: httpCtr.received.value,
                             backgroundColor: Colors.grey,
                             color: MyColors.quranPrimary(),
                           ),
@@ -71,12 +74,11 @@ class QuranDownPart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             MyTexts.quranSecondTitle(
-                                title:
-                                    '${Get.find<HttpServiceCtr>().downloadingIndex}/${Get.find<HttpServiceCtr>().totalAyahsDownload}'),
+                                title: '${httpCtr.downloadingIndex}/${httpCtr.totalAyahsDownload}'),
                             IconButton(
                               onPressed: () {
-                                Get.find<HttpServiceCtr>().isStopDownload.value = true;
-                                Get.find<HttpServiceCtr>().isLoading.value = false;
+                                httpCtr.isStopDownload.value = true;
+                                httpCtr.isLoading.value = false;
                                 //  stopAudio();
                               },
                               icon: MyIcons.close(color: MyColors.quranPrimary()),
@@ -199,7 +201,7 @@ class QuranDownPart extends StatelessWidget {
           children: [
             MyTexts.quranSecondTitle(title: 'تحديد المقطع:', fontWeight: FontWeight.bold),
             MyTexts.quranSecondTitle(
-              title: QuranHelper().getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value),
+              title: _quranData.getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value),
               fontWeight: FontWeight.bold,
             ),
           ],
@@ -226,7 +228,7 @@ class QuranDownPart extends StatelessWidget {
                     children: <Widget>[
                       MyTexts.quranSecondTitle(title: 'اختر الاية:  '),
                       MyTexts.quranSecondTitle(
-                          title: QuranHelper().getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value)),
+                          title: _quranData.getSurahNameByNumber(quranCtr.selectedSurah.surahNumber.value)),
                     ],
                   ),
                   content: Container(
@@ -336,12 +338,9 @@ class QuranDownPart extends StatelessWidget {
 
   Future<List<Widget>> getSurahAyahsList(bool isStartAyah) async {
     List<Widget> list = [];
-    Map quranMap = await JsonService.getQuranSurahByNumber(quranCtr.selectedSurah.surahNumber.value);
+    List<Ayah> ayahs = _quranData.getSurahByNumber(quranCtr.selectedSurah.surahNumber.value).ayahs;
     int startFrom = isStartAyah ? 1 : quranCtr.selectedSurah.startAyahNum.value;
     for (var i = startFrom; i <= quranCtr.selectedSurah.totalAyahsNum.value; i++) {
-      String ayah = '';
-      if (quranMap.isNotEmpty) ayah = quranMap['ayahs'][i - 1]['text'].toString();
-
       list.add(
         Container(
           height: Get.height * .08,
@@ -375,7 +374,7 @@ class QuranDownPart extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   MyTexts.quran(title: '$i - ', textAlign: TextAlign.start, fontWeight: FontWeight.bold),
-                  MyTexts.quran(title: ayah, textAlign: TextAlign.start),
+                  MyTexts.quran(title: ayahs[i - 1].text, textAlign: TextAlign.start),
                 ],
               ),
             ),
@@ -390,9 +389,9 @@ class QuranDownPart extends StatelessWidget {
   void playAudio() async {
     animationCtr.forward();
     int surahNumber = quranCtr.selectedSurah.surahNumber.value;
-    List<Ayah> ayahsFileList = await HttpService.getSurah(surahNumber: surahNumber);
-    Get.find<AudioBacgroundService>().playMultiAudio(
-      ayahList: ayahsFileList,
+    List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: surahNumber);
+    audioCtr.playMultiAudio(
+      ayahList: ayahsList,
       onStop: () => reverseAnimation(),
       onStart: () => forwardAnimation(),
     );
@@ -407,12 +406,12 @@ class QuranDownPart extends StatelessWidget {
   }
 
   void pauseAudio() async {
-    Get.find<AudioBacgroundService>().pauseAudio();
+    audioCtr.pauseAudio();
     await reverseAnimation();
   }
 
   void stopAudio() async {
-    Get.find<AudioBacgroundService>().stopAudio();
+    audioCtr.stopAudio();
     await reverseAnimation();
   }
 }

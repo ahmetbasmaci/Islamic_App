@@ -272,17 +272,8 @@ class AlarmsCtr extends GetxController {
     alarmProp.isActive.value = newValue;
     getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
     if (newValue) {
-      if (alarmProp.alarmPeriod == ALarmPeriod.once)
-        NotificationService.setOnceNotification(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
-        //  NotificationService.setOnceNotification(alarmProp: alarmProp);
-        NotificationService.setRepeatNotification(alarmProp: alarmProp);
-      } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
-        NotificationService.setDailyNotification(alarmProp: alarmProp);
-      } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
-        NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)
-        NotificationService.setWhiteDaysFastNotification(alarmProp: alarmProp);
+      NotificationService.setNotification(alarmProp);
+     
       if (showSnackBar)
         _showSnackBar(
           icon: MyIcons.done(),

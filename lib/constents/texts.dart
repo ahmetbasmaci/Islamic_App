@@ -63,7 +63,7 @@ class MyTexts {
     );
   }
 
-  static Text normal({required String title, Color? color, double? size, FontWeight? fontWeight}) {
+  static Text normal({required String title, Color? color, double? size , FontWeight? fontWeight}) {
     return Text(
       title,
       // textAlign: TextAlign.center,

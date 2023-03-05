@@ -1,18 +1,35 @@
 enum ZikrType { all, azkar, allahNames, quran, hadith, sermon, none }
 
-enum ALarmPeriod { daily, weekly, monthly, once,repeat }
+enum ALarmPeriod { daily, weekly, monthly, once, repeat }
 
 enum QuestionType { ayahInJuzAndPage, surahInJuz }
 
 enum PrayerTimeType { fajr, sun, duhr, asr, maghrib, isha }
 
-enum NotificationType { azkar,kahfQuran,randomQuran,fast,moorningAzkar,nightAzkar, hadith,pray  }
+enum NotificationType { azkar, kahfQuran, randomQuran, fast, moorningAzkar, nightAzkar, hadith, pray }
 
-enum NotificationSound { random,hadith, azhan }
+enum NotificationSound { random, hadith, azhan }
 
-enum SearchFilter{surah,ayah,page}
+enum SearchFilter { surah, ayah, page }
 
-enum ZikrRepeat {high,normal,low,rare,none}
+enum ZikrRepeat { high, normal, low, rare, none }
+
+enum AyahsAnswersType { buttons, dropDownMenu }
+
+enum AyahsAnswerStates { correct, wrong, none }
+
+extension AyahsAnswerTypesExtention on AyahsAnswersType {
+  String get arabicName {
+    switch (this) {
+      case AyahsAnswersType.buttons:
+        return 'أسئلة بأزرار';
+      case AyahsAnswersType.dropDownMenu:
+        return 'أسئلة بقوائم';
+      default:
+        return 'null';
+    }
+  }
+}
 
 enum QuranReaders {
   yaserAldosary,
@@ -58,7 +75,5 @@ extension QuranReadersExtention on QuranReaders {
     }
   }
 
-  void talk() {
-
-  }
+  void talk() {}
 }

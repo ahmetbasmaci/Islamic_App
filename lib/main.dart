@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -15,6 +15,12 @@ import 'package:zad_almumin/splash_screen.dart';
 import 'classes/controllers.dart';
 import 'constents/constents.dart';
 import 'pages/favorite/favorite_page.dart';
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/services.dart';
+import 'package:audio_manager/audio_manager.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   await GetStorage.init();
@@ -40,6 +46,8 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      builder: BotToastInit(), //1. call BotToastInit
+      navigatorObservers: [BotToastNavigatorObserver()], //2. registered route observer
       supportedLocales: [const Locale('ar')],
       localeResolutionCallback: (locales, supportedLocales) {
         return supportedLocales.first;

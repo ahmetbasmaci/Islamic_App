@@ -3,6 +3,8 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import '../../components/my_circular_progress_indecator.dart';
 import '../../constents/icons.dart';
 import '../../constents/sizes.dart';
@@ -27,8 +29,9 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
     rightToLeftAnim = Tween<Offset>(begin: Offset(1500, 0), end: Offset(0, 0)).animate(animCtr);
   }
 
+  final QuranData _quranData = Get.find<QuranData>();
   AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
-  late AyahProp selectedAyah;
+  late Ayah selectedAyah;
   late AnimationController animCtr;
   late Animation rightToLeftAnim;
 
@@ -43,8 +46,8 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
           children: [
             Expanded(
               child: FutureBuilder(
-                  future: JsonService.getRandomAyah(),
-                  builder: (context, AsyncSnapshot<AyahProp> snapshot) {
+                  future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),
+                  builder: (context, AsyncSnapshot<Ayah> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting)
                       return MyCircularProgressIndecator();
                     else if (snapshot.hasError)
@@ -63,8 +66,8 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          QuestionCard(selectedAyah: selectedAyah),
-                          QuestionButtons(selectedAyah: selectedAyah),
+                          QuestionCard(ayah: selectedAyah),
+                          QuestionAnswerOptions(selectedAyah: selectedAyah),
                         ],
                       ),
                     );

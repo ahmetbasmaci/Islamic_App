@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyColors {
-  static final List<Color> primaryColors = [Color.fromARGB(255, 2, 111, 111), Color.fromARGB(255, 172, 17, 94)];
+  // static final List<Color> primaryColors = [Color.fromARGB(255, 2, 111, 111), Color.fromARGB(255, 172, 17, 94)];
   static const Color backgroundLight = Color(0xffdbe2e7);
   static const Color backgroundDark = Color(0xff222222);
   static const Color _quranPrimary = Color.fromARGB(255, 185, 121, 31);
@@ -11,8 +11,10 @@ class MyColors {
   static const Color quranBackGroundDark = Color.fromARGB(255, 25, 25, 25);
   static const Color quranItemBackGroundLight = Color.fromARGB(255, 239, 237, 227);
   static const Color quranItemBackGroundDark = Color.fromARGB(255, 0, 0, 0);
-  static Color primary_ = Color.fromARGB(255, 2, 111, 111);
-  static Color primaryDark = Color.fromARGB(255, 2, 111, 111);
+  // static const Color quranSelectedAyahBackColor = Color.fromARGB(255, 239, 237, 227);
+  // static const Color quranSelectedAyahBackColorDark = Color.fromARGB(255, 0, 0, 0);
+  static Color primary_ = Color.fromARGB(255, 38, 65, 132);
+  static Color primaryDark = Color.fromARGB(255, 126, 154, 120);
   static const Color lightModeShadow = Color.fromARGB(255, 63, 63, 63);
   static const Color second_ = Color.fromARGB(255, 223, 40, 40);
   static const Color secondDark = Color.fromARGB(255, 223, 40, 40);
@@ -41,6 +43,7 @@ class MyColors {
 
   static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;
   static Color quranItemBackGround() => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
+  //static Color quranSelectedAyahBackColor() => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
 
   static Color primary() => Get.isDarkMode ? primaryDark : primary_;
 

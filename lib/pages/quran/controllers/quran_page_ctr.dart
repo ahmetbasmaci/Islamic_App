@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import '../classes/filter_chip_prop.dart';
-import '../classes/marked_page.dart';
-import '../classes/selected_surah.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
+import '../models/filter_chip_prop.dart';
+import '../models/marked_page.dart';
+import '../models/selected_surah.dart';
 
 class QuranPageCtr extends GetxController {
   RxBool onShown = false.obs;
+  Rx<Ayah> selectedAyah = Ayah.empty().obs;
   SelectedSurah selectedSurah = SelectedSurah();
   RxList<MarkedPage> markedList = <MarkedPage>[].obs;
   RxList<Rx<FilterChipProp>> searchFilterList =
@@ -15,16 +17,15 @@ class QuranPageCtr extends GetxController {
   VoidCallback quranPageSetState = () {};
   late TabController tabCtr;
   QuranPageCtr() {
-    // deleteDb();
+    // _deleteQuranMarkedList();
     readFromStorage();
   }
+  // _deleteQuranMarkedList() {
+  //   GetStorage storage = GetStorage();
 
-  deleteDb() {
-    GetStorage storage = GetStorage();
-
-    storage.remove('markedList');
-    printError(info: 'DELETED DB');
-  }
+  //   storage.remove('markedList');
+  //   printError(info: 'DELETED DB');
+  // }
 
   void readFromStorage() {
     GetStorage storage = GetStorage();
@@ -67,7 +68,7 @@ class QuranPageCtr extends GetxController {
   void resetAll() {
     selectedSurah.repeetAllCount.value = 1;
     selectedSurah.repeetAyahCount.value = 1;
-selectedSurah.isUnlimitRepeatAll.value = false;
+    selectedSurah.isUnlimitRepeatAll.value = false;
     selectedSurah.isUnlimitRepeatAyah.value = false;
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
+import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
@@ -30,7 +31,7 @@ class FavoriteBody extends StatelessWidget {
             allFavoriteDataList = snapshot.data as List<ZikrData>;
             if (searchText != '') {
               allFavoriteDataList
-                  .removeWhere((element) => !QuranHelper().normalise(element.content).contains(searchText));
+                  .removeWhere((element) => !Constants.normalise(element.content).contains(searchText));
             }
             if (favoriteCtr.selectedZikrType.value == ZikrType.all)
               selectedZikrDataList.addAll(allFavoriteDataList);

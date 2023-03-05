@@ -14,7 +14,7 @@ class SettingsCtr extends GetxController {
     isNotificationSoundOn.value = getStorage.read('isNotificationSoundOn') ?? true;
 
     int primaryColor = getStorage.read<int>('primary_') ?? MyColors.primary_.value;
-    int primaryDarkColor = getStorage.read<int>('primaryDark') ?? MyColors.primary_.value;
+    int primaryDarkColor = getStorage.read<int>('primaryDark') ?? MyColors.primaryDark.value;
     MyColors.primary_ = Color(primaryColor);
     MyColors.primaryDark = Color(primaryDarkColor);
   }

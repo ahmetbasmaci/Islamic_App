@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     value: _settingsCtr.isNotificationSoundOn.value,
                     onChanged: (newValue) => _settingsCtr.changeNotificationSoundMode(newValue),
                   ),
-                  leading: MyIcons.audio(size: MySiezes.icon * 1.2),
+                  leading: MyIcons.animatedSound_On_Of(size: MySiezes.icon * 1.2),
                 ),
               ),
               // Divider(),

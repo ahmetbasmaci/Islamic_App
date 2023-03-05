@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:zad_almumin/services/audio_background_service.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import 'package:zad_almumin/pages/quran/classes/ayah.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/colors.dart';
@@ -24,7 +25,8 @@ class AudioPlayStopBtn extends StatefulWidget {
 
 class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProviderStateMixin {
   late AnimationController animationCtr;
-  final AudioBacgroundService audioBackgroundSrv = Get.find<AudioBacgroundService>();
+  final AudioCtr audioBackgroundSrv = Get.find<AudioCtr>();
+  final QuranData _quranData = Get.find<QuranData>();
   bool isLoading = false;
   @override
   void initState() {
@@ -65,9 +67,7 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
     });
     String dir = (await getApplicationDocumentsDirectory()).path;
     File? file = await HttpService.getAyah(
-        ayah: Ayah(file: File(''), surahNumber: widget.zikrData.surahNumber, ayahNumber: widget.zikrData.ayahNumber),
-        dir: dir,
-        showToast: true);
+        surahNumber: widget.zikrData.surahNumber, ayahNumber: widget.zikrData.ayahNumber, dir: dir, showToast: true);
     isLoading = false;
     if (mounted) setState(() {});
     if (file == null) return;
@@ -79,7 +79,7 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> with TickerProvider
   void startAudio(String filePath) {
     audioBackgroundSrv.playSingleAudio(
       path: filePath,
-      title: QuranHelper().getSurahNameByNumber(widget.zikrData.surahNumber),
+      title: _quranData.getSurahNameByNumber(widget.zikrData.surahNumber),
       desc: widget.zikrData.ayahNumber.toString(),
       onEnded: widget.onComplite,
       onStop: () => reverseAnimation(),

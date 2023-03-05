@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 import '../../../constents/colors.dart';
@@ -10,9 +11,9 @@ import '../classes/ayah_prop.dart';
 import '../controller/ayahs_questions_ctr.dart';
 
 class QuestionCard extends GetView<ThemeCtr> {
-  QuestionCard({super.key, required this.selectedAyah});
+  QuestionCard({super.key, required this.ayah});
   AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
-  late AyahProp selectedAyah;
+  Ayah ayah;
   @override
   Widget build(BuildContext context) {
     context.theme;
@@ -27,7 +28,7 @@ class QuestionCard extends GetView<ThemeCtr> {
         ],
       ),
       child: MyTexts.quran(
-        title: ctr.questionType.value == QuestionType.ayahInJuzAndPage ? selectedAyah.ayah : selectedAyah.surah,
+        title: ctr.questionType.value == QuestionType.ayahInJuzAndPage ? ayah.text : ayah.surahName,
       ),
     );
   }

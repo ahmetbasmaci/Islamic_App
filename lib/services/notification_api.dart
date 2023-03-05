@@ -128,6 +128,20 @@ class NotificationService {
   }
 
 //! -----------------------------  default alarms ----------------------------- //
+  static void setNotification(AlarmProp alarmProp) {
+    if (alarmProp.alarmPeriod == ALarmPeriod.once)
+      NotificationService.setOnceNotification(alarmProp: alarmProp);
+    else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
+      //  NotificationService.setOnceNotification(alarmProp: alarmProp);
+      NotificationService.setRepeatNotification(alarmProp: alarmProp);
+    } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
+      NotificationService.setDailyNotification(alarmProp: alarmProp);
+    } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
+      NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
+    else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)
+      NotificationService.setWhiteDaysFastNotification(alarmProp: alarmProp);
+  }
+
   static Future showNotificationNow(
       {int id = 999, required String title, required String body, required String payload}) async {
     await Future.delayed(Duration(seconds: 0));
@@ -155,7 +169,6 @@ class NotificationService {
       ),
       payload: alarmProp.notificationType.name,
     );
-    setOnceNotification(alarmProp: alarmProp);
   }
 
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
@@ -166,45 +179,34 @@ class NotificationService {
       alarmProp.notificationBody = await JsonService.getRandomZikr();
 
     //set random duration by selected repeat type
-    int duration = 0;
+    Duration duration = Duration(seconds: 0);
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Random().nextInt(40) + 40; //40-80
+      duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Random().nextInt(70) + 100; //70-170
+      duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Random().nextInt(150) + 150; //150-300
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high) duration = Random().nextInt(200) + 600; //300-500
+      duration = Duration(minutes: Random().nextInt(150) + 150); //150-300
+    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+      duration = Duration(minutes: Random().nextInt(200) + 600); //300-500
 
-    // await _flutterLocalNotificationsPlugin.zonedSchedule(
-    //   alarmProp.id,
-    //   alarmProp.notificationTitle,
-    //   alarmProp.notificationBody,
-    //   tz.TZDateTime.now(tz.local).add(duration),
-    //   _getNotificationDetails(
-    //     notificationSound: alarmProp.notificationSound,
-    //     bigTitle: alarmProp.notificationTitle,
-    //     bigBody: alarmProp.notificationBody,
-    //   ),
-    //   payload: alarmProp.notificationType.name,
-    //   androidAllowWhileIdle: true,
-    //   uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-    //   matchDateTimeComponents: DateTimeComponents.time,
-    // );
-    await _flutterLocalNotificationsPlugin.show(
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
       alarmProp.notificationTitle,
       alarmProp.notificationBody,
+      _selectTimeByDuration(duration: duration),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationBody,
       ),
       payload: alarmProp.notificationType.name,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
     );
+    // await Future.delayed(duration * 2);
 
-    await Future.delayed(Duration(minutes: duration * 2));
-
-    if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
+    // if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
   }
 
 //! -----------------------------  daily alarm ----------------------------- //
@@ -297,5 +299,10 @@ class NotificationService {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
     return scheduledDate;
+  }
+
+  static tz.TZDateTime _selectTimeByDuration({required Duration duration}) {
+    final tz.TZDateTime time = tz.TZDateTime.now(tz.local).add(duration);
+    return time;
   }
 }

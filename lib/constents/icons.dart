@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 
 class MyIcons {
   static Icon drawer = Icon(Icons.menu);
@@ -22,7 +23,6 @@ class MyIcons {
   static Icon alarm = Icon(Icons.alarm);
 
   static Icon plus({Color? color, double size = MySiezes.icon}) => Icon(Icons.add, color: color, size: size);
-  static Icon audio({Color? color, double size = MySiezes.icon}) => Icon(Icons.audiotrack_sharp, color: color, size: size);
   static Icon minus({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.minus, color: color, size: size);
   static Icon send({Color? color, double size = MySiezes.icon}) => Icon(Icons.send, color: color, size: size);
@@ -52,16 +52,31 @@ class MyIcons {
       Icon(Icons.favorite_border, color: color, size: size);
   static Icon downArrow({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.arrow_drop_down, color: color, size: size);
+  static Icon upArrow({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.keyboard_arrow_up, color: color, size: size);
   static Icon done({Color? color = Colors.green, double size = MySiezes.icon}) =>
       Icon(Icons.done, color: color, size: size);
+  static Icon optinos({Color? color = Colors.green, double size = MySiezes.icon}) =>
+      Icon(Icons.add_circle_outline_sharp, color: color, size: size);
 
   static Widget animated_Light_Dark({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primaryDark;
+    color = color ?? MyColors.primary();
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 500),
       firstChild: Icon(Icons.dark_mode, color: color, size: size),
       secondChild: Icon(Icons.light_mode, color: color, size: size),
       crossFadeState: Get.isDarkMode ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+  }
+
+  static Widget animatedSound_On_Of({Color? color, double size = MySiezes.icon}) {
+    color = color ?? MyColors.primary();
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 500),
+      firstChild: Icon(Icons.notifications, color: color, size: size),
+      secondChild: Icon(Icons.notifications_off, color: color, size: size),
+      crossFadeState:
+          Get.find<SettingsCtr>().isNotificationSoundOn.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 }

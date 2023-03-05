@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_times_info.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_circular_progress_indecator.dart';
 import '../../components/my_drawer.dart';
 import '../../constents/colors.dart';
 import '../../constents/sizes.dart';
 import '../../constents/texts.dart';
-
 import '../../moduls/enums.dart';
 
 class PrayerTimes extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:zad_almumin/services/audio_background_service.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import '../constents/icons.dart';
@@ -41,7 +41,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           if (widget.zikrData.isFavorite) {
             sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
             toastText = 'تم حذف النص من المفضلة';
-            Get.find<AudioBacgroundService>().stopAudio();
+            Get.find<AudioCtr>().stopAudio();
           } else {
             sqlDb.insertData('favorite', {
               'zikrType': widget.zikrData.zikrType.index,
@@ -84,9 +84,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
             });
           });
 
-          Fluttertoast.showToast(
-            msg: 'تم نسخ النص بنجاح',
-          );
+          Fluttertoast.showToast(msg: 'تم نسخ النص بنجاح');
 
           Clipboard.getData(Clipboard.kTextPlain).then((value) {});
         },
