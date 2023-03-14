@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-
 import '../../../constents/colors.dart';
 import '../../../constents/sizes.dart';
 import '../../../constents/texts.dart';
 import '../../../moduls/enums.dart';
-import '../classes/ayah_prop.dart';
 import '../controller/ayahs_questions_ctr.dart';
 
 class QuestionCard extends GetView<ThemeCtr> {

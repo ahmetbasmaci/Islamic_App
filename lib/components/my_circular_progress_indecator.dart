@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:zad_almumin/constents/sizes.dart';
 
 import '../constents/colors.dart';
 

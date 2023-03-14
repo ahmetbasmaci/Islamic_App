@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 import '../../../services/audio_ctr.dart';
@@ -15,8 +16,8 @@ import '../models/ayah.dart';
 import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
-class QuranDownPart extends StatelessWidget {
-  QuranDownPart({Key? key, required this.animationCtr}) : super(key: key);
+class QuranPageFooter extends StatelessWidget {
+  QuranPageFooter({Key? key}) : super(key: key);
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
   final double _downPartHeight = Get.size.height * .2;
   final double _loadingRowHeight = Get.size.height * .03;
@@ -24,108 +25,122 @@ class QuranDownPart extends StatelessWidget {
   HttpCtr httpCtr = Get.find<HttpCtr>();
   int animationDurationMilliseconds = 600;
   final QuranData _quranData = Get.find<QuranData>();
-  late AnimationController animationCtr;
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
       bottom: quranCtr.onShown.value ? 0 : -_downPartHeight,
-      child: Obx(
-        () => AnimatedContainer(
-          duration: Duration(milliseconds: animationDurationMilliseconds),
-          // height: httpCtr.isLoading.value ? _downPartHeight + _loadingRowHeight : _downPartHeight,
-          height: httpCtr.isLoading.value ? _downPartHeight : _downPartHeight,
-          width: Get.size.width,
-          decoration: BoxDecoration(
-            color: MyColors.quranBackGround(),
-            boxShadow: [
-              BoxShadow(
-                color: MyColors.whiteBlack().withOpacity(0.2),
-                offset: Offset(0, 5),
-                blurRadius: 30,
-                spreadRadius: .5,
-              )
-            ],
-          ),
-          child: Obx(
-            () => Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                AnimatedOpacity(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: animationDurationMilliseconds),
+        height: _downPartHeight,
+        width: Get.size.width,
+        decoration: BoxDecoration(
+          color: MyColors.quranBackGround(),
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.whiteBlack().withOpacity(0.2),
+              offset: Offset(0, 5),
+              blurRadius: 30,
+              spreadRadius: .5,
+            )
+          ],
+        ),
+        child: Obx(
+          () => Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 600),
+                opacity: httpCtr.isLoading.value ? 1 : 0,
+                child: AnimatedContainer(
                   duration: Duration(milliseconds: 600),
-                  opacity: httpCtr.isLoading.value ? 1 : 0,
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 600),
-                    height: httpCtr.isLoading.value ? _loadingRowHeight : 0,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(boxShadow: []),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: LinearProgressIndicator(
-                            value: httpCtr.received.value,
-                            backgroundColor: Colors.grey,
-                            color: MyColors.quranPrimary(),
-                          ),
+                  height: httpCtr.isLoading.value ? _loadingRowHeight : 0,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(boxShadow: []),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: LinearProgressIndicator(
+                          value: httpCtr.received.value,
+                          backgroundColor: Colors.grey,
+                          color: MyColors.quranPrimary(),
                         ),
-                        Expanded(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            MyTexts.quranSecondTitle(
-                                title: '${httpCtr.downloadingIndex}/${httpCtr.totalAyahsDownload}'),
-                            IconButton(
-                              onPressed: () {
-                                httpCtr.isStopDownload.value = true;
-                                httpCtr.isLoading.value = false;
-                                //  stopAudio();
-                              },
-                              icon: MyIcons.close(color: MyColors.quranPrimary()),
-                            ),
-                          ],
-                        ))
-                      ],
-                    ),
-                  ),
-                ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.selectedQuranReader.value.arabicName),
-                      MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.surahName.value),
-                      MyTexts.quranSecondTitle(title: 'الصفحة :${quranCtr.selectedSurah.pageNumber.value}'),
-                      MyTexts.quranSecondTitle(title: 'الجزء  :${quranCtr.selectedSurah.juz.value}'),
+                      ),
+                      Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          MyTexts.quranSecondTitle(title: '${httpCtr.downloadingIndex}/${httpCtr.totalAyahsDownload}'),
+                          IconButton(
+                            onPressed: () {
+                              httpCtr.isStopDownload.value = true;
+                              httpCtr.isLoading.value = false;
+                              //  stopAudio();
+                            },
+                            icon: MyIcons.close(color: MyColors.quranPrimary()),
+                          ),
+                        ],
+                      ))
                     ],
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              Obx(
+                () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    IconButton(
-                        icon: MyIcons.settings(color: MyColors.quranPrimary()),
-                        onPressed: () async => showResitationSettings()),
-                    IconButton(
-                      icon: AnimatedIcon(
-                        icon: AnimatedIcons.play_pause,
-                        progress: animationCtr,
-                        color: MyColors.quranPrimary(),
-                        size: 25,
-                      ),
-                      onPressed: () async {
-                        if (animationCtr.isDismissed)
-                          playAudio();
-                        else
-                          pauseAudio();
-                      },
-                    ),
-                    IconButton(icon: MyIcons.stop(color: MyColors.quranPrimary()), onPressed: () => stopAudio()),
+                    MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.selectedQuranReader.value.arabicName),
+                    MyTexts.quranSecondTitle(title: quranCtr.selectedSurah.surahName.value),
+                    MyTexts.quranSecondTitle(title: 'الصفحة :${quranCtr.selectedSurah.pageNumber.value}'),
+                    MyTexts.quranSecondTitle(title: 'الجزء  :${quranCtr.selectedSurah.juz.value}'),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Card(
+                    color: MyColors.quranBackGround(),
+                    child: InkWell(
+                        child: MyIcons.settings(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                        onTap: () async => showResitationSettings()),
+                  ),
+                  // IconButton(
+                  //   icon: AnimatedIcon(
+                  //     icon: AnimatedIcons.play_pause,
+                  //     progress: animationCtr,
+                  //     color: MyColors.quranPrimary(),
+                  //     size: 25,
+                  //   ),
+                  //   onPressed: () async {
+                  //     if (animationCtr.isDismissed)
+                  //       playAudio();
+                  //     else
+                  //       pauseAudio();
+                  //   },
+                  // ),
+                  Card(
+                    color: MyColors.quranBackGround(),
+                    child: InkWell(
+                      child: MyIcons.animated_Play_Pause(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                      onTap: () {
+                        if (audioCtr.isPlaying.value)
+                          pauseAudio();
+                        else
+                          playAudio();
+                      },
+                    ),
+                  ),
+                  Card(
+                      color: MyColors.quranBackGround(),
+                      child: InkWell(
+                          child: MyIcons.stop(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                          onTap: () => stopAudio())),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -387,31 +402,18 @@ class QuranDownPart extends StatelessWidget {
   }
 
   void playAudio() async {
-    animationCtr.forward();
-    int surahNumber = quranCtr.selectedSurah.surahNumber.value;
-    List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: surahNumber);
+    List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: quranCtr.selectedSurah.surahNumber.value);
     audioCtr.playMultiAudio(
       ayahList: ayahsList,
-      onStop: () => reverseAnimation(),
-      onStart: () => forwardAnimation(),
     );
   }
-
-  Future reverseAnimation() async {
-    await animationCtr.reverse();
-  }
-
-  Future forwardAnimation() async {
-    await animationCtr.forward();
-  }
-
   void pauseAudio() async {
     audioCtr.pauseAudio();
-    await reverseAnimation();
+    //await reverseAnimation();
   }
 
   void stopAudio() async {
     audioCtr.stopAudio();
-    await reverseAnimation();
+    //await reverseAnimation();
   }
 }

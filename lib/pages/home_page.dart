@@ -7,7 +7,6 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../constents/icons.dart';
 import 'quran/quran_page.dart';

@@ -17,11 +17,11 @@ class AudioCtr extends GetxController {
   }
 
   static final QuranData _quranData = Get.find<QuranData>();
-  static final QuranPageCtr quranPageCtr = Get.find<QuranPageCtr>();
-  bool isPlaying = false;
+  static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
+  RxBool isPlaying = false.obs;
   Duration _duration = Duration();
   Duration _position = Duration();
-  double _slider = 0;
+  RxDouble slider = (0.0).obs;
   double _sliderVolume = 0;
   String _error = "";
   num curIndex = 0;
@@ -40,21 +40,21 @@ class AudioCtr extends GetxController {
   }
 
   void pauseAudio() {
-    if (isPlaying) AudioManager.instance.playOrPause();
+    if (isPlaying.value) AudioManager.instance.playOrPause();
+    isPlaying.value = !isPlaying.value;
   }
 
   void stopAudio() {
+    isPlaying.value = false;
     AudioManager.instance.stop();
     AudioManager.instance.audioList.clear();
-    _position = Duration();
   }
 
-  void playMultiAudioWithoutAnimation() {}
   void playMultiAudio({
     required List<Ayah> ayahList,
-    required VoidCallback onStop,
-    required VoidCallback onStart,
   }) async {
+    isPlaying.value = true;
+
     AudioManager.instance.nextMode(playMode: PlayMode.sequence);
     if (AudioManager.instance.audioList.isNotEmpty) {
       AudioManager.instance.playOrPause();
@@ -76,16 +76,15 @@ class AudioCtr extends GetxController {
     }
 
     AudioManager.instance.audioList = audioList;
-    // AudioManager.instance.play(index: quranCtr.selectedSurah.startAyahNum.value - 1);
-    await AudioManager.instance.next();
+    AudioManager.instance.play(index: _quranCtr.selectedSurah.startAyahNum.value - 1);
     setAudioEvents(
       onEnded: () {
         currentAyahRepeatCount++;
-        bool isEnded = AudioManager.instance.curIndex + 1 >= quranPageCtr.selectedSurah.endAyahNum.value;
+        bool isEnded = AudioManager.instance.curIndex + 1 >= _quranCtr.selectedSurah.endAyahNum.value;
         if (isEnded) {
           currentOfAllRepeatCount++;
-          bool unLimitRepeet = quranPageCtr.selectedSurah.isUnlimitRepeatAll.value;
-          bool inRepeetLimit = quranPageCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
+          bool unLimitRepeet = _quranCtr.selectedSurah.isUnlimitRepeatAll.value;
+          bool inRepeetLimit = _quranCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
           if (inRepeetLimit || unLimitRepeet)
             AudioManager.instance.play(index: 0);
           else {
@@ -93,8 +92,8 @@ class AudioCtr extends GetxController {
             stopAudio();
           }
         } else {
-          bool unLimitRepeet = quranPageCtr.selectedSurah.isUnlimitRepeatAyah.value;
-          bool inRepeetLimit = quranPageCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
+          bool unLimitRepeet = _quranCtr.selectedSurah.isUnlimitRepeatAyah.value;
+          bool inRepeetLimit = _quranCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
 
           if (inRepeetLimit || unLimitRepeet) {
             AudioManager.instance.play(index: AudioManager.instance.curIndex);
@@ -105,8 +104,6 @@ class AudioCtr extends GetxController {
           }
         }
       },
-      // onStop: onStop,
-      // onStart: onStart,
     );
   }
 
@@ -115,12 +112,12 @@ class AudioCtr extends GetxController {
     required String title,
     required String desc,
     required VoidCallback onEnded,
-    required VoidCallback onStop,
-    required VoidCallback onStart,
   }) async {
+    isPlaying.value = true;
+
     AudioManager.instance.nextMode(playMode: PlayMode.single);
 
-    setAudioEvents(onEnded: onEnded, onStop: onStop, onStart: onStart);
+    setAudioEvents(onEnded: onEnded);
 
     AudioInfo info = AudioInfo("file://$path", title: "سورة $title", desc: "الاية  $desc", coverUrl: _imgPath);
     if (AudioManager.instance.info != null) {
@@ -144,40 +141,36 @@ class AudioCtr extends GetxController {
     }
   }
 
-  void setAudioEvents({VoidCallback? onEnded, VoidCallback? onStop, VoidCallback? onStart}) {
+  void setAudioEvents({VoidCallback? onEnded}) {
     AudioManager.instance.onEvents((events, args) {
       switch (events) {
         case AudioManagerEvents.start:
           print("audio start event");
-          _duration = AudioManager.instance.duration;
-          if (onStart != null) onStart();
           break;
         case AudioManagerEvents.ready:
           print("audio ready event");
+          _duration = AudioManager.instance.duration;
           //AudioManager.instance.seekTo(_position);
           // if (onStart != null) onStart();
           break;
         case AudioManagerEvents.seekComplete:
           print("audio seekComplete event");
-          _slider = _position.inMilliseconds / _duration.inMilliseconds;
+          slider.value =
+              AudioManager.instance.duration != Duration() ? _position.inMilliseconds / _duration.inMilliseconds : 0;
           break;
         case AudioManagerEvents.buffering:
           print("audio buffering event");
           break;
         case AudioManagerEvents.playstatus:
-          isPlaying = AudioManager.instance.isPlaying;
-          print("audio playstatus event **************************$isPlaying");
-          if (isPlaying) {
-            if (onStart != null) onStart();
-          } else {
-            if (onStop != null) onStop();
-          }
+          isPlaying.value = AudioManager.instance.isPlaying;
+          //print("audio playstatus event **************************$isPlaying");
           break;
         case AudioManagerEvents.timeupdate:
           print("audio timeupdate event");
           if (AudioManager.instance.position != Duration()) _position = AudioManager.instance.position;
-          _slider = _position.inMilliseconds / _duration.inMilliseconds;
-          // print('position:---------------------------- $_position');
+          slider.value =
+              AudioManager.instance.duration != Duration() ? _position.inMilliseconds / _duration.inMilliseconds : 0;
+          //print('slider:---------------------------- ${slider.value}');
           print(args);
           break;
         case AudioManagerEvents.error:
@@ -187,6 +180,8 @@ class AudioCtr extends GetxController {
         case AudioManagerEvents.ended:
           print('audio ended event');
           _position = Duration();
+          slider.value = 0;
+          _duration = Duration();
           if (onEnded != null) onEnded.call();
           break;
         case AudioManagerEvents.volumeChange:

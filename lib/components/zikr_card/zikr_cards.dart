@@ -1,3 +1,4 @@
+import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/audio_play_stop_btn.dart';
@@ -8,6 +9,7 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/colors.dart';
@@ -22,6 +24,7 @@ class ZikrCard {
   ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
   final QuranData _quranData = Get.find<QuranData>();
   final QuranHelper _quranHelper = QuranHelper();
+  final AudioCtr _audioCtr = Get.find<AudioCtr>();
   Widget outContainer(
       {required Widget child,
       String? outsideTitle,
@@ -90,23 +93,28 @@ class ZikrCard {
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
             return ZikrCardInnerContainer(
               zikrData: quranZikrData!,
-              firstChild: onDeleteFromFavorite == null
-                  ? IconButton(
+              rigthTopChild: onDeleteFromFavorite == null
+                  ? AnimatedButton(
+                      color: MyColors.zikrCard(),
+                      width: MySiezes.icon * 1.3,
+                      height: MySiezes.icon * 1.3,
+                      enabled: !isLoading,
                       onPressed: () async {
                         quranZikrData = null;
-
                         myFuture =
                             Future.delayed(Duration(seconds: 0)).then((value) => _quranHelper.getRandomZikrDataAyah());
                         autoPlaySound = false;
+                        _audioCtr.stopAudio();
                         try {
                           setState(() {});
                         } catch (e) {
                           print("ERROR IN ZIKR CARD: $e");
                         }
                       },
-                      icon: MyIcons.refresh)
+                      child: MyIcons.refresh,
+                    )
                   : null,
-              secondChild: AudioPlayStopBtn(
+              leftTopChild: AudioPlayStopBtn(
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
@@ -145,12 +153,16 @@ class ZikrCard {
 
               return ZikrCardInnerContainer(
                 zikrData: hadithZikrData!,
-                firstChild: onDeleteFromFavorite == null
+                rigthTopChild: onDeleteFromFavorite == null
                     ? IconButton(
                         onPressed: () {
                           hadithZikrData = null;
                           myFuture = JsonService.getRandomHadith();
-                          setState(() {});
+                          try {
+                            setState(() {});
+                          } catch (e) {
+                            print("ERROR IN ZIKR CARD: $e");
+                          }
                         },
                         icon: MyIcons.refresh)
                     : null,
@@ -176,12 +188,16 @@ class ZikrCard {
             ? () async {
                 azkarZikrData.count--;
                 //await Future.delayed(Duration(milliseconds: 300));
-                setState(() {});
+                try {
+                  setState(() {});
+                } catch (e) {
+                  print("ERROR IN ZIKR CARD: $e");
+                }
               }
             : null,
         child: ZikrCardInnerContainer(
           zikrData: azkarZikrData,
-          firstChild: AnimatedOpacity(
+          rigthTopChild: AnimatedOpacity(
             duration: Duration(milliseconds: 5000),
             opacity: 1,
             child: AnimatedContainer(

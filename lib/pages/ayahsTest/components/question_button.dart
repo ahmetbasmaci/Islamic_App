@@ -8,7 +8,6 @@ import '../../../constents/texts.dart';
 import '../../../constents/colors.dart';
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import '../../../moduls/enums.dart';
-import '../classes/ayah_prop.dart';
 import '../classes/option_btn_props.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/theme_service.dart';
 import '../../../constents/colors.dart';

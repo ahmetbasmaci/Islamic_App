@@ -15,12 +15,6 @@ import 'package:zad_almumin/splash_screen.dart';
 import 'classes/controllers.dart';
 import 'constents/constents.dart';
 import 'pages/favorite/favorite_page.dart';
-import 'dart:async';
-import 'dart:io';
-
-import 'package:flutter/services.dart';
-import 'package:audio_manager/audio_manager.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() async {
   await GetStorage.init();

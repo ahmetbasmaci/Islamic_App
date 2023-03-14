@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../moduls/enums.dart';
 
-class SelectedSurah {
+class SelectedPageInfo {
   RxInt juz = 0.obs;
   RxInt pageNumber = 0.obs;
   RxInt surahNumber = 0.obs;

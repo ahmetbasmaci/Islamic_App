@@ -9,8 +9,9 @@ import '../models/selected_surah.dart';
 
 class QuranPageCtr extends GetxController {
   RxBool onShown = false.obs;
+  RxBool showAsImages = false.obs;
   Rx<Ayah> selectedAyah = Ayah.empty().obs;
-  SelectedSurah selectedSurah = SelectedSurah();
+  SelectedPageInfo selectedSurah = SelectedPageInfo();
   RxList<MarkedPage> markedList = <MarkedPage>[].obs;
   RxList<Rx<FilterChipProp>> searchFilterList =
       [FilterChipProp(text: '', isSelected: false.obs, searchFilter: SearchFilter.ayah).obs].obs;

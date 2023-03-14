@@ -13,10 +13,10 @@ import '../../settings/settings_ctr.dart';
 import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
-class QuranUpPart extends GetView<ThemeCtr> {
-  QuranUpPart({Key? key, required this.quranPageSetState}) : super(key: key);
+class QuranPageUp extends GetView<ThemeCtr> {
+  QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
-  final double _upPartHeight = Get.size.height * .07;
+  final double _upPartHeight = Get.size.height * .1;
   QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
 
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
@@ -130,7 +130,7 @@ class QuranUpPart extends GetView<ThemeCtr> {
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
-                        border: OutlineInputBorder(),
+                        border: UnderlineInputBorder(),
                         counterText: "",
                       ),
                     ),

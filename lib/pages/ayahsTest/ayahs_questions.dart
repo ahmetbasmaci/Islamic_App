@@ -8,8 +8,6 @@ import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import '../../components/my_circular_progress_indecator.dart';
 import '../../constents/icons.dart';
 import '../../constents/sizes.dart';
-import '../../services/json_service.dart';
-import 'classes/ayah_prop.dart';
 import 'components/question_button.dart';
 import 'components/question_card.dart';
 import 'controller/ayahs_questions_ctr.dart';

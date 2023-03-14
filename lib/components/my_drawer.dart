@@ -119,7 +119,7 @@ class MyDrawer extends StatelessWidget {
         Get.back();
 
         await Get.to(
-          () => page,
+          page,
           transition: Transition.rightToLeft,
           duration: Duration(milliseconds: 500),
           curve: Curves.decelerate,

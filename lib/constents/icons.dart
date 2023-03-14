@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/constents/colors.dart';
 import 'package:zad_almumin/constents/sizes.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
 
 class MyIcons {
   static Icon drawer = Icon(Icons.menu);
@@ -77,6 +78,18 @@ class MyIcons {
       secondChild: Icon(Icons.notifications_off, color: color, size: size),
       crossFadeState:
           Get.find<SettingsCtr>().isNotificationSoundOn.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+  }
+
+  static Widget animated_Play_Pause({Color? color, double size = MySiezes.icon}) {
+    color = color ?? MyColors.primary();
+    return Obx(
+      () => AnimatedCrossFade(
+        duration: Duration(milliseconds: 200),
+        firstChild: Icon(Icons.play_arrow, color: color, size: size),
+        secondChild: Icon(Icons.pause, color: color, size: size),
+        crossFadeState: Get.find<AudioCtr>().isPlaying.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      ),
     );
   }
 }
