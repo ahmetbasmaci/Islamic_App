@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/texts.dart';
-import '../constents/icons.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
+import 'package:zad_almumin/services/theme_service.dart';
+import '../constents/my_icons.dart';
 import '../pages/settings/settings_page.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.title, this.leading, this.actions, this.bottom}) : super(key: key);
   final String title;
 
@@ -18,6 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return AppBar(
         elevation: 0,
         title: MyTexts.outsideHeader(title: title),

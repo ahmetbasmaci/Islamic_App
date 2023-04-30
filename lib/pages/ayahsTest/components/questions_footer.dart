@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/theme_service.dart';
-import '../../../constents/colors.dart';
-import '../../../constents/icons.dart';
-import '../../../constents/sizes.dart';
-import '../../../constents/texts.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_icons.dart';
+import '../../../constents/my_sizes.dart';
+import '../../../constents/my_texts.dart';
 import '../controller/ayahs_questions_ctr.dart';
 
 class QuestionsFooter extends GetView<ThemeCtr> {
@@ -24,7 +24,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             questionInfoAndNextButton(),
-            boodumSheetHandleButton(),
+            boottomSheetHandleButton(),
           ],
         ),
         SizedBox(height: Get.height * 0.02),
@@ -33,7 +33,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
     );
   }
 
-  Widget boodumSheetHandleButton() {
+  Widget boottomSheetHandleButton() {
     bool isBottomSheetActive = false;
     return StatefulBuilder(builder: ((context, iconSetState) {
       return Container(
@@ -157,7 +157,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           correctAndWrongAnswersLabels(isCorrect: true),
-          Expanded(child: Container()),
+          //Expanded(child: Container()),
           correctAndWrongAnswersLabels(isCorrect: false),
         ],
       ),

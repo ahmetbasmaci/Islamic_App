@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import '../../components/my_circular_progress_indecator.dart';
-import '../../constents/icons.dart';
-import '../../constents/sizes.dart';
+import '../../constents/my_icons.dart';
+import '../../constents/my_sizes.dart';
 import 'components/question_button.dart';
 import 'components/question_card.dart';
 import 'controller/ayahs_questions_ctr.dart';
@@ -42,6 +43,7 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
         margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
         child: Column(
           children: [
+            MyTexts.outsideHeader(title: "اختبر حفظك للقران واختر رقم الصفحة والجزء للاية"),
             Expanded(
               child: FutureBuilder(
                   future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),

@@ -22,8 +22,7 @@ class AudioCtr extends GetxController {
   Duration _duration = Duration();
   Duration _position = Duration();
   RxDouble slider = (0.0).obs;
-  double _sliderVolume = 0;
-  String _error = "";
+  double sliderVolume = 0;
   num curIndex = 0;
   final String _imgPath = "assets/images/app_logo.png";
   List<AudioInfo> audioList = [];
@@ -53,6 +52,7 @@ class AudioCtr extends GetxController {
   void playMultiAudio({
     required List<Ayah> ayahList,
   }) async {
+    if (ayahList.isEmpty) return;
     isPlaying.value = true;
 
     AudioManager.instance.nextMode(playMode: PlayMode.sequence);
@@ -175,7 +175,6 @@ class AudioCtr extends GetxController {
           break;
         case AudioManagerEvents.error:
           print('audio error event  ${args.toString()}');
-          _error = args;
           break;
         case AudioManagerEvents.ended:
           print('audio ended event');
@@ -186,7 +185,7 @@ class AudioCtr extends GetxController {
           break;
         case AudioManagerEvents.volumeChange:
           print('audio volumeChange event');
-          _sliderVolume = AudioManager.instance.volume;
+          sliderVolume = AudioManager.instance.volume;
           break;
         default:
           break;

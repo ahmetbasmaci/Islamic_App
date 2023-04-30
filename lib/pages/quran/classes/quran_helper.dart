@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../../../constents/colors.dart';
+import '../../../constents/my_colors.dart';
 import '../models/quran_data.dart';
 import '../models/marked_page.dart';
 import '../controllers/quran_page_ctr.dart';
@@ -187,15 +187,16 @@ class QuranHelper {
   }
 
   void changeOnShownState(bool value) {
-    if (value)
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-    else {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-      FocusManager.instance.primaryFocus?.unfocus();
-    }
+    // if (value)
+    //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    // else {
+    //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    //   FocusManager.instance.primaryFocus?.unfocus();
+    // }
 
     quranCtr.onShown.value = value;
     quranCtr.quranPageSetState();
+    Constants.focusScopeNode.unfocus();
   }
 
   void changeCurrentPageToWhereStartRead() async {
@@ -324,7 +325,7 @@ class QuranHelper {
         Surah surah = _quranData.getSurahByNumber(i + 1);
         List<Ayah> ayahs = surah.ayahs;
         for (var ayah in ayahs) {
-          if (Constants.normalise(ayah.text.toString()).contains(query)) {
+          if (HelperMethods.normalise(ayah.text.toString()).contains(query)) {
             matchedAyahs.add(ayah);
             _streamController.add(matchedAyahs);
           }

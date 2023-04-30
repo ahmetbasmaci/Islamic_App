@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constents/colors.dart';
-import '../../constents/sizes.dart';
+import '../../constents/my_colors.dart';
+import '../../constents/my_sizes.dart';
 import '../../services/theme_service.dart';
 
 class AlarmCard extends GetView<ThemeCtr> {

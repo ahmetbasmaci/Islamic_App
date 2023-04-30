@@ -7,7 +7,7 @@ class AnimationService {
       position: index,
       delay: Duration(milliseconds: 100),
       child: SlideAnimation(
-        duration: Duration(milliseconds: 2500),
+        duration: Duration(milliseconds: 1500),
         curve: Curves.fastLinearToSlowEaseIn,
         verticalOffset: -250,
         child: ScaleAnimation(
@@ -24,12 +24,12 @@ class AnimationService {
       position: index,
       delay: Duration(milliseconds: 100),
       child: SlideAnimation(
-        duration: Duration(milliseconds: 2500),
+        duration: Duration(milliseconds: 1500),
         curve: Curves.fastLinearToSlowEaseIn,
         horizontalOffset: 30,
         verticalOffset: 300.0,
         child: FlipAnimation(
-          duration: Duration(milliseconds: 3000),
+          duration: Duration(milliseconds: 1500),
           curve: Curves.fastLinearToSlowEaseIn,
           flipAxis: FlipAxis.y,
           child: child,

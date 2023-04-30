@@ -1,8 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
 import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
@@ -61,7 +63,7 @@ class MyApp extends StatelessWidget {
         AyahsQuestions.id: (context) => AyahsQuestions(),
       },
       // home: DebouncedSearchBar(),
-      initialRoute: Constants.isInDebugMode ? HomePage.id : SplashPage.id,
+      initialRoute: HelperMethods.isInDebugMode ? HomePage.id : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
       darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
 import '../../../moduls/enums.dart';

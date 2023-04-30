@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_switch.dart';
 import '../../constents/constents.dart';
-import '../../constents/icons.dart';
-import '../../constents/texts.dart';
+import '../../constents/my_icons.dart';
+import '../../constents/my_texts.dart';
 import '../quran/components/menu_options_item.dart';
 import 'classes/alarm_prop.dart';
 
@@ -43,26 +43,26 @@ class AlarmListTile extends GetView<ThemeCtr> {
       MenuOptionsItem(
         title: 'عالي  20 قأكثر يوميا',
         icon: Container(),
-        onTap: () => alarmProp.zikrRepeat =ZikrRepeat.high,
-        isSelected:alarmProp.zikrRepeat ==ZikrRepeat.high,
+        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.high,
+        isSelected: alarmProp.zikrRepeat == ZikrRepeat.high,
       ),
       MenuOptionsItem(
         title: 'متوسط  11-19  يوميا',
         icon: Container(),
-        onTap: () => alarmProp.zikrRepeat =ZikrRepeat.normal,
-        isSelected:alarmProp.zikrRepeat ==ZikrRepeat.normal,
+        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.normal,
+        isSelected: alarmProp.zikrRepeat == ZikrRepeat.normal,
       ),
       MenuOptionsItem(
         title: 'منخفض  5-10  يوميا',
         icon: Container(),
-        onTap: () => alarmProp.zikrRepeat =ZikrRepeat.low,
-        isSelected:alarmProp.zikrRepeat ==ZikrRepeat.low,
+        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.low,
+        isSelected: alarmProp.zikrRepeat == ZikrRepeat.low,
       ),
       MenuOptionsItem(
         title: 'نادر  1-5  يوميا',
         icon: Container(),
-        onTap: () => alarmProp.zikrRepeat =ZikrRepeat.rare,
-        isSelected:alarmProp.zikrRepeat ==ZikrRepeat.rare,
+        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.rare,
+        isSelected: alarmProp.zikrRepeat == ZikrRepeat.rare,
       ),
     ];
 
@@ -97,7 +97,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
                           return [
                             ...menuItemList.map((e) => PopupMenuItem(
                                   value: e,
-                                  textStyle: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 10),
+                                  textStyle: MyTexts.quran(title: '').style,
                                   child: InkWell(
                                     onTap: () {
                                       for (var element in menuItemList) element.isSelected = false;
@@ -129,11 +129,11 @@ class AlarmListTile extends GetView<ThemeCtr> {
                         onPressed: canChange
                             ? () async {
                                 TimeOfDay? newTime = await showTimePicker(
-                                  context: context,
-                                  initialTime:
-                                      TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
-                                  builder: (BuildContext context, Widget? child) => child!,
-                                );
+                                    context: context,
+                                    initialTime:
+                                        TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
+                                    builder: (BuildContext context, Widget? child) => child!,
+        );
                                 if (newTime == null) return;
                                 alarmProp.time.value = Time(newTime.hour, newTime.minute);
                                 getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));

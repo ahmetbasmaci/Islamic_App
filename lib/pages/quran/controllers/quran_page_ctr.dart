@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +15,7 @@ class QuranPageCtr extends GetxController {
   Rx<Ayah> selectedAyah = Ayah.empty().obs;
   SelectedPageInfo selectedSurah = SelectedPageInfo();
   RxList<MarkedPage> markedList = <MarkedPage>[].obs;
+  RxDouble quranFontSize = (Get.width * Get.height * 0.000067).obs;
   RxList<Rx<FilterChipProp>> searchFilterList =
       [FilterChipProp(text: '', isSelected: false.obs, searchFilter: SearchFilter.ayah).obs].obs;
   VoidCallback quranPageSetState = () {};
@@ -28,8 +31,17 @@ class QuranPageCtr extends GetxController {
   //   printError(info: 'DELETED DB');
   // }
 
+  void changeShowQuranStyle() {
+    showAsImages.value = !showAsImages.value;
+    GetStorage storage = GetStorage();
+    storage.write('showAsImages', showAsImages.value);
+  }
+
   void readFromStorage() {
     GetStorage storage = GetStorage();
+
+    showAsImages.value = storage.read<bool>('showAsImages') ?? showAsImages.value;
+    quranFontSize.value = storage.read<double>('quranFontSize') ?? quranFontSize.value;
 
     //get selected reader
     List<dynamic> markedListMap = storage.read('markedList') ?? [];
@@ -54,6 +66,12 @@ class QuranPageCtr extends GetxController {
     for (var element in markedList) listMap.add(element.toJson());
 
     storage.write('markedList', listMap);
+  }
+
+  void updateQuranFontSize(double newValue) {
+    GetStorage storage = GetStorage();
+    quranFontSize.value = newValue;
+    storage.write('quranFontSize', quranFontSize.value);
   }
 
   void updateSearchFilterList() {

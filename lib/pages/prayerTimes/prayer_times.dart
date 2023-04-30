@@ -7,9 +7,9 @@ import 'package:zad_almumin/pages/prayerTimes/pray_times_info.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_circular_progress_indecator.dart';
 import '../../components/my_drawer.dart';
-import '../../constents/colors.dart';
-import '../../constents/sizes.dart';
-import '../../constents/texts.dart';
+import '../../constents/my_colors.dart';
+import '../../constents/my_sizes.dart';
+import '../../constents/my_texts.dart';
 import '../../moduls/enums.dart';
 
 class PrayerTimes extends StatefulWidget {

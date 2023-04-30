@@ -1,12 +1,14 @@
+import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/components/menu_options_item.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
-import '../../../constents/colors.dart';
-import '../../../constents/icons.dart';
-import '../../../constents/texts.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_icons.dart';
+import '../../../constents/my_texts.dart';
 import '../../../services/theme_service.dart';
 import '../../home_page.dart';
 import '../../settings/settings_ctr.dart';
@@ -16,9 +18,9 @@ import '../controllers/quran_page_ctr.dart';
 class QuranPageUp extends GetView<ThemeCtr> {
   QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
-  final double _upPartHeight = Get.size.height * .1;
-  QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
-
+  final double _upPartHeight = Constants.quranUpPartHeight + 30; //30 is the height of the menu options
+  final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
+  final QuranHelper quranHelper = QuranHelper();
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   var goToPageTextCtr = TextEditingController();
   @override
@@ -33,21 +35,24 @@ class QuranPageUp extends GetView<ThemeCtr> {
       MenuOptionsItem(
         title: 'اضافة علامة',
         icon: MyIcons.mark(color: MyColors.quranPrimary()),
-        onTap: () => QuranHelper().showMarkDialog(),
+        onTap: () => quranHelper.showMarkDialog(),
       ),
       MenuOptionsItem(
         title: 'تغير الثيم',
         icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary()),
-        onTap: () {
+        onTap: () async {
           bool isDark = Get.isDarkMode;
           _settingsCtr.changeDarkModeState(!isDark);
-          quranPageSetState.call();
+          quranHelper.changeOnShownState(false);
+          Future.delayed(Duration(milliseconds: 200), () {
+            quranPageSetState.call();
+          });
         },
       ),
     ];
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
-      top: quranCtr.onShown.value ? 0 : -_upPartHeight,
+      top: _quranCtr.onShown.value ? 0 : -_upPartHeight,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         height: _upPartHeight,
@@ -64,12 +69,16 @@ class QuranPageUp extends GetView<ThemeCtr> {
           children: [
             Expanded(
               child: Align(
-                alignment: Alignment.bottomRight,
+                alignment: Alignment.bottomCenter,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
+                    AnimatedButton(
+                      color: MyColors.quranBackGround(),
+                      width: MySiezes.btnIcon,
+                      height: MySiezes.btnIcon,
                       onPressed: () => Get.offAll(() => HomePage()),
-                      icon: MyIcons.home(color: MyColors.quranPrimary()),
+                      child: MyIcons.home(color: MyColors.quranPrimary()),
                     ),
                     PopupMenuButton(
                         color: MyColors.quranBackGround(),
@@ -78,7 +87,6 @@ class QuranPageUp extends GetView<ThemeCtr> {
                           return [
                             ...menuItemList.map((e) => PopupMenuItem(
                                   value: e,
-                                  textStyle: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 10),
                                   child: InkWell(
                                     onTap: () {
                                       Get.back();
@@ -89,13 +97,20 @@ class QuranPageUp extends GetView<ThemeCtr> {
                                       children: [
                                         e.icon,
                                         SizedBox(width: Get.width * .04),
-                                        MyTexts.quran(title: e.title, color: MyColors.quranPrimary()),
+                                        MyTexts.quran(title: e.title, color: MyColors.quranPrimary(), size: 16),
                                       ],
                                     ),
                                   ),
                                 )),
                           ];
                         }),
+                    AnimatedButton(
+                      color: MyColors.quranBackGround(),
+                      width: MySiezes.btnIcon,
+                      height: MySiezes.btnIcon,
+                      onPressed: () => _quranCtr.changeShowQuranStyle(),
+                      child: MyIcons.swichQuranImages(color: MyColors.quranPrimary()),
+                    ),
                   ],
                 ),
               ),
@@ -108,30 +123,33 @@ class QuranPageUp extends GetView<ThemeCtr> {
                   MyTexts.quranSecondTitle(title: 'الصفحة:   '),
                   SizedBox(
                     width: 40,
-                    child: TextField(
-                      controller: goToPageTextCtr,
-                      keyboardType: TextInputType.number,
-                      maxLength: 3,
-                      cursorHeight: 20,
-                      showCursor: false,
-                      onSubmitted: (val) {
-                        goToPageTextCtr.clear();
-                        QuranHelper().changeOnShownState(false);
-                      },
-                      onTap: () => goToPageTextCtr.clear(),
-                      onChanged: (query) {
-                        if (query == '') return;
-                        if (int.parse(query) > 604 || int.parse(query) < 1) {
-                          Fluttertoast.showToast(msg: 'صفحة غير موجودة');
-                          return;
-                        }
-                        quranCtr.tabCtr.index = int.parse(goToPageTextCtr.text) - 1;
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
-                        border: UnderlineInputBorder(),
-                        counterText: "",
+                    child: Focus(
+                      focusNode: Constants.focusScopeNode,
+                      child: TextField(
+                        controller: goToPageTextCtr,
+                        keyboardType: TextInputType.number,
+                        maxLength: 3,
+                        cursorHeight: 20,
+                        showCursor: false,
+                        onSubmitted: (val) {
+                          goToPageTextCtr.clear();
+                          quranHelper.changeOnShownState(false);
+                        },
+                        onTap: () => goToPageTextCtr.clear(),
+                        onChanged: (query) {
+                          if (query == '') return;
+                          if (int.parse(query) > 604 || int.parse(query) < 1) {
+                            Fluttertoast.showToast(msg: 'صفحة غير موجودة');
+                            return;
+                          }
+                          _quranCtr.tabCtr.index = int.parse(goToPageTextCtr.text) - 1;
+                        },
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
+                          border: UnderlineInputBorder(),
+                          counterText: "",
+                        ),
                       ),
                     ),
                   ),

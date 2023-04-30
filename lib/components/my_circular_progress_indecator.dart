@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../constents/colors.dart';
+import '../constents/my_colors.dart';
 
 class MyCircularProgressIndecator extends StatelessWidget {
   MyCircularProgressIndecator({Key? key, this.color}) : super(key: key);

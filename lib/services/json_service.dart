@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
-import 'package:zad_almumin/pages/quran/models/ayah.dart';
-import '../pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 
 class JsonService {
   // static List allQuranData = [];
@@ -15,13 +13,7 @@ class JsonService {
   static List allZikrDataList = [];
   static List allAllahNamesList = [];
   static Map allReaders = {};
-  // JsonService() {
-  //   loadQuranData();
-  //   loadHadithData();
-  //   loadZikrData();
-  //   loadAllahNamesData();
-  //   loadAllReaders();
-  // }
+
   static Future loadData() async {
     await loadQuranData();
     await loadHadithData();
@@ -31,7 +23,6 @@ class JsonService {
   }
 
   static Future loadQuranData() async {
-    List data = [];
     if (_quranData.isEmpty) {
       String jsonString = await rootBundle.loadString('assets/database/quran/allQuran.json');
       List data = json.decode(jsonString);

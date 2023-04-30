@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
-import '../../../constents/colors.dart';
-import '../../../constents/texts.dart';
+import 'package:zad_almumin/services/theme_service.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
 import '../classes/quran_helper.dart';
 import '../models/surah.dart';
@@ -18,14 +19,19 @@ class QuranSearchDelegate extends SearchDelegate {
   String get searchFieldLabel => 'بحث عن اية او سورة...';
 
   @override
-  ThemeData appBarTheme(BuildContext context) => Theme.of(context).copyWith(
+  ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(
         scaffoldBackgroundColor: MyColors.quranBackGround(),
         iconTheme: IconThemeData(color: MyColors.quranPrimary()),
-        appBarTheme:
-            AppBarTheme(color: MyColors.quranBackGround(), iconTheme: IconThemeData(color: MyColors.quranPrimary())),
-        textTheme: TextTheme(headline6: TextStyle(color: MyColors.quranPrimary())),
-        textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.quranPrimary()),
-        inputDecorationTheme: InputDecorationTheme(focusedBorder: InputBorder.none, border: InputBorder.none),
+        appBarTheme: AppBarTheme(
+          color: MyColors.quranBackGround(),
+          iconTheme: IconThemeData(color: MyColors.quranPrimary()),
+          titleTextStyle: TextStyle(color: MyColors.quranPrimary()),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: InputBorder.none,
+          border: InputBorder.none,
+          labelStyle: TextStyle(color: MyColors.quranPrimary()),
+        ),
       );
 
   @override

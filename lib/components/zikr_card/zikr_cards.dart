@@ -12,10 +12,10 @@ import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 
 class ZikrCard {
   bool isLoading = false;
@@ -30,6 +30,7 @@ class ZikrCard {
       String? outsideTitle,
       VoidCallback? onTap,
       VoidCallback? onTapUp,
+      BoxShadow? shadow,
       required bool isFavorite}) {
     return Container(
       // duration: Duration(milliseconds: 1000),
@@ -45,7 +46,9 @@ class ZikrCard {
             onTapUp: onTapUp,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 100),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(MySiezes.blockRadius)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                  boxShadow: [shadow ?? BoxShadow(color: Colors.transparent)]),
               padding: EdgeInsets.all(MySiezes.cardPadding),
               child: Container(constraints: BoxConstraints(minHeight: 150, minWidth: double.maxFinite), child: child),
             ),
@@ -96,8 +99,8 @@ class ZikrCard {
               rigthTopChild: onDeleteFromFavorite == null
                   ? AnimatedButton(
                       color: MyColors.zikrCard(),
-                      width: MySiezes.icon * 1.3,
-                      height: MySiezes.icon * 1.3,
+                      width: MySiezes.btnIcon,
+                      height: MySiezes.btnIcon,
                       enabled: !isLoading,
                       onPressed: () async {
                         quranZikrData = null;
@@ -154,7 +157,10 @@ class ZikrCard {
               return ZikrCardInnerContainer(
                 zikrData: hadithZikrData!,
                 rigthTopChild: onDeleteFromFavorite == null
-                    ? IconButton(
+                    ? AnimatedButton(
+                        color: MyColors.zikrCard(),
+                        width: MySiezes.btnIcon,
+                        height: MySiezes.btnIcon,
                         onPressed: () {
                           hadithZikrData = null;
                           myFuture = JsonService.getRandomHadith();
@@ -164,7 +170,7 @@ class ZikrCard {
                             print("ERROR IN ZIKR CARD: $e");
                           }
                         },
-                        icon: MyIcons.refresh)
+                        child: MyIcons.refresh)
                     : null,
               );
             });
@@ -195,6 +201,15 @@ class ZikrCard {
                 }
               }
             : null,
+        shadow: azkarZikrData.count > 0
+            ? null
+            : BoxShadow(
+                offset: Offset(0, 0),
+                color: MyColors.primary().withOpacity(1),
+                blurRadius: 5,
+                spreadRadius: 2,
+                blurStyle: BlurStyle.outer,
+              ),
         child: ZikrCardInnerContainer(
           zikrData: azkarZikrData,
           rigthTopChild: AnimatedOpacity(

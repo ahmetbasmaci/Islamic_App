@@ -6,10 +6,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
-import '../constents/colors.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
+import '../constents/my_colors.dart';
 import '../components/my_switch.dart';
 
 class ShopProps {
@@ -226,7 +226,7 @@ class _ShopsPageState extends State<ShopsPage> {
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
           backgroundColor: MyColors.background(),
-          titleStyle: Theme.of(context).textTheme.headline1!,
+          titleStyle: Theme.of(context).textTheme.bodySmall!,
           descStyle: TextStyle(
             color: MyColors.whiteBlack(),
             fontSize: 14,
@@ -281,7 +281,7 @@ class _ShopsPageState extends State<ShopsPage> {
             ],
             style: AlertStyle(
               backgroundColor: MyColors.background(),
-              titleStyle: Theme.of(context).textTheme.headline1!,
+              titleStyle: Theme.of(context).textTheme.bodySmall!,
             )).show();
       }
     }
@@ -427,7 +427,7 @@ class _ShopsPageState extends State<ShopsPage> {
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
           backgroundColor: MyColors.background(),
-          titleStyle: Theme.of(context).textTheme.headline1!,
+          titleStyle: Theme.of(context).textTheme.bodySmall!,
           descStyle: TextStyle(
             color: MyColors.whiteBlack(),
             fontSize: 14,

@@ -2,13 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
-import '../constents/icons.dart';
+import '../constents/my_icons.dart';
 import 'quran/quran_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,11 +20,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const String id = 'HomePage';
+  bool goToQuranPage = false;
   @override
   void initState() {
     super.initState();
-    Constants.setNewOpendPageId(HomePage.id);
+    HelperMethods.setNewOpendPageId(HomePage.id);
   }
 
   int currentIndex = 0;

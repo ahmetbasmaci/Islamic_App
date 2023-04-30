@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:zad_almumin/constents/constents.dart';
-
 class Ayah {
   Ayah({
     required this.ayahNumber,

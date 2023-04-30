@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
-import '../constents/icons.dart';
+import 'package:zad_almumin/services/theme_service.dart';
+import '../constents/my_icons.dart';
 import '../pages/alarms/alarms_page.dart';
 import '../pages/ayahsTest/ayahs_questions.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends GetView<ThemeCtr> {
   MyDrawer({
     Key? key,
   }) : super(key: key);
@@ -21,30 +21,14 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return Drawer(
       width: MySiezes.drawerWith,
       child: ListView(
         shrinkWrap: true,
         physics: PageScrollPhysics(),
         children: [
-          UserAccountsDrawerHeader(
-            accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'),
-            accountEmail: Text(''),
-            decoration: BoxDecoration(color: MyColors.primary()),
-            otherAccountsPictures: [
-              CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                child: IconButton(
-                  onPressed: () async {
-                    bool isDark = Get.isDarkMode;
-                    _settingsCtr.changeDarkModeState(!isDark);
-                  },
-                  icon: MyIcons.animated_Light_Dark(),
-                ),
-              )
-            ],
-            otherAccountsPicturesSize: Size.square(40),
-          ),
+          headerPart(),
           drawerItem(
             title: 'الرئيسية',
             icon: MyIcons.home(),
@@ -110,6 +94,27 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
+  Widget headerPart() {
+    return UserAccountsDrawerHeader(
+      accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'),
+      accountEmail: Text(''),
+      decoration: BoxDecoration(color: MyColors.primary()),
+      otherAccountsPictures: [
+        CircleAvatar(
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          child: IconButton(
+            onPressed: () async {
+              bool isDark = Get.isDarkMode;
+              _settingsCtr.changeDarkModeState(!isDark);
+            },
+            icon: MyIcons.animated_Light_Dark(),
+          ),
+        )
+      ],
+      otherAccountsPicturesSize: Size.square(40),
+    );
+  }
+
   navigateTo({required BuildContext context, required String routeName, required Widget page}) async {
     var route = ModalRoute.of(context);
     if (route!.settings.name!.contains(routeName)) {
@@ -142,11 +147,16 @@ class MyDrawer extends StatelessWidget {
 
 Widget drawerItem(
     {required String title, required Widget icon, required String routeName, required VoidCallback onTap}) {
+  bool selected = Get.currentRoute.contains(routeName);
   return ListTile(
     leading: icon,
-    title: Text(title, style: GoogleFonts.harmattan(fontSize: 17, fontWeight: FontWeight.bold)),
-    // title: MyTexts.normal(title: title, size: 17, fontWeight: FontWeight.bold),
-    selected: Get.currentRoute.contains(routeName),
+    title: MyTexts.content(
+        title: title,
+        size: 17,
+        fontWeight: FontWeight.bold,
+        textAlign: TextAlign.right,
+        color: selected ? MyColors.white : MyColors.whiteBlack()),
+    selected: selected,
     selectedColor: MyColors.white,
     iconColor: MyColors.primary(),
     onTap: onTap,

@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:get/get.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/pages/ayahsTest/controller/ayahs_questions_ctr.dart';
-import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 
@@ -78,8 +77,8 @@ class QuranData extends GetxController {
   Surah getSurahByName(String surahName) {
     Surah surah = Surah(name: '', startAtPage: 0, ayahs: [], number: 0);
     for (var i = 0; i < _surahs.length; i++) {
-      String dataSuraName = Constants.normalise(_surahs[i].name);
-      surahName = Constants.normalise(surahName);
+      String dataSuraName = HelperMethods.normalise(_surahs[i].name);
+      surahName = HelperMethods.normalise(surahName);
       if (dataSuraName.contains(surahName)) surah = _surahs[i];
     }
     return surah;
@@ -89,8 +88,8 @@ class QuranData extends GetxController {
   List<Surah> getMatchedSurah(String surahName) {
     List<Surah> surahs = [];
     for (var i = 0; i < _surahs.length; i++) {
-      String dataSuraName = Constants.normalise(_surahs[i].name);
-      surahName = Constants.normalise(surahName);
+      String dataSuraName = HelperMethods.normalise(_surahs[i].name);
+      surahName = HelperMethods.normalise(surahName);
       if (dataSuraName.contains(surahName)) surahs.add(_surahs[i]);
     }
     return surahs;

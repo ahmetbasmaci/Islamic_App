@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constents/colors.dart';
+import '../../../constents/my_colors.dart';
 import '../models/filter_chip_prop.dart';
 import '../controllers/quran_page_ctr.dart';
 

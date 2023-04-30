@@ -2,8 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 
@@ -23,6 +23,8 @@ class MyIcons {
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
 
+  static Icon letter({Color? color, double size = MySiezes.icon}) =>
+      Icon(CupertinoIcons.textformat_size, color: color, size: size);
   static Icon plus({Color? color, double size = MySiezes.icon}) => Icon(Icons.add, color: color, size: size);
   static Icon minus({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.minus, color: color, size: size);
@@ -47,6 +49,8 @@ class MyIcons {
       Icon(Icons.arrow_forward_ios_rounded, color: color, size: size);
   static Icon search({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.search, color: color, size: size);
+  static Icon swichQuranImages({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.switch_left, color: color, size: size);
   static Icon favoriteFilled({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.favorite, color: color, size: size);
   static Icon favorite({Color? color, double size = MySiezes.icon}) =>

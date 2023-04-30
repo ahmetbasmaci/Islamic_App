@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-import '../../../constents/colors.dart';
-import '../../../constents/sizes.dart';
-import '../../../constents/texts.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_sizes.dart';
+import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
 import '../controller/ayahs_questions_ctr.dart';
 

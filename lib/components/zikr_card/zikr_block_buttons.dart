@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/database/sqldb.dart';
-import '../../constents/icons.dart';
+import '../../constents/my_icons.dart';
 
 class ZikrBlockButtons extends StatefulWidget {
   const ZikrBlockButtons({Key? key, required this.zikrData, this.onDeleteFromFavorite}) : super(key: key);
@@ -39,8 +40,8 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
     return StatefulBuilder(builder: ((context, favoriteSetState) {
       return AnimatedButton(
         color: MyColors.zikrCard(),
-        width: MySiezes.icon * 1.3,
-        height: MySiezes.icon * 1.3,
+        width: MySiezes.btnIcon,
+        height: MySiezes.btnIcon,
         onPressed: () {
           SqlDb sqlDb = SqlDb();
           String toastText = '';
@@ -79,11 +80,10 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
     return StatefulBuilder(builder: ((context, copySetState) {
       return AnimatedButton(
         color: MyColors.zikrCard(),
-        width: MySiezes.icon * 1.3,
-        height: MySiezes.icon * 1.3,
+        width: MySiezes.btnIcon,
+        height: MySiezes.btnIcon,
         onPressed: () {
-          Clipboard.setData(ClipboardData(text: widget.zikrData.content));
-
+         HelperMethods.copyText(widget.zikrData.content);
           copySetState(() {
             isCopyed = true;
           });
@@ -93,9 +93,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
             });
           });
 
-          Fluttertoast.showToast(msg: 'تم نسخ النص بنجاح');
 
-          Clipboard.getData(Clipboard.kTextPlain).then((value) {});
         },
         child: AnimatedSwitcher(
             duration: Duration(milliseconds: 300),
@@ -109,8 +107,8 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
       builder: ((context, copySetState) {
         return AnimatedButton(
           color: MyColors.zikrCard(),
-          width: MySiezes.icon * 1.3,
-          height: MySiezes.icon * 1.3,
+          width: MySiezes.btnIcon,
+          height: MySiezes.btnIcon,
           onPressed: () => Share.share(widget.zikrData.content, subject: widget.zikrData.title),
           child: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: MyIcons.share),
         );

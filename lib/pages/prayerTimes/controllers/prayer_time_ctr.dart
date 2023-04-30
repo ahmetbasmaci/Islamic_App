@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import '../../../constents/constents.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';

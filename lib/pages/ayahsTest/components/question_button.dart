@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/ayahsTest/controller/ayahs_questions_ctr.dart';
-import '../../../constents/sizes.dart';
-import '../../../constents/texts.dart';
-import '../../../constents/colors.dart';
+import '../../../constents/my_sizes.dart';
+import '../../../constents/my_texts.dart';
+import '../../../constents/my_colors.dart';
 import 'package:flutter/material.dart' hide BoxShadow, BoxDecoration;
 import '../../../moduls/enums.dart';
 import '../classes/option_btn_props.dart';
@@ -27,7 +27,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MyTexts.outsideHeader(title: 'اختر الصفحة والجزء'),
+            MyTexts.outsideHeader(title: 'اختر طريقة الاجابة:'),
             MyTexts.outsideHeader(title: ''),
             Obx(
               () => Align(
@@ -36,11 +36,13 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                   value: ayahsQuestionsCtr.answersType.value,
                   onChanged: (val) => ayahsQuestionsCtr.changeAnswerType(val!),
                   iconEnabledColor: MyColors.primary(),
+                  style: TextStyle(fontSize: 10, color: Colors.red, fontWeight: FontWeight.normal),
                   items: List.generate(
                     AyahsAnswersType.values.length,
                     (index) => DropdownMenuItem(
                         value: AyahsAnswersType.values.elementAt(index),
-                        child: MyTexts.dropDownMenuItem(title: AyahsAnswersType.values.elementAt(index).arabicName)),
+                        child: MyTexts.dropDownMenuItem(
+                            title: AyahsAnswersType.values.elementAt(index).arabicName, size: 20)),
                   ),
                 ),
               ),
@@ -112,7 +114,11 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
           child: Obx(
             () => InkWell(
               borderRadius: BorderRadius.circular(10),
-              onTap: () => ayahsQuestionsCtr.checkDropDownAnswer(selectedAyah),
+              onTap: () {
+                if (ayahsQuestionsCtr.isPressed.value) return;
+                ayahsQuestionsCtr.checkDropDownAnswer(selectedAyah);
+                ayahsQuestionsCtr.isPressed.value = true;
+              },
               child: AnimatedContainer(
                 padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                 duration: Duration(milliseconds: 200),
@@ -137,7 +143,8 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: MyTexts.normal(title: "تأكيد", color: MyColors.whiteBlack()),
+                child: MyTexts.normal(
+                    title: "تأكيد", color: ayahsQuestionsCtr.isPressed.value ? MyColors.white : MyColors.whiteBlack()),
               ),
             ),
           ),

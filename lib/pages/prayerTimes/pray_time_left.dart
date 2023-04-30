@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-import '../../constents/colors.dart';
-import '../../constents/sizes.dart';
-import '../../constents/texts.dart';
+import '../../constents/my_colors.dart';
+import '../../constents/my_sizes.dart';
+import '../../constents/my_texts.dart';
 
 class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
   PrayTmeNextPrayInfo({super.key});

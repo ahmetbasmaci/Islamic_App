@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/services/theme_service.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import '../../constents/colors.dart';
-import '../../constents/icons.dart';
-import '../../constents/texts.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import '../../constents/my_icons.dart';
+import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
 import 'settings_ctr.dart';
 
@@ -43,12 +39,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: MyTexts.settingsTitle(title: 'تنشيط الوضع اليلي'),
                 subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار الوضع اليلي'),
                 trailing: MySwitch(
-                    value: Get.isDarkMode,
-                    onChanged: (newValue) async {
-                      _settingsCtr.changeDarkModeState(newValue);
-                      await Future.delayed(const Duration(milliseconds: 300));
-                      setState(() {});
-                    }),
+                  value: Get.isDarkMode,
+                  onChanged: (newValue) => _settingsCtr.changeDarkModeState(newValue),
+                ),
                 leading: MyIcons.animated_Light_Dark(size: MySiezes.icon * 1.2),
               ),
               Divider(),

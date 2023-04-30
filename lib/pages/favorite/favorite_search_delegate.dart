@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 
 import 'favorite_body.dart';
 
@@ -12,7 +12,7 @@ class FavoriteSearchDelegate extends SearchDelegate {
         scaffoldBackgroundColor: MyColors.background(),
         iconTheme: IconThemeData(color: MyColors.primary()),
         appBarTheme: AppBarTheme(color: MyColors.background(), iconTheme: IconThemeData(color: MyColors.primary())),
-        textTheme: TextTheme(headline6: TextStyle(color: MyColors.primary())),
+        textTheme: TextTheme(labelLarge: TextStyle(color: MyColors.primary())),
         textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.primary()),
         inputDecorationTheme: InputDecorationTheme(focusedBorder: InputBorder.none, border: InputBorder.none),
       );

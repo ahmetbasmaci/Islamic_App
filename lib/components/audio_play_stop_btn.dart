@@ -3,13 +3,13 @@ import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import '../constents/colors.dart';
+import '../constents/my_colors.dart';
 import '../services/http_service.dart';
 
 class AudioPlayStopBtn extends StatefulWidget {
@@ -23,8 +23,7 @@ class AudioPlayStopBtn extends StatefulWidget {
   State<AudioPlayStopBtn> createState() => _AudioPlayStopBtnState();
 }
 
-class _AudioPlayStopBtnState extends State<AudioPlayStopBtn>  {
-
+class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> {
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final QuranData _quranData = Get.find<QuranData>();
   bool isLoading = false;
@@ -38,8 +37,8 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn>  {
   Widget build(BuildContext context) {
     return AnimatedButton(
       color: MyColors.zikrCard(),
-      width: MySiezes.icon * 1.3,
-      height: MySiezes.icon * 1.3,
+      width: MySiezes.btnIcon,
+      height: MySiezes.btnIcon,
       onPressed: () => onPlayTap(),
       child: AnimatedSwitcher(
         duration: Duration(milliseconds: 200),

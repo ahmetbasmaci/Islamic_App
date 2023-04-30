@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_body.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
@@ -34,7 +34,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    Constants.setNewOpendPageId(QuranPage.id);
+    HelperMethods.setNewOpendPageId(QuranPage.id);
 
     _quranCtr.quranPageSetState = (() => setState(() {}));
 
@@ -78,25 +78,32 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     }
   }
 
+  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      key: UniqueKey(),
       onWillPop: () async {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+        //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+        _quranHelper.changeOnShownState(true);
         Get.offAll(HomePage());
         return false;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        key: Constants.scaffoldKey,
+        key: scaffoldKey,
         endDrawer: myEndDrawer(),
         body: Stack(
           children: [
-            DefaultTabController(
-              length: 604,
-              child: TabBarView(
-                controller: tabCtr,
-                children: quranBodys(),
+            SafeArea(
+              child: SizedBox(
+                child: DefaultTabController(
+                  length: 604,
+                  child: TabBarView(
+                    controller: tabCtr,
+                    children: quranBodys(),
+                  ),
+                ),
               ),
             ),
             QuranPageUp(quranPageSetState: (() => setState(() {}))),

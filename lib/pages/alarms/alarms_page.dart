@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_drawer.dart';
-import '../../constents/texts.dart';
+import '../../constents/my_texts.dart';
 import 'alarm_card.dart';
 import 'alarm_list_tile.dart';
 import 'controllers/alarms_ctr.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 
 class MySwitch extends StatelessWidget {
   const MySwitch(
