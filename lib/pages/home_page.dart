@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   updateCurrentIndex(int newIndex) {
     currentIndex = newIndex;
     if (currentIndex == 1)
-      Get.offAll(() => QuranPage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
+      Get.offAll(() => QuranPage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 200));
     else
       setState(() {});
   }
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
               ? RefreshIndicator(
                   onRefresh: () async {
                     await Future.delayed(Duration(seconds: 1));
-                    Get.offAll(() => HomePage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 300));
+                    Get.offAll(() => HomePage(), transition: Transition.fadeIn, duration: Duration(milliseconds: 200));
                     // setState(() {});
                   },
                   child: screens[currentIndex])

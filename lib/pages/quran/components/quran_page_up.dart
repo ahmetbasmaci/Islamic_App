@@ -27,11 +27,11 @@ class QuranPageUp extends GetView<ThemeCtr> {
   Widget build(BuildContext context) {
     context.theme;
     List<MenuOptionsItem> menuItemList = [
-      MenuOptionsItem(
-        title: 'بحث',
-        icon: MyIcons.search(color: MyColors.quranPrimary()),
-        onTap: () => showSearch(context: context, delegate: QuranSearchDelegate()),
-      ),
+      // MenuOptionsItem(
+      //   title: 'بحث',
+      //   icon: MyIcons.search(color: MyColors.quranPrimary()),
+      //   onTap: () => showSearch(context: context, delegate: QuranSearchDelegate()),
+      // ),
       MenuOptionsItem(
         title: 'اضافة علامة',
         icon: MyIcons.mark(color: MyColors.quranPrimary()),
@@ -66,19 +66,23 @@ class QuranPageUp extends GetView<ThemeCtr> {
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomRight,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    AnimatedButton(
-                      color: MyColors.quranBackGround(),
-                      width: MySiezes.btnIcon,
-                      height: MySiezes.btnIcon,
-                      onPressed: () => Get.offAll(() => HomePage()),
-                      child: MyIcons.home(color: MyColors.quranPrimary()),
+                    Padding(
+                      padding: EdgeInsets.only(right: MySiezes.btnIcon * .5),
+                      child: AnimatedButton(
+                        color: MyColors.quranBackGround(),
+                        width: MySiezes.btnIcon,
+                        height: MySiezes.btnIcon,
+                        onPressed: () => Get.offAll(() => HomePage()),
+                        child: MyIcons.home(color: MyColors.quranPrimary()),
+                      ),
                     ),
                     PopupMenuButton(
                         color: MyColors.quranBackGround(),
@@ -116,43 +120,47 @@ class QuranPageUp extends GetView<ThemeCtr> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  MyTexts.quranSecondTitle(title: 'الصفحة:   '),
-                  SizedBox(
-                    width: 40,
-                    child: Focus(
-                      focusNode: Constants.focusScopeNode,
-                      child: TextField(
-                        controller: goToPageTextCtr,
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                        cursorHeight: 20,
-                        showCursor: false,
-                        onSubmitted: (val) {
-                          goToPageTextCtr.clear();
-                          quranHelper.changeOnShownState(false);
-                        },
-                        onTap: () => goToPageTextCtr.clear(),
-                        onChanged: (query) {
-                          if (query == '') return;
-                          if (int.parse(query) > 604 || int.parse(query) < 1) {
-                            Fluttertoast.showToast(msg: 'صفحة غير موجودة');
-                            return;
-                          }
-                          _quranCtr.tabCtr.index = int.parse(goToPageTextCtr.text) - 1;
-                        },
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
-                          border: UnderlineInputBorder(),
-                          counterText: "",
-                        ),
-                      ),
-                    ),
-                  ),
+                  // MyTexts.quranSecondTitle(title: 'الصفحة:   '),
+                  // SizedBox(
+                  //   width: 40,
+                  //   child: Focus(
+                  //     focusNode: Constants.focusScopeNode,
+                  //     child: TextField(
+                  //       controller: goToPageTextCtr,
+                  //       keyboardType: TextInputType.number,
+                  //       maxLength: 3,
+                  //       cursorHeight: 20,
+                  //       showCursor: false,
+                  //       onSubmitted: (val) {
+                  //         goToPageTextCtr.clear();
+                  //         quranHelper.changeOnShownState(false);
+                  //       },
+                  //       onTap: () => goToPageTextCtr.clear(),
+                  //       onChanged: (query) {
+                  //         if (query == '') return;
+                  //         if (int.parse(query) > 604 || int.parse(query) < 1) {
+                  //           Fluttertoast.showToast(msg: 'صفحة غير موجودة');
+                  //           return;
+                  //         }
+                  //         _quranCtr.tabCtr.index = int.parse(goToPageTextCtr.text) - 1;
+                  //       },
+                  //       decoration: InputDecoration(
+                  //         isDense: true,
+                  //         contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
+                  //         border: UnderlineInputBorder(),
+                  //         counterText: "",
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  IconButton(
+                      onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
+                      icon: MyIcons.search(color: MyColors.quranPrimary())),
                   IconButton(
                     onPressed: () => Constants.scaffoldKey.currentState!.openEndDrawer(),
                     icon: MyIcons.book(color: MyColors.quranPrimary()),

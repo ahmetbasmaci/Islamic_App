@@ -33,8 +33,10 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
         color: MyColors.zikrCard(),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-          BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
+          // BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
+          //BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
+          // BoxShadow(color: MyColors.primary().withOpacity(0.1), blurRadius: 40, spreadRadius: 10),
+          BoxShadow(color: MyColors.black.withOpacity(0.2), blurRadius: 20, spreadRadius: 2)
         ],
       ),
       child: Column(

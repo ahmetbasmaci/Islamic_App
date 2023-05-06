@@ -83,7 +83,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
         width: MySiezes.btnIcon,
         height: MySiezes.btnIcon,
         onPressed: () {
-         HelperMethods.copyText(widget.zikrData.content);
+          HelperMethods.copyText(widget.zikrData.content);
           copySetState(() {
             isCopyed = true;
           });
@@ -92,8 +92,6 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
               isCopyed = false;
             });
           });
-
-
         },
         child: AnimatedSwitcher(
             duration: Duration(milliseconds: 300),

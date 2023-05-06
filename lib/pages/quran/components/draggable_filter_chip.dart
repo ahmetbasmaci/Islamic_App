@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import '../../../constents/my_colors.dart';
 import '../models/filter_chip_prop.dart';
 import '../controllers/quran_page_ctr.dart';
@@ -87,17 +88,19 @@ class DraggableFilterChip extends StatelessWidget {
   Widget item(FilterChipProp filterChipProp) {
     Widget filterChip = Obx(
       () => FilterChip(
-        label: Text(filterChipProp.text),
+        label:
+            MyTexts.quran(title: filterChipProp.text, color: filterChipProp.isSelected.value ? MyColors.white : null),
         selected: filterChipProp.isSelected.value,
+        selectedColor: MyColors.quranPrimary(),
+        checkmarkColor: MyColors.white,
         onSelected: (value) {
           filterChipProp.isSelected.value = value;
           quranCtr.updateSearchFilterList();
         },
-        selectedColor: MyColors.quranPrimary(),
       ),
     );
     Widget childDragging = FilterChip(
-      label: Text('...'),
+      label: MyTexts.quran(title: '           '),
       selected: false,
       onSelected: (value) {},
       selectedColor: MyColors.quranPrimary(),
@@ -105,7 +108,10 @@ class DraggableFilterChip extends StatelessWidget {
     return Draggable<FilterChipProp>(
       data: filterChipProp,
       childWhenDragging: childDragging,
-      feedback: Material(child: filterChip),
+      feedback: Material(
+        color: Colors.transparent,
+        child: filterChip,
+      ),
       child: filterChip,
     );
   }

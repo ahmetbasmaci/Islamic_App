@@ -78,7 +78,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     }
   }
 
-  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
+ // static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -91,7 +91,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        key: scaffoldKey,
+        key:Constants.scaffoldKey,
         endDrawer: myEndDrawer(),
         body: Stack(
           children: [

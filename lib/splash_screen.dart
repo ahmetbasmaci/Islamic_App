@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            Get.off(HelperMethods.getNewOpendPage());
+            Get.offAll(HelperMethods.getNewOpendPage());
             // Timer(Duration(milliseconds: 300), () => scaleController.reset());
           }
         },

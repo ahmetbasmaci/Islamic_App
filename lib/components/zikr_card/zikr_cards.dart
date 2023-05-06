@@ -121,8 +121,8 @@ class ZikrCard {
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
-                  myFuture = Future.delayed(Duration(seconds: 0)).then(
-                      (value) => _quranHelper.getZikDataAyah(quranZikrData!.ayahNumber, quranZikrData!.surahNumber));
+                  myFuture = Future.delayed(Duration(seconds: 0)).then((value) =>
+                      _quranHelper.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 
@@ -219,12 +219,18 @@ class ZikrCard {
               duration: Duration(milliseconds: 500),
               width: 50,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(80),
+                //  borderRadius: BorderRadius.circular(80),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                  topRight: Radius.circular(100),
+                  bottomLeft: Radius.circular(10),
+                ),
                 color: MyColors.zikrCard(),
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 5),
-                    color: MyColors.primary(),
+                    color: MyColors.primary().withOpacity(.2),
                     blurRadius: 5,
                   ),
                 ],

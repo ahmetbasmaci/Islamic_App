@@ -31,7 +31,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
   IconButton settingsPageButton() {
     return IconButton(
       onPressed: () =>
-          Get.to(() => SettingsPage(), transition: Transition.upToDown, duration: Duration(milliseconds: 500)),
+          Get.to(() => SettingsPage(), transition: Transition.upToDown, duration: Duration(milliseconds: 200)),
       icon: MyIcons.settings(),
     );
   }

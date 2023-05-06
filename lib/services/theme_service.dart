@@ -65,7 +65,6 @@ class ThemeCtr extends GetxController {
   updateThemes() {
     lightThemeMode.value = ThemeData.light().copyWith(
       timePickerTheme: TimePickerThemeData(dialHandColor: MyColors.primary()),
-      cardColor: Colors.red,
       primaryColor: MyColors.primary_,
       scaffoldBackgroundColor: MyColors.backgroundLight,
       drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundLight),
@@ -104,8 +103,8 @@ class ThemeCtr extends GetxController {
         onPrimary: MyColors.primary_,
         secondary: MyColors.primary_,
         onSecondary: MyColors.primary_,
-        error: MyColors.false_,
-        onError: MyColors.false_,
+        error: MyColors.primary_,
+        onError: MyColors.primary_,
         background: MyColors.backgroundLight,
         onBackground: MyColors.backgroundLight,
         surface: MyColors.backgroundLight,
@@ -118,7 +117,7 @@ class ThemeCtr extends GetxController {
         bodyLarge: _bodyLarge_blockTitle,
         labelSmall: _labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
         labelMedium: _labelMedium_settingContent.copyWith(color: MyColors.settingsContent),
-        labelLarge: _headLine6_headers.copyWith(color: MyColors.white),//default
+        labelLarge: _headLine6_headers.copyWith(color: MyColors.white), //default
         displaySmall: _displaySmall_content.copyWith(color: MyColors.content),
         displayMedium: _displayMedium_Info.copyWith(color: MyColors.info),
         displayLarge: _displayLarge_dropDownItem.copyWith(color: MyColors.black),
@@ -166,8 +165,8 @@ class ThemeCtr extends GetxController {
         onPrimary: MyColors.primaryDark,
         secondary: MyColors.primaryDark,
         onSecondary: MyColors.primaryDark,
-        error: MyColors.false_,
-        onError: MyColors.false_,
+        error: MyColors.primaryDark,
+        onError: MyColors.primaryDark,
         background: MyColors.backgroundDark,
         onBackground: MyColors.backgroundDark,
         surface: MyColors.backgroundDark,
@@ -207,8 +206,7 @@ class ThemeCtr extends GetxController {
     this.isDarkMode.value = Get.isDarkMode;
     await Future.delayed(const Duration(milliseconds: 200));
     if (HelperMethods.getNewOpendPageId() != QuranPage.id) {
-      Get.offAll(() => HelperMethods.getNewOpendPage(),
-          transition: Transition.fadeIn, duration: Duration(milliseconds: 200));
+      Get.offAll(() => HelperMethods.getNewOpendPage(), transition: Transition.fadeIn);
     }
   }
 }

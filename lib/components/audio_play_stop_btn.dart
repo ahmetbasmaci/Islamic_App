@@ -62,9 +62,12 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> {
     String dir = (await getApplicationDocumentsDirectory()).path;
     File? file = await HttpService.getAyah(
         surahNumber: widget.zikrData.surahNumber, ayahNumber: widget.zikrData.ayahNumber, dir: dir, showToast: true);
-    isLoading = false;
-    if (mounted) setState(() {});
-    if (file == null) return;
+
+    if (file == null) {
+      isLoading = false;
+      if (mounted) setState(() {});
+      return;
+    }
 
     startAudio(file.path);
   }
@@ -76,5 +79,7 @@ class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> {
       desc: widget.zikrData.ayahNumber.toString(),
       onEnded: widget.onComplite,
     );
+    isLoading = false;
+    if (mounted) setState(() {});
   }
 }

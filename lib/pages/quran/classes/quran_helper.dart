@@ -209,95 +209,6 @@ class QuranHelper {
     }
   }
 
-  // int getSurahNumberByName(String surahName) {
-  //   int number = 1;
-  //   for (var i = 0; i < allSurahsNames.length; i++) {
-  //     if (allSurahsNames[i].name.contains(surahName)) number = i + 1;
-  //   }
-  //   return number;
-  // }
-
-  // String getSurahNameByNumber(int surahNumber) {
-  //   String surahName = "";
-  //   if (surahNumber > 0 && surahNumber <= 114) surahName = allSurahsNames[surahNumber - 1].name;
-  //   return surahName;
-  // }
-
-  // int getJuzNumberByPage(int page) {
-  //   int juz = 1;
-  //   if (page <= 21)
-  //     juz = 1;
-  //   else if (page <= 41)
-  //     juz = 2;
-  //   else if (page <= 61)
-  //     juz = 3;
-  //   else if (page <= 81)
-  //     juz = 4;
-  //   else if (page <= 101)
-  //     juz = 5;
-  //   else if (page <= 121)
-  //     juz = 6;
-  //   else if (page <= 141)
-  //     juz = 7;
-  //   else if (page <= 161)
-  //     juz = 8;
-  //   else if (page <= 181)
-  //     juz = 9;
-  //   else if (page <= 201)
-  //     juz = 10;
-  //   else if (page <= 221)
-  //     juz = 11;
-  //   else if (page <= 241)
-  //     juz = 12;
-  //   else if (page <= 261)
-  //     juz = 13;
-  //   else if (page <= 281)
-  //     juz = 14;
-  //   else if (page <= 301)
-  //     juz = 15;
-  //   else if (page <= 321)
-  //     juz = 16;
-  //   else if (page <= 341)
-  //     juz = 17;
-  //   else if (page <= 361)
-  //     juz = 18;
-  //   else if (page <= 381)
-  //     juz = 19;
-  //   else if (page <= 401)
-  //     juz = 20;
-  //   else if (page <= 421)
-  //     juz = 21;
-  //   else if (page <= 441)
-  //     juz = 22;
-  //   else if (page <= 461)
-  //     juz = 23;
-  //   else if (page <= 481)
-  //     juz = 24;
-  //   else if (page <= 501)
-  //     juz = 25;
-  //   else if (page <= 521)
-  //     juz = 26;
-  //   else if (page <= 541)
-  //     juz = 27;
-  //   else if (page <= 561)
-  //     juz = 28;
-  //   else if (page <= 581)
-  //     juz = 29;
-  //   else
-  //     juz = 30;
-  //   return juz;
-  // }
-
-  // String getSurahNameByPage(int page) {
-  //   String surahName = '';
-  //   for (var element in allSurahsNames.reversed)
-  //     if (element.startAtPage <= page) {
-  //       surahName = element.name;
-  //       break;
-  //     }
-  //   return surahName;
-  // }
-
   List<int> searchPages(String query) {
     List<int> resultList = [];
 
@@ -353,7 +264,7 @@ class QuranHelper {
     return zikrData;
   }
 
-  Future<ZikrData> getZikDataAyah(int surahNumber, int ayahNumber) async {
+  Future<ZikrData> getZikDataSpecificAyah(int surahNumber, int ayahNumber) async {
     if (_quranData.isEmpty)
       await JsonService.loadQuranData();
     else
@@ -368,6 +279,11 @@ class QuranHelper {
       ayahNumber: ayah.ayahNumber,
       surahNumber: ayah.surahNumber,
     );
+    return zikrData;
+  }
+
+  Future<ZikrData> getZikDataNextAyah(int surahNumber, int ayahNumber) async {
+    ZikrData zikrData = await getZikDataSpecificAyah(surahNumber, ayahNumber + 1);
     return zikrData;
   }
 }

@@ -18,6 +18,8 @@ import '../controllers/quran_page_ctr.dart';
 class QuranPageFooter extends StatelessWidget {
   QuranPageFooter({Key? key}) : super(key: key);
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
+  final QuranData _quranDataCtr = Get.find<QuranData>();
+
   final double _downPartHeight = Get.size.height * .2;
   final double _loadingRowHeight = Get.size.height * .03;
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
@@ -136,6 +138,7 @@ class QuranPageFooter extends StatelessWidget {
   void showResitationSettings() {
     Get.dialog(
       AlertDialog(
+        backgroundColor: MyColors.quranBackGround(),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -210,6 +213,7 @@ class QuranPageFooter extends StatelessWidget {
           ],
         ),
         startEndAyahsSelections(true),
+        SizedBox(height: MySiezes.betweanCardItems),
         startEndAyahsSelections(false),
       ],
     );
@@ -220,12 +224,17 @@ class QuranPageFooter extends StatelessWidget {
       children: [
         MyTexts.quranSecondTitle(title: isStartAyah ? 'من الاية:  ' : 'الى الاية :  '),
         SizedBox(
-          width: Get.size.width * .18,
+          width: Get.size.width * .5,
+          height: Get.size.height * .06,
           child: MaterialButton(
-            shape: Border.all(color: MyColors.quranPrimary()),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: MyColors.quranPrimary()),
+            ),
             onPressed: () {
               Get.dialog(
                 AlertDialog(
+                  backgroundColor: MyColors.quranBackGround(),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -260,12 +269,14 @@ class QuranPageFooter extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Obx(
-                  () => MyTexts.content(
-                      title: isStartAyah
-                          ? _quranCtr.selectedSurah.startAyahNum.value.toString()
-                          : _quranCtr.selectedSurah.endAyahNum.value.toString(),
-                      size: 10),
+                Expanded(
+                  child: Obx(
+                    () => MyTexts.quran(
+                        title: isStartAyah
+                            ? '${_quranCtr.selectedSurah.startAyahNum.value}   -   ${_quranDataCtr.getAyah(_quranCtr.selectedSurah.surahNumber.value, _quranCtr.selectedSurah.startAyahNum.value).text}'
+                            : '${_quranCtr.selectedSurah.endAyahNum.value}   -   ${_quranDataCtr.getAyah(_quranCtr.selectedSurah.surahNumber.value, _quranCtr.selectedSurah.endAyahNum.value).text}',
+                        size: 10),
+                  ),
                 ),
                 Icon(Icons.keyboard_arrow_down, color: MyColors.quranPrimary()),
               ],

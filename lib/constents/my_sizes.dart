@@ -5,7 +5,7 @@ class MySiezes {
   static const double cardPadding = 10.0;
   static const double icon = 20.0;
   static const double btnIcon = 24.0;
-  static const double betweanCards = 30.0;
+  static const double betweanCards = 0.0;
   static const double betweanCardItems = 10.0;
   static const double blockRadius = 15.0;
   static const double image = 60.0;

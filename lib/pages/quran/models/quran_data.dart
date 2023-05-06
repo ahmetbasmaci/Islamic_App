@@ -118,7 +118,14 @@ class QuranData extends GetxController {
   List<Ayah> getSurahAyahs(int surahNumber) => getSurahAt(surahNumber).ayahs;
 
   ///giving surah number and ayah number return ayah
-  Ayah getAyah(int surahNumber, int ayahNumber) => getSurahAt(surahNumber).ayahs[ayahNumber - 1];
+  Ayah getAyah(int surahNumber, int ayahNumber) {
+    Surah surah = getSurahAt(surahNumber);
+    if (surah.ayahs.length >= ayahNumber)
+      return surah.ayahs[ayahNumber - 1];
+    else {
+      return getRandomAyah();
+    }
+  }
 
   ///giving surah number and ayah number return ayah
   Ayah getRandomAyah() {

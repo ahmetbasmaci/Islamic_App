@@ -55,6 +55,7 @@ class QuranSearchDelegate extends SearchDelegate {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: MySiezes.screenPadding),
             DraggableFilterChip(),
             SizedBox(height: MySiezes.screenPadding),
             searchSuggestionResultOrder(),
@@ -170,21 +171,23 @@ class QuranSearchDelegate extends SearchDelegate {
     return Container(
       constraints: BoxConstraints(maxHeight: Get.size.height * .6),
       child: Scrollbar(
-          child: StreamBuilder<List<Ayah>>(
-              stream: _quranHelper.ayahsStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Ayah> matchedAyahs = snapshot.data!;
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: AlwaysScrollableScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                    itemCount: matchedAyahs.length,
-                    itemBuilder: (context, index) => suggestedAyahItem(ayah: matchedAyahs[index]),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              })),
+        child: StreamBuilder<List<Ayah>>(
+          stream: _quranHelper.ayahsStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Ayah> matchedAyahs = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: AlwaysScrollableScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                itemCount: matchedAyahs.length,
+                itemBuilder: (context, index) => suggestedAyahItem(ayah: matchedAyahs[index]),
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ),
     );
   }
 
