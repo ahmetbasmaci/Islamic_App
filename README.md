@@ -12,7 +12,7 @@
 </br>9- اسماء الله الحسنى مع الشرح
 </br>10- امكانية البحث عن الكلمات في القران الكريم
 </br></br>
-<a href="#">
+<a href="https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin">
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
 </a>
 
