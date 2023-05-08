@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
-import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_body.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_up.dart';
-import 'package:zad_almumin/pages/quran/models/quran_data.dart';
-import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../home_page.dart';
 import 'controllers/quran_page_ctr.dart';
 
 class QuranPage extends StatefulWidget {
-  const QuranPage({Key? key, bool? showInKahf}) : super(key: key);
+  QuranPage({Key? key, bool? showInKahf}) : super(key: key) {
+    Get.find<QuranPageCtr>().showInKahf = showInKahf??false;
+  }
   static const String id = 'QuranPage';
   @override
   State<QuranPage> createState() => _QuranPageState();
-  final bool showInKahf = false;
 }
 
 class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
-  late TabController tabCtr;
   int animationDurationMilliseconds = 600;
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-  final QuranHelper _quranHelper = QuranHelper();
-  final QuranData _quranData = Get.find<QuranData>();
 
   @override
   void initState() {
@@ -38,60 +32,30 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
     _quranCtr.quranPageSetState = (() => setState(() {}));
 
-    setCurrentPage();
+    _quranCtr.setCurrentPage(this);
 
-    updateCurrentPageCtr();
+    _quranCtr.updateCurrentPageCtr();
 
-    _quranHelper.changeOnShownState(false);
+    _quranCtr.changeOnShownState(false);
 
-    tabCtr.addListener(() => updateCurrentPageCtr());
+    _quranCtr.tabCtr.addListener(() => _quranCtr.updateCurrentPageCtr());
 
     JsonService.loadQuranData();
   }
 
-  setCurrentPage() {
-    tabCtr = TabController(length: 604, vsync: this);
-    _quranCtr.tabCtr = tabCtr;
-
-    //check last opend page
-    tabCtr.index = GetStorage().read('pageIndex') ?? 0;
-
-    //check if user open quran page from kahf notification
-    if (widget.showInKahf) tabCtr.index = 294;
-    _quranCtr.selectedSurah.pageNumber.value = tabCtr.index + 1;
-  }
-
-  updateCurrentPageCtr() async {
-    GetStorage().write('pageIndex', tabCtr.index);
-
-    _quranCtr.selectedSurah.pageNumber.value = tabCtr.index + 1;
-    _quranCtr.selectedSurah.juz.value = _quranData.getJuzNumberByPage(_quranCtr.selectedSurah.pageNumber.value);
-    String newSurahName = _quranData.getSurahNameByPage(_quranCtr.selectedSurah.pageNumber.value);
-    if (_quranCtr.selectedSurah.surahName.value != newSurahName) {
-      _quranCtr.selectedSurah.surahName.value = newSurahName;
-      _quranCtr.selectedSurah.surahNumber.value =
-          _quranData.getSurahNumberByName(_quranCtr.selectedSurah.surahName.value);
-      _quranCtr.selectedSurah.totalAyahsNum.value =
-          _quranData.getSurahAyahs(_quranCtr.selectedSurah.surahNumber.value).length;
-      _quranCtr.selectedSurah.startAyahNum.value = 1;
-      _quranCtr.selectedSurah.endAyahNum.value = _quranCtr.selectedSurah.totalAyahsNum.value;
-    }
-  }
-
- // static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       key: UniqueKey(),
       onWillPop: () async {
         //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-        _quranHelper.changeOnShownState(true);
+        _quranCtr.changeOnShownState(true);
         Get.offAll(HomePage());
         return false;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        key:Constants.scaffoldKey,
+        key: Constants.scaffoldKey,
         endDrawer: myEndDrawer(),
         body: Stack(
           children: [
@@ -100,7 +64,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
                 child: DefaultTabController(
                   length: 604,
                   child: TabBarView(
-                    controller: tabCtr,
+                    controller: _quranCtr.tabCtr,
                     children: quranBodys(),
                   ),
                 ),
@@ -164,11 +128,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       subtitle: MyTexts.settingsContent(
           title: '${_quranCtr.markedList[index].surahName}  |  الصفحة ${_quranCtr.markedList[index].pageNumber}'),
       shape: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
-      onTap: () {
-        tabCtr.index = _quranCtr.markedList[index].pageNumber - 1;
-        _quranHelper.changeOnShownState(false);
-        Get.back();
-      },
+      onTap: () => _quranCtr.markedListBtnPress(index),
     );
   }
 
@@ -185,11 +145,8 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         isBannerWidget(
           isMarked: isMarked,
           child: InkWell(
-            onTap: () {
-              _quranHelper.changeOnShownState(!_quranCtr.onShown.value);
-              _quranCtr.selectedAyah.value = Ayah.empty();
-            },
-            onLongPress: () => _quranHelper.showMarkDialog(),
+            onTap: ()=>_quranCtr.pagePressed(),
+            onLongPress: () => _quranCtr.showMarkDialog(),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 600),
               color: MyColors.quranBackGround(),

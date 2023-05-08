@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/constents/constents.dart';
 
 class SplashPage extends StatefulWidget {
   static const id = 'SplashPage';

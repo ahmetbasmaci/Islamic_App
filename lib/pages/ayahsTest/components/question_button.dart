@@ -337,7 +337,7 @@ class OptionButton extends GetView<ThemeCtr> {
     }
   }
 
-  findCurrectAnswer() {
+  void findCurrectAnswer() {
     for (OptionBtnProps optionBtnProps in questionBtnProps)
       if (optionBtnProps.juz == selectedAyah.juz && optionBtnProps.page == selectedAyah.page) {
         optionBtnProps.color = MyColors.true_;

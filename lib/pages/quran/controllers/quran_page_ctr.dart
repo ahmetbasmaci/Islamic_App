@@ -1,19 +1,29 @@
-import 'dart:ffi';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/classes/zikr_data.dart';
+import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/pages/quran/models/surah.dart';
+import 'package:zad_almumin/services/json_service.dart';
 import '../models/filter_chip_prop.dart';
 import '../models/marked_page.dart';
 import '../models/selected_surah.dart';
 
 class QuranPageCtr extends GetxController {
+  final QuranData _quranData = Get.find<QuranData>();
+  bool showInKahf = false;
   RxBool onShown = false.obs;
   RxBool showAsImages = false.obs;
   Rx<Ayah> selectedAyah = Ayah.empty().obs;
-  SelectedPageInfo selectedSurah = SelectedPageInfo();
+  SelectedPageInfo selectedPage = SelectedPageInfo();
   RxList<MarkedPage> markedList = <MarkedPage>[].obs;
   RxDouble quranFontSize = (Get.width * Get.height * 0.000067).obs;
   RxList<Rx<FilterChipProp>> searchFilterList =
@@ -30,6 +40,158 @@ class QuranPageCtr extends GetxController {
   //   storage.remove('markedList');
   //   printError(info: 'DELETED DB');
   // }
+  Timer? _debounceTimer;
+
+  final StreamController<List<Ayah>> _streamController = StreamController<List<Ayah>>.broadcast();
+  Stream<List<Ayah>> get ayahsStream => _streamController.stream;
+  showMarkDialog() {
+    var pageProp = MarkedPage(
+      pageNumber: selectedPage.pageNumber.value,
+      juz: _quranData.getJuzNumberByPage(selectedPage.pageNumber.value),
+      surahName: _quranData.getSurahNameByPage(selectedPage.pageNumber.value),
+      isMarked: false,
+    );
+    for (var element in markedList)
+      if (element.pageNumber == pageProp.pageNumber) if (element.isMarked) {
+        pageProp.isMarked = true;
+        break;
+      }
+    String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
+    String content =
+        pageProp.isMarked ? 'هل تود ازالة علامة القراءة على هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
+
+    return Get.dialog(
+      AlertDialog(
+        title: Text(title, style: TextStyle(color: MyColors.quranText())),
+        content: Text(content, style: TextStyle(color: MyColors.quranText())),
+        actionsAlignment: MainAxisAlignment.spaceAround,
+        backgroundColor: MyColors.quranBackGround(),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('الغاء'),
+          ),
+          TextButton(
+            onPressed: () {
+              if (pageProp.isMarked) {
+                markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
+                Fluttertoast.showToast(msg: 'تم ازالة العلامة');
+              } else {
+                pageProp.isMarked = true;
+                markedList.add(pageProp);
+                updateMarkedPageList(pageProp);
+                Fluttertoast.showToast(msg: 'تم اضافة العلامة');
+              }
+              Get.back();
+              quranPageSetState();
+            },
+            child: Text('تأكيد'),
+          ),
+        ],
+      ),
+      transitionDuration: Duration(milliseconds: 500),
+    );
+  }
+
+  void changeOnShownState(bool value) {
+    // if (value)
+    //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    // else {
+    //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    //   FocusManager.instance.primaryFocus?.unfocus();
+    // }
+
+    onShown.value = value;
+    quranPageSetState();
+    Constants.focusScopeNode.unfocus();
+  }
+
+  void updateCurrentPageToWhereStartRead() async {
+    List<Ayah> ayahsList = _quranData.getSurahByNumber(selectedPage.surahNumber.value).ayahs;
+    for (var ayah in ayahsList) {
+      if (ayah.ayahNumber == selectedPage.startAyahNum.value) {
+        tabCtr.index = ayah.page - 1;
+        break;
+      }
+    }
+  }
+
+  List<int> searchPages(String query) {
+    List<int> resultList = [];
+
+    int? num = int.tryParse(query);
+    if (num == null) return resultList;
+
+    if (num > 604 || num < 1) return resultList;
+    for (var i = 1; i <= 604; i++) {
+      if (i.toString().contains(num.toString())) resultList.add(i);
+    }
+
+    return resultList;
+  }
+
+  List<Surah> searchSurahs(String query) => _quranData.getMatchedSurah(query);
+
+  void searchAyahs(String query) async {
+    _streamController.add([]);
+    List<Ayah> matchedAyahs = [];
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      for (var i = 0; i < _quranData.getSurahsCount(); i++) {
+        Surah surah = _quranData.getSurahByNumber(i + 1);
+        List<Ayah> ayahs = surah.ayahs;
+        for (var ayah in ayahs) {
+          if (HelperMethods.normalise(ayah.text.toString()).contains(query)) {
+            matchedAyahs.add(ayah);
+            _streamController.add(matchedAyahs);
+          }
+        }
+      }
+    });
+  }
+
+  Future<ZikrData> getRandomZikrDataAyah() async {
+    if (_quranData.isEmpty)
+      await JsonService.loadQuranData();
+    else
+      await Future.delayed(Duration(milliseconds: 300));
+
+    Ayah randomAyah = _quranData.getRandomAyah();
+
+    ZikrData zikrData = ZikrData(
+      zikrType: ZikrType.quran,
+      title: 'اعوذ بالله من الشيطان الرجيم',
+      content: randomAyah.text,
+      ayahNumber: randomAyah.ayahNumber,
+      surahNumber: randomAyah.surahNumber,
+    );
+    return zikrData;
+  }
+
+  Future<ZikrData> getZikDataSpecificAyah(int surahNumber, int ayahNumber) async {
+    if (_quranData.isEmpty)
+      await JsonService.loadQuranData();
+    else
+      await Future.delayed(Duration(milliseconds: 300));
+
+    Ayah ayah = _quranData.getAyah(surahNumber, ayahNumber);
+
+    ZikrData zikrData = ZikrData(
+      zikrType: ZikrType.quran,
+      title: 'اعوذ بالله من الشيطان الرجيم',
+      content: ayah.text,
+      ayahNumber: ayah.ayahNumber,
+      surahNumber: ayah.surahNumber,
+    );
+    return zikrData;
+  }
+
+  Future<ZikrData> getZikDataNextAyah(int surahNumber, int ayahNumber) async {
+    ZikrData zikrData = await getZikDataSpecificAyah(surahNumber, ayahNumber + 1);
+    return zikrData;
+  }
 
   void changeShowQuranStyle() {
     showAsImages.value = !showAsImages.value;
@@ -45,7 +207,7 @@ class QuranPageCtr extends GetxController {
 
     //get selected reader
     List<dynamic> markedListMap = storage.read('markedList') ?? [];
-    selectedSurah.selectedQuranReader.value = QuranReaders.values[GetStorage().read<int>('selectedQuranReader') ?? 0];
+    selectedPage.selectedQuranReader.value = QuranReaders.values[GetStorage().read<int>('selectedQuranReader') ?? 0];
     for (var element in markedListMap) markedList.add(MarkedPage.fromJson(element));
 
     //get searchFilter order
@@ -84,10 +246,48 @@ class QuranPageCtr extends GetxController {
     storage.write('searchFilterList', listMap);
   }
 
-  void resetAll() {
-    selectedSurah.repeetAllCount.value = 1;
-    selectedSurah.repeetAyahCount.value = 1;
-    selectedSurah.isUnlimitRepeatAll.value = false;
-    selectedSurah.isUnlimitRepeatAyah.value = false;
+  void resetSelectedSurahAll() {
+    selectedPage.repeetAllCount.value = 1;
+    selectedPage.repeetAyahCount.value = 1;
+    selectedPage.isUnlimitRepeatAll.value = false;
+    selectedPage.isUnlimitRepeatAyah.value = false;
+  }
+
+  void markedListBtnPress(int index) {
+    tabCtr.index = markedList[index].pageNumber - 1;
+    changeOnShownState(false);
+    Get.back();
+  }
+
+  void updateCurrentPageCtr() async {
+    GetStorage().write('pageIndex', tabCtr.index);
+
+    selectedPage.pageNumber.value = tabCtr.index + 1;
+    selectedPage.juz.value = _quranData.getJuzNumberByPage(selectedPage.pageNumber.value);
+    String newSurahName = _quranData.getSurahNameByPage(selectedPage.pageNumber.value);
+    if (selectedPage.surahName.value != newSurahName) {
+      selectedPage.surahName.value = newSurahName;
+      selectedPage.surahNumber.value = _quranData.getSurahNumberByName(selectedPage.surahName.value);
+      selectedPage.totalAyahsNum.value = _quranData.getSurahAyahs(selectedPage.surahNumber.value).length;
+      selectedPage.startAyahNum.value = 1;
+      selectedPage.endAyahNum.value = selectedPage.totalAyahsNum.value;
+    }
+  }
+
+  void setCurrentPage(TickerProvider quranTicker) {
+    tabCtr = TabController(length: 604, vsync: quranTicker);
+    tabCtr = tabCtr;
+
+    //check last opend page
+    tabCtr.index = GetStorage().read('pageIndex') ?? 0;
+
+    //check if user open quran page from kahf notification
+    if (showInKahf) tabCtr.index = 294;
+    selectedPage.pageNumber.value = tabCtr.index + 1;
+  }
+
+  void pagePressed() {
+    changeOnShownState(!onShown.value);
+    selectedAyah.value = Ayah.empty();
   }
 }

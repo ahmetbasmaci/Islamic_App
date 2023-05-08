@@ -15,7 +15,7 @@ class HttpService {
   static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   static Future<List<Ayah>> getSurah({required int surahNumber}) async {
     bool isDownloadedBefore =
-        GetStorage().read('${_quranCtr.selectedSurah.selectedQuranReader.value.name}$surahNumber') ?? false;
+        GetStorage().read('${_quranCtr.selectedPage.selectedQuranReader.value.name}$surahNumber') ?? false;
 
     String dir = (await getApplicationDocumentsDirectory()).path;
 
@@ -26,13 +26,13 @@ class HttpService {
     }
 
     _httpCtrl.downloadProgress.value = 0;
-    for (var i = 1; i <= _quranCtr.selectedSurah.totalAyahsNum.value; i++) {
+    for (var i = 1; i <= _quranCtr.selectedPage.totalAyahsNum.value; i++) {
       if (!isDownloadedBefore && _httpCtrl.isStopDownload.value) break;
 
       String formatedAyahNumber = Constants.formatInt3.format(i);
       String formatedSurahNumber = Constants.formatInt3.format(surahNumber);
       String filePath =
-          '$dir/${_quranCtr.selectedSurah.selectedQuranReader.value.name}/$formatedSurahNumber$formatedAyahNumber.mp3';
+          '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/$formatedSurahNumber$formatedAyahNumber.mp3';
       File file = File(filePath);
 
       if (!isDownloadedBefore) {
@@ -62,13 +62,13 @@ class HttpService {
         surahNumber: surahNumber,
       );
       ayahsList.add(newAyah);
-      _httpCtrl.downloadProgress.value = ((i) / _quranCtr.selectedSurah.totalAyahsNum.value * 100).toDouble();
+      _httpCtrl.downloadProgress.value = ((i) / _quranCtr.selectedPage.totalAyahsNum.value * 100).toDouble();
     }
 
     if (!isDownloadedBefore) {
       _httpCtrl.isLoading.value = false;
-      if (ayahsList.length == _quranCtr.selectedSurah.totalAyahsNum.value) {
-        GetStorage().write('${_quranCtr.selectedSurah.selectedQuranReader.value.name}$surahNumber', true);
+      if (ayahsList.length == _quranCtr.selectedPage.totalAyahsNum.value) {
+        GetStorage().write('${_quranCtr.selectedPage.selectedQuranReader.value.name}$surahNumber', true);
       }
     }
 
@@ -78,7 +78,7 @@ class HttpService {
   static Future<File?> getAyah(
       {required int surahNumber, required int ayahNumber, required String dir, required bool showToast}) async {
     String filePath =
-        '$dir/${_quranCtr.selectedSurah.selectedQuranReader.value.name}/${Constants.formatInt3.format(surahNumber)}${Constants.formatInt3.format(ayahNumber)}.mp3';
+        '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/${Constants.formatInt3.format(surahNumber)}${Constants.formatInt3.format(ayahNumber)}.mp3';
     File file = File(filePath);
     bool exists = await file.exists();
     if (exists) return file;
@@ -96,7 +96,7 @@ class HttpService {
       bool showToast = false}) async {
     if (showToast) Fluttertoast.showToast(msg: 'جاري تحميل الاية');
     Map allReaders = await JsonService.getAllReaders();
-    String readerUrl = allReaders[_quranCtr.selectedSurah.selectedQuranReader.value.name];
+    String readerUrl = allReaders[_quranCtr.selectedPage.selectedQuranReader.value.name];
     String url = '$readerUrl$formatedSurahNumber$formatedAyahNumber.mp3';
     File file = await File(filePath).create(recursive: true);
 

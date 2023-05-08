@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../services/audio_ctr.dart';

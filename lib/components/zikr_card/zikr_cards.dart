@@ -6,7 +6,7 @@ import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/classes/quran_helper.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
@@ -23,8 +23,8 @@ class ZikrCard {
   VoidCallback? onDeleteFromFavorite;
   ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
   final QuranData _quranData = Get.find<QuranData>();
-  final QuranHelper _quranHelper = QuranHelper();
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
+  final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   Widget outContainer(
       {required Widget child,
       String? outsideTitle,
@@ -79,7 +79,7 @@ class ZikrCard {
       myFuture = Future.delayed(Duration(seconds: 0)).then((value) async {
         while (_quranData.isEmpty) await Future.delayed(Duration(seconds: 1));
 
-        return await _quranHelper.getRandomZikrDataAyah();
+        return await _quranCtr.getRandomZikrDataAyah();
       });
     }
     return outContainer(
@@ -105,7 +105,7 @@ class ZikrCard {
                       onPressed: () async {
                         quranZikrData = null;
                         myFuture =
-                            Future.delayed(Duration(seconds: 0)).then((value) => _quranHelper.getRandomZikrDataAyah());
+                            Future.delayed(Duration(seconds: 0)).then((value) => _quranCtr.getRandomZikrDataAyah());
                         autoPlaySound = false;
                         _audioCtr.stopAudio();
                         try {
@@ -122,7 +122,7 @@ class ZikrCard {
                 autoPlay: autoPlaySound,
                 onComplite: () async {
                   myFuture = Future.delayed(Duration(seconds: 0)).then((value) =>
-                      _quranHelper.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
+                      _quranCtr.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 

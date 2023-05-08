@@ -1,6 +1,5 @@
 import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
@@ -12,30 +11,24 @@ import '../../../constents/my_texts.dart';
 import '../../../services/theme_service.dart';
 import '../../home_page.dart';
 import '../../settings/settings_ctr.dart';
-import '../classes/quran_helper.dart';
 import '../controllers/quran_page_ctr.dart';
 
 class QuranPageUp extends GetView<ThemeCtr> {
   QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
   final double _upPartHeight = Constants.quranUpPartHeight + 30; //30 is the height of the menu options
+
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-  final QuranHelper quranHelper = QuranHelper();
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   var goToPageTextCtr = TextEditingController();
   @override
   Widget build(BuildContext context) {
     context.theme;
     List<MenuOptionsItem> menuItemList = [
-      // MenuOptionsItem(
-      //   title: 'بحث',
-      //   icon: MyIcons.search(color: MyColors.quranPrimary()),
-      //   onTap: () => showSearch(context: context, delegate: QuranSearchDelegate()),
-      // ),
       MenuOptionsItem(
         title: 'اضافة علامة',
         icon: MyIcons.mark(color: MyColors.quranPrimary()),
-        onTap: () => quranHelper.showMarkDialog(),
+        onTap: () => _quranCtr.showMarkDialog(),
       ),
       MenuOptionsItem(
         title: 'تغير الثيم',
@@ -43,7 +36,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
         onTap: () async {
           bool isDark = Get.isDarkMode;
           _settingsCtr.changeDarkModeState(!isDark);
-          quranHelper.changeOnShownState(false);
+          _quranCtr.changeOnShownState(false);
           Future.delayed(Duration(milliseconds: 200), () {
             quranPageSetState.call();
           });
@@ -137,7 +130,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
                   //       showCursor: false,
                   //       onSubmitted: (val) {
                   //         goToPageTextCtr.clear();
-                  //         quranHelper.changeOnShownState(false);
+                  //         _quranCtr.changeOnShownState(false);
                   //       },
                   //       onTap: () => goToPageTextCtr.clear(),
                   //       onChanged: (query) {

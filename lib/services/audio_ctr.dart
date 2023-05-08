@@ -16,8 +16,8 @@ class AudioCtr extends GetxController {
     super.dispose();
   }
 
-  static final QuranData _quranData = Get.find<QuranData>();
-  static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
+  final QuranData _quranData = Get.find<QuranData>();
+  final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   RxBool isPlaying = false.obs;
   Duration _duration = Duration();
   Duration _position = Duration();
@@ -49,62 +49,67 @@ class AudioCtr extends GetxController {
     AudioManager.instance.audioList.clear();
   }
 
-  void playMultiAudio({
-    required List<Ayah> ayahList,
-  }) async {
+  void playMultiAudio({required List<Ayah> ayahList}) async {
     if (ayahList.isEmpty) return;
-    isPlaying.value = true;
+    try {
+      isPlaying.value = true;
 
-    AudioManager.instance.nextMode(playMode: PlayMode.sequence);
-    if (AudioManager.instance.audioList.isNotEmpty) {
-      AudioManager.instance.playOrPause();
-      return;
-    } else {
-      _position = Duration();
-    }
+      AudioManager.instance.nextMode(playMode: PlayMode.sequence);
+      if (AudioManager.instance.audioList.isNotEmpty) {
+        AudioManager.instance.playOrPause();
+        return;
+      } else {
+        _position = Duration();
+      }
 
-    AudioManager.instance.audioList.clear();
-    audioList.clear();
-    for (var item in ayahList) {
-      AudioInfo info = AudioInfo(
-        "file://${item.audioPath}",
-        title: "سورة ${_quranData.getSurahNameByNumber(item.surahNumber)}",
-        desc: "الاية  ${item.ayahNumber}",
-        coverUrl: _imgPath,
-      );
-      audioList.add(info);
-    }
+      AudioManager.instance.audioList.clear();
+      audioList.clear();
+      for (var item in ayahList) {
+        AudioInfo info = AudioInfo(
+          "file://${item.audioPath}",
+          title: "سورة ${_quranData.getSurahNameByNumber(item.surahNumber)}",
+          desc: "الاية  ${item.ayahNumber}",
+          coverUrl: _imgPath,
+        );
+        audioList.add(info);
+      }
 
-    AudioManager.instance.audioList = audioList;
-    AudioManager.instance.play(index: _quranCtr.selectedSurah.startAyahNum.value - 1);
-    setAudioEvents(
-      onEnded: () {
-        currentAyahRepeatCount++;
-        bool isEnded = AudioManager.instance.curIndex + 1 >= _quranCtr.selectedSurah.endAyahNum.value;
-        if (isEnded) {
-          currentOfAllRepeatCount++;
-          bool unLimitRepeet = _quranCtr.selectedSurah.isUnlimitRepeatAll.value;
-          bool inRepeetLimit = _quranCtr.selectedSurah.repeetAllCount.value > currentOfAllRepeatCount;
-          if (inRepeetLimit || unLimitRepeet)
-            AudioManager.instance.play(index: 0);
-          else {
-            currentOfAllRepeatCount;
-            stopAudio();
-          }
-        } else {
-          bool unLimitRepeet = _quranCtr.selectedSurah.isUnlimitRepeatAyah.value;
-          bool inRepeetLimit = _quranCtr.selectedSurah.repeetAyahCount.value > currentAyahRepeatCount;
-
-          if (inRepeetLimit || unLimitRepeet) {
-            AudioManager.instance.play(index: AudioManager.instance.curIndex);
+      AudioManager.instance.audioList = audioList;
+      AudioManager.instance.play(index: _quranCtr.selectedPage.startAyahNum.value - 1);
+      setAudioEvents(
+        onEnded: () {
+          currentAyahRepeatCount++;
+          bool isEnded = AudioManager.instance.curIndex + 1 >= _quranCtr.selectedPage.endAyahNum.value;
+          if (isEnded) {
+            currentOfAllRepeatCount++;
+            bool unLimitRepeet = _quranCtr.selectedPage.isUnlimitRepeatAll.value;
+            bool inRepeetLimit = _quranCtr.selectedPage.repeetAllCount.value > currentOfAllRepeatCount;
+            if (inRepeetLimit || unLimitRepeet)
+              AudioManager.instance.play(index: 0);
+            else {
+              currentOfAllRepeatCount;
+              _quranCtr.selectedAyah.value = Ayah.empty(); //to hide background color
+              stopAudio();
+            }
           } else {
-            currentAyahRepeatCount = 0;
-            AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
-            //AudioManager.instance.next();
+            bool unLimitRepeet = _quranCtr.selectedPage.isUnlimitRepeatAyah.value;
+            bool inRepeetLimit = _quranCtr.selectedPage.repeetAyahCount.value > currentAyahRepeatCount;
+
+            if (inRepeetLimit || unLimitRepeet) {
+              AudioManager.instance.play(index: AudioManager.instance.curIndex);
+            } else {
+              currentAyahRepeatCount = 0;
+              _quranCtr.selectedAyah.value =
+                  ayahList.elementAt(AudioManager.instance.curIndex + 1); //to change background color
+              AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
+              //AudioManager.instance.next();
+            }
           }
-        }
-      },
-    );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 
   void playSingleAudio({

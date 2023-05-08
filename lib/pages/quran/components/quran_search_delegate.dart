@@ -6,14 +6,12 @@ import 'package:zad_almumin/services/theme_service.dart';
 import '../../../constents/my_colors.dart';
 import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
-import '../classes/quran_helper.dart';
 import '../models/surah.dart';
 import '../controllers/quran_page_ctr.dart';
 import 'draggable_filter_chip.dart';
 
 class QuranSearchDelegate extends SearchDelegate {
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-  final QuranHelper _quranHelper = QuranHelper();
 
   @override
   String get searchFieldLabel => 'بحث عن اية او سورة...';
@@ -138,7 +136,7 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget surahsSuggestionResult() {
     if (query == '') return Container();
-    List<Surah> surahsResult = _quranHelper.searchSurahs(query);
+    List<Surah> surahsResult = _quranCtr.searchSurahs(query);
     return Container(
       constraints: BoxConstraints(maxHeight: Get.size.height * .2),
       child: Scrollbar(
@@ -167,12 +165,12 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget ayahsSuggestionResult() {
     if (query == '') return Container();
-    _quranHelper.searchAyahs(query);
+    _quranCtr.searchAyahs(query);
     return Container(
       constraints: BoxConstraints(maxHeight: Get.size.height * .6),
       child: Scrollbar(
         child: StreamBuilder<List<Ayah>>(
-          stream: _quranHelper.ayahsStream,
+          stream: _quranCtr.ayahsStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Ayah> matchedAyahs = snapshot.data!;
@@ -235,7 +233,7 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget pagesSuggestionresult() {
     if (query == '') return Container();
-    List<int> pagesResult = _quranHelper.searchPages(query);
+    List<int> pagesResult = _quranCtr.searchPages(query);
     return Container(
       constraints: BoxConstraints(maxHeight: Get.size.height * .2),
       child: GridView.builder(

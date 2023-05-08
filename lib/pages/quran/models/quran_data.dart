@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
-import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/pages/ayahsTest/controller/ayahs_questions_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
@@ -46,6 +45,9 @@ class QuranData extends GetxController {
 
   ///giving surah number and ayah number return ayah
   int getSurahsCount() => _surahs.length;
+
+  ///get all surahs
+  List<Surah> getAllSurahs() => _surahs;
 
   ///giving page return surah
   Surah getSurahByPage(int page) {

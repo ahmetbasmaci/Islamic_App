@@ -28,5 +28,5 @@ class Constants {
   static NumberFormat formatInt3 = NumberFormat('000');
   static NumberFormat formatInt2 = NumberFormat('00');
 
-  static double quranUpPartHeight=Get.size.height * .07;
+  static double quranUpPartHeight=Get.size.height * .08;
 }

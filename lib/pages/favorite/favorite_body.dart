@@ -4,7 +4,6 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
-import 'package:zad_almumin/constents/constents.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';

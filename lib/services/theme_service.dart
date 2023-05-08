@@ -6,7 +6,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 import '../constents/my_sizes.dart';
 
