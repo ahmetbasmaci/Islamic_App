@@ -97,67 +97,63 @@ class QuranPageFooter extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Expanded(
-                      child: DropdownButton<QuranReaders>(
-                        underline: Container(),
-                        alignment: Alignment.bottomRight,
-                        isExpanded: true,
-                        iconEnabledColor: MyColors.quranPrimary(),
-                        dropdownColor: MyColors.quranBackGround(),
-                        value: _quranCtr.selectedPage.selectedQuranReader.value,
-                        menuMaxHeight: Get.size.height * .3,
-                        onChanged: (newVal) {
-                          _quranCtr.selectedPage.selectedQuranReader.value = newVal!;
-                          GetStorage()
-                              .write('selectedQuranReader', _quranCtr.selectedPage.selectedQuranReader.value.index);
-                        },
-                        items: [
-                          for (QuranReaders item in QuranReaders.values)
-                            DropdownMenuItem(
-                              value: item,
-                              child: MyTexts.quranSecondTitle(title: item.arabicName),
-                            )
-                        ],
-                      ),
+                    DropdownButton<QuranReaders>(
+                      //underline: Container(),
+                      //alignment: Alignment.bottomRight,
+                      //isExpanded: true,
+                      iconEnabledColor: MyColors.quranPrimary(),
+                      dropdownColor: MyColors.quranBackGround(),
+                      value: _quranCtr.selectedPage.selectedQuranReader.value,
+                      menuMaxHeight: Get.size.height * .3,
+                      onChanged: (newVal) {
+                        _quranCtr.selectedPage.selectedQuranReader.value = newVal!;
+                        GetStorage()
+                            .write('selectedQuranReader', _quranCtr.selectedPage.selectedQuranReader.value.index);
+                      },
+                      items: [
+                        for (QuranReaders item in QuranReaders.values)
+                          DropdownMenuItem(
+                            value: item,
+                            child: MyTexts.quranSecondTitle(title: item.arabicName),
+                          )
+                      ],
                     ),
-                    Expanded(
-                      // child: MyTexts.quranSecondTitle(title: _quranCtr.selectedSurah.surahName.value),
-                      child: DropdownButton<String>(
-                        underline: Container(),
-                        alignment: Alignment.bottomRight,
-                        isExpanded: true,
-                        iconEnabledColor: MyColors.quranPrimary(),
-                        dropdownColor: MyColors.quranBackGround(),
-                        value: _quranCtr.selectedPage.surahName.value,
-                        menuMaxHeight: Get.size.height * .3,
-                        onChanged: (newVal) {
-                          if (newVal != null) {
-                            Surah surah = _quranData.getSurahByName(newVal);
-                            _quranCtr.selectedPage.surahName.value = surah.name;
-                            _quranCtr.selectedPage.surahNumber.value = _quranData.getSurahNumberByName(surah.name);
-                            _quranCtr.selectedPage.startAyahNum.value = 1;
-                            _quranCtr.selectedPage.endAyahNum.value = surah.ayahs.length;
-                            _quranCtr.selectedPage.juz.value = _quranData.getJuzNumberByPage(surah.ayahs.first.page);
-                            _quranCtr.selectedPage.pageNumber.value = surah.ayahs.first.page;
+                    DropdownButton<String>(
+                      //underline: Container(),
+                      //alignment: Alignment.bottomRight,
+                      //isExpanded: true,
+                      iconEnabledColor: MyColors.quranPrimary(),
+                      dropdownColor: MyColors.quranBackGround(),
+                      value: _quranCtr.selectedPage.surahName.value,
+                      menuMaxHeight: Get.size.height * .3,
+                      onChanged: (newVal) {
+                        if (newVal != null) {
+                          Surah surah = _quranData.getSurahByName(newVal);
+                          _quranCtr.selectedPage.surahName.value = surah.name;
+                          _quranCtr.selectedPage.surahNumber.value = _quranData.getSurahNumberByName(surah.name);
+                          _quranCtr.selectedPage.startAyahNum.value = 1;
+                          _quranCtr.selectedPage.endAyahNum.value = surah.ayahs.length;
+                          _quranCtr.selectedPage.juz.value = _quranData.getJuzNumberByPage(surah.ayahs.first.page);
+                          _quranCtr.selectedPage.pageNumber.value = surah.ayahs.first.page;
 
-                            _quranCtr.updateCurrentPageToWhereStartRead();
-                          }
-                        },
-                        items: [
-                          for (Surah item in _quranData.getAllSurahs())
-                            DropdownMenuItem(
-                              value: item.name,
-                              child: MyTexts.quranSecondTitle(title: item.name),
-                            )
-                        ],
-                      ),
+                          _quranCtr.updateCurrentPageToWhereStartRead();
+                        }
+                      },
+                      items: [
+                        for (Surah item in _quranData.getAllSurahs())
+                          DropdownMenuItem(
+                            value: item.name,
+                            child: MyTexts.quranSecondTitle(title: item.name),
+                          )
+                      ],
                     ),
-                    Expanded(
+                    Container(
+                      // color: Colors.green,
                       child: MyTexts.quranSecondTitle(title: 'الصفحة :${_quranCtr.selectedPage.pageNumber.value}'),
                     ),
-                    Expanded(
-                      child: MyTexts.quranSecondTitle(title: 'الجزء  :${_quranCtr.selectedPage.juz.value}'),
-                    ),
+                    // Container(
+                    //   child: MyTexts.quranSecondTitle(title: 'الجزء  :${_quranCtr.selectedPage.juz.value}'),
+                    // ),
                   ],
                 ),
                 Row(

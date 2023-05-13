@@ -9,6 +9,7 @@ import 'package:zad_almumin/pages/alarms/alarms_page.dart';
 import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
+import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/services/app_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
@@ -25,6 +26,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(ThemeCtr());
+
+
+
   runApp(MyApp());
 }
 
@@ -64,6 +68,7 @@ class MyApp extends StatelessWidget {
         QuranPage.id: (context) => QuranPage(),
         AyahsQuestions.id: (context) => AyahsQuestions(),
         ReviewPage.id: (context) => ReviewPage(),
+        UserReviews.id: (context) => UserReviews(),
       },
       // home: DebouncedSearchBar(),
       initialRoute: HelperMethods.isInDebugMode ? HomePage.id : SplashPage.id,

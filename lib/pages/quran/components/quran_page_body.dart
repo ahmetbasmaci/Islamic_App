@@ -103,6 +103,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                   children: [
                     Obx(
                       () => RichText(
+                        textAlign: TextAlign.center,
                         text: TextSpan(
                           children: [
                             ...ayahs.map(
@@ -111,6 +112,12 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                 style: TextStyle(
                                   fontFamily: "naskh",
                                   wordSpacing: -1,
+                                  color: ayah.text.contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')
+                                      ? MyColors.quranPrimary()
+                                      : null,
+                                  fontSize: ayah.text.contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')
+                                      ? _quranCtr.quranFontSize.value * 1.05
+                                      : null,
                                   background: Paint()
                                     ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
                                             _quranCtr.selectedAyah.value.surahName == ayah.surahName
@@ -121,7 +128,10 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                     ..style = PaintingStyle.fill,
                                 ),
                                 recognizer: LongPressGestureRecognizer()
-                                  ..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
+                                  ..onLongPressStart = (details) =>
+                                      ayah.text.contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')
+                                          ? {}
+                                          : onAyahLongPressStart(details, ayah),
                                 children: [
                                   TextSpan(
                                     text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',

@@ -1,4 +1,5 @@
 import 'package:zad_almumin/constents/constants.dart';
+
 class Ayah {
   Ayah({
     required this.ayahNumber,
@@ -39,7 +40,7 @@ class Ayah {
     return Ayah(
       ayahNumber: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
-      text: json['text'],
+      text: json['text'].toString().contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ') ? '\n${ json['text']}\n' : json['text'],
       juz: json['juz'],
       page: json['page'],
       haveSajda: false, //json['sajda'] ?? false,

@@ -34,6 +34,7 @@ class Constants {
   static double quranUpPartHeight = Get.size.height * .08;
 
   static String machineCode = '';
+  static String developerMachineCode = 'RP1A.200720.011';
 
   static Future setMechineCode() async {
     var deviceInfo = DeviceInfoPlugin();

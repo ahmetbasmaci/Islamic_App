@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
@@ -9,6 +10,7 @@ import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
+import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/my_icons.dart';
@@ -98,6 +100,14 @@ class MyDrawer extends GetView<ThemeCtr> {
               routeName: ReviewPage.id,
               onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
             ),
+            Constants.machineCode == Constants.developerMachineCode
+                ? drawerItem(
+                    title: 'ملاحظات المستخدمين',
+                    icon: MyIcons.reviewSound(),
+                    routeName: UserReviews.id,
+                    onTap: () async => navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
+                  )
+                : Container(),
           ],
         ),
       ),

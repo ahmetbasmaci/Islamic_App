@@ -21,7 +21,7 @@ class AlarmsCtr extends GetxController {
     snackBarEnabeldTitle: 'تم تفعيل تذكير حديث عن رسول الله',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة حديث عن رسول الله',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
-    snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
+    snackBarDesabeldBody: 'لن يصلك اشعار حديث عن رسول الله',
     alarmPeriod: ALarmPeriod.repeat,
     notificationType: NotificationType.hadith,
     notificationSound: NotificationSound.hadith,
@@ -66,8 +66,8 @@ class AlarmsCtr extends GetxController {
     storageKey: 'mondayFast',
     notificationTitle: 'لا تنسا صيام غدا الاثنين ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
-    snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الاثنين',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الاثنين ',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم يوم الاحد',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الاثنين',
     alarmPeriod: ALarmPeriod.weekly,
@@ -82,7 +82,7 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'لا تنسا صيام غدا الخميس ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
     snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الخميس',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم يوم الاربعاء',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الخميس',
     alarmPeriod: ALarmPeriod.weekly,
@@ -273,7 +273,7 @@ class AlarmsCtr extends GetxController {
     getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
     if (newValue) {
       NotificationService.setNotification(alarmProp);
-     
+
       if (showSnackBar)
         _showSnackBar(
           icon: MyIcons.done(),

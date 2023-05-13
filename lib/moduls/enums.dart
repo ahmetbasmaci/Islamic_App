@@ -49,7 +49,7 @@ extension QuranReadersExtention on QuranReaders {
   String get arabicName {
     switch (this) {
       case QuranReaders.yaserAldosary:
-        return 'باسر الدوسري';
+        return 'ياسر الدوسري';
       case QuranReaders.yaserAlsalamah:
         return 'ياسر السلامة';
       case QuranReaders.ibrahimAldosary:

@@ -56650,10 +56650,19 @@
         "numberOfAyahs": 3,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 602,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6205,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6205.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ إِنَّآ أَعْطَيْنَٰكَ ٱلْكَوْثَرَ",
+                "text": "إِنَّآ أَعْطَيْنَٰكَ ٱلْكَوْثَرَ",
                 "juz": 30,
                 "page": 602,
                 "sajda": false
@@ -56684,10 +56693,19 @@
         "numberOfAyahs": 6,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 603,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6208,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6208.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قُلْ يَٰٓأَيُّهَا ٱلْكَٰفِرُونَ",
+                "text": "قُلْ يَٰٓأَيُّهَا ٱلْكَٰفِرُونَ",
                 "juz": 30,
                 "page": 603,
                 "sajda": false
@@ -56745,10 +56763,19 @@
         "numberOfAyahs": 3,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 603,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6214,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6214.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ إِذَا جَآءَ نَصْرُ ٱللَّهِ وَٱلْفَتْحُ",
+                "text": "إِذَا جَآءَ نَصْرُ ٱللَّهِ وَٱلْفَتْحُ",
                 "juz": 30,
                 "page": 603,
                 "sajda": false
@@ -56779,10 +56806,19 @@
         "numberOfAyahs": 5,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 603,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6217,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6217.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ تَبَّتْ يَدَآ أَبِى لَهَبٍۢ وَتَبَّ",
+                "text": "تَبَّتْ يَدَآ أَبِى لَهَبٍۢ وَتَبَّ",
                 "juz": 30,
                 "page": 603,
                 "sajda": false
@@ -56831,10 +56867,19 @@
         "numberOfAyahs": 4,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 604,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6222,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6222.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قُلْ هُوَ ٱللَّهُ أَحَدٌ",
+                "text": "قُلْ هُوَ ٱللَّهُ أَحَدٌ",
                 "juz": 30,
                 "page": 604,
                 "sajda": false
@@ -56874,10 +56919,19 @@
         "numberOfAyahs": 5,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 604,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6226,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6226.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ",
+                "text": "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ",
                 "juz": 30,
                 "page": 604,
                 "sajda": false
@@ -56926,10 +56980,19 @@
         "numberOfAyahs": 6,
         "ayahs": [
             {
+                "numberInQuran": 0,
+                "numberInSurah": 0,
+                "audio": "",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                "juz": 30,
+                "page": 604,
+                "sajda": false
+            },
+            {
                 "numberInQuran": 6231,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6231.mp3",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
+                "text": "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
                 "juz": 30,
                 "page": 604,
                 "sajda": false
