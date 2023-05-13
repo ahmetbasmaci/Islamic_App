@@ -91,7 +91,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
                         alarmProp.notificationType == NotificationType.hadith
                     ? PopupMenuButton<MenuOptionsItem>(
                         color: MyColors.background(),
-                        icon: MyIcons.moreVert(),
+                        icon: MyIcons.moreVert(color: MyColors.primary()),
                         onSelected: (value) {},
                         itemBuilder: (context) {
                           return [
@@ -129,11 +129,11 @@ class AlarmListTile extends GetView<ThemeCtr> {
                         onPressed: canChange
                             ? () async {
                                 TimeOfDay? newTime = await showTimePicker(
-                                    context: context,
-                                    initialTime:
-                                        TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
-                                    builder: (BuildContext context, Widget? child) => child!,
-        );
+                                  context: context,
+                                  initialTime:
+                                      TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
+                                  builder: (BuildContext context, Widget? child) => child!,
+                                );
                                 if (newTime == null) return;
                                 alarmProp.time.value = Time(newTime.hour, newTime.minute);
                                 getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));

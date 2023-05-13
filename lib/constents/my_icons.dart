@@ -31,7 +31,8 @@ class MyIcons {
   static Icon send({Color? color, double size = MySiezes.icon}) => Icon(Icons.send, color: color, size: size);
   static Icon settings({Color? color, double size = MySiezes.icon}) => Icon(Icons.settings, color: color, size: size);
   static Icon review({Color? color, double size = MySiezes.icon}) => Icon(Icons.reviews, color: color, size: size);
-  static Icon reviewSound({Color? color, double size = MySiezes.icon}) => Icon(Icons.record_voice_over, color: color, size: size);
+  static Icon reviewSound({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.record_voice_over, color: color, size: size);
   static Icon moreVert({Color? color, double size = MySiezes.icon}) => Icon(Icons.more_vert, color: color, size: size);
   static Icon repeat({Color? color, double size = MySiezes.icon}) => Icon(Icons.repeat, color: color, size: size);
   static Icon stop({Color? color, double size = MySiezes.icon}) => Icon(Icons.stop, color: color, size: size);
@@ -52,7 +53,7 @@ class MyIcons {
   static Icon search({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.search, color: color, size: size);
   static Icon swichQuranImages({Color? color, double size = MySiezes.icon}) =>
-      Icon(Icons.switch_left, color: color, size: size);
+      Icon(CupertinoIcons.book_fill, color: color, size: size);
   static Icon favoriteFilled({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.favorite, color: color, size: size);
   static Icon favorite({Color? color, double size = MySiezes.icon}) =>

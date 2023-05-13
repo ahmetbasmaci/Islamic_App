@@ -121,8 +121,8 @@ class ZikrCard {
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
-                  myFuture = Future.delayed(Duration(seconds: 0)).then((value) =>
-                      _quranCtr.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
+                  myFuture = Future.delayed(Duration(seconds: 0)).then(
+                      (value) => _quranCtr.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 
@@ -235,9 +235,9 @@ class ZikrCard {
                   ),
                 ],
               ),
-              child: MyTexts.content(
+              child: MyTexts.zikrTitle(
                 title: azkarZikrData.count > 0 ? '${azkarZikrData.count}' : 'تم',
-                color: azkarZikrData.count > 0 ? null : MyColors.primary(),
+                // color: azkarZikrData.count > 0 ? null : MyColors.primary(),
               ),
             ),
           ),

@@ -50,15 +50,9 @@ class HttpService {
             file = dounloadedFile;
         }
       }
-      Ayah newAyah = Ayah(
+      Ayah newAyah = Ayah.empty(
         ayahNumber: i,
-        audioUrl: '',
-        text: '',
-        juz: 0,
-        page: 0,
-        haveSajda: false,
         audioPath: filePath,
-        surahName: '',
         surahNumber: surahNumber,
       );
       ayahsList.add(newAyah);

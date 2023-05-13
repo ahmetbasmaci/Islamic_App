@@ -26,10 +26,7 @@ TextStyle _bodySmall_quran2 = TextStyle(
 TextStyle _bodyMedium_zikrTitle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.bold,
-  fontFamily: 'uthmanic',
-  shadows: [
-    Shadow(blurRadius: 20, offset: Offset(0, 0), color: Colors.black.withOpacity(.5)),
-  ],
+  fontFamily: 'uthmanic1',
 );
 TextStyle _displaySmall_content = TextStyle(fontSize: 17, height: 1.8, wordSpacing: 3.5, fontFamily: 'uthmanic');
 
@@ -37,7 +34,6 @@ TextStyle _bodyLarge_blockTitle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
   fontFamily: 'uthmanic',
-  shadows: [Shadow(blurRadius: 20, offset: Offset(0, 3))],
 );
 
 TextStyle _labelSmall_settingsTitle = GoogleFonts.harmattan(fontSize: 19, fontWeight: FontWeight.bold);
