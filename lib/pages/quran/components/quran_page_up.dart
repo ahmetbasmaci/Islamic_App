@@ -1,7 +1,7 @@
 import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/components/menu_options_item.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';

@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
 import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
+import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/services/app_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
@@ -14,13 +16,14 @@ import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/splash_screen.dart';
 import 'classes/controllers.dart';
-import 'constents/constents.dart';
+import 'constents/constants.dart';
 import 'pages/favorite/favorite_page.dart';
 
 void main() async {
   await GetStorage.init();
-
+  await Constants.setMechineCode();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Get.put(ThemeCtr());
   runApp(MyApp());
 }
@@ -60,6 +63,7 @@ class MyApp extends StatelessWidget {
         AzkarPage.id: (context) => AzkarPage(),
         QuranPage.id: (context) => QuranPage(),
         AyahsQuestions.id: (context) => AyahsQuestions(),
+        ReviewPage.id: (context) => ReviewPage(),
       },
       // home: DebouncedSearchBar(),
       initialRoute: HelperMethods.isInDebugMode ? HomePage.id : SplashPage.id,

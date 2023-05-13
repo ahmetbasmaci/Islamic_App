@@ -6,7 +6,7 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../constents/my_icons.dart';

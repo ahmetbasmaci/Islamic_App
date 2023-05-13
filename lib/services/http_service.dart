@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../pages/quran/models/ayah.dart';

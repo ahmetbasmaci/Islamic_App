@@ -8,7 +8,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_switch.dart';
-import '../../constents/constents.dart';
+import '../../constents/constants.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../quran/components/menu_options_item.dart';

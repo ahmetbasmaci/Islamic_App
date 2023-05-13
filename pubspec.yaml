@@ -14,11 +14,14 @@ dependencies:
   badges: ^2.0.3
   bot_toast: ^4.0.3
   circle_bottom_navigation_bar: ^1.0.0
+  cloud_firestore: ^4.6.0
   connectivity_plus: ^3.0.2
   convex_bottom_bar: ^3.0.0
   cupertino_icons: ^1.0.5
   curved_navigation_bar: ^1.0.3
+  device_info: any
   dio: ^4.0.6
+  firebase_core: ^2.11.0
   flutter:
     sdk: flutter
   flutter_custom_clippers: ^2.1.0
@@ -38,6 +41,7 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   like_button: ^2.0.4
+  mailer: ^6.0.1
   page_transition: ^2.0.9
   path_provider: ^2.0.11
   rename: ^2.0.1

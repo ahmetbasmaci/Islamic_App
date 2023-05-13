@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
@@ -29,7 +29,6 @@ class QuranPageFooter extends StatelessWidget {
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   int animationDurationMilliseconds = 600;
   final QuranData _quranData = Get.find<QuranData>();
-  var goToPageTextCtr = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Obx(

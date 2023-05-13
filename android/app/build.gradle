@@ -82,6 +82,8 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-base:17.6.0' // required by the device_info plugin
+    implementation 'com.android.support:support-v4:28.0.0' // required by the device_info plugin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 }

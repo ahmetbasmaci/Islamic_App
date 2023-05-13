@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,5 +31,19 @@ class Constants {
   static NumberFormat formatInt3 = NumberFormat('000');
   static NumberFormat formatInt2 = NumberFormat('00');
 
-  static double quranUpPartHeight=Get.size.height * .08;
+  static double quranUpPartHeight = Get.size.height * .08;
+
+  static String machineCode = '';
+
+  static Future setMechineCode() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      // import 'dart:io'
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      machineCode = iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    } else if (Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+      machineCode = androidDeviceInfo.id; // unique ID on Android
+    }
+  }
 }

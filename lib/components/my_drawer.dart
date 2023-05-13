@@ -6,6 +6,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
@@ -90,6 +91,12 @@ class MyDrawer extends GetView<ThemeCtr> {
               icon: MyIcons.settings(),
               routeName: SettingsPage.id,
               onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
+            ),
+            drawerItem(
+              title: 'ملاحظة للمطور',
+              icon: MyIcons.review(),
+              routeName: ReviewPage.id,
+              onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
             ),
           ],
         ),
