@@ -16,8 +16,8 @@ import '../controllers/quran_page_ctr.dart';
 class QuranPageUp extends GetView<ThemeCtr> {
   QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
-  final double _upPartHeight = Constants.quranUpPartHeight + 30; //30 is the height of the menu options
-
+  // final double _upPartHeight = Constants.quranUpPartHeight; //30 is the height of the menu options
+  final double _upPartHeight = 50;
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   var goToPageTextCtr = TextEditingController();
@@ -45,7 +45,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
     ];
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
-      top: _quranCtr.onShown.value ? 0 : -_upPartHeight,
+      top: _quranCtr.onShown.value ? _upPartHeight : -_upPartHeight,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         height: _upPartHeight,
@@ -57,26 +57,18 @@ class QuranPageUp extends GetView<ThemeCtr> {
                 color: MyColors.quranPrimary().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomRight,
+        child: Align(
+          // alignment: Alignment.bottomRight,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: MySiezes.btnIcon * .5),
-                      child: AnimatedButton(
-                        color: MyColors.quranBackGround(),
-                        width: MySiezes.btnIcon,
-                        height: MySiezes.btnIcon,
-                        onPressed: () => Get.offAll(() => HomePage()),
-                        child: MyIcons.home(color: MyColors.quranPrimary()),
-                      ),
-                    ),
                     PopupMenuButton(
                         color: MyColors.quranBackGround(),
                         icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
@@ -105,63 +97,49 @@ class QuranPageUp extends GetView<ThemeCtr> {
                       color: MyColors.quranBackGround(),
                       width: MySiezes.btnIcon,
                       height: MySiezes.btnIcon,
+                      onPressed: () => Get.offAll(() => HomePage()),
+                      child: MyIcons.home(color: MyColors.quranPrimary()),
+                    ),
+                    SizedBox(width: MySiezes.btnIcon),
+                    AnimatedButton(
+                      color: MyColors.quranBackGround(),
+                      width: MySiezes.btnIcon,
+                      height: MySiezes.btnIcon,
                       onPressed: () => _quranCtr.changeShowQuranStyle(),
-                      child: MyIcons.swichQuranImages(color: MyColors.quranPrimary()),
+                      child: Obx(() {
+                        return MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary());
+                      }),
                     ),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  // MyTexts.quranSecondTitle(title: 'الصفحة:   '),
-                  // SizedBox(
-                  //   width: 40,
-                  //   child: Focus(
-                  //     focusNode: Constants.focusScopeNode,
-                  //     child: TextField(
-                  //       controller: goToPageTextCtr,
-                  //       keyboardType: TextInputType.number,
-                  //       maxLength: 3,
-                  //       cursorHeight: 20,
-                  //       showCursor: false,
-                  //       onSubmitted: (val) {
-                  //         goToPageTextCtr.clear();
-                  //         _quranCtr.changeOnShownState(false);
-                  //       },
-                  //       onTap: () => goToPageTextCtr.clear(),
-                  //       onChanged: (query) {
-                  //         if (query == '') return;
-                  //         if (int.parse(query) > 604 || int.parse(query) < 1) {
-                  //           Fluttertoast.showToast(msg: 'صفحة غير موجودة');
-                  //           return;
-                  //         }
-                  //         _quranCtr.tabCtr.index = int.parse(goToPageTextCtr.text) - 1;
-                  //       },
-                  //       decoration: InputDecoration(
-                  //         isDense: true,
-                  //         contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
-                  //         border: UnderlineInputBorder(),
-                  //         counterText: "",
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
-                  IconButton(
-                      onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
-                      icon: MyIcons.search(color: MyColors.quranPrimary())),
-                  IconButton(
-                    onPressed: () => Constants.scaffoldKey.currentState!.openEndDrawer(),
-                    icon: MyIcons.book(color: MyColors.quranPrimary()),
-                  ),
-                ],
+              Expanded(flex: 2, child: Container()),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    AnimatedButton(
+                        color: MyColors.quranBackGround(),
+                        width: MySiezes.btnIcon,
+                        height: MySiezes.btnIcon,
+                        onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
+                        child: MyIcons.search(color: MyColors.quranPrimary())),
+                    SizedBox(width: MySiezes.btnIcon),
+                    AnimatedButton(
+                      color: MyColors.quranBackGround(),
+                      width: MySiezes.btnIcon,
+                      height: MySiezes.btnIcon,
+                      onPressed: () => Constants.scaffoldKey.currentState!.openEndDrawer(),
+                      child: MyIcons.book(color: MyColors.quranPrimary()),
+                    ),
+                    SizedBox(width: MySiezes.btnIcon / 2),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
