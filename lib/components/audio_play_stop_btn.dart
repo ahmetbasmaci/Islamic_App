@@ -12,74 +12,67 @@ import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import '../constents/my_colors.dart';
 import '../services/http_service.dart';
 
-class AudioPlayStopBtn extends StatefulWidget {
+class AudioPlayStopBtn extends StatelessWidget {
   AudioPlayStopBtn({Key? key, required this.zikrData, required this.onComplite, required this.autoPlay})
       : super(key: key);
+  final AudioCtr _audioCtr = Get.find<AudioCtr>();
+  final QuranData _quranData = Get.find<QuranData>();
   final ZikrData zikrData;
   final VoidCallback onComplite;
   final bool autoPlay;
-
-  @override
-  State<AudioPlayStopBtn> createState() => _AudioPlayStopBtnState();
-}
-
-class _AudioPlayStopBtnState extends State<AudioPlayStopBtn> {
-  final AudioCtr _audioCtr = Get.find<AudioCtr>();
-  final QuranData _quranData = Get.find<QuranData>();
-  bool isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-    if (widget.autoPlay) handleAudio();
-  }
-
+  Future<String> handleAudioFuture = Future.value('init');
   @override
   Widget build(BuildContext context) {
-    return AnimatedButton(
-      color: MyColors.zikrCard(),
-      width: MySiezes.btnIcon,
-      height: MySiezes.btnIcon,
-      onPressed: () => onPlayTap(),
-      child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
-        transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
-        child: isLoading ? MyCircularProgressIndecator() : MyIcons.animated_Play_Pause(),
-      ),
-    );
+    if (autoPlay) handleAudioFuture = handleAudio();
+    return FutureBuilder<String>(
+        future: handleAudioFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return SizedBox(height: MySiezes.icon, width: MySiezes.icon, child: MyCircularProgressIndecator());
+          else if (snapshot.hasError || snapshot.data == '')
+            return Text(snapshot.error.toString());
+          else {
+            String path = snapshot.data as String;
+            startAudio(path);
+            return AnimatedButton(
+              color: MyColors.zikrCard(),
+              width: MySiezes.btnIcon,
+              height: MySiezes.btnIcon,
+              onPressed: () => onPlayTap(),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 200),
+                transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                child: MyIcons.animated_Play_Pause(),
+              ),
+            );
+          }
+        });
   }
 
-  onPlayTap() {
+  onPlayTap() async {
     if (_audioCtr.isPlaying.value)
       _audioCtr.pauseAudio();
-    else
-      handleAudio();
+    else {
+      String path = await handleAudio();
+      startAudio(path);
+    }
   }
 
-  Future<void> handleAudio() async {
-    setState(() {
-      isLoading = true;
-    });
+  Future<String> handleAudio() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
     File? file = await HttpService.getAyah(
-        surahNumber: widget.zikrData.surahNumber, ayahNumber: widget.zikrData.ayahNumber, dir: dir, showToast: true);
+        surahNumber: zikrData.surahNumber, ayahNumber: zikrData.ayahNumber, dir: dir, showToast: true);
 
-    if (file == null) {
-      isLoading = false;
-      if (mounted) setState(() {});
-      return;
-    }
-
-    startAudio(file.path);
+    if (file == null) return '';
+    return file.path;
   }
 
   void startAudio(String filePath) {
     _audioCtr.playSingleAudio(
       path: filePath,
-      title: _quranData.getSurahNameByNumber(widget.zikrData.surahNumber),
-      desc: widget.zikrData.ayahNumber.toString(),
-      onEnded: widget.onComplite,
+      title: _quranData.getSurahNameByNumber(zikrData.surahNumber),
+      desc: zikrData.ayahNumber.toString(),
+      onEnded: onComplite,
     );
-    isLoading = false;
-    if (mounted) setState(() {});
   }
 }

@@ -90,12 +90,13 @@ class MyIcons {
 
   static Widget animated_Play_Pause({Color? color, double size = MySiezes.icon}) {
     color = color ?? MyColors.primary();
+    AudioCtr audioCtr = Get.find<AudioCtr>();
     return Obx(
       () => AnimatedCrossFade(
         duration: Duration(milliseconds: 200),
         firstChild: Icon(Icons.play_arrow, color: color, size: size),
         secondChild: Icon(Icons.pause, color: color, size: size),
-        crossFadeState: Get.find<AudioCtr>().isPlaying.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        crossFadeState: audioCtr.isPlaying.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       ),
     );
   }
