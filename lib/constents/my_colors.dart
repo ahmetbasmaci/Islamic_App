@@ -7,8 +7,8 @@ class MyColors {
   static const Color backgroundDark = Color(0xff222222);
   static const Color _quranPrimary = Color(0xFF0A8468); // Color(0xFFB9791F);
   static const Color _quranPrimaryDark = Color(0xFF0A8468); // Color(0xFFAC7324);
-  static const Color quranBackGroundLight = Color(0xFFF7EDE3);
-  static const Color quranBackGroundDark = Color(0xFF191919);
+  static const Color quranBackGroundLight = Color(0xFFFFFCFA); // Color(0xFFF7EDE3);
+  static const Color quranBackGroundDark = Color(0xFF050200);
   static const Color quranItemBackGroundLight = Color(0xFFF7EDE3);
   static const Color quranItemBackGroundDark = Color(0xFF000000);
 // static const Color quranSelectedAyahBackColor = Color(0xFFF7EDE3);

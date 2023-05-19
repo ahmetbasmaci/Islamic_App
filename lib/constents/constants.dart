@@ -31,7 +31,7 @@ class Constants {
   static NumberFormat formatInt3 = NumberFormat('000');
   static NumberFormat formatInt2 = NumberFormat('00');
 
-  static double quranUpPartHeight = Get.size.height * .08;
+  static double quranUpPartHeight = Get.size.height * .07;
 
   static String machineCode = '';
   static String developerMachineCode = 'RP1A.200720.011';
@@ -43,7 +43,7 @@ class Constants {
       var iosDeviceInfo = await deviceInfo.iosInfo;
       machineCode = iosDeviceInfo.identifierForVendor; // unique ID on iOS
     } else if (Platform.isAndroid) {
-    var androidDeviceInfo = await deviceInfo.androidInfo;
+      var androidDeviceInfo = await deviceInfo.androidInfo;
       machineCode = androidDeviceInfo.id; // unique ID on Android
     }
   }

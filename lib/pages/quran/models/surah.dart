@@ -4,7 +4,7 @@ class Surah {
   Surah({required this.name, required this.startAtPage, required this.ayahs, required this.number});
 
   Surah.empty({this.name = '', this.startAtPage = 0, this.number = 0, this.ayahs = const []});
-  
+
   String name;
   int startAtPage;
   int number;

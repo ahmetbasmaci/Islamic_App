@@ -4,7 +4,6 @@ import 'package:audio_manager/audio_manager.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
 import '../pages/quran/controllers/quran_page_ctr.dart';
@@ -16,7 +15,6 @@ class AudioCtr extends GetxController {
     super.dispose();
   }
 
-  final QuranData _quranData = Get.find<QuranData>();
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   RxBool isPlaying = false.obs;
   Duration _duration = Duration();
@@ -64,11 +62,12 @@ class AudioCtr extends GetxController {
 
       AudioManager.instance.audioList.clear();
       audioList.clear();
-      for (var item in ayahList) {
+      for (int i = 1; i < ayahList.length; i++) {
+        Ayah ayah = ayahList[i];
         AudioInfo info = AudioInfo(
-          "file://${item.audioPath}",
-          title: "سورة ${_quranData.getSurahNameByNumber(item.surahNumber)}",
-          desc: "الاية  ${item.ayahNumber}",
+          "file://${ayah.audioPath}",
+          title: "سورة ${ayah.surahName}",
+          desc: "الاية  ${ayah.ayahNumber}",
           coverUrl: _imgPath,
         );
         audioList.add(info);
@@ -79,7 +78,7 @@ class AudioCtr extends GetxController {
       setAudioEvents(
         onEnded: () {
           currentAyahRepeatCount++;
-          bool isEnded = AudioManager.instance.curIndex + 1 >= _quranCtr.selectedPage.endAyahNum.value;
+          bool isEnded = AudioManager.instance.curIndex + 1 >= audioList.length;
           if (isEnded) {
             currentOfAllRepeatCount++;
             bool unLimitRepeet = _quranCtr.selectedPage.isUnlimitRepeatAll.value;
@@ -100,8 +99,10 @@ class AudioCtr extends GetxController {
             } else {
               currentAyahRepeatCount = 0;
               _quranCtr.selectedAyah.value =
-                  ayahList.elementAt(AudioManager.instance.curIndex + 1); //to change background color
+                  ayahList.elementAt(AudioManager.instance.curIndex + 2); //to change background color
+              _quranCtr.updateCurrentPageToCurrentAyah();
               AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
+
               //AudioManager.instance.next();
             }
           }

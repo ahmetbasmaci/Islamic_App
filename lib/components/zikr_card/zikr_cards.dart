@@ -121,8 +121,8 @@ class ZikrCard {
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
-                  myFuture = Future.delayed(Duration(seconds: 0)).then(
-                      (value) => _quranCtr.getZikDataNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
+                  myFuture = Future.delayed(Duration(seconds: 0))
+                      .then((value) => _quranCtr.getNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
                   autoPlaySound = true;
                   checkIfIsFavorite(quranZikrData!);
 

@@ -7,26 +7,28 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../pages/quran/models/ayah.dart';
 
 class HttpService {
   static final HttpCtr _httpCtrl = Get.find<HttpCtr>();
   static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-  static Future<List<Ayah>> getSurah({required int surahNumber}) async {
+  static final QuranData _quranData = Get.find<QuranData>();
+  static Future<List<Ayah>> downloadSurah({required int surahNumber}) async {
+    List<Ayah> ayahsList = _quranData.getSurahAyahs(surahNumber);
     bool isDownloadedBefore =
         GetStorage().read('${_quranCtr.selectedPage.selectedQuranReader.value.name}$surahNumber') ?? false;
 
     String dir = (await getApplicationDocumentsDirectory()).path;
 
-    List<Ayah> ayahsList = [];
     if (!isDownloadedBefore) {
       _httpCtrl.isLoading.value = true;
       _httpCtrl.isStopDownload.value = false;
     }
 
     _httpCtrl.downloadProgress.value = 0;
-    for (var i = 1; i <= _quranCtr.selectedPage.totalAyahsNum.value; i++) {
+    for (var i = 1; i < ayahsList.length; i++) {
       if (!isDownloadedBefore && _httpCtrl.isStopDownload.value) break;
 
       String formatedAyahNumber = Constants.formatInt3.format(i);
@@ -50,13 +52,9 @@ class HttpService {
             file = dounloadedFile;
         }
       }
-      Ayah newAyah = Ayah.empty(
-        ayahNumber: i,
-        audioPath: filePath,
-        surahNumber: surahNumber,
-      );
-      ayahsList.add(newAyah);
-      _httpCtrl.downloadProgress.value = ((i) / _quranCtr.selectedPage.totalAyahsNum.value * 100).toDouble();
+
+      ayahsList.elementAt(i).audioPath = filePath;
+      _httpCtrl.downloadProgress.value = ((i) / (ayahsList.length - 1) * 100).toDouble();
     }
 
     if (!isDownloadedBefore) {

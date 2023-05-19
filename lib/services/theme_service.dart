@@ -10,28 +10,28 @@ import 'package:zad_almumin/pages/quran/quran_page.dart';
 import '../constents/my_sizes.dart';
 
 TextStyle _bodySmall_quran = TextStyle(
-  fontSize: 20,
+  fontSize: Get.width * .05,
   height: 1.8,
   wordSpacing: 5.5,
   fontWeight: FontWeight.w500,
   fontFamily: 'uthmanic',
 );
 TextStyle _bodySmall_quran2 = TextStyle(
-  fontSize: 20,
+  fontSize: Get.width * .05,
   height: 1.8,
   wordSpacing: 5.5,
   fontWeight: FontWeight.w500,
   fontFamily: 'uthmanic2',
 );
 TextStyle _bodyMedium_zikrTitle = TextStyle(
-  fontSize: 18,
+  fontSize: Get.width * .04,
   fontWeight: FontWeight.bold,
   fontFamily: 'uthmanic1',
 );
 TextStyle _displaySmall_content = TextStyle(fontSize: 17, height: 1.8, wordSpacing: 3.5, fontFamily: 'uthmanic');
 
 TextStyle _bodyLarge_blockTitle = TextStyle(
-  fontSize: 16,
+  fontSize: Get.width * .04,
   fontWeight: FontWeight.bold,
   fontFamily: 'uthmanic',
 );

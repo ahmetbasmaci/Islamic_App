@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
 
     pages.add(
       Container(
-        padding: EdgeInsets.only(left: Get.width * 0.05, right: Get.width * 0.05, bottom: Get.height * 0.01),
+        padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, bottom: Get.height * 0.01),
         constraints: BoxConstraints(minHeight: Get.height),
         child: Column(
           children: [
@@ -116,8 +115,8 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                   fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
                                   background: Paint()
                                     ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                            _quranCtr.selectedAyah.value.surahName == ayah.surahName
-                                        ? MyColors.quranPrimary().withOpacity(0.5)
+                                            _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                        ? MyColors.quranPrimary().withOpacity(0.2)
                                         : Colors.transparent
                                     ..strokeJoin = StrokeJoin.round
                                     ..strokeCap = StrokeCap.round
@@ -348,10 +347,9 @@ class QuranPageBody extends GetView<ThemeCtr> {
         ),
         onPressed: () async {
           cancel();
-          List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: _quranCtr.selectedPage.surahNumber.value);
+          List<Ayah> ayahsList = await HttpService.downloadSurah(surahNumber: ayah.surahNumber);
           _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
           _quranCtr.changeOnShownState(false);
-          //_quranCtr.selectedAyah.value = Ayah.empty(); //to hide background color
           _audioCtr.stopAudio();
           if (_httpCtr.downloadProgress.value == 100) {
             _audioCtr.playMultiAudio(ayahList: ayahsList);

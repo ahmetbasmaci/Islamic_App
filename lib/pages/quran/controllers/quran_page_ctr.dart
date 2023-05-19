@@ -12,6 +12,8 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
+import 'package:zad_almumin/services/http_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../models/filter_chip_prop.dart';
 import '../models/marked_page.dart';
@@ -30,17 +32,17 @@ class QuranPageCtr extends GetxController {
       [FilterChipProp(text: '', isSelected: false.obs, searchFilter: SearchFilter.ayah).obs].obs;
   VoidCallback quranPageSetState = () {};
   late TabController tabCtr;
+  Timer? _debounceTimer;
+
   QuranPageCtr() {
     // _deleteQuranMarkedList();
     readFromStorage();
   }
   // _deleteQuranMarkedList() {
   //   GetStorage storage = GetStorage();
-
   //   storage.remove('markedList');
   //   printError(info: 'DELETED DB');
   // }
-  Timer? _debounceTimer;
 
   final StreamController<List<Ayah>> _streamController = StreamController<List<Ayah>>.broadcast();
   Stream<List<Ayah>> get ayahsStream => _streamController.stream;
@@ -108,12 +110,17 @@ class QuranPageCtr extends GetxController {
 
   void updateCurrentPageToWhereStartRead() async {
     List<Ayah> ayahsList = _quranData.getSurahByNumber(selectedPage.surahNumber.value).ayahs;
-    for (var ayah in ayahsList) {
+    for (int i = 1; i < ayahsList.length; i++) {
+      Ayah ayah = ayahsList[i];
       if (ayah.ayahNumber == selectedPage.startAyahNum.value) {
         tabCtr.index = ayah.page - 1;
         break;
       }
     }
+  }
+
+  void updateCurrentPageToCurrentAyah() async {
+    tabCtr.index = selectedAyah.value.page - 1;
   }
 
   List<int> searchPages(String query) {
@@ -141,8 +148,8 @@ class QuranPageCtr extends GetxController {
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       for (var i = 0; i < _quranData.getSurahsCount(); i++) {
         Surah surah = _quranData.getSurahByNumber(i + 1);
-        List<Ayah> ayahs = surah.ayahs;
-        for (var ayah in ayahs) {
+        for (int i = 0; i < surah.ayahs.length; i++) {
+          Ayah ayah = surah.ayahs[i];
           if (HelperMethods.normalise(ayah.text.toString()).contains(query)) {
             matchedAyahs.add(ayah);
             _streamController.add(matchedAyahs);
@@ -170,7 +177,7 @@ class QuranPageCtr extends GetxController {
     return zikrData;
   }
 
-  Future<ZikrData> getZikDataSpecificAyah(int surahNumber, int ayahNumber) async {
+  Future<ZikrData> getSpecificAyah(int surahNumber, int ayahNumber) async {
     if (_quranData.isEmpty)
       await JsonService.loadQuranData();
     else
@@ -188,8 +195,8 @@ class QuranPageCtr extends GetxController {
     return zikrData;
   }
 
-  Future<ZikrData> getZikDataNextAyah(int surahNumber, int ayahNumber) async {
-    ZikrData zikrData = await getZikDataSpecificAyah(surahNumber, ayahNumber + 1);
+  Future<ZikrData> getNextAyah(int surahNumber, int ayahNumber) async {
+    ZikrData zikrData = await getSpecificAyah(surahNumber, ayahNumber + 1);
     return zikrData;
   }
 
@@ -268,7 +275,7 @@ class QuranPageCtr extends GetxController {
     if (selectedPage.surahName.value != newSurahName) {
       selectedPage.surahName.value = newSurahName;
       selectedPage.surahNumber.value = _quranData.getSurahNumberByName(selectedPage.surahName.value);
-      selectedPage.totalAyahsNum.value = _quranData.getSurahAyahs(selectedPage.surahNumber.value).length;
+      selectedPage.totalAyahsNum.value = _quranData.getSurahAyahs(selectedPage.surahNumber.value).length - 1;
       selectedPage.startAyahNum.value = 1;
       selectedPage.endAyahNum.value = selectedPage.totalAyahsNum.value;
     }
@@ -288,6 +295,20 @@ class QuranPageCtr extends GetxController {
 
   void pagePressed() {
     changeOnShownState(!onShown.value);
-    selectedAyah.value = Ayah.empty();
+    if (!Get.find<AudioCtr>().isPlaying.value) {
+      selectedAyah.value = Ayah.empty();
+    }
+  }
+
+  void playPauseBtnPress() async {
+    AudioCtr audioCtr = Get.find<AudioCtr>();
+    if (audioCtr.isPlaying.value)
+      audioCtr.pauseAudio();
+    else {
+      if (selectedAyah.value.text == '')
+        selectedAyah.value = _quranData.getAyah(selectedPage.surahNumber.value, selectedPage.startAyahNum.value);
+      List<Ayah> ayahsList = await HttpService.downloadSurah(surahNumber: selectedAyah.value.surahNumber);
+      Get.find<AudioCtr>().playMultiAudio(ayahList: ayahsList);
+    }
   }
 }

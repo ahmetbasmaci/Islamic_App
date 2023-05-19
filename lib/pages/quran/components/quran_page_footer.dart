@@ -1,12 +1,9 @@
 import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
-import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 import '../../../services/audio_ctr.dart';
@@ -23,8 +20,8 @@ class QuranPageFooter extends StatelessWidget {
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   final QuranData _quranDataCtr = Get.find<QuranData>();
 
-  final double _downPartHeight = Get.size.height * .1;
-  final double _loadingRowHeight = Get.size.height * .03;
+  final double _downPartHeight = Get.size.height * .12;
+  final double _loadingRowHeight = Get.size.height * .04;
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   int animationDurationMilliseconds = 600;
@@ -84,7 +81,7 @@ class QuranPageFooter extends StatelessWidget {
                               onPressed: () {
                                 _httpCtr.isStopDownload.value = true;
                                 _httpCtr.isLoading.value = false;
-                                stopAudio();
+                                _audioCtr.stopAudio();
                               },
                               child: MyIcons.close(color: MyColors.quranPrimary()),
                             ),
@@ -133,8 +130,8 @@ class QuranPageFooter extends StatelessWidget {
                           _quranCtr.selectedPage.surahNumber.value = _quranData.getSurahNumberByName(surah.name);
                           _quranCtr.selectedPage.startAyahNum.value = 1;
                           _quranCtr.selectedPage.endAyahNum.value = surah.ayahs.length;
-                          _quranCtr.selectedPage.juz.value = _quranData.getJuzNumberByPage(surah.ayahs.first.page);
-                          _quranCtr.selectedPage.pageNumber.value = surah.ayahs.first.page;
+                          _quranCtr.selectedPage.juz.value = _quranData.getJuzNumberByPage(surah.ayahs[1].page);
+                          _quranCtr.selectedPage.pageNumber.value = surah.ayahs[1].page;
 
                           _quranCtr.updateCurrentPageToWhereStartRead();
                         }
@@ -171,19 +168,16 @@ class QuranPageFooter extends StatelessWidget {
                       color: MyColors.quranBackGround(),
                       child: InkWell(
                         child: MyIcons.animated_Play_Pause(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
-                        onTap: () {
-                          if (_audioCtr.isPlaying.value)
-                            pauseAudio();
-                          else
-                            playAudio();
-                        },
+                        onTap: () => _quranCtr.playPauseBtnPress(),
                       ),
                     ),
                     Card(
-                        color: MyColors.quranBackGround(),
-                        child: InkWell(
-                            child: MyIcons.stop(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
-                            onTap: () => stopAudio())),
+                      color: MyColors.quranBackGround(),
+                      child: InkWell(
+                        child: MyIcons.stop(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                        onTap: () => _audioCtr.stopAudio(),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -429,9 +423,10 @@ class QuranPageFooter extends StatelessWidget {
 
   Future<List<Widget>> getSurahAyahsList(bool isStartAyah) async {
     List<Widget> list = [];
-    List<Ayah> ayahs = _quranData.getSurahByNumber(_quranCtr.selectedPage.surahNumber.value).ayahs;
+    List<Ayah> ayahs = _quranData.getSurahAyahs(_quranCtr.selectedPage.surahNumber.value);
+
     int startFrom = isStartAyah ? 1 : _quranCtr.selectedPage.startAyahNum.value;
-    for (var i = startFrom; i <= _quranCtr.selectedPage.totalAyahsNum.value; i++) {
+    for (var i = startFrom; i <= ayahs.length; i++) {
       list.add(
         Container(
           height: Get.height * .08,
@@ -456,7 +451,7 @@ class QuranPageFooter extends StatelessWidget {
                 _quranCtr.selectedPage.endAyahNum.value = _quranCtr.selectedPage.totalAyahsNum.value;
 
               Get.back();
-
+              if (isStartAyah) _quranCtr.selectedAyah.value = ayahs.elementAt(i);
               _quranCtr.updateCurrentPageToWhereStartRead();
             },
             child: SingleChildScrollView(
@@ -499,22 +494,5 @@ class QuranPageFooter extends StatelessWidget {
         )
       ],
     );
-  }
-
-  void playAudio() async {
-    List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: _quranCtr.selectedPage.surahNumber.value);
-    _audioCtr.playMultiAudio(
-      ayahList: ayahsList,
-    );
-  }
-
-  void pauseAudio() async {
-    _audioCtr.pauseAudio();
-    //await reverseAnimation();
-  }
-
-  void stopAudio() async {
-    _audioCtr.stopAudio();
-    //await reverseAnimation();
   }
 }

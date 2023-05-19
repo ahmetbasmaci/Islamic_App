@@ -63,6 +63,7 @@ class _AzkarPageState extends State<AzkarPage> {
                           child: ZikrCard(haveMargin: true).azkarCard(
                             ZikrData(
                               zikrType: widget.zikrType,
+                              count: 1,
                               title:
                                   index2 > 0 ? "${zikrDataList[index].title} ${index2 + 1}" : zikrDataList[index].title,
                               content: zikrDataList[index].list[index2]['zekr'] ?? "",
