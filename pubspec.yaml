@@ -42,6 +42,7 @@ dependencies:
   intl: ^0.17.0
   like_button: ^2.0.4
   mailer: ^6.0.1
+  modal_progress_hud_nsn: any
   page_transition: ^2.0.9
   path_provider: ^2.0.11
   rename: ^2.0.1
