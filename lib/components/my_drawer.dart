@@ -7,6 +7,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/favorite/favorite_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/prayerTimes/prayer_times.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
@@ -62,12 +63,12 @@ class MyDrawer extends GetView<ThemeCtr> {
               routeName: AlarmPage.id,
               onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
             ),
-            // drawerItem(
-            //   title: 'اوقات الصلاة',
-            //   icon: MyIcons.prayersTime(),
-            //   routeName: PrayerTimes.id,
-            //   onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
-            // ),
+            drawerItem(
+              title: 'اوقات الصلاة',
+              icon: MyIcons.prayersTime(),
+              routeName: PrayerTimes.id,
+              onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
+            ),
             drawerItem(
               title: 'مراجعة القران',
               icon: MyIcons.ayahsTest,

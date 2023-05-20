@@ -19,6 +19,7 @@ import 'package:zad_almumin/splash_screen.dart';
 import 'classes/controllers.dart';
 import 'constents/constants.dart';
 import 'pages/favorite/favorite_page.dart';
+import 'pages/prayerTimes/prayer_times.dart';
 
 void main() async {
   await GetStorage.init();
@@ -26,8 +27,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(ThemeCtr());
-
-
 
   runApp(MyApp());
 }
@@ -69,6 +68,7 @@ class MyApp extends StatelessWidget {
         AyahsQuestions.id: (context) => AyahsQuestions(),
         ReviewPage.id: (context) => ReviewPage(),
         UserReviews.id: (context) => UserReviews(),
+        PrayerTimes.id: (context) => PrayerTimes(),
       },
       // home: DebouncedSearchBar(),
       initialRoute: HelperMethods.isInDebugMode ? HomePage.id : SplashPage.id,

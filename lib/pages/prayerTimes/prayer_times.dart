@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
@@ -25,7 +26,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: ''),
+      appBar: MyAppBar(title: 'مواقيت الصلاة'),
       drawer: MyDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -39,17 +40,40 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 children: [
                   PrayTmeNextPrayInfo(),
                   SizedBox(height: MySiezes.betweanAzkarBlock),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await prayerTimeCtr.updatePrayerTimes();
-                      if (mounted) setState(() {});
-                    },
-                    child: Text('تحديث'),
-                  ),
                 ],
               ),
               nextPrevDaysArrows(),
               PrayTimesInfo(),
+              MaterialButton(
+                color: MyColors.primary(),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                onPressed: () async {
+                  await prayerTimeCtr.updatePrayerTimes();
+                  if (mounted) setState(() {});
+                },
+                child: Obx(() {
+                  return SizedBox(
+                    width: Get.width * 0.25,
+                    child: Row(
+                      mainAxisAlignment:
+                          prayerTimeCtr.isLoading.value ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
+                      children: [
+                        MyTexts.normal(title: 'تحديث', color: MyColors.white, fontWeight: FontWeight.bold),
+                        prayerTimeCtr.isLoading.value
+                            ? AnimatedOpacity(
+                                duration: Duration(milliseconds: 3000),
+                                opacity: prayerTimeCtr.isLoading.value ? 1 : 0,
+                                child: MyCircularProgressIndecator(
+                                  color: MyColors.white,
+                                  backgroundColor: Colors.black,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ],
           ),
         ),

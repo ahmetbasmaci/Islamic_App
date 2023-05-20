@@ -101,7 +101,10 @@ class PrayerTimeCtr extends GetxController {
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
     await _getCurrentPosition();
-    if (_currentPosition == null) return;
+    if (_currentPosition == null) {
+      isLoading.value = false;
+      return;
+    }
     await _getPrayTimes();
     if (newTime == null) updatePrayerAlarms(); //just in current day
 

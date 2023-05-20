@@ -19,9 +19,6 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(color: MyColors.zikrCard(), borderRadius: BorderRadius.circular(20)),
-      // height: 400,
-      // height: double.maxFinite,
-
       child: Column(
         children: <Widget>[
           Row(
@@ -62,18 +59,18 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  prayerTime(prayerTimeType: PrayerTimeType.fajr),
-                  prayerTime(prayerTimeType: PrayerTimeType.sun),
-                  prayerTime(prayerTimeType: PrayerTimeType.duhr),
+                  prayerTime(PrayerTimeType.fajr),
+                  prayerTime(PrayerTimeType.sun),
+                  prayerTime(PrayerTimeType.duhr),
                 ],
               ),
               SizedBox(height: MySiezes.betweanAzkarBlock),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  prayerTime(prayerTimeType: PrayerTimeType.asr),
-                  prayerTime(prayerTimeType: PrayerTimeType.maghrib),
-                  prayerTime(prayerTimeType: PrayerTimeType.isha),
+                  prayerTime(PrayerTimeType.asr),
+                  prayerTime(PrayerTimeType.maghrib),
+                  prayerTime(PrayerTimeType.isha),
                 ],
               ),
             ],
@@ -83,7 +80,7 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
     );
   }
 
-  Widget prayerTime({required PrayerTimeType prayerTimeType}) {
+  Widget prayerTime(PrayerTimeType prayerTimeType) {
     String title = '';
     String time = '';
     if (prayerTimeType == PrayerTimeType.fajr) {
@@ -126,9 +123,7 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
               AnimatedSwitcher(
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
-                child: prayerTimeCtr.isLoading.value
-                    ? MyCircularProgressIndecator()
-                    : MyTexts.normal(title: time, fontWeight: FontWeight.bold),
+                child: MyTexts.normal(title: time, fontWeight: FontWeight.bold),
               ),
             ],
           ),

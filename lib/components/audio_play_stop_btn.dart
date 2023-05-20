@@ -9,10 +9,11 @@ import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/my_colors.dart';
 import '../services/http_service.dart';
 
-class AudioPlayStopBtn extends StatelessWidget {
+class AudioPlayStopBtn extends GetView<ThemeCtr> {
   AudioPlayStopBtn({Key? key, required this.zikrData, required this.onComplite, required this.autoPlay})
       : super(key: key);
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
@@ -20,20 +21,19 @@ class AudioPlayStopBtn extends StatelessWidget {
   final ZikrData zikrData;
   final VoidCallback onComplite;
   final bool autoPlay;
-  Future<String> handleAudioFuture = Future.value('init');
   @override
   Widget build(BuildContext context) {
-    if (autoPlay) handleAudioFuture = handleAudio();
+    context.theme;
     return FutureBuilder<String>(
-        future: handleAudioFuture,
+        future: autoPlay ? handleAudio() : Future.delayed(Duration(seconds: 0)).then((value) => ''),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return SizedBox(height: MySiezes.icon, width: MySiezes.icon, child: MyCircularProgressIndecator());
-          else if (snapshot.hasError || snapshot.data == '')
+          else if (snapshot.hasError || snapshot.data == 'null')
             return Text(snapshot.error.toString());
           else {
             String path = snapshot.data as String;
-            startAudio(path);
+            if (path != '') startAudio(path);
             return AnimatedButton(
               color: MyColors.zikrCard(),
               width: MySiezes.btnIcon,
@@ -63,7 +63,7 @@ class AudioPlayStopBtn extends StatelessWidget {
     File? file = await HttpService.getAyah(
         surahNumber: zikrData.surahNumber, ayahNumber: zikrData.ayahNumber, dir: dir, showToast: true);
 
-    if (file == null) return '';
+    if (file == null) return 'null';
     return file.path;
   }
 

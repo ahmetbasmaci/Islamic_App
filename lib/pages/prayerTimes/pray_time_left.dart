@@ -22,8 +22,8 @@ class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
           BoxShadow(color: MyColors.shadowPrimary(), blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
-      width: 170,
-      height: 170,
+      width: Get.width * .55,
+      height: Get.height * .25,
       child: Obx(
         () => Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
