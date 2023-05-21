@@ -62,81 +62,17 @@ class JsonService {
     allReaders = jsonDecode(allReadersString);
   }
 
-  // static Future<ZikrData> getRandomQuranAyah() async {
-  //   if (_quranData.isEmpty)
-  //     await loadQuranData();
-  //   else
-  //     await Future.delayed(Duration(milliseconds: 300));
-
-  //   int randomSure = Random().nextInt(114) + 1;
-
-  //   Map<String, dynamic> surahData = allQuranData[randomSure - 1];
-
-  //   List<dynamic> allSureAyahs = surahData['ayahs'];
-  //   int randomAyah = Random().nextInt(allSureAyahs.length);
-  //   ZikrData zikrData = ZikrData(
-  //     zikrType: ZikrType.quran,
-  //     title: 'اعوذ بالله من الشيطان الرجيم',
-  //     content: allSureAyahs[randomAyah]['text'],
-  //     ayahNumber: allSureAyahs[randomAyah]['numberInSurah'],
-  //     surahNumber: randomSure,
-  //   );
-  //   return zikrData;
-  // }
-
-  // static Future<ZikrData> getSpesificQuranAyah({required int ayahNumber, required int surahNumber}) async {
-  //   Map<String, dynamic> surahData = allQuranData[surahNumber - 1];
-
-  //   List<dynamic> allSureAyahs = surahData['ayahs'];
-  //   for (var i = 0; i < allSureAyahs.length; i++) {
-  //     if (allSureAyahs[i]['numberInSurah'] == ayahNumber + 1) {
-  //       return ZikrData(
-  //         zikrType: ZikrType.quran,
-  //         title: 'اعوذ بالله من الشيطان الرجيم',
-  //         content: allSureAyahs[i]['text'],
-  //         ayahNumber: allSureAyahs[i]['numberInSurah'],
-  //         surahNumber: surahNumber,
-  //         isRandomAyah: false,
-  //       );
-  //     }
-  //   }
-  //   return await getRandomQuranAyah();
-  // }
-
-  // static Future<Ayah> getRandomAyah() async {
-  //   final AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
-
-  //   String jsonString = await rootBundle.loadString('assets/database/quran/first_ayahs_from_each_page.json');
-
-  //   List juzs = json.decode(jsonString);
-
-  //   int randomJuz = ctr.juzFrom.value - 1;
-  //   if (ctr.juzTo.value != ctr.juzFrom.value)
-  //     randomJuz = Random().nextInt(ctr.juzTo.value - ctr.juzFrom.value) + ctr.juzFrom.value;
-
-  //   int randomPage = ctr.pageFrom.value - 1;
-  //   if (ctr.pageTo.value != ctr.pageFrom.value)
-  //     randomPage = Random().nextInt(ctr.pageTo.value - ctr.pageFrom.value) + ctr.pageFrom.value;
-
-  //   Ayah selectedAyah = Ayah.fromJson(juzs[randomJuz][randomPage]);
-  //   return selectedAyah;
-  // }
-
-  // static Future<Map> getQuranSurahByNumber(int surahNumber) async {
-  //   if (allQuranData.isEmpty) await loadQuranData();
-  //   return allQuranData[surahNumber - 1];
-  // }
-
+  
   static Future<Map> getAllHadithData(int bookNumber) async {
     if (allHadithData.isEmpty) await loadHadithData();
     return allHadithData[bookNumber - 1];
   }
 
-  static Future<ZikrData> getRandomHadith() async {
-    if (allHadithData.isEmpty)
-      await loadHadithData();
-    else
-      await Future.delayed(Duration(milliseconds: 200));
+  static ZikrData getRandomHadith()  {
+    // if (allHadithData.isEmpty)
+    //   await loadHadithData();
+    // else
+    //   await Future.delayed(Duration(milliseconds: 200));
 
     int randomBook = Random().nextInt(20) + 1;
     Map<String, dynamic> hadithBookData = allHadithData[randomBook - 1];
@@ -144,7 +80,7 @@ class JsonService {
 
     int randomChapter = Random().nextInt(hadithChaptarsMap.length);
     List hadithsMap = hadithChaptarsMap[randomChapter]['hadiths'];
-    if (hadithsMap.isEmpty) return await getRandomHadith();
+    if (hadithsMap.isEmpty) return  getRandomHadith();
 
     int randomHadith = Random().nextInt(hadithsMap.length);
     return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ', content: hadithsMap[randomHadith]['text']);
@@ -170,8 +106,7 @@ class JsonService {
     return zikrDataList;
   }
 
-  static Future<String> getRandomZikr() async {
-    if (allZikrDataList.isEmpty) await loadZikrData();
+  static String getRandomZikr()  {
 
     int randomZikrIndex = Random().nextInt(allZikrDataList.length);
 

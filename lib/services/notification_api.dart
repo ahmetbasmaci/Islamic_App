@@ -154,9 +154,9 @@ class NotificationService {
   static Future setOnceNotification({required AlarmProp alarmProp}) async {
     await Future.delayed(Duration(seconds: 0));
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
+      alarmProp.notificationBody = JsonService.getRandomHadith().content;
     else if (alarmProp.notificationType == NotificationType.azkar)
-      alarmProp.notificationBody = await JsonService.getRandomZikr();
+      alarmProp.notificationBody = JsonService.getRandomZikr();
 
     await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
@@ -174,20 +174,23 @@ class NotificationService {
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
     //get random content
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
+      alarmProp.notificationBody = JsonService.getRandomHadith().content;
     else if (alarmProp.notificationType == NotificationType.azkar)
-      alarmProp.notificationBody = await JsonService.getRandomZikr();
+      alarmProp.notificationBody = JsonService.getRandomZikr();
 
     //set random duration by selected repeat type
     Duration duration = Duration(seconds: 0);
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
+    //  duration = Duration(seconds: 2); 
+     duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
       duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+    else if (alarmProp.zikrRepeat == ZikrRepeat.medium)
       duration = Duration(minutes: Random().nextInt(150) + 150); //150-300
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+    else if (alarmProp.zikrRepeat == ZikrRepeat.low)
       duration = Duration(minutes: Random().nextInt(200) + 600); //300-500
+    else if (alarmProp.zikrRepeat == ZikrRepeat.rare)
+      duration = Duration(minutes: Random().nextInt(600) + 800); //300-500
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
@@ -204,6 +207,7 @@ class NotificationService {
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
+
     // await Future.delayed(duration * 2);
 
     // if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
@@ -220,7 +224,7 @@ class NotificationService {
         notificationSound: alarmProp.notificationSound,
         bigTitle: alarmProp.notificationTitle,
         bigBody: alarmProp.notificationType == NotificationType.hadith
-            ? (await JsonService.getRandomHadith()).content
+            ? JsonService.getRandomHadith().content
             : alarmProp.notificationBody,
       ),
       payload: alarmProp.notificationType.name,

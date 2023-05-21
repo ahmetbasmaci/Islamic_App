@@ -12,7 +12,7 @@ enum NotificationSound { random, hadith, azhan }
 
 enum SearchFilter { surah, ayah, page }
 
-enum ZikrRepeat { high, normal, low, rare, none }
+enum ZikrRepeat { high, medium, low, rare, none }
 
 enum AyahsAnswersType { buttons, dropDownMenu }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
-
-import '../../components/my_circular_progress_indecator.dart';
 import '../../constents/my_colors.dart';
 import '../../constents/my_sizes.dart';
 import '../../constents/my_texts.dart';

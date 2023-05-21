@@ -49,8 +49,8 @@ class AlarmListTile extends GetView<ThemeCtr> {
       MenuOptionsItem(
         title: 'متوسط  11-19  يوميا',
         icon: Container(),
-        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.normal,
-        isSelected: alarmProp.zikrRepeat == ZikrRepeat.normal,
+        onTap: () => alarmProp.zikrRepeat = ZikrRepeat.medium,
+        isSelected: alarmProp.zikrRepeat == ZikrRepeat.medium,
       ),
       MenuOptionsItem(
         title: 'منخفض  5-10  يوميا',

@@ -1,4 +1,3 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/constants.dart';
 
 class Ayah {
