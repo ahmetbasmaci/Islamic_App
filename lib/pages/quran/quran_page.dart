@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/components/my_end_drawer.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_body.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
@@ -13,7 +16,7 @@ import 'controllers/quran_page_ctr.dart';
 
 class QuranPage extends StatefulWidget {
   QuranPage({Key? key, bool? showInKahf}) : super(key: key) {
-    Get.find<QuranPageCtr>().showInKahf = showInKahf??false;
+    Get.find<QuranPageCtr>().showInKahf = showInKahf ?? false;
   }
   static const String id = 'QuranPage';
   @override
@@ -56,7 +59,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: Constants.scaffoldKey,
-        endDrawer: myEndDrawer(),
+        endDrawer: MyEndDrawer(),
         body: Stack(
           children: [
             SafeArea(
@@ -78,60 +81,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget myEndDrawer() {
-    _quranCtr.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
-    return SafeArea(
-      child: Drawer(
-        backgroundColor: MyColors.quranBackGround(),
-        width: 220,
-        child: Column(
-          children: [
-            Container(
-                height: 60,
-                alignment: Alignment.center,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    color: MyColors.quranBackGround(),
-                    border: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
-                    boxShadow: [
-                      BoxShadow(
-                          color: MyColors.quranPrimary().withOpacity(0.5),
-                          offset: Offset(-5, 0),
-                          blurRadius: 10,
-                          spreadRadius: 5)
-                    ]),
-                child: MyTexts.quranSecondTitle(title: 'الملاحظات')),
-            Expanded(
-              child: Scrollbar(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: _quranCtr.markedList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: index != _quranCtr.markedList.length - 1 ? 10 : 0),
-                      child: markedListTile(index),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget markedListTile(int index) {
-    return ListTile(
-      title: MyTexts.settingsTitle(title: 'الجزء ${_quranCtr.markedList[index].juz}'),
-      subtitle: MyTexts.settingsContent(
-          title: '${_quranCtr.markedList[index].surahName}  |  الصفحة ${_quranCtr.markedList[index].pageNumber}'),
-      shape: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
-      onTap: () => _quranCtr.markedListBtnPress(index),
-    );
-  }
-
   List<Widget> quranBodys() {
     List<Widget> quranPages = [];
     bool isMarked = false;
@@ -145,7 +94,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         isBannerWidget(
           isMarked: isMarked,
           child: InkWell(
-            onTap: ()=>_quranCtr.pagePressed(),
+            onTap: () => _quranCtr.pagePressed(),
             onLongPress: () => _quranCtr.showMarkDialog(),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 600),

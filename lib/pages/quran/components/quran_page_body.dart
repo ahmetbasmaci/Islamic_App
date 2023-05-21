@@ -117,7 +117,9 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                     ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
                                             _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
                                         ? MyColors.quranPrimary().withOpacity(0.2)
-                                        : Colors.transparent
+                                        : ayah.isMarked
+                                            ? MyColors.markedAyah().withOpacity(0.2)
+                                            : Colors.transparent
                                     ..strokeJoin = StrokeJoin.round
                                     ..strokeCap = StrokeCap.round
                                     ..style = PaintingStyle.fill,
@@ -127,7 +129,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                       (details) => ayah.isBasmalah ? {} : onAyahLongPressStart(details, ayah),
                                 children: [
                                   TextSpan(
-                                    text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',
+                                    text: HelperMethods.convertToArabicNumber(ayah.ayahNumber),
                                     style: TextStyle(
                                       //fontSize: _quranCtr.quranFontSize.value * 1.2,
                                       wordSpacing: 0,
@@ -283,13 +285,13 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                 ),
 */
 
-              addBookMarkBtn(cancel),
+              addAyahMarkBtn(cancel, ayah),
               SizedBox(width: MySiezes.icon / 2),
-              copyAyahBtn(ayah, cancel),
+              copyAyahBtn(cancel, ayah),
               SizedBox(width: MySiezes.icon / 2),
               playAyahBtn(cancel, ayah),
               SizedBox(width: MySiezes.icon / 2),
-              shareBtn(ayah, cancel),
+              shareBtn(cancel, ayah),
             ],
           ),
         ),
@@ -297,22 +299,24 @@ class QuranPageBody extends GetView<ThemeCtr> {
     );
   }
 
-  Container addBookMarkBtn(CancelFunc cancel) {
+  Container addAyahMarkBtn(CancelFunc cancel, Ayah ayah) {
     return Container(
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,
       decoration:
           BoxDecoration(color: MyColors.whiteBlackReversed(), borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
-        icon: Icon(Icons.bookmark_border, size: MySiezes.icon, color: MyColors.quranPrimary()),
+        icon: Icon(ayah.isMarked ? Icons.bookmark : Icons.bookmark_border,
+            size: MySiezes.icon, color: MyColors.quranPrimary()),
         onPressed: () {
+          _quranCtr.addRemoveAyahMark(ayah);
           cancel();
         },
       ),
     );
   }
 
-  Container copyAyahBtn(Ayah ayah, CancelFunc cancel) {
+  Container copyAyahBtn(CancelFunc cancel, Ayah ayah) {
     return Container(
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,
@@ -359,7 +363,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
     );
   }
 
-  Container shareBtn(Ayah ayah, CancelFunc cancel) {
+  Container shareBtn(CancelFunc cancel, Ayah ayah) {
     return Container(
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,

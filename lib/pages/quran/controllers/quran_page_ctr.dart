@@ -8,6 +8,7 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
@@ -46,7 +47,7 @@ class QuranPageCtr extends GetxController {
 
   final StreamController<List<Ayah>> _streamController = StreamController<List<Ayah>>.broadcast();
   Stream<List<Ayah>> get ayahsStream => _streamController.stream;
-  showMarkDialog() {
+  dynamic showMarkDialog() {
     var pageProp = MarkedPage(
       pageNumber: selectedPage.pageNumber.value,
       juz: _quranData.getJuzNumberByPage(selectedPage.pageNumber.value),
@@ -60,20 +61,16 @@ class QuranPageCtr extends GetxController {
       }
     String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
     String content =
-        pageProp.isMarked ? 'هل تود ازالة علامة القراءة على هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
+        pageProp.isMarked ? 'هل تود ازالة علامة القراءة من هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
 
     return Get.dialog(
       AlertDialog(
-        title: Text(title, style: TextStyle(color: MyColors.quranText())),
-        content: Text(content, style: TextStyle(color: MyColors.quranText())),
+        title: MyTexts.quran(title: title, fontWeight: FontWeight.bold),
+        content: MyTexts.quran(title: content),
         actionsAlignment: MainAxisAlignment.spaceAround,
         backgroundColor: MyColors.quranBackGround(),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('الغاء'),
-          ),
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               if (pageProp.isMarked) {
                 markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
@@ -87,12 +84,40 @@ class QuranPageCtr extends GetxController {
               Get.back();
               quranPageSetState();
             },
-            child: Text('تأكيد'),
+            child: MyTexts.quran(title: 'تأكيد', color: MyColors.quranBackGroundLight),
+          ),
+          TextButton(
+            onPressed: () => Get.back(),
+            child: MyTexts.quran(title: 'الغاء'),
           ),
         ],
       ),
       transitionDuration: Duration(milliseconds: 500),
     );
+  }
+
+  void addRemoveAyahMark(Ayah ayah) {
+    GetStorage storage = GetStorage();
+    bool isMarked = storage.read('markedAyah${ayah.surahNumber}${ayah.ayahNumber}') ?? false;
+    storage.write('markedAyah${ayah.surahNumber}${ayah.ayahNumber}', !isMarked);
+    ayah.isMarked = !isMarked;
+
+    if (isMarked) {
+      Fluttertoast.showToast(msg: 'تم ازالة العلامة');
+    } else {
+      Fluttertoast.showToast(msg: 'تم اضافة العلامة');
+    }
+    selectedAyah.value = Ayah.empty();
+  }
+
+  List<Ayah> getMarkedAyahs() {
+    List<Ayah> markedAyahsList = [];
+    for (var surah in _quranData.getAllSurahs()) {
+      for (var ayah in surah.ayahs) {
+        if (ayah.isMarked) markedAyahsList.add(ayah);
+      }
+    }
+    return markedAyahsList;
   }
 
   void changeOnShownState(bool value) {
@@ -260,8 +285,8 @@ class QuranPageCtr extends GetxController {
     selectedPage.isUnlimitRepeatAyah.value = false;
   }
 
-  void markedListBtnPress(int index) {
-    tabCtr.index = markedList[index].pageNumber - 1;
+  void markedItemBtnPress(int pageNumber) {
+    tabCtr.index = pageNumber - 1;
     changeOnShownState(false);
     Get.back();
   }

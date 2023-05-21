@@ -123,7 +123,7 @@ class MyTexts {
     );
   }
 
-  static Text quranSecondTitle({required String title, double? size, FontWeight? fontWeight}) {
+  static Text quranSecondTitle({required String title, double? size, FontWeight? fontWeight, Color? color}) {
     return Text(
       title,
       textAlign: TextAlign.right,
@@ -131,7 +131,7 @@ class MyTexts {
       style: Theme.of(context)
           .textTheme
           .bodySmall!
-          .copyWith(fontWeight: fontWeight, color: MyColors.quranPrimary(), fontSize: size ?? 16),
+          .copyWith(fontWeight: fontWeight, color: color??MyColors.quranPrimary(), fontSize: size ?? 16),
       // TextStyle(
       //   color: MyColors.quranPrimary(),
       //   fontSize: size ?? 16,

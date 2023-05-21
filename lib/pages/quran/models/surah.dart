@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
 class Surah {
@@ -16,6 +17,8 @@ class Surah {
       Ayah newAyah = Ayah.fromJson(ayah);
       newAyah.surahName = json['name'];
       newAyah.surahNumber = json['number'];
+      newAyah.isMarked = GetStorage().read<bool>('markedAyah${newAyah.surahNumber}${newAyah.ayahNumber}') ?? false;
+
       ayahs.add(newAyah);
     }
     return Surah(

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:zad_almumin/components/my_end_drawer.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/json_service.dart';
@@ -26,6 +27,7 @@ class ControllerBinding extends Bindings {
     Get.put(AyahsQuestionsCtr());
     Get.put(FavoriteCtr());
     Get.put(SettingsCtr());
+    Get.put(MyEndDrawerCtr());
     await JsonService.loadData();
   }
 }

@@ -7,6 +7,8 @@ class MyColors {
   static const Color backgroundDark = Color(0xff222222);
   static const Color _quranPrimary = Color(0xFF0A8468); // Color(0xFFB9791F);
   static const Color _quranPrimaryDark = Color(0xFF0A8468); // Color(0xFFAC7324);
+  static const Color _markedAyah = Color(0xFF04FFC4); // Color(0xFFB9791F);
+  static const Color _markedAyahDark = Color(0xFF04FFC4); // Color(0xFFAC7324);
   static const Color quranBackGroundLight = Color(0xFFFFFCFA); // Color(0xFFF7EDE3);
   static const Color quranBackGroundDark = Color(0xFF050200);
   static const Color quranItemBackGroundLight = Color(0xFFF7EDE3);
@@ -39,6 +41,7 @@ class MyColors {
 
   static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
   static Color quranPrimary() => Get.isDarkMode ? _quranPrimaryDark : _quranPrimary;
+  static Color markedAyah() => Get.isDarkMode ? _markedAyahDark : _markedAyah;
   static Color quranStatus() => Get.isDarkMode ? Color.fromARGB(255, 0, 0, 0) : Color.fromARGB(255, 210, 195, 174);
 
   static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;
