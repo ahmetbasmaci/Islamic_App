@@ -95,6 +95,6 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf
 
-    - family: KFGQPC
+    - family: kfgqpc
       fonts:
         - asset: assets/fonts/KFGQPC-Uthmanic-Script-HAFS-Regular.otf

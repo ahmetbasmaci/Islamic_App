@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/constents/my_texts.dart';
+import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
 import '../../../constents/constants.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';
@@ -37,55 +36,82 @@ class PrayerTimeCtr extends GetxController {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       await Future.delayed(Duration(seconds: 5));
-      await Get.dialog(AlertDialog(
-        title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
-        content: MyTexts.settingsContent(
-            title:
-                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Get.back();
-              await Geolocator.openLocationSettings();
-              serviceEnabled = await Geolocator.isLocationServiceEnabled();
-            },
-            child: MyTexts.normal(title: "حسنا"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: MyTexts.normal(title: "رفض"),
-          ),
-        ],
-      ));
+      await Get.dialog(
+        AlertDialogOkNo(
+          title: "تشغيل خدمات الموقع الجغرافي",
+          content:
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
+          okText: "حسنا",
+          noText: "رفض",
+          onOk: () async {
+            Get.back();
+            await Geolocator.openLocationSettings();
+            serviceEnabled = await Geolocator.isLocationServiceEnabled();
+          },
+          onNo: () => Get.back(),
+        ),
+
+        //   AlertDialog(
+        //   title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
+        //   content: MyTexts.settingsContent(
+        //       title:
+        //           "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+        //   actions: [
+        //     TextButton(
+        //       onPressed: () async {
+        //         Get.back();
+        //         await Geolocator.openLocationSettings();
+        //         serviceEnabled = await Geolocator.isLocationServiceEnabled();
+        //       },
+        //       child: MyTexts.normal(title: "حسنا"),
+        //     ),
+        //     TextButton(
+        //       onPressed: () {
+        //         Get.back();
+        //       },
+        //       child: MyTexts.normal(title: "رفض"),
+        //     ),
+        //   ],
+        // )
+      );
     }
     if (!serviceEnabled) return null;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       await Future.delayed(Duration(seconds: 5));
-      await Get.dialog(AlertDialog(
-        title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
-        content: MyTexts.settingsContent(
-            title:
-                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Get.back();
-              //Geolocator.openLocationSettings();
-              permission = await Geolocator.requestPermission();
-            },
-            child: MyTexts.normal(title: "حسنا"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: MyTexts.normal(title: "رفض"),
-          ),
-        ],
-      ));
+      await Get.dialog(
+        AlertDialogOkNo(
+          title: "طلب الاذن بالوصول للموقع الحالي",
+          content:
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
+          okText: "حسنا",
+          noText: "رفض",
+          onOk: () async => permission = await Geolocator.requestPermission(),
+          onNo: () => Get.back(),
+        ),
+        // AlertDialog(
+        //   title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
+        //   content: MyTexts.settingsContent(
+        //       title:
+        //           "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+        //   actions: [
+        //     TextButton(
+        //       onPressed: () async {
+        //         Get.back();
+        //         //Geolocator.openLocationSettings();
+        //         permission = await Geolocator.requestPermission();
+        //       },
+        //       child: MyTexts.normal(title: "حسنا"),
+        //     ),
+        //     TextButton(
+        //       onPressed: () {
+        //         Get.back();
+        //       },
+        //       child: MyTexts.normal(title: "رفض"),
+        //     ),
+        //   ],
+        // )
+      );
 
       if (permission == LocationPermission.denied) return null; // Future.error('Location permissions are denied');
     }

@@ -68,11 +68,11 @@ class JsonService {
     return allHadithData[bookNumber - 1];
   }
 
-  static ZikrData getRandomHadith()  {
-    // if (allHadithData.isEmpty)
-    //   await loadHadithData();
-    // else
-    //   await Future.delayed(Duration(milliseconds: 200));
+  static Future<ZikrData> getRandomHadith()async  {
+    if (allHadithData.isEmpty)
+      await loadHadithData();
+    else
+      await Future.delayed(Duration(milliseconds: 200));
 
     int randomBook = Random().nextInt(20) + 1;
     Map<String, dynamic> hadithBookData = allHadithData[randomBook - 1];

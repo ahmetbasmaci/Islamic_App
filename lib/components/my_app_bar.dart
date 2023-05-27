@@ -6,12 +6,22 @@ import '../constents/my_icons.dart';
 import '../pages/settings/settings_page.dart';
 
 class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
-  const MyAppBar({Key? key, required this.title, this.leading, this.actions, this.bottom}) : super(key: key);
+  MyAppBar({
+    Key? key,
+    required this.title,
+    this.leading,
+    this.actions,
+    this.bottom,
+    this.showSettingsBtn = false,
+    this.showDrawerBtn = true,
+  }) : super(key: key);
   final String title;
 
   final Widget? leading;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
+  bool showSettingsBtn = false;
+  bool showDrawerBtn = true;
   @override
   Size get preferredSize {
     return Size.fromHeight(kToolbarHeight);
@@ -21,11 +31,15 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     context.theme;
     return AppBar(
-        elevation: 0,
-        title: MyTexts.outsideHeader(title: title),
-        leading: leading ?? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer),
-        actions: [...actions ?? [], settingsPageButton(), backButton(context)],
-        bottom: bottom);
+      elevation: 0,
+      title: MyTexts.outsideHeader(title: title),
+      leading: leading ??
+          (showDrawerBtn
+              ? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer)
+              : Container()),
+      actions: [...actions ?? [], showSettingsBtn ? settingsPageButton() : Container(), backButton(context)],
+      bottom: bottom,
+    );
   }
 
   IconButton settingsPageButton() {

@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         bottom: false,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية') : null,
+          appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية', showSettingsBtn: true) : null,
           drawer: currentIndex != 1 ? MyDrawer() : null,
           bottomNavigationBar: currentIndex != 1
               ? CurvedNavigationBar(

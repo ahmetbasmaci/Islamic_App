@@ -18,7 +18,8 @@ class ControllerBinding extends Bindings {
   void dependencies() async {
     NotificationService();
     Get.put(ThemeCtr());
-   Get.put(PrayerTimeCtr());
+    Get.put(SettingsCtr());
+    Get.put(PrayerTimeCtr());
     Get.put(QuranData());
     Get.put(AlarmsCtr());
     Get.put(QuranPageCtr());
@@ -26,7 +27,6 @@ class ControllerBinding extends Bindings {
     Get.put(HttpCtr());
     Get.put(AyahsQuestionsCtr());
     Get.put(FavoriteCtr());
-    Get.put(SettingsCtr());
     Get.put(MyEndDrawerCtr());
     await JsonService.loadData();
   }

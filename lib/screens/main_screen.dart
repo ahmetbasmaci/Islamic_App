@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
           AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard().hadithCard()),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
-            child: azkarBlocks(outsideTitle: 'مختلف الاذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),
+            child: azkarBlocks(outsideTitle: 'مختلف الأذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),
             index: 3,
           ),
           const SizedBox(height: MySiezes.betweanCards),

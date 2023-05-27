@@ -211,7 +211,7 @@ class QuranPageFooter extends StatelessWidget {
               Divider(),
               selectRepeet(),
               Divider(),
-              changeFontSize(),
+              //changeFontSize(),
             ],
           ),
         ),
@@ -275,7 +275,7 @@ class QuranPageFooter extends StatelessWidget {
   Widget startEndAyahsSelections(bool isStartAyah) {
     return Row(
       children: [
-        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الاية:  ' : 'الى الاية :  '),
+        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:  ' : 'الى الآية :  '),
         SizedBox(
           width: Get.size.width * .5,
           height: Get.size.height * .04,
@@ -291,7 +291,7 @@ class QuranPageFooter extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      MyTexts.quranSecondTitle(title: 'اختر الاية:  '),
+                      MyTexts.quranSecondTitle(title: 'اختر الآية:  '),
                       MyTexts.quranSecondTitle(
                           title: _quranData.getSurahNameByNumber(_quranCtr.selectedPage.surahNumber.value)),
                     ],
@@ -392,7 +392,7 @@ class QuranPageFooter extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'الاية      :  '),
+            MyTexts.quranSecondTitle(title: 'الآية      :  '),
             Obx(
               () => MyTexts.quranSecondTitle(
                   title: _quranCtr.selectedPage.repeetAyahCount.value.toString(), fontWeight: FontWeight.bold),
@@ -470,29 +470,5 @@ class QuranPageFooter extends StatelessWidget {
     }
 
     return list;
-  }
-
-  Widget changeFontSize() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        MyIcons.letter(color: MyColors.quranPrimary()),
-        SizedBox(width: Get.width * .04),
-        MyTexts.quran(title: "حجم الخط", color: MyColors.quranPrimary(), size: 16),
-        Obx(
-          () => SizedBox(
-            width: Get.width * .4,
-            child: Slider(
-              max: (Get.width * Get.height * 0.000090),
-              min: (Get.width * Get.height * 0.000060),
-              activeColor: MyColors.quranPrimary(),
-              thumbColor: MyColors.quranBackGround(),
-              value: _quranCtr.quranFontSize.value,
-              onChanged: (val) => _quranCtr.updateQuranFontSize(val),
-            ),
-          ),
-        )
-      ],
-    );
   }
 }

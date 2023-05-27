@@ -70,13 +70,13 @@ class MyDrawer extends GetView<ThemeCtr> {
               onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
             ),
             drawerItem(
-              title: 'مراجعة القران',
+              title: 'مراجعة القرآن',
               icon: MyIcons.ayahsTest,
               routeName: AyahsQuestions.id,
               onTap: () async => navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
             ),
             drawerItem(
-              title: 'اذكار المسلم',
+              title: 'أذكار المسلم',
               icon: MyIcons.azkar(),
               routeName: AzkarBlockScreen.id,
               onTap: () async => navigateTo(context: context, routeName: AzkarBlockScreen.id, page: AzkarBlockScreen()),
@@ -129,6 +129,7 @@ class MyDrawer extends GetView<ThemeCtr> {
               onPressed: () async {
                 bool isDark = Get.isDarkMode;
                 _settingsCtr.changeDarkModeState(!isDark);
+                Get.back();
               },
               icon: MyIcons.animated_Light_Dark(),
             ),

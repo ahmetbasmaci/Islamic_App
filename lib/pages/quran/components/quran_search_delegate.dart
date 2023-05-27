@@ -14,7 +14,7 @@ class QuranSearchDelegate extends SearchDelegate {
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
 
   @override
-  String get searchFieldLabel => 'بحث عن اية او سورة...';
+  String get searchFieldLabel => 'بحث عنآية او سورة...';
 
   @override
   ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(

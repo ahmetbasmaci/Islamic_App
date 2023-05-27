@@ -31,14 +31,14 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
   Widget build(BuildContext context) {
     return AnimationLimiter(
       child: Scaffold(
-        appBar: MyAppBar(title: 'اذكار المسلم'),
+        appBar: MyAppBar(title: 'أذكار المسلم'),
         drawer: MyDrawer(),
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
             Align(
               alignment: Alignment.centerRight,
-              child: MyTexts.outsideHeader(title: 'مختلف الاذكار'),
+              child: MyTexts.outsideHeader(title: 'مختلف الأذكار'),
             ),
             ListView.builder(
               itemCount: BlockData.list.length,

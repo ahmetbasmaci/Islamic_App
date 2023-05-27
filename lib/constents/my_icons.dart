@@ -24,8 +24,11 @@ class MyIcons {
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
 
-  static Icon letter({Color? color, double size = MySiezes.icon}) =>
+  static Icon letterSize({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.textformat_size, color: color, size: size);
+
+  static Icon letter({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.font_download_rounded, color: color, size: size);
   static Icon plus({Color? color, double size = MySiezes.icon}) => Icon(Icons.add, color: color, size: size);
   static Icon minus({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.minus, color: color, size: size);

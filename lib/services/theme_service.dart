@@ -3,63 +3,48 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/main.dart';
+import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 import '../constents/my_sizes.dart';
-
-TextStyle _bodySmall_quran = TextStyle(
-  fontSize: Get.width * .05,
-  height: 1.8,
-  wordSpacing: 5.5,
-  fontWeight: FontWeight.w500,
-  fontFamily: 'uthmanic',
-);
-TextStyle _bodySmall_quran2 = TextStyle(
-  fontSize: Get.width * .05,
-  height: 1.8,
-  wordSpacing: 5.5,
-  fontWeight: FontWeight.w500,
-  fontFamily: 'uthmanic2',
-);
-TextStyle _bodyMedium_zikrTitle = TextStyle(
-  fontSize: Get.width * .04,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'uthmanic1',
-);
-TextStyle _displaySmall_content = TextStyle(fontSize: 17, height: 1.8, wordSpacing: 3.5, fontFamily: 'uthmanic');
-
-TextStyle _bodyLarge_blockTitle = TextStyle(
-  fontSize: Get.width * .04,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'uthmanic',
-);
-
-TextStyle _labelSmall_settingsTitle = GoogleFonts.harmattan(fontSize: 19, fontWeight: FontWeight.bold);
-
-TextStyle _labelMedium_settingContent = GoogleFonts.harmattan(fontSize: 14, color: MyColors.settingsContent);
-
-TextStyle _headLine6_headers = GoogleFonts.harmattan(fontSize: 20, fontWeight: FontWeight.bold);
-
-TextStyle _displayMedium_Info = GoogleFonts.harmattan(fontSize: 17, color: MyColors.info, wordSpacing: 3.5);
-
-TextStyle _displayLarge_dropDownItem = GoogleFonts.harmattan();
-
-TextStyle _titleSmall_dropDownTitle = GoogleFonts.harmattan(fontSize: 16);
 
 class ThemeCtr extends GetxController {
   ThemeCtr() {
     updateThemes();
   }
+  //write regin block
+  //region
+  TextStyle _bodySmall_quran = TextStyle();
+  TextStyle _bodySmall_quran2 = TextStyle();
+  TextStyle _bodyMedium_zikrTitle = TextStyle();
+  TextStyle _displaySmall_content = TextStyle();
+  TextStyle _bodyLarge_blockTitle = TextStyle();
+  TextStyle _labelSmall_settingsTitle = TextStyle();
+  TextStyle _labelMedium_settingContent = TextStyle();
+  TextStyle _headLine6_headers = TextStyle();
+  TextStyle _displayMedium_Info = TextStyle();
+  TextStyle _displayLarge_dropDownItem = TextStyle();
+  TextStyle _titleSmall_dropDownTitle = TextStyle();
+
+  //endregion
+
   RxBool isDarkMode = false.obs;
   Rx<ThemeData> lightThemeMode = ThemeData.light().obs;
   Rx<ThemeData> darkThemeMode = ThemeData.dark().obs;
   Rx<ThemeData> currentThemeMode = ThemeData().obs;
+  final _getStorage = GetStorage();
+  final _darkKeyTheme = 'isDarkMode';
 
   updateThemes() {
+    updateTextStyles();
+
     lightThemeMode.value = ThemeData.light().copyWith(
-      timePickerTheme: TimePickerThemeData(dialHandColor: MyColors.primary()),
+      timePickerTheme: TimePickerThemeData(
+        dialHandColor: MyColors.primary(),
+        dayPeriodBorderSide: BorderSide(color: MyColors.primary(), width: 1),
+      ),
       primaryColor: MyColors.primary_,
       scaffoldBackgroundColor: MyColors.backgroundLight,
       drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundLight),
@@ -122,7 +107,10 @@ class ThemeCtr extends GetxController {
     );
 
     darkThemeMode.value = ThemeData.dark().copyWith(
-      timePickerTheme: TimePickerThemeData(dialHandColor: MyColors.primary()),
+      timePickerTheme: TimePickerThemeData(
+        dialHandColor: MyColors.primary(),
+        dayPeriodBorderSide: BorderSide(color: MyColors.primary(), width: 1),
+      ),
       primaryColor: MyColors.primaryDark,
       scaffoldBackgroundColor: MyColors.backgroundDark,
       drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundDark),
@@ -184,8 +172,74 @@ class ThemeCtr extends GetxController {
     );
   }
 
-  final _getStorage = GetStorage();
-  final _darkKeyTheme = 'isDarkMode';
+  void updateTextStyles() {
+    String defaultFont = GetStorage().read<String>('defaultFont') ?? MyFonts.uthmanic.name;
+    _bodySmall_quran = TextStyle(
+      fontSize: Get.width * .05,
+      height: 1.8,
+      wordSpacing: 5.5,
+      fontWeight: FontWeight.w500,
+      fontFamily: defaultFont,
+    );
+    _bodySmall_quran2 = TextStyle(
+      fontSize: Get.width * .05,
+      height: 1.8,
+      wordSpacing: 5.5,
+      fontWeight: FontWeight.w500,
+      fontFamily: defaultFont,
+    );
+    _bodyMedium_zikrTitle = TextStyle(
+      fontSize: Get.width * .04,
+      fontWeight: FontWeight.bold,
+      fontFamily: defaultFont,
+    );
+    _displaySmall_content = TextStyle(
+      fontSize: 17,
+      height: 1.8,
+      wordSpacing: 3.5,
+      fontFamily: defaultFont,
+    );
+
+    _bodyLarge_blockTitle = TextStyle(
+      fontSize: Get.width * .04,
+      fontWeight: FontWeight.bold,
+      fontFamily: defaultFont,
+    );
+
+    _labelSmall_settingsTitle = TextStyle(
+      fontSize: 19,
+      fontWeight: FontWeight.bold,
+      fontFamily: defaultFont,
+    );
+
+    _labelMedium_settingContent = TextStyle(
+      fontSize: 14,
+      color: MyColors.settingsContent,
+      fontFamily: defaultFont,
+    );
+
+    _headLine6_headers = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      fontFamily: defaultFont,
+    );
+
+    _displayMedium_Info = TextStyle(
+      fontSize: 17,
+      color: MyColors.info,
+      wordSpacing: 3.5,
+      fontFamily: defaultFont,
+    );
+
+    _displayLarge_dropDownItem = TextStyle(
+      fontFamily: defaultFont,
+    );
+
+    _titleSmall_dropDownTitle = TextStyle(
+      fontSize: 16,
+      fontFamily: defaultFont,
+    );
+  }
 
   void _saveThemeData(bool newThemeMode) => _getStorage.write(_darkKeyTheme, newThemeMode);
 
@@ -201,7 +255,9 @@ class ThemeCtr extends GetxController {
     this.isDarkMode.value = Get.isDarkMode;
     await Future.delayed(const Duration(milliseconds: 200));
     if (HelperMethods.getNewOpendPageId() != QuranPage.id) {
-      Get.offAll(() => HelperMethods.getNewOpendPage(), transition: Transition.fadeIn);
+      // Get.offAll(() => HelperMethods.getNewOpendPage(), transition: Transition.fadeIn);
+      runApp(MyApp());
+      // setState.call();
     }
   }
 }

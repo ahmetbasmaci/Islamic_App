@@ -22,6 +22,13 @@ class PrayerTimes extends StatefulWidget {
 class _PrayerTimesState extends State<PrayerTimes> {
   PrayerTimeCtr prayerTimeCtr = Get.find<PrayerTimeCtr>();
   int hDay = HijriCalendar.fromDate(DateTime.now()).hDay;
+
+  @override
+  void initState() {
+    super.initState();
+    prayerTimeCtr.updatePrayerTimes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

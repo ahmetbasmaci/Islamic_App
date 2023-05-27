@@ -8,6 +8,7 @@ import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
+import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
@@ -27,21 +28,6 @@ class QuranPageBody extends GetView<ThemeCtr> {
     return Obx(
       () => Stack(
         children: _quranCtr.showAsImages.value ? getQuranImages(page: page) : getQuranTexts(page: page),
-        // : [
-        //     Align(
-        //       alignment: Alignment.center,
-        //       child: Scrollbar(
-        //         thickness: 6,
-        //         child: SingleChildScrollView(
-        //           child: Obx(
-        //             () => _quranCtr.quranFontSize.value != 0
-        //                 ? Column(children: getQuranTexts(page: page))
-        //                 : Container(),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
       ),
     );
   }
@@ -66,7 +52,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
 
     pages.add(
       Container(
-        padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, bottom: Get.height * 0.01),
+        padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01, bottom: Get.height * 0.01),
         constraints: BoxConstraints(minHeight: Get.height),
         child: Column(
           children: [
@@ -95,59 +81,55 @@ class QuranPageBody extends GetView<ThemeCtr> {
               ),
             ),
             Expanded(
-              child: Scrollbar(
-                thickness: 6,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Obx(
-                      () => RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            ...ayahs.map(
-                              (ayah) => TextSpan(
-                                text: ayah.text,
-                                style: TextStyle(
-                                  fontFamily: "naskh",
-                                  wordSpacing: -1,
-                                  color: ayah.isBasmalah ? MyColors.quranPrimary() : null,
-                                  fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
-                                  background: Paint()
-                                    ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                            _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                        ? MyColors.quranPrimary().withOpacity(0.2)
-                                        : ayah.isMarked
-                                            ? MyColors.markedAyah().withOpacity(0.2)
-                                            : Colors.transparent
-                                    ..strokeJoin = StrokeJoin.round
-                                    ..strokeCap = StrokeCap.round
-                                    ..style = PaintingStyle.fill,
-                                ),
-                                recognizer: LongPressGestureRecognizer()
-                                  ..onLongPressStart =
-                                      (details) => ayah.isBasmalah ? {} : onAyahLongPressStart(details, ayah),
-                                children: [
-                                  TextSpan(
-                                    text: HelperMethods.convertToArabicNumber(ayah.ayahNumber),
-                                    style: TextStyle(
-                                      //fontSize: _quranCtr.quranFontSize.value * 1.2,
-                                      wordSpacing: 0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'uthmanic2',
-                                      color: MyColors.quranPrimary(),
-                                    ),
-                                  )
-                                ],
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Obx(
+                    () => RichText(
+                      textAlign: TextAlign.justify,
+                      text: TextSpan(
+                        children: [
+                          ...ayahs.map(
+                            (ayah) => TextSpan(
+                              text: ayah.text,
+                              style: TextStyle(
+                                fontFamily: MyFonts.uthmanic.name,
+                                wordSpacing: -1,
+                                color: ayah.isBasmalah ? MyColors.quranPrimary() : null,
+                                fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
+                                background: Paint()
+                                  ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                                          _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                      ? MyColors.quranPrimary().withOpacity(0.2)
+                                      : ayah.isMarked
+                                          ? MyColors.markedAyah().withOpacity(0.2)
+                                          : Colors.transparent
+                                  ..strokeJoin = StrokeJoin.round
+                                  ..strokeCap = StrokeCap.round
+                                  ..style = PaintingStyle.fill,
                               ),
+                              recognizer: LongPressGestureRecognizer()
+                                ..onLongPressStart =
+                                    (details) => ayah.isBasmalah ? {} : onAyahLongPressStart(details, ayah),
+                              children: [
+                                TextSpan(
+                                  text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',
+                                  style: TextStyle(
+                                    wordSpacing: 0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: MyFonts.uthmanic2.name,
+                                    color: MyColors.quranPrimary(),
+                                  ),
+                                )
+                              ],
                             ),
-                          ],
-                          style: MyTexts.quran(title: '', size: _quranCtr.quranFontSize.value).style!.copyWith(),
-                        ),
+                          ),
+                        ],
+                        style: MyTexts.quran(title: '', size: _quranCtr.quranFontSize.value).style!.copyWith(),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
             Align(

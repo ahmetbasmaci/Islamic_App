@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
@@ -15,32 +18,27 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  static final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
+  final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(title: 'الإعدادات', showDrawerBtn: false),
       body: Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyTexts.outsideHeader(title: 'الإعدادات'),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: MyIcons.backArrow,
-                  ),
-                ],
-              ),
               ListTile(
                 title: MyTexts.settingsTitle(title: 'تنشيط الوضع اليلي'),
                 subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار الوضع اليلي'),
                 trailing: MySwitch(
                   value: Get.isDarkMode,
-                  onChanged: (newValue) => _settingsCtr.changeDarkModeState(newValue),
+                  onChanged: (newValue) async {
+                    _settingsCtr.changeDarkModeState(newValue);
+                    await Future.delayed(Duration(milliseconds: 200));
+                    setState(() {});
+                  },
                 ),
                 leading: MyIcons.animated_Light_Dark(size: MySiezes.icon * 1.2),
               ),
@@ -55,6 +53,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   leading: MyIcons.animatedSound_On_Of(size: MySiezes.icon * 1.2),
                 ),
+              ),
+              Divider(),
+              ListTile(
+                title: MyTexts.settingsTitle(title: 'تعديل نوع الخط'),
+                subtitle: MyTexts.settingsContent(title: 'قم باختيار نوع الخط المناسب لك'),
+                trailing: DropdownButton<String>(
+                  onChanged: (val) => _settingsCtr.changeFont(val!, () => setState(() {})),
+                  value: _settingsCtr.defaultFont,
+                  items: [
+                    ...MyFonts.values
+                        .map((e) => DropdownMenuItem<String>(
+                              value: e.name,
+                              child: Text(e.arabicName.toString(), style: TextStyle(fontFamily: e.name)),
+                            ))
+                        .toList()
+                  ],
+                ),
+                leading: MyIcons.letter(size: MySiezes.icon * 1.2),
               ),
               // Divider(),
               // ListTile(

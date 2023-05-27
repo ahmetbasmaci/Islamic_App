@@ -45,8 +45,8 @@ class _FavoritePageState extends State<FavoritePage> {
                       DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(title: 'الكل')),
                       DropdownMenuItem(
                           value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله')),
-                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الاذكار')),
-                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القران')),
+                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار')),
+                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن')),
                       DropdownMenuItem(value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث')),
                     ],
                     onChanged: (newSelectedType) {

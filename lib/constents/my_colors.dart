@@ -18,8 +18,8 @@ class MyColors {
   static Color primary_ = Color(0xFF1A644F);
   static Color primaryDark = Color(0xFF0A8468);
   static const Color lightModeShadow = Color(0xFF3F3F3F);
-  static const Color second_ = Color(0xFF2AB58D);
-  static const Color secondDark = Color(0xFF2AB58D);
+  static const Color second_ = Color(0xFF1A644F);
+  static const Color secondDark = Color(0xFF1A644F);
   static const Color content = Color(0xFF000000);
   static const Color contentDark = Color(0xFFFFFFFF);
   static const Color info = Color(0xFF2AB58D);
