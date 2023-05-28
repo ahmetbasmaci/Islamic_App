@@ -131,7 +131,7 @@ class MyTexts {
       style: Theme.of(context)
           .textTheme
           .bodySmall!
-          .copyWith(fontWeight: fontWeight, color: color??MyColors.quranPrimary(), fontSize: size ?? 16),
+          .copyWith(fontWeight: fontWeight, color: color ?? MyColors.quranPrimary(), fontSize: size),
       // TextStyle(
       //   color: MyColors.quranPrimary(),
       //   fontSize: size ?? 16,

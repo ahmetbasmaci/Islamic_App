@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
         PrayerTimes.id: (context) => PrayerTimes(),
       },
       // home: DebouncedSearchBar(),
-      initialRoute: HelperMethods.isInDebugMode ? HomePage.id : SplashPage.id,
+      initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
       darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,

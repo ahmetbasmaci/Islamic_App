@@ -36,9 +36,8 @@ class QuranPageUp extends GetView<ThemeCtr> {
       MenuOptionsItem(
         title: 'تغير الثيم',
         icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary()),
-        onTap: () async {
-          bool isDark = Get.isDarkMode;
-          _settingsCtr.changeDarkModeState(!isDark);
+        onTap: () {
+          _settingsCtr.changeDarkModeState(!Get.isDarkMode);
           _quranCtr.changeOnShownState(false);
           Future.delayed(Duration(milliseconds: 200), () {
             quranPageSetState.call();
@@ -67,11 +66,10 @@ class QuranPageUp extends GetView<ThemeCtr> {
       title: "حجم الخط",
       onTap: () async {},
     );
-
     MenuOptionsItem changeFontTypeMenu = MenuOptionsItem(
       child: Obx(() {
         return DropdownButton<String>(
-          onChanged: (val) => _settingsCtr.changeFont(val!),
+          onChanged: (val) => _settingsCtr.changeFont(val!, setState: quranPageSetState),
           value: _settingsCtr.defaultFont.value,
           items: MyFonts.values
               .map((e) => DropdownMenuItem<String>(
@@ -83,28 +81,24 @@ class QuranPageUp extends GetView<ThemeCtr> {
       }),
       icon: MyIcons.letter(size: MySiezes.icon),
       title: "تعديل نوع الخط",
-      onTap: () async {},
+      onTap: () {},
     );
 
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: 300),
-      top: _quranCtr.onShown.value ? _upPartHeight : -_upPartHeight,
+    return SafeArea(
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        height: _upPartHeight,
+        height: _quranCtr.onShown.value ? _upPartHeight : 0,
         width: Get.size.width,
         decoration: BoxDecoration(
           color: MyColors.quranBackGround(),
           boxShadow: [
             BoxShadow(
-                color: MyColors.quranPrimary().withOpacity(0.2), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
+                color: MyColors.quranPrimary().withOpacity(0.5), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
           ],
         ),
         child: Align(
-          // alignment: Alignment.bottomRight,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Align(
                 alignment: Alignment.centerRight,
@@ -149,14 +143,12 @@ class QuranPageUp extends GetView<ThemeCtr> {
                             ...menuItemList.map(
                               (e) => PopupMenuItem(
                                 value: e,
-                                onTap: e.child == null ? null : () {},
-                                child: InkWell(
-                                  onTap: e.child == null
-                                      ? null
-                                      : () {
-                                          Get.back();
-                                          e.onTap();
-                                        },
+                                onTap: null,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                    e.onTap();
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [

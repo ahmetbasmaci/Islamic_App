@@ -134,12 +134,15 @@ class QuranPageBody extends GetView<ThemeCtr> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Center(
-                child: MyTexts.quran(
-                  title: HelperMethods.convertToArabicNumber(page),
-                  size: 20,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.quranPrimary(),
+              child: SizedBox(
+                height: Get.height * 0.03,
+                child: Center(
+                  child: MyTexts.quran(
+                    title: HelperMethods.convertToArabicNumber(page),
+                    // size: 16,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.quranPrimary(),
+                  ),
                 ),
               ),
             ),

@@ -175,7 +175,7 @@ class ThemeCtr extends GetxController {
   void updateTextStyles() {
     String defaultFont = GetStorage().read<String>('defaultFont') ?? MyFonts.uthmanic.name;
     _bodySmall_quran = TextStyle(
-      fontSize: Get.width * .05,
+      fontSize: Get.width * .04,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
@@ -252,12 +252,6 @@ class ThemeCtr extends GetxController {
     currentThemeMode.value = isDarkMode ? darkThemeMode.value : lightThemeMode.value;
     Get.changeThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
     _saveThemeData(isDarkMode);
-    this.isDarkMode.value = Get.isDarkMode;
-    await Future.delayed(const Duration(milliseconds: 200));
-    if (HelperMethods.getNewOpendPageId() != QuranPage.id) {
-      // Get.offAll(() => HelperMethods.getNewOpendPage(), transition: Transition.fadeIn);
-      runApp(MyApp());
-      // setState.call();
-    }
+    this.isDarkMode.value = Get.isDarkMode; 
   }
 }

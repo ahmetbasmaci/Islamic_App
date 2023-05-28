@@ -13,8 +13,6 @@ class SettingsCtr extends GetxController {
 
   RxString defaultFont = MyFonts.uthmanic.name.obs;
   SettingsCtr() {
-    // isDarkMode.value = getStorage.read('isDarkMode') ?? false;
-
     isNotificationSoundOn.value = getStorage.read('isNotificationSoundOn') ?? true;
 
     int primaryColor = getStorage.read<int>('primary_') ?? MyColors.primary_.value;
@@ -25,7 +23,6 @@ class SettingsCtr extends GetxController {
     defaultFont.value = getStorage.read<String>('defaultFont') ?? defaultFont.value;
   }
   changeDarkModeState(bool newValue) async {
-    // isDarkMode.value = newValue;
     Get.find<ThemeCtr>().changeThemeMode(newValue);
   }
 
@@ -49,7 +46,7 @@ class SettingsCtr extends GetxController {
     Get.find<ThemeCtr>().updateThemes();
 
     runApp(MyApp());
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: 200));
     if (setState != null) setState.call();
   }
 }

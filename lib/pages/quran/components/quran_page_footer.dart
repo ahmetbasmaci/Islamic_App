@@ -1,4 +1,5 @@
 import 'package:animated_button/animated_button.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -41,7 +42,7 @@ class QuranPageFooter extends StatelessWidget {
               color: MyColors.quranBackGround(),
               boxShadow: [
                 BoxShadow(
-                  color: MyColors.quranPrimary().withOpacity(0.2),
+                  color: MyColors.quranPrimary().withOpacity(.5),
                   offset: Offset(0, 5),
                   blurRadius: 30,
                   spreadRadius: .5,
@@ -306,6 +307,7 @@ class QuranPageFooter extends StatelessWidget {
                           List<Widget> dataList = snapshot.data as List<Widget>;
 
                           return SingleChildScrollView(
+                            controller: ScrollController(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: dataList,
@@ -365,7 +367,7 @@ class QuranPageFooter extends StatelessWidget {
         MyTexts.quranSecondTitle(title: 'تكرار التلاوة:  ', fontWeight: FontWeight.bold),
         Row(
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'المقطع    :  '),
+            MyTexts.quranSecondTitle(title: 'المقطع :  '),
             Obx(
               () => MyTexts.quranSecondTitle(
                   title: _quranCtr.selectedPage.repeetAllCount.value.toString(), fontWeight: FontWeight.bold),
@@ -392,7 +394,7 @@ class QuranPageFooter extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'الآية      :  '),
+            MyTexts.quranSecondTitle(title: 'الآية   :  '),
             Obx(
               () => MyTexts.quranSecondTitle(
                   title: _quranCtr.selectedPage.repeetAyahCount.value.toString(), fontWeight: FontWeight.bold),
