@@ -26,7 +26,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
   @override
   void initState() {
     super.initState();
-    prayerTimeCtr.updatePrayerTimes();
+    //prayerTimeCtr.updatePrayerTimes();
   }
 
   @override

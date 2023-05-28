@@ -4,6 +4,7 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
+import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
@@ -55,23 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               Divider(),
-              ListTile(
-                title: MyTexts.settingsTitle(title: 'تعديل نوع الخط'),
-                subtitle: MyTexts.settingsContent(title: 'قم باختيار نوع الخط المناسب لك'),
-                trailing: DropdownButton<String>(
-                  onChanged: (val) => _settingsCtr.changeFont(val!, () => setState(() {})),
-                  value: _settingsCtr.defaultFont,
-                  items: [
-                    ...MyFonts.values
-                        .map((e) => DropdownMenuItem<String>(
-                              value: e.name,
-                              child: Text(e.arabicName.toString(), style: TextStyle(fontFamily: e.name)),
-                            ))
-                        .toList()
-                  ],
-                ),
-                leading: MyIcons.letter(size: MySiezes.icon * 1.2),
-              ),
+              ListTileChangeFont(setState: () => setState(() {}))
               // Divider(),
               // ListTile(
               //   title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'),

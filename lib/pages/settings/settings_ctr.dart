@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/main.dart';
 import 'package:zad_almumin/moduls/enums.dart';
@@ -12,7 +11,7 @@ class SettingsCtr extends GetxController {
   RxBool isNotificationSoundOn = true.obs;
   final getStorage = GetStorage();
 
-  var defaultFont = MyFonts.uthmanic.name;
+  RxString defaultFont = MyFonts.uthmanic.name.obs;
   SettingsCtr() {
     // isDarkMode.value = getStorage.read('isDarkMode') ?? false;
 
@@ -23,11 +22,11 @@ class SettingsCtr extends GetxController {
     MyColors.primary_ = Color(primaryColor);
     MyColors.primaryDark = Color(primaryDarkColor);
 
-    defaultFont = getStorage.read<String>('defaultFont') ?? defaultFont;
+    defaultFont.value = getStorage.read<String>('defaultFont') ?? defaultFont.value;
   }
   changeDarkModeState(bool newValue) async {
     // isDarkMode.value = newValue;
-    Get.find<ThemeCtr>().changeThemeMode(newValue);   
+    Get.find<ThemeCtr>().changeThemeMode(newValue);
   }
 
   changeNotificationSoundMode(bool newValue) async {
@@ -44,14 +43,13 @@ class SettingsCtr extends GetxController {
     Get.find<ThemeCtr>().updateThemes();
   }
 
-  changeFont(String newFont, VoidCallback setState) async {
-    defaultFont = newFont;
-    getStorage.write('defaultFont', defaultFont);
+  changeFont(String newFont, {VoidCallback? setState}) async {
+    defaultFont.value = newFont;
+    getStorage.write('defaultFont', defaultFont.value);
     Get.find<ThemeCtr>().updateThemes();
 
     runApp(MyApp());
     await Future.delayed(Duration(milliseconds: 100));
-    setState.call();
-    // Get.offAll(() => HelperMethods.getNewOpendPage(), transition: Transition.fadeIn);
+    if (setState != null) setState.call();
   }
 }

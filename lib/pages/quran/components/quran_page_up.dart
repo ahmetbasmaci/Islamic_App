@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
 import 'package:zad_almumin/pages/quran/components/menu_options_item.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
 import '../../../constents/my_colors.dart';
@@ -47,7 +49,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
     MenuOptionsItem changeFontSizeMenu = MenuOptionsItem(
       child: Obx(() {
         return SizedBox(
-          width: Get.width * .3,
+          width: Get.width * .35,
           // height: Get.width * .06,
           child: Slider(
             max: (Get.width * Get.height * 0.000090),
@@ -65,6 +67,25 @@ class QuranPageUp extends GetView<ThemeCtr> {
       title: "حجم الخط",
       onTap: () async {},
     );
+
+    MenuOptionsItem changeFontTypeMenu = MenuOptionsItem(
+      child: Obx(() {
+        return DropdownButton<String>(
+          onChanged: (val) => _settingsCtr.changeFont(val!),
+          value: _settingsCtr.defaultFont.value,
+          items: MyFonts.values
+              .map((e) => DropdownMenuItem<String>(
+                    value: e.name,
+                    child: Text(e.arabicName.toString(), style: TextStyle(fontFamily: e.name)),
+                  ))
+              .toList(),
+        );
+      }),
+      icon: MyIcons.letter(size: MySiezes.icon),
+      title: "تعديل نوع الخط",
+      onTap: () async {},
+    );
+
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
       top: _quranCtr.onShown.value ? _upPartHeight : -_upPartHeight,
@@ -107,6 +128,21 @@ class QuranPageUp extends GetView<ThemeCtr> {
                                   MyTexts.quran(
                                       title: changeFontSizeMenu.title, color: MyColors.quranPrimary(), size: 16),
                                   changeFontSizeMenu.child != null ? changeFontSizeMenu.child! : Container(),
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              value: changeFontTypeMenu,
+                              onTap: null,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  changeFontTypeMenu.icon,
+                                  SizedBox(width: Get.width * .04),
+                                  MyTexts.quran(
+                                      title: changeFontTypeMenu.title, color: MyColors.quranPrimary(), size: 16),
+                                  SizedBox(width: Get.width * .04),
+                                  changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
                                 ],
                               ),
                             ),

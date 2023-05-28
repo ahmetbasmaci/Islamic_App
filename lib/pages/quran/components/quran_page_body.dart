@@ -93,7 +93,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                             (ayah) => TextSpan(
                               text: ayah.text,
                               style: TextStyle(
-                                fontFamily: MyFonts.uthmanic.name,
+                                // fontFamily: MyFonts.uthmanic.name,
                                 wordSpacing: -1,
                                 color: ayah.isBasmalah ? MyColors.quranPrimary() : null,
                                 fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
@@ -135,8 +135,8 @@ class QuranPageBody extends GetView<ThemeCtr> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Center(
-                child: MyTexts.quran2(
-                  title: page.toString(),
+                child: MyTexts.quran(
+                  title: HelperMethods.convertToArabicNumber(page),
                   size: 20,
                   fontWeight: FontWeight.bold,
                   color: MyColors.quranPrimary(),

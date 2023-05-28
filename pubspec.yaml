@@ -98,3 +98,19 @@ flutter:
     - family: kfgqpc
       fonts:
         - asset: assets/fonts/KFGQPC-Uthmanic-Script-HAFS-Regular.otf
+
+    - family: arquran
+      fonts:
+        - asset: assets/fonts/ar-Quran1.ttf
+
+    - family: maddina
+      fonts:
+        - asset: assets/fonts/MADDINA.ttf
+
+    - family: noorehira
+      fonts:
+        - asset: assets/fonts/noorehira.ttf
+
+    - family: scheherazade
+      fonts:
+        - asset: assets/fonts/ScheherazadeRegOT.ttf

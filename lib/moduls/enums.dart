@@ -18,7 +18,6 @@ enum AyahsAnswersType { buttons, dropDownMenu }
 
 enum AyahsAnswerStates { correct, wrong, none }
 
-
 extension AyahsAnswerTypesExtention on AyahsAnswersType {
   String get arabicName {
     switch (this) {
@@ -31,7 +30,8 @@ extension AyahsAnswerTypesExtention on AyahsAnswersType {
     }
   }
 }
-enum MyFonts{uthmanic,uthmanic2,kfgqpc,naskh,kufi}
+
+enum MyFonts { uthmanic, uthmanic2, kfgqpc, naskh,  arquran, maddina, noorehira, scheherazade }
 
 extension MyFontsExtention on MyFonts {
   String get arabicName {
@@ -44,13 +44,22 @@ extension MyFontsExtention on MyFonts {
         return 'الكوفي';
       case MyFonts.naskh:
         return 'النسخ';
-      case MyFonts.kufi:
-        return 'الكوفي';
+      // case MyFonts.kufi:
+      //   return 'الكوفي';
+      case MyFonts.arquran:
+        return 'العربي';
+      case MyFonts.maddina:
+        return 'المدينة';
+      case MyFonts.noorehira:
+        return 'نور هيرا';
+      case MyFonts.scheherazade:
+        return 'شهرزاد';
       default:
         return 'null';
     }
   }
 }
+
 enum QuranReaders {
   yaserAldosary,
   yaserAlsalamah,
