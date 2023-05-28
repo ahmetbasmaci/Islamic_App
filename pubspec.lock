@@ -77,58 +77,58 @@ packages:
     dependency: "direct main"
     description:
       name: audioplayers
-      sha256: a73737eb4d025492e523ab69d13a054bc4130fc378588c78272e84e89753322e
+      sha256: "6063c05f987596ba7a3dad9bb9a5d8adfa5e7c07b9bae5301b27c11d0b3a239f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "4.0.1"
   audioplayers_android:
     dependency: transitive
     description:
       name: audioplayers_android
-      sha256: c06e784e2b4d50b31a634acc6edda89584e557e756815819ee0c06c75fc4b89a
+      sha256: fb6bca878ad175d8f6ddc0e0a2d4226d81fa7c10747c12db420e96c7a096b2cc
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "3.0.1"
   audioplayers_darwin:
     dependency: transitive
     description:
       name: audioplayers_darwin
-      sha256: b8d3a3e6a0b0b9080d9ca79241b95ebf3e7d7641e88a737bfb0c23f416e017b3
+      sha256: c4a56c49347b2e85ac4e1efea218948ca0fba87f04d2a3d3de07ce2410037038
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "4.0.1"
   audioplayers_linux:
     dependency: transitive
     description:
       name: audioplayers_linux
-      sha256: "62ba684199270f548b801d5387fa72cb60d12ada78b687924e7364f6bf1c7d34"
+      sha256: "897e24f190232a3fbb88134b062aa83a9240f55789b5e8d17c114283284ef56b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "2.0.1"
   audioplayers_platform_interface:
     dependency: transitive
     description:
       name: audioplayers_platform_interface
-      sha256: "51b237362834a12d86a0adccb3b65c63923945dc572c2aaea4db0645ea1fc256"
+      sha256: "3a90a46198d375fc7d47bc1d3070c8fd8863b6469b7d87ca80f953efb090f976"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "5.0.0"
   audioplayers_web:
     dependency: transitive
     description:
       name: audioplayers_web
-      sha256: "8a09d08d19470cbce5cdf73f3561d0f6d0d5c631372fb41cd959770f8d4ce607"
+      sha256: "4f5dcbfec0bf98ea09e243d5f5b64ea43a4e6710a2f292724bed16cdba3c691e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.1"
   audioplayers_windows:
     dependency: transitive
     description:
       name: audioplayers_windows
-      sha256: "5b4cff2d10bee5ce6afcd09a0a496bc1e4d5c60db432d0f4208c5d7aefcbed29"
+      sha256: "010f575653c01ccbe9756050b18df83d89426740e04b684f6438aa26c775a965"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.1"
   auto_size_text:
     dependency: "direct main"
     description:
@@ -729,10 +729,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: "050e8e85e4b7fecdf2bb3682c1c64c4887a183720c802d323de8a5fd76d372dd"
+      sha256: "3087813781ab814e4157b172f1a11c46be20179fcc9bea043e0fba36bc0acaa2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.15"
   path_provider_android:
     dependency: transitive
     description:
@@ -741,14 +741,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.22"
-  path_provider_ios:
+  path_provider_foundation:
     dependency: transitive
     description:
-      name: path_provider_ios
-      sha256: "03d639406f5343478352433f00d3c4394d52dac8df3d847869c5e2333e0bbce8"
+      name: path_provider_foundation
+      sha256: "1995d88ec2948dac43edf8fe58eb434d35d22a2940ecee1a9fefcd62beee6eb3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.11"
+    version: "2.2.3"
   path_provider_linux:
     dependency: transitive
     description:
@@ -757,14 +757,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-  path_provider_macos:
-    dependency: transitive
-    description:
-      name: path_provider_macos
-      sha256: "2a97e7fbb7ae9dcd0dfc1220a78e9ec3e71da691912e617e8715ff2a13086ae8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.6"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -934,10 +926,10 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "7b530acd9cb7c71b0019a1e7fa22c4105e675557a4400b6a401c71c5e0ade1ac"
+      sha256: "5fcbd27688af6082f5abd611af56ee575342c30e87541d0245f7ff99faa02c60"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0+3"
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:

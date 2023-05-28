@@ -1,11 +1,9 @@
 import 'package:animated_button/animated_button.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
 import 'package:zad_almumin/pages/quran/components/menu_options_item.dart';
 import 'package:zad_almumin/pages/quran/components/quran_search_delegate.dart';
 import '../../../constents/my_colors.dart';

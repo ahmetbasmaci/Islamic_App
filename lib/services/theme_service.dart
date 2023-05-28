@@ -3,11 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/main.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/quran_page.dart';
 import '../constents/my_sizes.dart';
 
 class ThemeCtr extends GetxController {

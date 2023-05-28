@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
-import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
 import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';

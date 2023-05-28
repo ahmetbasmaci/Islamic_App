@@ -1,4 +1,3 @@
-import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/audio_play_stop_btn.dart';
@@ -15,7 +14,6 @@ import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 

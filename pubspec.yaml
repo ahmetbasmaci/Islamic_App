@@ -9,7 +9,7 @@ dependencies:
   animated_button: ^0.2.0
   animated_text_kit: ^4.2.2
   audio_manager: ^0.8.2
-  audioplayers: ^1.0.1
+  audioplayers: ^4.0.1
   auto_size_text: ^3.0.0
   badges: ^2.0.3
   bot_toast: ^4.0.3
