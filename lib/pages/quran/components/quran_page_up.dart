@@ -67,8 +67,8 @@ class QuranPageUp extends GetView<ThemeCtr> {
     MenuOptionsItem changeFontTypeMenu = MenuOptionsItem(
       child: Obx(() {
         return DropdownButton<String>(
-          onChanged: (val) => _settingsCtr.changeFont(val!, setState: quranPageSetState),
-          value: _settingsCtr.defaultFont.value,
+          onChanged: (val) => _settingsCtr.changeQuranFont(val!, setState: quranPageSetState),
+          value: _settingsCtr.defaultFontQuran.value,
           items: MyFonts.values
               .map((e) => DropdownMenuItem<String>(
                     value: e.name,
@@ -117,7 +117,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
                                 children: [
                                   changeFontSizeMenu.icon,
                                   SizedBox(width: Get.width * .04),
-                                  MyTexts.quran(
+                                  MyTexts.main(
                                       title: changeFontSizeMenu.title, color: MyColors.quranPrimary(), size: 16),
                                   changeFontSizeMenu.child != null ? changeFontSizeMenu.child! : Container(),
                                 ],
@@ -131,7 +131,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
                                 children: [
                                   changeFontTypeMenu.icon,
                                   SizedBox(width: Get.width * .04),
-                                  MyTexts.quran(
+                                  MyTexts.main(
                                       title: changeFontTypeMenu.title, color: MyColors.quranPrimary(), size: 16),
                                   SizedBox(width: Get.width * .04),
                                   changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
@@ -152,7 +152,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
                                     children: [
                                       e.icon,
                                       SizedBox(width: Get.width * .04),
-                                      MyTexts.quran(title: e.title, color: MyColors.quranPrimary(), size: 16),
+                                      MyTexts.main(title: e.title, color: MyColors.quranPrimary(), size: 16),
                                       e.child != null ? e.child! : Container(),
                                     ],
                                   ),

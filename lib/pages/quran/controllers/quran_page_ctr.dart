@@ -65,8 +65,8 @@ class QuranPageCtr extends GetxController {
 
     return Get.dialog(
       AlertDialog(
-        title: MyTexts.quran(title: title, fontWeight: FontWeight.bold),
-        content: MyTexts.quran(title: content),
+        title: MyTexts.main(title: title, fontWeight: FontWeight.bold),
+        content: MyTexts.main(title: content),
         actionsAlignment: MainAxisAlignment.spaceAround,
         backgroundColor: MyColors.quranBackGround(),
         actions: [
@@ -84,11 +84,11 @@ class QuranPageCtr extends GetxController {
               Get.back();
               quranPageSetState();
             },
-            child: MyTexts.quran(title: 'تأكيد', color: MyColors.quranBackGroundLight),
+            child: MyTexts.main(title: 'تأكيد', color: MyColors.quranBackGroundLight),
           ),
           TextButton(
             onPressed: () => Get.back(),
-            child: MyTexts.quran(title: 'الغاء'),
+            child: MyTexts.main(title: 'الغاء'),
           ),
         ],
       ),

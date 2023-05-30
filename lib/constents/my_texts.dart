@@ -40,7 +40,7 @@ class MyTexts {
     );
   }
 
-  static Text quran({
+  static Text main({
     required String title,
     TextAlign textAlign = TextAlign.center,
     TextOverflow? overflow,
@@ -56,7 +56,7 @@ class MyTexts {
     );
   }
 
-  static Text quran2({
+  static Text quran({
     required String title,
     TextAlign textAlign = TextAlign.center,
     TextOverflow? overflow,

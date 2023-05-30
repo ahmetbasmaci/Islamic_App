@@ -97,7 +97,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
                           return [
                             ...menuItemList.map((e) => PopupMenuItem(
                                   value: e,
-                                  textStyle: MyTexts.quran(title: '').style,
+                                  textStyle: MyTexts.main(title: '').style,
                                   child: InkWell(
                                     onTap: () {
                                       for (var element in menuItemList) element.isSelected = false;

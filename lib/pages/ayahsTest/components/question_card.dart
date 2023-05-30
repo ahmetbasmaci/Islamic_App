@@ -25,7 +25,7 @@ class QuestionCard extends GetView<ThemeCtr> {
           BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),
         ],
       ),
-      child: MyTexts.quran(
+      child: MyTexts.main(
         title: ctr.questionType.value == QuestionType.ayahInJuzAndPage ? ayah.text : ayah.surahName,
       ),
     );

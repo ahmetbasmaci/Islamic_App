@@ -32,7 +32,7 @@ class _UserReviewsState extends State<UserReviews> {
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return Center(child: CircularProgressIndicator());
-            else if (snapshot.hasError) return MyTexts.quran(title: 'ERROR: ${snapshot.error}');
+            else if (snapshot.hasError) return MyTexts.main(title: 'ERROR: ${snapshot.error}');
 
             List<DocumentSnapshot> list = snapshot.data.docs;
             list = list.reversed.toList();
@@ -52,7 +52,7 @@ class _UserReviewsState extends State<UserReviews> {
                         child: Column(
                           children: [
                             ExpansionTile(
-                              title: MyTexts.quran(
+                              title: MyTexts.main(
                                   title: itemsList[index].data[0].name,
                                   size: Get.width * 0.06,
                                   textAlign: TextAlign.center),
@@ -105,9 +105,9 @@ class _UserReviewsState extends State<UserReviews> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MyTexts.quran(title: item.name, textAlign: TextAlign.start, color: MyColors.primary()),
+            MyTexts.main(title: item.name, textAlign: TextAlign.start, color: MyColors.primary()),
             Divider(height: 10),
-            MyTexts.quran(title: item.review, textAlign: TextAlign.start, size: Get.width * 0.04),
+            MyTexts.main(title: item.review, textAlign: TextAlign.start, size: Get.width * 0.04),
           ],
         ),
       ),

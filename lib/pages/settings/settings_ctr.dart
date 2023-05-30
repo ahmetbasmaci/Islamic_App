@@ -10,8 +10,8 @@ import '../../services/theme_service.dart';
 class SettingsCtr extends GetxController {
   RxBool isNotificationSoundOn = true.obs;
   final getStorage = GetStorage();
-
-  RxString defaultFont = MyFonts.uthmanic.name.obs;
+  RxString defaultFontMain = MyFonts.uthmanic.name.obs;
+  RxString defaultFontQuran = MyFonts.uthmanic.name.obs;
   SettingsCtr() {
     isNotificationSoundOn.value = getStorage.read('isNotificationSoundOn') ?? true;
 
@@ -20,7 +20,8 @@ class SettingsCtr extends GetxController {
     MyColors.primary_ = Color(primaryColor);
     MyColors.primaryDark = Color(primaryDarkColor);
 
-    defaultFont.value = getStorage.read<String>('defaultFont') ?? defaultFont.value;
+    defaultFontMain.value = getStorage.read<String>('defaultFontMain') ?? defaultFontMain.value;
+    defaultFontQuran.value = getStorage.read<String>('defaultFontQuran') ?? defaultFontQuran.value;
   }
   changeDarkModeState(bool newValue) async {
     Get.find<ThemeCtr>().changeThemeMode(newValue);
@@ -40,9 +41,18 @@ class SettingsCtr extends GetxController {
     Get.find<ThemeCtr>().updateThemes();
   }
 
-  changeFont(String newFont, {VoidCallback? setState}) async {
-    defaultFont.value = newFont;
-    getStorage.write('defaultFont', defaultFont.value);
+  void changeMainFont(String newFont, {VoidCallback? setState}) {
+    defaultFontMain.value = newFont;
+    getStorage.write('defaultFontMain', defaultFontMain.value);
+    fontChanged(setState);
+  }
+  void changeQuranFont(String newFont, {VoidCallback? setState}) {
+    defaultFontQuran.value = newFont;
+    getStorage.write('defaultFontQuran', defaultFontQuran.value);
+    fontChanged(setState);
+  }
+
+  void fontChanged(VoidCallback? setState) async {
     Get.find<ThemeCtr>().updateThemes();
 
     runApp(MyApp());

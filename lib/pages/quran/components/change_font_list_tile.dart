@@ -16,8 +16,8 @@ class ListTileChangeFont extends StatelessWidget {
       title: MyTexts.settingsTitle(title: 'تعديل نوع الخط'),
       subtitle: MyTexts.settingsContent(title: 'قم باختيار نوع الخط المناسب لك'),
       trailing: DropdownButton<String>(
-        onChanged: (val) => _settingsCtr.changeFont(val!,setState:  setState),
-        value: _settingsCtr.defaultFont.value,
+        onChanged: (val) => _settingsCtr.changeMainFont(val!, setState: setState),
+        value: _settingsCtr.defaultFontMain.value,
         items: [
           ...MyFonts.values
               .map((e) => DropdownMenuItem<String>(

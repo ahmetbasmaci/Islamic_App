@@ -214,17 +214,16 @@ class QuranSearchDelegate extends SearchDelegate {
               children: [
                 Row(
                   children: [
-                    MyTexts.quran(
-                        title: '${ayah.surahName}:', textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                    MyTexts.main(title: '${ayah.surahName}:', textAlign: TextAlign.right, color: MyColors.whiteBlack()),
                     SizedBox(width: Get.width * .03),
-                    MyTexts.quran(
+                    MyTexts.main(
                         title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
                   ],
                 ),
-                MyTexts.quran(title: ayah.page.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                MyTexts.main(title: ayah.page.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
               ],
             ),
-            MyTexts.quran(title: ayah.text, textAlign: TextAlign.right, color: MyColors.quranPrimary()),
+            MyTexts.main(title: ayah.text, textAlign: TextAlign.right, color: MyColors.quranPrimary()),
           ],
         ),
       ),

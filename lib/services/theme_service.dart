@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import '../constents/my_sizes.dart';
 
@@ -13,8 +14,8 @@ class ThemeCtr extends GetxController {
   }
   //write regin block
   //region
+  TextStyle _bodySmall_main = TextStyle();
   TextStyle _bodySmall_quran = TextStyle();
-  TextStyle _bodySmall_quran2 = TextStyle();
   TextStyle _bodyMedium_zikrTitle = TextStyle();
   TextStyle _displaySmall_content = TextStyle();
   TextStyle _bodyLarge_blockTitle = TextStyle();
@@ -31,6 +32,7 @@ class ThemeCtr extends GetxController {
   Rx<ThemeData> lightThemeMode = ThemeData.light().obs;
   Rx<ThemeData> darkThemeMode = ThemeData.dark().obs;
   Rx<ThemeData> currentThemeMode = ThemeData().obs;
+  final MyLocalCtr _localCtr = Get.find<MyLocalCtr>();
   final _getStorage = GetStorage();
   final _darkKeyTheme = 'isDarkMode';
 
@@ -89,7 +91,7 @@ class ThemeCtr extends GetxController {
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
-        bodySmall: _bodySmall_quran.copyWith(color: Colors.black),
+        bodySmall: _bodySmall_main.copyWith(color: Colors.black),
         bodyMedium: _bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
         bodyLarge: _bodyLarge_blockTitle,
         labelSmall: _labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
@@ -99,7 +101,7 @@ class ThemeCtr extends GetxController {
         displayMedium: _displayMedium_Info.copyWith(color: MyColors.info),
         displayLarge: _displayLarge_dropDownItem.copyWith(color: MyColors.black),
         titleSmall: _titleSmall_dropDownTitle.copyWith(color: MyColors.primary_),
-        titleMedium: _bodySmall_quran2.copyWith(color: MyColors.primary_),
+        titleMedium: _bodySmall_quran.copyWith(color: MyColors.primary_),
       ),
     );
 
@@ -154,7 +156,7 @@ class ThemeCtr extends GetxController {
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
-        bodySmall: _bodySmall_quran.copyWith(color: Colors.white),
+        bodySmall: _bodySmall_main.copyWith(color: Colors.white),
         bodyMedium: _bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
         bodyLarge: _bodyLarge_blockTitle,
         labelSmall: _labelSmall_settingsTitle.copyWith(color: MyColors.white),
@@ -164,77 +166,80 @@ class ThemeCtr extends GetxController {
         displayMedium: _displayMedium_Info.copyWith(color: MyColors.info),
         displayLarge: _displayLarge_dropDownItem.copyWith(color: MyColors.white),
         titleSmall: _titleSmall_dropDownTitle.copyWith(color: MyColors.primaryDark),
-        titleMedium: _bodySmall_quran2.copyWith(color: MyColors.primaryDark),
+        titleMedium: _bodySmall_quran.copyWith(color: MyColors.white),
       ),
     );
   }
 
   void updateTextStyles() {
-    String defaultFont = GetStorage().read<String>('defaultFont') ?? MyFonts.uthmanic.name;
+    String? defaultFontMain = _localCtr.currentLocal.languageCode == "ar"
+        ? GetStorage().read<String>('defaultFontMain') ?? MyFonts.uthmanic.name
+        : null;
+    String defaultFontQuran = GetStorage().read<String>('defaultFontQuran') ?? MyFonts.uthmanic.name;
+    _bodySmall_main = TextStyle(
+      fontSize: Get.width * .04,
+      height: 1.8,
+      wordSpacing: 5.5,
+      fontWeight: FontWeight.w500,
+      fontFamily: defaultFontMain,
+    );
     _bodySmall_quran = TextStyle(
       fontSize: Get.width * .04,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
-      fontFamily: defaultFont,
-    );
-    _bodySmall_quran2 = TextStyle(
-      fontSize: Get.width * .05,
-      height: 1.8,
-      wordSpacing: 5.5,
-      fontWeight: FontWeight.w500,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontQuran,
     );
     _bodyMedium_zikrTitle = TextStyle(
       fontSize: Get.width * .04,
       fontWeight: FontWeight.bold,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
     _displaySmall_content = TextStyle(
       fontSize: 17,
       height: 1.8,
       wordSpacing: 3.5,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _bodyLarge_blockTitle = TextStyle(
       fontSize: Get.width * .04,
       fontWeight: FontWeight.bold,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _labelSmall_settingsTitle = TextStyle(
       fontSize: 19,
       fontWeight: FontWeight.bold,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _labelMedium_settingContent = TextStyle(
       fontSize: 14,
       color: MyColors.settingsContent,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _headLine6_headers = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _displayMedium_Info = TextStyle(
       fontSize: 17,
       color: MyColors.info,
       wordSpacing: 3.5,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _displayLarge_dropDownItem = TextStyle(
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
 
     _titleSmall_dropDownTitle = TextStyle(
       fontSize: 16,
-      fontFamily: defaultFont,
+      fontFamily: defaultFontMain,
     );
   }
 
@@ -249,6 +254,6 @@ class ThemeCtr extends GetxController {
     currentThemeMode.value = isDarkMode ? darkThemeMode.value : lightThemeMode.value;
     Get.changeThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
     _saveThemeData(isDarkMode);
-    this.isDarkMode.value = Get.isDarkMode; 
+    this.isDarkMode.value = Get.isDarkMode;
   }
 }

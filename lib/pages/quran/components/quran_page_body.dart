@@ -64,13 +64,13 @@ class QuranPageBody extends GetView<ThemeCtr> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyTexts.quran2(
+                    MyTexts.quran(
                       title: 'الجُزْءُ   ${_quranData.getJuzNumberByPage(page)}',
                       size: 20,
                       fontWeight: FontWeight.bold,
                       color: MyColors.quranPrimary(),
                     ),
-                    MyTexts.quran2(
+                    MyTexts.quran(
                       title: '${_quranCtr.selectedPage.surahName}',
                       size: 20,
                       fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                               style: TextStyle(
                                 // fontFamily: MyFonts.uthmanic.name,
                                 wordSpacing: -1,
-                                color: ayah.isBasmalah ? MyColors.quranPrimary() : null,
+                                color: ayah.isBasmalah ? MyColors.quranPrimary() : MyColors.whiteBlack(),
                                 fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
                                 background: Paint()
                                   ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&

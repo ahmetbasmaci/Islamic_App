@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
+import 'package:zad_almumin/localization/my_local.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
@@ -18,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
+  final MyLocalCtr _myLocalCtr = Get.find<MyLocalCtr>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             children: [
               ListTile(
-                title: MyTexts.settingsTitle(title: 'تنشيط الوضع اليلي'),
+                title: MyTexts.settingsTitle(title: "تنشيط الوضع اليلي".tr),
                 subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار الوضع اليلي'),
                 trailing: MySwitch(
                   value: Get.isDarkMode,
@@ -52,6 +55,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   leading: MyIcons.animatedSound_On_Of(size: MySiezes.icon * 1.2),
                 ),
+              ),
+              Divider(),
+              ListTile(
+                title: MyTexts.settingsTitle(title: 'لغة البرنامج'),
+                subtitle: MyTexts.settingsContent(title: 'قم بإختيار لغة البرنامج المناسبة لك'),
+                trailing: DropdownButton<String>(
+                  items: [
+                    DropdownMenuItem(value: "ar", child: MyTexts.main(title: "العربية")),
+                    DropdownMenuItem(value: "en", child: MyTexts.main(title: "en")),
+                    DropdownMenuItem(value: "tr", child: MyTexts.main(title: "TÜRKÇE"))
+                  ],
+                  value: _myLocalCtr.currentLocal.languageCode,
+                  onChanged: (String? newSlectedLang) {
+                    _myLocalCtr.updateLanguage(newSlectedLang ?? "");
+                    setState(() {});
+                  },
+                ),
+                leading: MyIcons.lang(size: MySiezes.icon * 1.2),
               ),
               Divider(),
               ListTileChangeFont(setState: () => setState(() {}))

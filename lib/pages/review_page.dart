@@ -38,7 +38,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                   child: TextField(
                     maxLength: 30,
                     controller: nameTxtCtr,
-                    style: MyTexts.quran(title: "").style,
+                    style: MyTexts.main(title: "").style,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
@@ -55,7 +55,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                     controller: reviewTxtCtr,
                     minLines: 5,
                     maxLines: 15,
-                    style: MyTexts.quran(title: "").style,
+                    style: MyTexts.main(title: "").style,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -75,7 +75,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                       ),
                     ),
                   ),
-                  child: MyTexts.quran(title: 'ارسال', color: MyColors.white),
+                  child: MyTexts.main(title: 'ارسال', color: MyColors.white),
                 ),
               ],
             ),

@@ -331,7 +331,7 @@ class QuranPageFooter extends StatelessWidget {
                         text: isStartAyah
                             ? '${_quranCtr.selectedPage.startAyahNum.value} - '
                             : '${_quranCtr.selectedPage.endAyahNum.value} - ',
-                        style: MyTexts.quran(title: '').style!.copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: MyTexts.main(title: '').style!.copyWith(fontWeight: FontWeight.bold, fontSize: 15),
                         children: [
                           TextSpan(
                             text: isStartAyah
@@ -460,8 +460,8 @@ class QuranPageFooter extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: <Widget>[
-                  MyTexts.quran(title: '$i - ', textAlign: TextAlign.start, fontWeight: FontWeight.bold),
-                  MyTexts.quran(title: ayahs[i - 1].text, textAlign: TextAlign.start),
+                  MyTexts.main(title: '$i - ', textAlign: TextAlign.start, fontWeight: FontWeight.bold),
+                  MyTexts.main(title: ayahs[i - 1].text, textAlign: TextAlign.start),
                 ],
               ),
             ),

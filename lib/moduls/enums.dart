@@ -59,7 +59,6 @@ extension MyFontsExtention on MyFonts {
     }
   }
 }
-
 enum QuranReaders {
   yaserAldosary,
   yaserAlsalamah,
