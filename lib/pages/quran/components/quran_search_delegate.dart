@@ -20,6 +20,9 @@ class QuranSearchDelegate extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(
         scaffoldBackgroundColor: MyColors.quranBackGround(),
         iconTheme: IconThemeData(color: MyColors.quranPrimary()),
+        textTheme: TextTheme(
+          titleMedium: TextStyle(color: MyColors.quranPrimary()),
+        ),
         appBarTheme: AppBarTheme(
           color: MyColors.quranBackGround(),
           iconTheme: IconThemeData(color: MyColors.quranPrimary()),
@@ -28,7 +31,7 @@ class QuranSearchDelegate extends SearchDelegate {
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: InputBorder.none,
           border: InputBorder.none,
-          labelStyle: TextStyle(color: MyColors.quranPrimary()),
+          labelStyle: MyTexts.main(title: '', color: MyColors.quranPrimary()).style,
         ),
       );
 

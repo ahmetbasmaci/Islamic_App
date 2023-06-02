@@ -57,7 +57,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                             child: markedListTile(
                               title: '${'الجزء'.tr} ${_quranCtr.markedList[index].juz}',
                               subtitle:
-                                  '${_quranCtr.markedList[index].surahName}  |  ${'الصفحة'.tr} ${_quranCtr.markedList[index].pageNumber}',
+                                  '${_quranCtr.markedList[index].surahName.tr}  |  ${'الصفحة'.tr} ${_quranCtr.markedList[index].pageNumber}',
                               page: _quranCtr.markedList[index].pageNumber,
                             ),
                           ),
@@ -78,7 +78,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                             child: markedListTile(
                               title: markedAyahs[index].text,
                               subtitle:
-                                  '${markedAyahs[index].surahName}  |  ${'الصفحة'.tr} ${markedAyahs[index].page} | ${'الجزء'.tr} ${markedAyahs[index].juz}',
+                                  '${markedAyahs[index].surahName.tr}  |  ${'الصفحة'.tr} ${markedAyahs[index].page} | ${'الجزء'.tr} ${markedAyahs[index].juz}',
                               page: markedAyahs[index].page,
                             ),
                           ),

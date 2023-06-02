@@ -111,7 +111,7 @@ class QuranPageFooter extends StatelessWidget {
                         for (QuranReaders item in QuranReaders.values)
                           DropdownMenuItem(
                             value: item,
-                            child: MyTexts.quranSecondTitle(title: item.arabicName),
+                            child: MyTexts.quranSecondTitle(title: item.arabicName.tr),
                           )
                       ],
                     ),
@@ -121,7 +121,7 @@ class QuranPageFooter extends StatelessWidget {
                       //isExpanded: true,
                       iconEnabledColor: MyColors.quranPrimary(),
                       dropdownColor: MyColors.quranBackGround(),
-                      value: _quranCtr.selectedPage.surahName.value,
+                      value: _quranCtr.selectedPage.surahName.value.tr,
                       menuMaxHeight: Get.size.height * .3,
                       onChanged: (newVal) {
                         if (newVal != null) {
@@ -146,7 +146,8 @@ class QuranPageFooter extends StatelessWidget {
                     ),
                     Container(
                       // color: Colors.green,
-                      child: MyTexts.quranSecondTitle(title: '${'الصفحة'.tr} :${_quranCtr.selectedPage.pageNumber.value}'),
+                      child:
+                          MyTexts.quranSecondTitle(title: '${'الصفحة'.tr} :${_quranCtr.selectedPage.pageNumber.value}'),
                     ),
                     // Container(
                     //   child: MyTexts.quranSecondTitle(title: 'الجزء  :${_quranCtr.selectedPage.juz.value}'),
@@ -242,7 +243,7 @@ class QuranPageFooter extends StatelessWidget {
                 for (QuranReaders item in QuranReaders.values)
                   DropdownMenuItem(
                     value: item,
-                    child: MyTexts.quranSecondTitle(title: item.arabicName),
+                    child: MyTexts.quranSecondTitle(title: item.arabicName.tr),
                   )
               ],
             ),

@@ -49,10 +49,14 @@ class QuranPageUp extends GetView<ThemeCtr> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    PopupMenuButton(
-                        color: MyColors.quranBackGround(),
-                        icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
-                        itemBuilder: (context) => getMenuItems()),
+                    AnimatedOpacity(
+                      opacity: _quranCtr.onShown.value ? 1 : 0,
+                      duration: Duration(milliseconds: 200),
+                      child: PopupMenuButton(
+                          color: MyColors.quranBackGround(),
+                          icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
+                          itemBuilder: (context) => getMenuItems()),
+                    ),
                     AnimatedButton(
                       color: MyColors.quranBackGround(),
                       width: MySiezes.btnIcon,
@@ -133,11 +137,11 @@ class QuranPageUp extends GetView<ThemeCtr> {
     MenuOptionsItem changeFontSizeMenu = MenuOptionsItem(
       child: Obx(() {
         return SizedBox(
-          width: Get.width * .35,
+          width: Get.width * .30,
           // height: Get.width * .06,
           child: Slider(
-            max: (Get.width * Get.height * 0.000090),
-            min: (Get.width * Get.height * 0.000060),
+            max: (Get.width * Get.height * 0.00010),
+            min: (Get.width * Get.height * 0.000040),
             activeColor: MyColors.quranPrimary(),
             thumbColor: MyColors.quranBackGround(),
             value: _quranCtr.quranFontSize.value,

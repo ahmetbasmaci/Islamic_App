@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constants.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 
 import 'my_colors.dart';
 

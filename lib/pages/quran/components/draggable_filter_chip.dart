@@ -88,8 +88,9 @@ class DraggableFilterChip extends StatelessWidget {
   Widget item(FilterChipProp filterChipProp) {
     Widget filterChip = Obx(
       () => FilterChip(
-        label:
-            MyTexts.main(title: filterChipProp.text.tr, color: filterChipProp.isSelected.value ? MyColors.white : null),
+        label: MyTexts.main(
+            title: filterChipProp.text.tr,
+            color: filterChipProp.isSelected.value ? MyColors.white : MyColors.whiteBlack()),
         selected: filterChipProp.isSelected.value,
         selectedColor: MyColors.quranPrimary(),
         checkmarkColor: MyColors.white,
