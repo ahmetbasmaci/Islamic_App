@@ -14,17 +14,17 @@ class ThemeCtr extends GetxController {
   }
   //write regin block
   //region
-  TextStyle _bodySmall_main = TextStyle();
-  TextStyle _bodySmall_quran = TextStyle();
-  TextStyle _bodyMedium_zikrTitle = TextStyle();
-  TextStyle _displaySmall_content = TextStyle();
-  TextStyle _bodyLarge_blockTitle = TextStyle();
-  TextStyle _labelSmall_settingsTitle = TextStyle();
-  TextStyle _labelMedium_settingContent = TextStyle();
-  TextStyle _headLine6_headers = TextStyle();
-  TextStyle _displayMedium_Info = TextStyle();
-  TextStyle _displayLarge_dropDownItem = TextStyle();
-  TextStyle _titleSmall_dropDownTitle = TextStyle();
+  TextStyle bodySmall_main = TextStyle();
+  TextStyle bodySmall_quran = TextStyle();
+  TextStyle bodyMedium_zikrTitle = TextStyle();
+  TextStyle displaySmall_content = TextStyle();
+  TextStyle bodyLarge_blockTitle = TextStyle();
+  TextStyle labelSmall_settingsTitle = TextStyle();
+  TextStyle labelMedium_settingContent = TextStyle();
+  TextStyle headLine6_headers = TextStyle();
+  TextStyle displayMedium_Info = TextStyle();
+  TextStyle displayLarge_dropDownItem = TextStyle();
+  TextStyle titleSmall_dropDownTitle = TextStyle();
 
   //endregion
 
@@ -91,17 +91,17 @@ class ThemeCtr extends GetxController {
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
-        bodySmall: _bodySmall_main.copyWith(color: Colors.black),
-        bodyMedium: _bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
-        bodyLarge: _bodyLarge_blockTitle,
-        labelSmall: _labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
-        labelMedium: _labelMedium_settingContent.copyWith(color: MyColors.settingsContent),
-        labelLarge: _headLine6_headers.copyWith(color: MyColors.white), //default
-        displaySmall: _displaySmall_content.copyWith(color: MyColors.content),
-        displayMedium: _displayMedium_Info.copyWith(color: MyColors.info),
-        displayLarge: _displayLarge_dropDownItem.copyWith(color: MyColors.black),
-        titleSmall: _titleSmall_dropDownTitle.copyWith(color: MyColors.primary_),
-        titleMedium: _bodySmall_quran.copyWith(color: MyColors.primary_),
+        bodySmall: bodySmall_main.copyWith(color: Colors.black),
+        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
+        bodyLarge: bodyLarge_blockTitle,
+        labelSmall: labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
+        labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContent),
+        labelLarge: headLine6_headers.copyWith(color: MyColors.white), //default
+        displaySmall: displaySmall_content.copyWith(color: MyColors.content),
+        displayMedium: displayMedium_Info.copyWith(color: MyColors.info),
+        displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.black),
+        titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primary_),
+        titleMedium: bodySmall_quran.copyWith(color: MyColors.primary_),
       ),
     );
 
@@ -137,7 +137,7 @@ class ThemeCtr extends GetxController {
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 199, 5, 5)),
+          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 64, 183, 206)),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
         ),
       ),
@@ -156,17 +156,17 @@ class ThemeCtr extends GetxController {
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
-        bodySmall: _bodySmall_main.copyWith(color: Colors.white),
-        bodyMedium: _bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
-        bodyLarge: _bodyLarge_blockTitle,
-        labelSmall: _labelSmall_settingsTitle.copyWith(color: MyColors.white),
-        labelMedium: _labelMedium_settingContent.copyWith(color: MyColors.settingsContentDark),
-        labelLarge: _headLine6_headers.copyWith(color: MyColors.white, shadows: []),
-        displaySmall: _displaySmall_content.copyWith(color: MyColors.contentDark),
-        displayMedium: _displayMedium_Info.copyWith(color: MyColors.info),
-        displayLarge: _displayLarge_dropDownItem.copyWith(color: MyColors.white),
-        titleSmall: _titleSmall_dropDownTitle.copyWith(color: MyColors.primaryDark),
-        titleMedium: _bodySmall_quran.copyWith(color: MyColors.white),
+        bodySmall: bodySmall_main.copyWith(color: Colors.white),
+        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
+        bodyLarge: bodyLarge_blockTitle,
+        labelSmall: labelSmall_settingsTitle.copyWith(color: MyColors.white),
+        labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContentDark),
+        labelLarge: headLine6_headers.copyWith(color: MyColors.white, shadows: []),
+        displaySmall: displaySmall_content.copyWith(color: MyColors.contentDark),
+        displayMedium: displayMedium_Info.copyWith(color: MyColors.info),
+        displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.white),
+        titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primaryDark),
+        titleMedium: bodySmall_quran.copyWith(color: MyColors.white),
       ),
     );
   }
@@ -176,69 +176,69 @@ class ThemeCtr extends GetxController {
         ? GetStorage().read<String>('defaultFontMain') ?? MyFonts.uthmanic.name
         : null;
     String defaultFontQuran = GetStorage().read<String>('defaultFontQuran') ?? MyFonts.uthmanic.name;
-    _bodySmall_main = TextStyle(
+    bodySmall_main = TextStyle(
       fontSize: Get.width * .04,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
       fontFamily: defaultFontMain,
     );
-    _bodySmall_quran = TextStyle(
+    bodySmall_quran = TextStyle(
       fontSize: Get.width * .04,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
       fontFamily: defaultFontQuran,
     );
-    _bodyMedium_zikrTitle = TextStyle(
+    bodyMedium_zikrTitle = TextStyle(
       fontSize: Get.width * .04,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
-    _displaySmall_content = TextStyle(
+    displaySmall_content = TextStyle(
       fontSize: 17,
       height: 1.8,
       wordSpacing: 3.5,
       fontFamily: defaultFontMain,
     );
 
-    _bodyLarge_blockTitle = TextStyle(
+    bodyLarge_blockTitle = TextStyle(
       fontSize: Get.width * .04,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
-    _labelSmall_settingsTitle = TextStyle(
+    labelSmall_settingsTitle = TextStyle(
       fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
-    _labelMedium_settingContent = TextStyle(
+    labelMedium_settingContent = TextStyle(
       fontSize: 14,
       color: MyColors.settingsContent,
       fontFamily: defaultFontMain,
     );
 
-    _headLine6_headers = TextStyle(
+    headLine6_headers = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
-    _displayMedium_Info = TextStyle(
+    displayMedium_Info = TextStyle(
       fontSize: 17,
       color: MyColors.info,
       wordSpacing: 3.5,
       fontFamily: defaultFontMain,
     );
 
-    _displayLarge_dropDownItem = TextStyle(
+    displayLarge_dropDownItem = TextStyle(
       fontFamily: defaultFontMain,
     );
 
-    _titleSmall_dropDownTitle = TextStyle(
-      fontSize: 16,
+    titleSmall_dropDownTitle = TextStyle(
+      fontSize: 20,
       fontFamily: defaultFontMain,
     );
   }

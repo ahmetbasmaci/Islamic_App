@@ -25,7 +25,7 @@ class _UserReviewsState extends State<UserReviews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(title: "ملاحظة للمطور"),
+        appBar: MyAppBar(title: "ملاحظة للمطور".tr),
         drawer: MyDrawer(),
         body: StreamBuilder<QuerySnapshot>(
           stream: streamItems(),

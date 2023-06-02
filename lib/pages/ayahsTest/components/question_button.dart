@@ -24,25 +24,25 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
     return Column(
       children: <Widget>[
         const SizedBox(height: MySiezes.betweanCardItems * 2),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MyTexts.outsideHeader(title: 'اختر طريقة الاجابة:'),
-            MyTexts.outsideHeader(title: ''),
+            SizedBox(height: MySiezes.betweanCardItems * 2),
+            MyTexts.outsideHeader(title: 'اختر طريقة الاجابة:'.tr, textAlign: TextAlign.center),
+            MyTexts.outsideHeader(title: ''.tr, textAlign: TextAlign.center),
             Obx(
               () => Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: DropdownButton<AyahsAnswersType>(
                   value: ayahsQuestionsCtr.answersType.value,
                   onChanged: (val) => ayahsQuestionsCtr.changeAnswerType(val!),
                   iconEnabledColor: MyColors.primary(),
-                  style: TextStyle(fontSize: 10, color: Colors.red, fontWeight: FontWeight.normal),
+                  style: MyTexts.dropDownMenuTitle(title: '').style,
                   items: List.generate(
                     AyahsAnswersType.values.length,
                     (index) => DropdownMenuItem(
                         value: AyahsAnswersType.values.elementAt(index),
-                        child: MyTexts.dropDownMenuItem(
-                            title: AyahsAnswersType.values.elementAt(index).arabicName, size: 20)),
+                        child: MyTexts.dropDownMenuItem(title: AyahsAnswersType.values.elementAt(index).arabicName.tr)),
                   ),
                 ),
               ),
@@ -67,11 +67,11 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MyTexts.normal(title: "اختر جزء:"),
+            MyTexts.main(title: "اختر جزء:".tr),
             AnimatedOpacity(
               opacity: ayahsQuestionsCtr.ayahsAnswerStates == AyahsAnswerStates.wrong ? 1 : 0,
               duration: Duration(milliseconds: 200),
-              child: MyTexts.normal(
+              child: MyTexts.main(
                 title: ayahsQuestionsCtr.currectAnswerJuzDropDown.value.toString(),
                 color: MyColors.true_,
                 fontWeight: FontWeight.bold,
@@ -90,11 +90,11 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MyTexts.normal(title: "اختر الصفحة:"),
+            MyTexts.main(title: "اختر الصفحة:".tr),
             AnimatedOpacity(
               opacity: ayahsQuestionsCtr.ayahsAnswerStates == AyahsAnswerStates.wrong ? 1 : 0,
               duration: Duration(milliseconds: 200),
-              child: MyTexts.normal(
+              child: MyTexts.main(
                 title: ayahsQuestionsCtr.currectAnswerPageDropDown.value.toString(),
                 color: MyColors.true_,
                 fontWeight: FontWeight.bold,
@@ -143,8 +143,9 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: MyTexts.normal(
-                    title: "تأكيد", color: ayahsQuestionsCtr.isPressed.value ? MyColors.white : MyColors.whiteBlack()),
+                child: MyTexts.main(
+                    title: "تأكيد".tr,
+                    color: ayahsQuestionsCtr.isPressed.value ? MyColors.white : MyColors.whiteBlack()),
               ),
             ),
           ),
@@ -238,7 +239,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
     for (var index = 0; index < (ayahsQuestionsCtr.pageTo.value - ayahsQuestionsCtr.pageFrom.value) + 1; index++) {
       result.add(DropdownMenuItem(
         value: index + ayahsQuestionsCtr.pageFrom.value,
-        child: MyTexts.dropDownMenuItem(title: '${index + ayahsQuestionsCtr.pageFrom.value}'),
+        child: MyTexts.dropDownMenuItem(title: '${index + ayahsQuestionsCtr.pageFrom.value}'.tr),
       ));
     }
     bool inRange = false;
@@ -257,7 +258,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
     for (var index = 0; index < (ayahsQuestionsCtr.juzTo.value - ayahsQuestionsCtr.juzFrom.value) + 1; index++) {
       result.add(DropdownMenuItem(
         value: index + ayahsQuestionsCtr.juzFrom.value,
-        child: MyTexts.dropDownMenuItem(title: '${index + ayahsQuestionsCtr.juzFrom.value}'),
+        child: MyTexts.dropDownMenuItem(title: '${index + ayahsQuestionsCtr.juzFrom.value}'.tr),
       ));
     }
     return result;
@@ -303,8 +304,8 @@ class OptionButton extends GetView<ThemeCtr> {
             ),
             child: MyTexts.content(
               title: ayahsQuestionsCtr.questionType.value == QuestionType.ayahInJuzAndPage
-                  ? '- الجزء: ${optionBtnProps.juz}\n- الصفحة: ${optionBtnProps.page}'
-                  : '- الجزء: ${optionBtnProps.juz}',
+                  ? '${'الجزء'.tr} : ${optionBtnProps.juz}\n${'الصفحة'.tr} : ${optionBtnProps.page}'
+                  : '${'الجزء'.tr} : ${optionBtnProps.juz}',
               color: optionBtnProps.textColor,
             ),
           ),

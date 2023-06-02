@@ -32,7 +32,7 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MyAppBar(
-          title: 'المفضلة',
+          title: 'المفضلة'.tr,
           actions: [
             MyIcons.menu(),
             Padding(
@@ -42,12 +42,12 @@ class _FavoritePageState extends State<FavoritePage> {
                     iconEnabledColor: MyColors.primary(),
                     value: favoriteCtr.selectedZikrType.value,
                     items: [
-                      DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(title: 'الكل')),
+                      DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(title: 'الكل'.tr)),
                       DropdownMenuItem(
-                          value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله')),
-                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار')),
-                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن')),
-                      DropdownMenuItem(value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث')),
+                          value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله'.tr)),
+                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار'.tr)),
+                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن الكريم'.tr)),
+                      DropdownMenuItem(value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث الشريف'.tr)),
                     ],
                     onChanged: (newSelectedType) {
                       getStorage.write('selectedZikrType', newSelectedType!.index);

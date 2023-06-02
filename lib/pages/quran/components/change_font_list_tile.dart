@@ -13,8 +13,8 @@ class ListTileChangeFont extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: MyTexts.settingsTitle(title: 'تعديل نوع الخط'),
-      subtitle: MyTexts.settingsContent(title: 'قم باختيار نوع الخط المناسب لك'),
+      title: MyTexts.settingsTitle(title: 'تعديل نوع الخط'.tr),
+      subtitle: MyTexts.settingsContent(title: 'قم باختيار نوع الخط المناسب لك'.tr),
       trailing: DropdownButton<String>(
         onChanged: (val) => _settingsCtr.changeMainFont(val!, setState: setState),
         value: _settingsCtr.defaultFontMain.value,

@@ -19,7 +19,7 @@ class PrayerTimeCtr extends GetxController {
   Rx<Time> maghribTime = Time().obs;
   Rx<Time> ishaTime = Time().obs;
   RxBool isLoading = false.obs;
-  RxString nextPrayName = 'موعد الصلاة القادمة'.obs;
+  RxString nextPrayName = 'موعد الصلاة القادمة'.tr.obs;
   RxString timeLeftToNextPrayTime = '00:00:00'.obs;
   Rx<Time> nextPrayTime = Time().obs;
   Time currentTime = Time(DateTime.now().hour, DateTime.now().minute);
@@ -38,11 +38,11 @@ class PrayerTimeCtr extends GetxController {
       await Future.delayed(Duration(seconds: 5));
       await Get.dialog(
         AlertDialogOkNo(
-          title: "تشغيل خدمات الموقع الجغرافي",
+          title: "تشغيل خدمات الموقع الجغرافي".tr,
           content:
-              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
-          okText: "حسنا",
-          noText: "رفض",
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام".tr,
+          okText: "حسنا".tr,
+          noText: "رفض".tr,
           onOk: () async {
             Get.back();
             await Geolocator.openLocationSettings();
@@ -81,11 +81,11 @@ class PrayerTimeCtr extends GetxController {
       await Future.delayed(Duration(seconds: 5));
       await Get.dialog(
         AlertDialogOkNo(
-          title: "طلب الاذن بالوصول للموقع الحالي",
+          title: "طلب الاذن بالوصول للموقع الحالي".tr,
           content:
-              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
-          okText: "حسنا",
-          noText: "رفض",
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام".tr,
+          okText: "حسنا".tr,
+          noText: "رفض".tr,
           onOk: () async => permission = await Geolocator.requestPermission(),
           onNo: () => Get.back(),
         ),
@@ -146,7 +146,7 @@ class PrayerTimeCtr extends GetxController {
     String api = _getApi();
     var result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return;
     } else {
       try {

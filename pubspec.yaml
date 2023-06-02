@@ -71,7 +71,6 @@ flutter:
     - assets/database/quran/
     - assets/images/
     - assets/images/quran pages/
-    - assets/lang/
 
   fonts:
     - family: uthmanic

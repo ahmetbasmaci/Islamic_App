@@ -35,7 +35,7 @@ class Constants {
 
   static String machineCode = '';
   static String developerMachineCode = 'RP1A.200720.011';
-
+  static get isArabicLang=>Get.locale!.languageCode=='ar';
   static Future setMechineCode() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {

@@ -83,7 +83,7 @@ class JsonService {
     if (hadithsMap.isEmpty) return  getRandomHadith();
 
     int randomHadith = Random().nextInt(hadithsMap.length);
-    return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ', content: hadithsMap[randomHadith]['text']);
+    return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ'.tr, content: hadithsMap[randomHadith]['text']);
   }
 
   static Future<List<ZikrData>> getRandomAzkar({required int zikrIndexInJson}) async {

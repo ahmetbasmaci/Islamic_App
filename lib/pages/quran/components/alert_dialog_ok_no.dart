@@ -27,11 +27,11 @@ class AlertDialogOkNo extends GetView<ThemeCtr> {
       actions: [
         TextButton(
           onPressed: () async => onOk.call(),
-          child: MyTexts.normal(title: okText),
+          child: MyTexts.main(title: okText),
         ),
         TextButton(
           onPressed: () => onNo.call(),
-          child: MyTexts.normal(title: noText),
+          child: MyTexts.main(title: noText),
         ),
       ],
     );

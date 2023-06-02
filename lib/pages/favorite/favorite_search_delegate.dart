@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 
 import 'favorite_body.dart';
 
 class FavoriteSearchDelegate extends SearchDelegate {
   @override
-  String get searchFieldLabel => 'بحث';
+  String get searchFieldLabel => 'بحث'.tr;
 
   @override
   ThemeData appBarTheme(BuildContext context) => Theme.of(context).copyWith(

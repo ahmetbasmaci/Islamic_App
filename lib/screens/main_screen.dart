@@ -11,6 +11,7 @@ import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import '../classes/block_data.dart';
+import '../constents/constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -31,15 +32,15 @@ class _MainScreenState extends State<MainScreen> {
           AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard().hadithCard()),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
-            child: azkarBlocks(outsideTitle: 'مختلف الأذكار', azkars: BlockData.list, zikrType: ZikrType.azkar),
+            child: azkarBlocks(outsideTitle: 'مختلف الأذكار'.tr, azkars: BlockData.list, zikrType: ZikrType.azkar),
             index: 3,
           ),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
             index: 4,
             child: azkarBlocks(
-              outsideTitle: 'اسماء الله الحسنى',
-              azkars: [BlockData(imageSource: "assets/images/quran.png", title: 'تعرّف على اسماء الله الحسنى')],
+              outsideTitle: 'أسماء الله الحسنى'.tr,
+              azkars: [BlockData(imageSource: "assets/images/quran.png", title: 'تعرّف على اسماء الله الحسنى'.tr)],
               zikrType: ZikrType.allahNames,
             ),
           ),
@@ -59,12 +60,12 @@ class _MainScreenState extends State<MainScreen> {
               MyTexts.outsideHeader(title: outsideTitle),
               GestureDetector(
                 onTap: () => Get.to(() => AzkarBlockScreen(), curve: Curves.elasticIn),
-                child: azkars.length > 1 ? MyTexts.outsideHeader(title: 'الكل >>>  ') : Container(),
+                child: azkars.length > 1 ? MyTexts.outsideHeader(title: 'الكل >>>  '.tr) : Container(),
               ),
             ],
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Constants.isArabicLang ? Alignment.centerRight : Alignment.centerLeft,
             child: SizedBox(
               height: MySiezes.heightOfAzkarBlock,
               child: ListView.builder(
@@ -90,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          MyTexts.blockTitle(title: azkars[index].title),
+                          MyTexts.blockTitle(title: azkars[index].title.tr),
                           Container(
                             constraints: BoxConstraints(minWidth: MySiezes.minAzkarBlockWidth),
                             child: Row(

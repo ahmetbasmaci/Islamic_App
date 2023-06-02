@@ -65,7 +65,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyTexts.quran(
-                      title: 'الجُزْءُ   ${_quranData.getJuzNumberByPage(page)}',
+                      title: '${'الجُزْءُ'.tr}   ${_quranData.getJuzNumberByPage(page)}',
                       size: 20,
                       fontWeight: FontWeight.bold,
                       color: MyColors.quranPrimary(),

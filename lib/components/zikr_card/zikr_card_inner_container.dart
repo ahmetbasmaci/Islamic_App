@@ -70,7 +70,7 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
               leftTopChild ?? SizedBox(width: Get.width * .1),
             ],
           ),
-          MyTexts.main(title: zikrData.content),
+          MyTexts.quran(title: zikrData.content),
           zikrData.description != ''
               ? Row(children: [MyIcons.info, Expanded(child: MyTexts.info(title: zikrData.description))])
               : Container(),

@@ -11,7 +11,7 @@ import '../../components/my_switch.dart';
 import '../../constents/constants.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
-import '../quran/components/menu_options_item.dart';
+import '../quran/models/menu_options_item.dart';
 import 'classes/alarm_prop.dart';
 
 class AlarmListTile extends GetView<ThemeCtr> {
@@ -41,25 +41,25 @@ class AlarmListTile extends GetView<ThemeCtr> {
 
     List<MenuOptionsItem> menuItemList = [
       MenuOptionsItem(
-        title: 'عالي  20 قأكثر يوميا',
+        title: 'عالي  20 قأكثر يوميا'.tr,
         icon: Container(),
         onTap: () => alarmProp.zikrRepeat = ZikrRepeat.high,
         isSelected: alarmProp.zikrRepeat == ZikrRepeat.high,
       ),
       MenuOptionsItem(
-        title: 'متوسط  11-19  يوميا',
+        title: 'متوسط  11-19  يوميا'.tr,
         icon: Container(),
         onTap: () => alarmProp.zikrRepeat = ZikrRepeat.medium,
         isSelected: alarmProp.zikrRepeat == ZikrRepeat.medium,
       ),
       MenuOptionsItem(
-        title: 'منخفض  5-10  يوميا',
+        title: 'منخفض  5-10  يوميا'.tr,
         icon: Container(),
         onTap: () => alarmProp.zikrRepeat = ZikrRepeat.low,
         isSelected: alarmProp.zikrRepeat == ZikrRepeat.low,
       ),
       MenuOptionsItem(
-        title: 'نادر  1-5  يوميا',
+        title: 'نادر  1-5  يوميا'.tr,
         icon: Container(),
         onTap: () => alarmProp.zikrRepeat = ZikrRepeat.rare,
         isSelected: alarmProp.zikrRepeat == ZikrRepeat.rare,
@@ -142,12 +142,12 @@ class AlarmListTile extends GetView<ThemeCtr> {
                             : () {
                                 Get.dialog(
                                   AlertDialog(
-                                    title: MyTexts.settingsTitle(title: 'غير مسموح'),
+                                    title: MyTexts.settingsTitle(title: 'غير مسموح'.tr),
                                     content:
-                                        MyTexts.settingsContent(title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'),
+                                        MyTexts.settingsContent(title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'.tr),
                                     actions: [
                                       TextButton(
-                                        child: MyTexts.settingsContent(title: 'حسنا'),
+                                        child: MyTexts.settingsContent(title: 'حسنا'.tr),
                                         onPressed: () {
                                           Get.back();
                                         },

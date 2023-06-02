@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
@@ -131,7 +132,7 @@ class HelperMethods {
 
   static void copyText(String text) {
     Clipboard.setData(ClipboardData(text: text));
-    Fluttertoast.showToast(msg: 'تم نسخ النص بنجاح');
+    Fluttertoast.showToast(msg: 'تم نسخ النص بنجاح'.tr);
     Clipboard.getData(Clipboard.kTextPlain).then((value) {});
   }
 }

@@ -24,9 +24,9 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  MyTexts.settingsTitle(title: 'التاريخ الميلادي'),
+                  MyTexts.settingsTitle(title: 'التاريخ الميلادي'.tr),
                   Obx(
-                    () => MyTexts.normal(
+                    () => MyTexts.main(
                       title:
                           '${prayerTimeCtr.curerntDate.value.year}-${prayerTimeCtr.curerntDate.value.month}-${prayerTimeCtr.curerntDate.value.day}',
                       fontWeight: FontWeight.bold,
@@ -37,9 +37,9 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  MyTexts.settingsTitle(title: 'التاريخ الهجري'),
+                  MyTexts.settingsTitle(title: 'التاريخ الهجري'.tr),
                   Obx(
-                    () => MyTexts.normal(
+                    () => MyTexts.main(
                       title:
                           '${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hYear}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hMonth}-${HijriCalendar.fromDate(prayerTimeCtr.curerntDate.value).hDay}',
                       fontWeight: FontWeight.bold,
@@ -82,22 +82,22 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
     String title = '';
     String time = '';
     if (prayerTimeType == PrayerTimeType.fajr) {
-      title = 'الفجر';
+      title = 'الفجر'.tr;
       time = '${prayerTimeCtr.fajrTime.value.hour}:${prayerTimeCtr.fajrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.sun) {
-      title = 'شروق الشمس';
+      title = 'شروق الشمس'.tr;
       time = '${prayerTimeCtr.sunTime.value.hour}:${prayerTimeCtr.sunTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.duhr) {
-      title = 'الظهر';
+      title = 'الظهر'.tr;
       time = '${prayerTimeCtr.duhrTime.value.hour}:${prayerTimeCtr.duhrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.asr) {
-      title = 'العصر';
+      title = 'العصر'.tr;
       time = '${prayerTimeCtr.asrTime.value.hour}:${prayerTimeCtr.asrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.maghrib) {
-      title = 'المغرب';
+      title = 'المغرب'.tr;
       time = '${prayerTimeCtr.maghribTime.value.hour}:${prayerTimeCtr.maghribTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.isha) {
-      title = 'العشاء';
+      title = 'العشاء'.tr;
       time = '${prayerTimeCtr.ishaTime.value.hour}:${prayerTimeCtr.ishaTime.value.minute}';
     }
 
@@ -121,7 +121,7 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
               AnimatedSwitcher(
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
-                child: MyTexts.normal(title: time, fontWeight: FontWeight.bold),
+                child: MyTexts.main(title: time, fontWeight: FontWeight.bold),
               ),
             ],
           ),

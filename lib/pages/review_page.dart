@@ -22,7 +22,7 @@ class ReviewPage extends GetView<ThemeCtr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: "ملاحظة للمطور"),
+      appBar: MyAppBar(title: "ملاحظة للمطور".tr),
       drawer: MyDrawer(),
       body: Obx(() {
         return ModalProgressHUD(
@@ -44,7 +44,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                       contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       counterText: "",
-                      hintText: 'الاسم :',
+                      hintText: 'الاسم :'.tr,
                     ),
                   ),
                 ),
@@ -60,7 +60,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                       contentPadding: EdgeInsets.fromLTRB(2, 2, 5, 2),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       counterText: "",
-                      hintText: 'الملاحظة :',
+                      hintText: 'الملاحظة :'.tr,
                     ),
                   ),
                 ),
@@ -75,7 +75,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                       ),
                     ),
                   ),
-                  child: MyTexts.main(title: 'ارسال', color: MyColors.white),
+                  child: MyTexts.main(title: 'ارسال'.tr, color: MyColors.white),
                 ),
               ],
             ),
@@ -87,10 +87,10 @@ class ReviewPage extends GetView<ThemeCtr> {
 
   void sentReviewToDeveloper() async {
     if (nameTxtCtr.text.isEmpty) {
-      Fluttertoast.showToast(msg: 'الرجاء التأكد من كتابة الاسم');
+      Fluttertoast.showToast(msg: 'الرجاء التأكد من كتابة الاسم'.tr);
       return;
     } else if (reviewTxtCtr.text.isEmpty) {
-      Fluttertoast.showToast(msg: 'الرجاء التأكد من كتابة الملاحظة');
+      Fluttertoast.showToast(msg: 'الرجاء التأكد من كتابة الملاحظة'.tr);
       return;
     }
     try {
@@ -104,9 +104,9 @@ class ReviewPage extends GetView<ThemeCtr> {
       await _firestore.collection('users').doc(Constants.machineCode).set({'data': allData});
       reviewTxtCtr.clear();
       nameTxtCtr.clear();
-      Fluttertoast.showToast(msg: 'تم ارسال الرسالة للمطور بنجاح');
+      Fluttertoast.showToast(msg: 'تم ارسال الرسالة للمطور بنجاح'.tr);
     } catch (e) {
-      Fluttertoast.showToast(msg: 'حدث خطأ ما الرجاء المحاولة مرة اخرى');
+      Fluttertoast.showToast(msg: 'حدث خطأ ما الرجاء المحاولة مرة اخرى'.tr);
     }
     isLoading.value = false;
   }

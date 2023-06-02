@@ -146,7 +146,7 @@ class QuranPageFooter extends StatelessWidget {
                     ),
                     Container(
                       // color: Colors.green,
-                      child: MyTexts.quranSecondTitle(title: 'الصفحة :${_quranCtr.selectedPage.pageNumber.value}'),
+                      child: MyTexts.quranSecondTitle(title: '${'الصفحة'.tr} :${_quranCtr.selectedPage.pageNumber.value}'),
                     ),
                     // Container(
                     //   child: MyTexts.quranSecondTitle(title: 'الجزء  :${_quranCtr.selectedPage.juz.value}'),
@@ -195,7 +195,7 @@ class QuranPageFooter extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'اعدادات القراءة', fontWeight: FontWeight.bold),
+            MyTexts.quranSecondTitle(title: 'اعدادات القراءة'.tr, fontWeight: FontWeight.bold),
           ],
         ),
         content: Container(
@@ -223,7 +223,7 @@ class QuranPageFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MyTexts.quranSecondTitle(title: 'القارئ:', fontWeight: FontWeight.bold),
+        MyTexts.quranSecondTitle(title: 'القارئ:'.tr, fontWeight: FontWeight.bold),
         AnimatedContainer(
           duration: Duration(milliseconds: animationDurationMilliseconds),
           padding: EdgeInsets.all(5),
@@ -258,7 +258,7 @@ class QuranPageFooter extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyTexts.quranSecondTitle(title: 'تحديد المقطع:', fontWeight: FontWeight.bold),
+            MyTexts.quranSecondTitle(title: 'تحديد المقطع:'.tr, fontWeight: FontWeight.bold),
             MyTexts.quranSecondTitle(
               title: _quranData.getSurahNameByNumber(_quranCtr.selectedPage.surahNumber.value),
               fontWeight: FontWeight.bold,
@@ -275,7 +275,7 @@ class QuranPageFooter extends StatelessWidget {
   Widget startEndAyahsSelections(bool isStartAyah) {
     return Row(
       children: [
-        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:  ' : 'الى الآية :  '),
+        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:  '.tr : 'الى الآية :  '.tr),
         SizedBox(
           width: Get.size.width * .5,
           height: Get.size.height * .04,
@@ -363,10 +363,10 @@ class QuranPageFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyTexts.quranSecondTitle(title: 'تكرار التلاوة:  ', fontWeight: FontWeight.bold),
+        MyTexts.quranSecondTitle(title: 'تكرار التلاوة:  '.tr, fontWeight: FontWeight.bold),
         Row(
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'المقطع :  '),
+            MyTexts.quranSecondTitle(title: 'المقطع :  '.tr),
             Obx(
               () => MyTexts.quranSecondTitle(
                   title: _quranCtr.selectedPage.repeetAllCount.value.toString(), fontWeight: FontWeight.bold),
@@ -388,12 +388,12 @@ class QuranPageFooter extends StatelessWidget {
                 onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAll.value = value ?? false),
               ),
             ),
-            MyTexts.quranSecondTitle(title: 'لا محدود'),
+            MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
           ],
         ),
         Row(
           children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'الآية   :  '),
+            MyTexts.quranSecondTitle(title: 'الآية   :  '.tr),
             Obx(
               () => MyTexts.quranSecondTitle(
                   title: _quranCtr.selectedPage.repeetAyahCount.value.toString(), fontWeight: FontWeight.bold),
@@ -415,7 +415,7 @@ class QuranPageFooter extends StatelessWidget {
                 onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAyah.value = value ?? false),
               ),
             ),
-            MyTexts.quranSecondTitle(title: 'لا محدود'),
+            MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
           ],
         ),
       ],

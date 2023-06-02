@@ -86,7 +86,7 @@ class HttpService {
       required String formatedAyahNumber,
       required String filePath,
       bool showToast = false}) async {
-    if (showToast) Fluttertoast.showToast(msg: 'جاري تحميل الآية');
+    if (showToast) Fluttertoast.showToast(msg: 'جاري تحميل الآية'.tr);
     Map allReaders = await JsonService.getAllReaders();
     String readerUrl = allReaders[_quranCtr.selectedPage.selectedQuranReader.value.name];
     String url = '$readerUrl$formatedSurahNumber$formatedAyahNumber.mp3';
@@ -94,7 +94,7 @@ class HttpService {
 
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return null;
     } else {
       // try {
@@ -117,12 +117,12 @@ class HttpService {
         var response = await http.Client().get(Uri.parse(url));
         if (response.statusCode == 200) {
           await file.writeAsBytes(response.bodyBytes);
-          if (showToast) Fluttertoast.showToast(msg: 'تم تحيل الآية بنجاح');
+          if (showToast) Fluttertoast.showToast(msg: 'تم تحيل الآية بنجاح'.tr);
         } else {
-          if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت');
+          if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت'.tr);
         }
       } catch (e) {
-        if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت');
+        if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت'.tr);
       }
       return file;
     }

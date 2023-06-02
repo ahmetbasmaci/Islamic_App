@@ -28,7 +28,7 @@ class MyDrawer extends GetView<ThemeCtr> {
   Widget build(BuildContext context) {
     context.theme;
     return ClipPath(
-      clipper: OvalLeftBorderClipper(),
+      clipper: Constants.isArabicLang ? OvalLeftBorderClipper() : OvalRightBorderClipper(),
       child: Drawer(
         width: MySiezes.drawerWith,
         child: ListView(
@@ -37,7 +37,7 @@ class MyDrawer extends GetView<ThemeCtr> {
           children: [
             headerPart(),
             drawerItem(
-              title: 'الرئيسية',
+              title: 'الرئيسية'.tr,
               icon: MyIcons.home(),
               routeName: HomePage.id,
               onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
@@ -58,25 +58,25 @@ class MyDrawer extends GetView<ThemeCtr> {
             // ),
 
             drawerItem(
-              title: 'المنبه',
+              title: 'المنبه'.tr,
               icon: MyIcons.notification(),
               routeName: AlarmPage.id,
               onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
             ),
             drawerItem(
-              title: 'اوقات الصلاة',
+              title: 'اوقات الصلاة'.tr,
               icon: MyIcons.prayersTime(),
               routeName: PrayerTimes.id,
               onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
             ),
             drawerItem(
-              title: 'مراجعة القرآن',
+              title: 'مراجعة القرآن'.tr,
               icon: MyIcons.ayahsTest,
               routeName: AyahsQuestions.id,
               onTap: () async => navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
             ),
             drawerItem(
-              title: 'أذكار المسلم',
+              title: 'أذكار المسلم'.tr,
               icon: MyIcons.azkar(),
               routeName: AzkarBlockScreen.id,
               onTap: () async => navigateTo(context: context, routeName: AzkarBlockScreen.id, page: AzkarBlockScreen()),
@@ -84,26 +84,26 @@ class MyDrawer extends GetView<ThemeCtr> {
 
             Divider(height: 50, thickness: 2),
             drawerItem(
-              title: 'المفضلة',
+              title: 'المفضلة'.tr,
               icon: MyIcons.favoriteFilled(),
               routeName: FavoritePage.id,
               onTap: () async => navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage()),
             ),
             drawerItem(
-              title: 'الإعدادات',
+              title: 'الإعدادات'.tr,
               icon: MyIcons.settings(),
               routeName: SettingsPage.id,
               onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
             ),
             drawerItem(
-              title: 'ملاحظة للمطور',
+              title: 'ملاحظة للمطور'.tr,
               icon: MyIcons.review(),
               routeName: ReviewPage.id,
               onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
             ),
             Constants.machineCode == Constants.developerMachineCode
                 ? drawerItem(
-                    title: 'ملاحظات المستخدمين',
+                    title: 'ملاحظات المستخدمين'.tr,
                     icon: MyIcons.reviewSound(),
                     routeName: UserReviews.id,
                     onTap: () async => navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
@@ -116,13 +116,16 @@ class MyDrawer extends GetView<ThemeCtr> {
   }
 
   Widget headerPart() {
+    print(Get.width * 0.1);
     return UserAccountsDrawerHeader(
-      accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'),
+      accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'.tr),
       accountEmail: Text(''),
       decoration: BoxDecoration(color: MyColors.primary()),
       otherAccountsPictures: [
         Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: Constants.isArabicLang
+              ? EdgeInsets.only(left: Get.width * 0.055)
+              : EdgeInsets.only(right: Get.width * 0.055),
           child: CircleAvatar(
             backgroundColor: Color.fromARGB(255, 255, 255, 255),
             child: IconButton(
@@ -179,7 +182,7 @@ Widget drawerItem(
         title: title,
         size: 17,
         fontWeight: FontWeight.bold,
-        textAlign: TextAlign.right,
+        textAlign: Constants.isArabicLang ? TextAlign.right : TextAlign.left,
         color: selected ? MyColors.white : MyColors.whiteBlack()),
     selected: selected,
     selectedColor: MyColors.white,

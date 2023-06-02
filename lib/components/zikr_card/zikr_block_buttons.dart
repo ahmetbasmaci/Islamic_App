@@ -46,7 +46,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           String toastText = '';
           if (widget.zikrData.isFavorite) {
             sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
-            toastText = 'تم حذف النص من المفضلة';
+            toastText = 'تم حذف النص من المفضلة'.tr;
             Get.find<AudioCtr>().stopAudio();
           } else {
             sqlDb.insertData('favorite', {
@@ -58,7 +58,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
               'surahNumber': widget.zikrData.surahNumber,
               'count': -1,
             });
-            toastText = 'تم إضافة النص إلى المفضلة';
+            toastText = 'تم إضافة النص إلى المفضلة'.tr;
           }
           Fluttertoast.showToast(msg: toastText, backgroundColor: Colors.black);
           if (widget.zikrData.isFavorite) widget.onDeleteFromFavorite?.call();

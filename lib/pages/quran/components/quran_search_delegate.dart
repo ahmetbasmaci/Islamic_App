@@ -14,7 +14,7 @@ class QuranSearchDelegate extends SearchDelegate {
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
 
   @override
-  String get searchFieldLabel => 'بحث عنآية او سورة...';
+  String get searchFieldLabel => 'إبحث عن آية او سورة...'.tr;
 
   @override
   ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(
@@ -73,7 +73,7 @@ class QuranSearchDelegate extends SearchDelegate {
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: _quranCtr.searchFilterList[0].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[0].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
                   _quranCtr.searchFilterList[0].value.searchFilter == SearchFilter.surah
@@ -94,7 +94,7 @@ class QuranSearchDelegate extends SearchDelegate {
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: _quranCtr.searchFilterList[1].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[1].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
                   _quranCtr.searchFilterList[1].value.searchFilter == SearchFilter.surah
@@ -115,7 +115,7 @@ class QuranSearchDelegate extends SearchDelegate {
                   Align(
                     alignment: Alignment.topRight,
                     child: MyTexts.quranSecondTitle(
-                        title: _quranCtr.searchFilterList[2].value.text, size: 19, fontWeight: FontWeight.bold),
+                        title: _quranCtr.searchFilterList[2].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MySiezes.screenPadding),
                   _quranCtr.searchFilterList[2].value.searchFilter == SearchFilter.surah
@@ -155,7 +155,8 @@ class QuranSearchDelegate extends SearchDelegate {
                 _quranCtr.tabCtr.index = surahsResult[index].startAtPage - 1;
               },
               title: MyTexts.quranSecondTitle(
-                  title: '${surahsResult[index].name.replaceAll('سُورَةُ ', '')} : ${surahsResult[index].startAtPage}'),
+                  title:
+                      '${surahsResult[index].name.replaceAll('سُورَةُ '.tr, '')} : ${surahsResult[index].startAtPage}'),
             );
           }),
         ),

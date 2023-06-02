@@ -28,14 +28,14 @@ class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
         () => Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            MyTexts.normal(
-              title: prayerTimeCtr.nextPrayName.value,
+            MyTexts.main(
+              title: prayerTimeCtr.nextPrayName.value.tr,
               size: 26,
               color: MyColors.second(),
               fontWeight: FontWeight.bold,
             ),
-            MyTexts.normal(
-              title: prayerTimeCtr.timeLeftToNextPrayTime.value,
+            MyTexts.main(
+              title: prayerTimeCtr.timeLeftToNextPrayTime.value.tr,
               size: 30,
               fontWeight: FontWeight.bold,
             ),

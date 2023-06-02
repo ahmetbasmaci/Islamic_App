@@ -59,9 +59,9 @@ class QuranPageCtr extends GetxController {
         pageProp.isMarked = true;
         break;
       }
-    String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
+    String title = pageProp.isMarked ? 'ازالة علامة قراءة'.tr : 'اضافة علامة قراءة'.tr;
     String content =
-        pageProp.isMarked ? 'هل تود ازالة علامة القراءة من هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
+        pageProp.isMarked ? 'هل تود ازالة علامة القراءة من هذه الصفحة؟'.tr : 'هل تود وضع علامة على هذه الصفحة؟'.tr;
 
     return Get.dialog(
       AlertDialog(
@@ -74,21 +74,21 @@ class QuranPageCtr extends GetxController {
             onPressed: () {
               if (pageProp.isMarked) {
                 markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
-                Fluttertoast.showToast(msg: 'تم ازالة العلامة');
+                Fluttertoast.showToast(msg: 'تم ازالة العلامة'.tr);
               } else {
                 pageProp.isMarked = true;
                 markedList.add(pageProp);
                 updateMarkedPageList(pageProp);
-                Fluttertoast.showToast(msg: 'تم اضافة العلامة');
+                Fluttertoast.showToast(msg: 'تم اضافة العلامة'.tr);
               }
               Get.back();
               quranPageSetState();
             },
-            child: MyTexts.main(title: 'تأكيد', color: MyColors.quranBackGroundLight),
+            child: MyTexts.main(title: 'تأكيد'.tr, color: MyColors.quranBackGroundLight),
           ),
           TextButton(
             onPressed: () => Get.back(),
-            child: MyTexts.main(title: 'الغاء'),
+            child: MyTexts.main(title: 'الغاء'.tr),
           ),
         ],
       ),
@@ -103,9 +103,9 @@ class QuranPageCtr extends GetxController {
     ayah.isMarked = !isMarked;
 
     if (isMarked) {
-      Fluttertoast.showToast(msg: 'تم ازالة العلامة');
+      Fluttertoast.showToast(msg: 'تم ازالة العلامة'.tr);
     } else {
-      Fluttertoast.showToast(msg: 'تم اضافة العلامة');
+      Fluttertoast.showToast(msg: 'تم اضافة العلامة'.tr);
     }
     selectedAyah.value = Ayah.empty();
   }
@@ -248,9 +248,9 @@ class QuranPageCtr extends GetxController {
     if (searchListMap.isNotEmpty) {
       for (var element in searchListMap) searchFilterList.add(FilterChipProp.fromJson(element).obs);
     } else {
-      searchFilterList.add(FilterChipProp(text: 'السور', isSelected: false.obs, searchFilter: SearchFilter.surah).obs);
-      searchFilterList.add(FilterChipProp(text: 'الايات', isSelected: false.obs, searchFilter: SearchFilter.ayah).obs);
-      searchFilterList.add(FilterChipProp(text: 'الصفحات', isSelected: false.obs, searchFilter: SearchFilter.page).obs);
+      searchFilterList.add(FilterChipProp(text: 'السور'.tr, isSelected: false.obs, searchFilter: SearchFilter.surah).obs);
+      searchFilterList.add(FilterChipProp(text: 'الايات'.tr, isSelected: false.obs, searchFilter: SearchFilter.ayah).obs);
+      searchFilterList.add(FilterChipProp(text: 'الصفحات'.tr, isSelected: false.obs, searchFilter: SearchFilter.page).obs);
     }
   }
 

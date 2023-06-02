@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
@@ -92,6 +93,7 @@ class _AzkarPageState extends State<AzkarPage> {
     if (widget.zikrType == ZikrType.azkar)
       bigTitle = JsonService.allZikrDataList[widget.zikrIndexInJson]['title'];
     else if (widget.zikrType == ZikrType.allahNames) bigTitle = "أسماء الله الحسنى";
+    bigTitle = bigTitle.tr;
   }
 
   Future readData() async {

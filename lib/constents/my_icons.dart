@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
@@ -52,9 +53,12 @@ class MyIcons {
   static Icon notification({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.notification_important, color: color);
   static Icon rightArrow({Color? color, double size = MySiezes.icon}) =>
-      Icon(Icons.arrow_back_ios, color: color, size: size);
+      Icon(Icons.arrow_back_ios_rounded, color: color, size: size);
   static Icon leftArrow({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.arrow_forward_ios_rounded, color: color, size: size);
+  static Icon nextArrow({Color? color, double size = MySiezes.icon}) =>
+      Icon(Constants.isArabicLang ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded,
+          color: color, size: size);
   static Icon search({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.search, color: color, size: size);
 

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/services/theme_service.dart';
 
 import 'my_colors.dart';
 
 class MyTexts {
   static BuildContext context = Constants.navigatorKey.currentState!.context;
-  static Text outsideHeader({required String title, Color? color}) {
+
+  static Text outsideHeader({required String title, TextAlign? textAlign, Color? color}) {
     return Text(
       title,
+      textAlign: textAlign,
       style: Theme.of(Get.context ?? context)
           .textTheme
           .labelLarge!
@@ -80,14 +83,6 @@ class MyTexts {
     );
   }
 
-  static Text normal({required String title, Color? color, double? size, FontWeight? fontWeight}) {
-    return Text(
-      title,
-      // textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: color, fontSize: size, fontWeight: fontWeight),
-    );
-  }
-
   static Text settingsTitle({required String title, Color? color, double? size}) {
     return Text(
       title,
@@ -116,7 +111,7 @@ class MyTexts {
     );
   }
 
-  static Text dropDownMenuTitle({required String title, double size = 20, FontWeight? fontWeight}) {
+  static Text dropDownMenuTitle({required String title, double? size, FontWeight? fontWeight}) {
     return Text(
       title,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight: fontWeight, fontSize: size),

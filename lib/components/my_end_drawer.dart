@@ -35,8 +35,8 @@ class MyEndDrawer extends GetView<ThemeCtr> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                markCategory(title: 'الصفحات', icon: MyIcons.mark(), index: 0),
-                markCategory(title: 'الايات', icon: MyIcons.book(), index: 1),
+                markCategory(title: 'الصفحات'.tr, icon: MyIcons.mark(), index: 0),
+                markCategory(title: 'الايات'.tr, icon: MyIcons.book(), index: 1),
               ],
             ),
             Divider(color: MyColors.quranPrimary()),
@@ -55,9 +55,9 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                           child: AnimationService.animationListItemDownToUp(
                             index: index,
                             child: markedListTile(
-                              title: 'الجزء ${_quranCtr.markedList[index].juz}',
+                              title: '${'الجزء'.tr} ${_quranCtr.markedList[index].juz}',
                               subtitle:
-                                  '${_quranCtr.markedList[index].surahName}  |  الصفحة ${_quranCtr.markedList[index].pageNumber}',
+                                  '${_quranCtr.markedList[index].surahName}  |  ${'الصفحة'.tr} ${_quranCtr.markedList[index].pageNumber}',
                               page: _quranCtr.markedList[index].pageNumber,
                             ),
                           ),
@@ -78,7 +78,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                             child: markedListTile(
                               title: markedAyahs[index].text,
                               subtitle:
-                                  '${markedAyahs[index].surahName}  |  الصفحة ${markedAyahs[index].page} | الجزء ${markedAyahs[index].juz}',
+                                  '${markedAyahs[index].surahName}  |  ${'الصفحة'.tr} ${markedAyahs[index].page} | ${'الجزء'.tr} ${markedAyahs[index].juz}',
                               page: markedAyahs[index].page,
                             ),
                           ),

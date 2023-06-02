@@ -69,7 +69,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                   child: AnimatedTextKit(
                     animatedTexts: [
                       TyperAnimatedText(
-                        'زاد المؤمن',
+                        'زاد المؤمن'.tr,
                         speed: Duration(milliseconds: 200),
                         textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                       ),

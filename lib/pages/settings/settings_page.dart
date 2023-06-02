@@ -4,7 +4,6 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/pages/quran/components/change_font_list_tile.dart';
-import 'package:zad_almumin/localization/my_local.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
@@ -25,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'الإعدادات', showDrawerBtn: false),
+      appBar: MyAppBar(title: 'الإعدادات'.tr, showDrawerBtn: false),
       body: Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: SingleChildScrollView(
@@ -33,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               ListTile(
                 title: MyTexts.settingsTitle(title: "تنشيط الوضع اليلي".tr),
-                subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار الوضع اليلي'),
+                subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار الوضع اليلي'.tr),
                 trailing: MySwitch(
                   value: Get.isDarkMode,
                   onChanged: (newValue) async {
@@ -47,8 +46,8 @@ class _SettingsPageState extends State<SettingsPage> {
               Divider(),
               Obx(
                 () => ListTile(
-                  title: MyTexts.settingsTitle(title: 'تشفيل صوت الاشعارات'),
-                  subtitle: MyTexts.settingsContent(title: 'عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات'),
+                  title: MyTexts.settingsTitle(title: 'تشفيل صوت الاشعارات'.tr),
+                  subtitle: MyTexts.settingsContent(title: 'عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات'.tr),
                   trailing: MySwitch(
                     value: _settingsCtr.isNotificationSoundOn.value,
                     onChanged: (newValue) => _settingsCtr.changeNotificationSoundMode(newValue),
@@ -58,12 +57,12 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Divider(),
               ListTile(
-                title: MyTexts.settingsTitle(title: 'لغة البرنامج'),
-                subtitle: MyTexts.settingsContent(title: 'قم بإختيار لغة البرنامج المناسبة لك'),
+                title: MyTexts.settingsTitle(title: 'لغة البرنامج'.tr),
+                subtitle: MyTexts.settingsContent(title: 'قم بإختيار لغة البرنامج المناسبة لك'.tr),
                 trailing: DropdownButton<String>(
                   items: [
                     DropdownMenuItem(value: "ar", child: MyTexts.main(title: "العربية")),
-                    DropdownMenuItem(value: "en", child: MyTexts.main(title: "en")),
+                    DropdownMenuItem(value: "en", child: MyTexts.main(title: "English")),
                     DropdownMenuItem(value: "tr", child: MyTexts.main(title: "TÜRKÇE"))
                   ],
                   value: _myLocalCtr.currentLocal.languageCode,
@@ -75,7 +74,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: MyIcons.lang(size: MySiezes.icon * 1.2),
               ),
               Divider(),
-              ListTileChangeFont(setState: () => setState(() {}))
+              _myLocalCtr.currentLocal.languageCode == "ar"
+                  ? ListTileChangeFont(setState: () => setState(() {}))
+                  : Container()
               // Divider(),
               // ListTile(
               //   title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'),

@@ -37,13 +37,14 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'مراجعة القرآن'),
+      appBar: MyAppBar(title: 'مراجعة القرآن'.tr),
       drawer: MyDrawer(),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
         child: Column(
           children: [
-            MyTexts.outsideHeader(title: "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية"),
+            MyTexts.outsideHeader(
+                title: "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية".tr, textAlign: TextAlign.center),
             Expanded(
               child: FutureBuilder(
                   future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),

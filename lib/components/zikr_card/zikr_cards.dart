@@ -5,6 +5,7 @@ import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/referesh_btn_rounded.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_count_widget.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
@@ -39,7 +40,9 @@ class ZikrCard {
       child: Column(
         children: <Widget>[
           outsideTitle != null && !isFavorite
-              ? Align(alignment: Alignment.centerRight, child: MyTexts.outsideHeader(title: outsideTitle))
+              ? Align(
+                  alignment: Constants.isArabicLang ? Alignment.centerRight : Alignment.bottomLeft,
+                  child: MyTexts.outsideHeader(title: outsideTitle))
               : Container(),
           AnimatedButtonTapping(
             onTap: onTap,
@@ -83,7 +86,7 @@ class ZikrCard {
       });
     }
     return outContainer(
-      outsideTitle: 'آية من القرآن الكريم',
+      outsideTitle: 'آية من القرآن الكريم'.tr,
       isFavorite: quranZikrData != null,
       child: StatefulBuilder(builder: (context, setState) {
         return FutureBuilder<ZikrData?>(
@@ -159,7 +162,7 @@ class ZikrCard {
     if (hadithZikrData == null)
       myFuture = Future.delayed(Duration(seconds: 0)).then((value) => JsonService.getRandomHadith());
     return outContainer(
-      outsideTitle: 'بلّفو عني ولوآية',
+      outsideTitle: 'بلّغو عني ولوآية'.tr,
       isFavorite: hadithZikrData != null,
       child: StatefulBuilder(builder: (context, setState) {
         return FutureBuilder(
@@ -219,7 +222,7 @@ class ZikrCard {
           rigthTopChild: AnimatedOpacity(
             duration: Duration(milliseconds: 5000),
             opacity: 1,
-            child: ZikrCountWidget(title: azkarZikrData.count > 0 ? '${azkarZikrData.count}' : 'تم'),
+            child: ZikrCountWidget(title: azkarZikrData.count > 0 ? '${azkarZikrData.count}' : 'تم'.tr),
           ),
         ),
       );

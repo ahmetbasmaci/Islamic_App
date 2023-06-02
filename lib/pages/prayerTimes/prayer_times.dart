@@ -32,7 +32,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'مواقيت الصلاة'),
+      appBar: MyAppBar(title: 'اوقات الصلاة'.tr),
       drawer: MyDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -64,7 +64,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                       mainAxisAlignment:
                           prayerTimeCtr.isLoading.value ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
                       children: [
-                        MyTexts.normal(title: 'تحديث', color: MyColors.white, fontWeight: FontWeight.bold),
+                        MyTexts.main(title: 'تحديث'.tr, color: MyColors.white, fontWeight: FontWeight.bold),
                         prayerTimeCtr.isLoading.value
                             ? AnimatedOpacity(
                                 duration: Duration(milliseconds: 3000),
@@ -114,22 +114,22 @@ class _PrayerTimesState extends State<PrayerTimes> {
     String title = '';
     String time = '';
     if (prayerTimeType == PrayerTimeType.fajr) {
-      title = 'الفجر';
+      title = 'الفجر'.tr;
       time = '${prayerTimeCtr.fajrTime.value.hour}:${prayerTimeCtr.fajrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.sun) {
-      title = 'شروق الشمس';
+      title = 'شروق الشمس'.tr;
       time = '${prayerTimeCtr.sunTime.value.hour}:${prayerTimeCtr.sunTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.duhr) {
-      title = 'الظهر';
+      title = 'الظهر'.tr;
       time = '${prayerTimeCtr.duhrTime.value.hour}:${prayerTimeCtr.duhrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.asr) {
-      title = 'العصر';
+      title = 'العصر'.tr;
       time = '${prayerTimeCtr.asrTime.value.hour}:${prayerTimeCtr.asrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.maghrib) {
-      title = 'المغرب';
+      title = 'المغرب'.tr;
       time = '${prayerTimeCtr.maghribTime.value.hour}:${prayerTimeCtr.maghribTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.isha) {
-      title = 'العشاء';
+      title = 'العشاء'.tr;
       time = '${prayerTimeCtr.ishaTime.value.hour}:${prayerTimeCtr.ishaTime.value.minute}';
     }
 
@@ -155,7 +155,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: prayerTimeCtr.isLoading.value
                     ? MyCircularProgressIndecator()
-                    : MyTexts.normal(title: time, fontWeight: FontWeight.bold),
+                    : MyTexts.main(title: time, fontWeight: FontWeight.bold),
               ),
             ],
           ),

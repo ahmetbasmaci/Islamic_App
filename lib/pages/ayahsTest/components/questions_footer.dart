@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/theme_service.dart';
 import '../../../constents/my_colors.dart';
@@ -22,10 +23,15 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         SizedBox(height: Get.height * 0.02),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            questionInfoAndNextButton(),
-            boottomSheetHandleButton(),
-          ],
+          children: Constants.isArabicLang
+              ? [
+                  questionInfoAndNextButton(),
+                  boottomSheetHandleButton(),
+                ]
+              : [
+                  boottomSheetHandleButton(),
+                  questionInfoAndNextButton(),
+                ],
         ),
         SizedBox(height: Get.height * 0.02),
         answersInfo(),
@@ -56,9 +62,9 @@ class QuestionsFooter extends GetView<ThemeCtr> {
             iconSetState(() {});
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              MyTexts.normal(title: ' خيارات ', color: MyColors.white),
+              MyTexts.main(title: ' خيارات '.tr, color: MyColors.white),
               MyIcons.optinos(color: MyColors.white),
             ],
           ),
@@ -140,10 +146,17 @@ class QuestionsFooter extends GetView<ThemeCtr> {
           color: MyColors.zikrCard(),
           onPressed: () => getNextQuestion(),
           child: Row(
-            children: [
-              MyIcons.rightArrow(color: MyColors.primary()),
-              MyTexts.normal(title: 'التالي', color: MyColors.whiteBlack())
-            ],
+            children: Constants.isArabicLang
+                ? [
+                    MyIcons.nextArrow(color: MyColors.primary()),
+                    SizedBox(width: MySiezes.btnIcon),
+                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack()),
+                  ]
+                : [
+                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack()),
+                    SizedBox(width: MySiezes.btnIcon),
+                    MyIcons.nextArrow(color: MyColors.primary()),
+                  ],
           ),
         ),
         //MyTexts.normal(title: ' السؤال رقم ${ayahsQuestionsCtr.quastionNumber.value}', color: MyColors.whiteBlack())
@@ -174,7 +187,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
   Row selectDifferentTestType() {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(title: 'نوع الاختبار:  '),
+        MyTexts.dropDownMenuTitle(title: 'نوع الاختبار:  '.tr),
         DropdownButton<QuestionType>(
           value: ayahsQuestionsCtr.questionType.value,
           iconEnabledColor: MyColors.primary(),
@@ -185,8 +198,8 @@ class QuestionsFooter extends GetView<ThemeCtr> {
             }
           },
           items: [
-            DropdownMenuItem(value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem(title: 'الايات')),
-            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem(title: 'السور')),
+            DropdownMenuItem(value: QuestionType.ayahInJuzAndPage, child: MyTexts.dropDownMenuItem(title: 'الايات'.tr)),
+            DropdownMenuItem(value: QuestionType.surahInJuz, child: MyTexts.dropDownMenuItem(title: 'السور'.tr)),
           ],
         ),
       ],
@@ -220,7 +233,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
   Row selectFromOption(bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(title: isPage ? 'من الصفحة    ' : 'من الجزء    '),
+        MyTexts.dropDownMenuTitle(title: isPage ? 'من الصفحة    '.tr : 'من الجزء    '.tr),
         DropdownButton<int>(
           items: List.generate(
             isPage ? 20 : 30,
@@ -247,7 +260,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
   Row selectToOption(bool isPage) {
     return Row(
       children: [
-        MyTexts.dropDownMenuTitle(title: isPage ? 'الى الصفحة    ' : 'الى الجزء    '),
+        MyTexts.dropDownMenuTitle(title: isPage ? 'الى الصفحة    '.tr : 'الى الجزء    '.tr),
         DropdownButton<int>(
           value: isPage ? ayahsQuestionsCtr.pageTo.value : ayahsQuestionsCtr.juzTo.value,
           iconEnabledColor: MyColors.primary(),
@@ -291,18 +304,18 @@ class QuestionsFooter extends GetView<ThemeCtr> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
-          MyTexts.normal(
-            title: isCorrect ? 'الاجابات الصحيحة:   ' : 'الاجابات الخاطئة:  ',
+          //Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
+          MyTexts.main(
+            title: isCorrect ? 'الاجابات الصحيحة:   '.tr : 'الاجابات الخاطئة:  '.tr,
             color: isCorrect ? MyColors.true_ : MyColors.false_,
-            size: 13,
+            //size: 13,
           ),
           Material(
             borderRadius: BorderRadius.circular(100),
             elevation: 1,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: MyTexts.normal(
+              child: MyTexts.main(
                   title:
                       isCorrect ? '${ayahsQuestionsCtr.trueAnswersCounter}' : '${ayahsQuestionsCtr.wrongAnwersCounter}',
                   color: isCorrect ? MyColors.true_ : MyColors.false_),

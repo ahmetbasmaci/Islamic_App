@@ -23,19 +23,19 @@ class _AlarmPageState extends State<AlarmPage> {
       () {
         Get.find<ThemeCtr>().isDarkMode.value;
         return Scaffold(
-          appBar: MyAppBar(title: 'المنبه'),
+          appBar: MyAppBar(title: 'المنبه'.tr),
           drawer: MyDrawer(),
           body: ListView(
             children: [
-              alarmBlockTitle(title: 'تذكير الاحاديث'),
+              alarmBlockTitle(title: 'تذكير الاحاديث'.tr),
               hadithsAlarms(),
-              alarmBlockTitle(title: 'الأذكار اليومية'),
+              alarmBlockTitle(title: 'الأذكار اليومية'.tr),
               azkarAlamrs(),
-              alarmBlockTitle(title: 'قراءة القرآن'),
+              alarmBlockTitle(title: 'قراءة القرآن'.tr),
               quranAlarms(),
-              alarmBlockTitle(title: 'اوقات الصيام'),
+              alarmBlockTitle(title: 'اوقات الصيام'.tr),
               fastAlarms(),
-              alarmBlockTitle(title: 'اوقات الاذان'),
+              alarmBlockTitle(title: 'اوقات الاذان'.tr),
               prayTimesAlarms(),
             ],
           ),
@@ -51,8 +51,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/azkarAlarm.png',
-              title: 'أذكار عشوائية',
-              subtitle: 'سيصلك اشعار بذكر عشوائي ',
+              title: 'أذكار عشوائية'.tr,
+              subtitle: 'سيصلك اشعار بذكر عشوائي'.tr,
               value: alarmsCtr.azkarProp.isActive.value,
               alarmProp: alarmsCtr.azkarProp.time.value.minute == 0 ? alarmsCtr.azkarProp : alarmsCtr.azkarProp,
               onChanged: (newValue) {
@@ -63,8 +63,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/azkarAlarm.png',
-                title: 'أذكار الصباح',
-                subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار الصباح',
+                title: 'أذكار الصباح'.tr,
+                subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار الصباح'.tr,
                 value: alarmsCtr.morningAzkarProp.isActive.value,
                 alarmProp: alarmsCtr.morningAzkarProp,
                 onChanged: (newValue) {
@@ -74,8 +74,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/azkarAlarm.png',
-                title: 'أذكار المساء',
-                subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار المساء',
+                title: 'أذكار المساء'.tr,
+                subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار المساء'.tr,
                 value: alarmsCtr.nightAzkarProp.isActive.value,
                 alarmProp: alarmsCtr.nightAzkarProp,
                 onChanged: (newValue) {
@@ -94,8 +94,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/quranAlarm.png',
-                title: 'قراءة صفحة من القرآن كل يوم',
-                subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القرآن',
+                title: 'قراءة صفحة من القرآن كل يوم'.tr,
+                subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القرآن'.tr,
                 value: alarmsCtr.quranPageEveryDayProp.isActive.value,
                 alarmProp: alarmsCtr.quranPageEveryDayProp,
                 onChanged: (newValue) {
@@ -105,8 +105,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/quranAlarm.png',
-              title: 'قراءة سورة الكهف',
-              subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة',
+              title: 'قراءة سورة الكهف'.tr,
+              subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة'.tr,
               value: alarmsCtr.kahfSureProp.isActive.value,
               alarmProp:
                   alarmsCtr.kahfSureProp.time.value.minute == 0 ? alarmsCtr.kahfSureProp : alarmsCtr.kahfSureProp,
@@ -127,8 +127,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/fastingAlarm.png',
-                title: 'صيام الاثنين',
-                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+                title: 'صيام الاثنين'.tr,
+                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
                 value: alarmsCtr.mondayFastProp.isActive.value,
                 alarmProp: alarmsCtr.mondayFastProp,
                 onChanged: (newValue) {
@@ -138,8 +138,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/fastingAlarm.png',
-                title: 'صيام الخميس',
-                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+                title: 'صيام الخميس'.tr,
+                subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
                 value: alarmsCtr.thursdayFastProp.isActive.value,
                 alarmProp: alarmsCtr.thursdayFastProp,
                 onChanged: (newValue) {
@@ -149,8 +149,8 @@ class _AlarmPageState extends State<AlarmPage> {
           // Obx(
           //   () => AlarmListTile(
           //       imagePath: 'assets/images/fastingAlarm.png',
-          //       title: 'صيام الايام البيض',
-          //       subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم',
+          //       title: 'صيام الايام البيض'.tr,
+          //       subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
           //       value: alarmsCtr.whitedayFastProp.isActive.value,
           //       alarmProp: alarmsCtr.whitedayFastProp,
           //       onChanged: (newValue) {
@@ -169,8 +169,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
                 imagePath: 'assets/images/hadithAlarm.png',
-                title: 'حديث رسول الله ﷺ',
-                subtitle: 'سيصلك اشعار بحديث رسول الله ﷺ',
+                title: 'حديث رسول الله ﷺ'.tr,
+                subtitle: 'سيصلك اشعار بحديث رسول الله ﷺ'.tr,
                 value: alarmsCtr.hadithEveryDayProp.isActive.value,
                 alarmProp: alarmsCtr.hadithEveryDayProp,
                 onChanged: (newValue) {
@@ -189,8 +189,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/prayAlarm.png',
-              title: 'صلاة الفجر',
-              subtitle: 'سيصلك اشعار قبل موعد الاذان',
+              title: 'صلاة الفجر'.tr,
+              subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.fajrPrayProp.isActive.value,
               alarmProp: alarmsCtr.fajrPrayProp,
               onChanged: (newValue) {
@@ -202,8 +202,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/prayAlarm.png',
-              title: 'صلاة الظهر',
-              subtitle: 'سيصلك اشعار قبل موعد الاذان',
+              title: 'صلاة الظهر'.tr,
+              subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.duhrPrayProp.isActive.value,
               alarmProp: alarmsCtr.duhrPrayProp,
               onChanged: (newValue) {
@@ -215,8 +215,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/prayAlarm.png',
-              title: 'صلاة العصر',
-              subtitle: 'سيصلك اشعار قبل موعد الاذان',
+              title: 'صلاة العصر'.tr,
+              subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.asrPrayProp.isActive.value,
               alarmProp: alarmsCtr.asrPrayProp,
               onChanged: (newValue) {
@@ -228,8 +228,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/prayAlarm.png',
-              title: 'صلاة المغرب',
-              subtitle: 'سيصلك اشعار قبل موعد الاذان',
+              title: 'صلاة المغرب'.tr,
+              subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.maghribPrayProp.isActive.value,
               alarmProp: alarmsCtr.maghribPrayProp,
               onChanged: (newValue) {
@@ -241,8 +241,8 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: 'assets/images/prayAlarm.png',
-              title: 'صلاة العشاء',
-              subtitle: 'سيصلك اشعار قبل موعد الاذان',
+              title: 'صلاة العشاء'.tr,
+              subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.ishaPrayProp.isActive.value,
               alarmProp: alarmsCtr.ishaPrayProp,
               onChanged: (newValue) {
