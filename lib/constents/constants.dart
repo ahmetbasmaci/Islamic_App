@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'my_colors.dart';
 
-class Constants {
+class AppSettings {
   static SystemUiOverlayStyle systemUiOverlayStyleQuran = SystemUiOverlayStyle(
     statusBarColor: MyColors.quranStatus(),
     statusBarIconBrightness: Brightness.dark,
@@ -35,7 +35,7 @@ class Constants {
 
   static String machineCode = '';
   static String developerMachineCode = 'RP1A.200720.011';
-  static get isArabicLang=>Get.locale!.languageCode=='ar';
+  static get isArabicLang => Get.locale!.languageCode == 'ar';
   static Future setMechineCode() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
@@ -46,5 +46,24 @@ class Constants {
       var androidDeviceInfo = await deviceInfo.androidInfo;
       machineCode = androidDeviceInfo.id; // unique ID on Android
     }
+  }
+
+  //write method take arabic name  as paraemter and return that string without every tashkil char and hamza
+  static String removeTashkil(String text) {
+    String withOutTashkill = text
+        .replaceAll('َ', '')
+        .replaceAll('ً', '')
+        .replaceAll('ُ', '')
+        .replaceAll('ٌ', '')
+        .replaceAll('ِ', '')
+        .replaceAll('ٍ', '')
+        .replaceAll('ْ', '')
+        .replaceAll('ّ', '')
+        .replaceAll('ٰ', '')
+        .replaceAll('ۡ', '')
+        .replaceAll('ٓ', '')
+        .replaceAll('آ', 'ا')
+        .replaceAll('ٱ', 'ا');
+    return withOutTashkill;
   }
 }

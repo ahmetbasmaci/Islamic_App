@@ -8694,7 +8694,8 @@
                 "juz": 5,
                 "page": 151,
                 "sajda": false
-            },  {
+            },
+            {
                 "numberInQuran": 955,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/955.mp3",
@@ -13432,7 +13433,8 @@
                 "juz": 11,
                 "page": 221,
                 "sajda": false
-            }, {
+            },
+            {
                 "numberInQuran": 1474,
                 "numberInSurah": 1,
                 "audio": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1474.mp3",
@@ -33021,7 +33023,7 @@
     },
     {
         "number": 34,
-        "name": "سُورَةُ سَبَإٍ",
+        "name": "سُورَةُ سَبَأ",
         "numberOfAyahs": 54,
         "ayahs": [
             {
@@ -52331,7 +52333,7 @@
     },
     {
         "number": 78,
-        "name": "سُورَةُ النَّبَإِ",
+        "name": "سُورَةُ النَّبَأ",
         "numberOfAyahs": 40,
         "ayahs": [
             {
@@ -53808,7 +53810,7 @@
     },
     {
         "number": 82,
-        "name": "سُورَةُ الانفِطَارِ",
+        "name": "سُورَةُ الإنفِطَارِ",
         "numberOfAyahs": 19,
         "ayahs": [
             {
@@ -54335,7 +54337,7 @@
     },
     {
         "number": 84,
-        "name": "سُورَةُ الانشِقَاقِ",
+        "name": "سُورَةُ الإنشِقَاقِ",
         "numberOfAyahs": 25,
         "ayahs": [
             {

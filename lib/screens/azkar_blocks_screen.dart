@@ -36,10 +36,10 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         body: ListView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: MyTexts.outsideHeader(title: 'مختلف الأذكار'.tr),
-            ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: MyTexts.outsideHeader(title: 'مختلف الأذكار'.tr),
+            // ),
             ListView.builder(
               itemCount: BlockData.list.length,
               shrinkWrap: true,

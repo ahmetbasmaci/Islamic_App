@@ -5,7 +5,7 @@ import 'package:zad_almumin/constents/constants.dart';
 import 'my_colors.dart';
 
 class MyTexts {
-  static BuildContext context = Constants.navigatorKey.currentState!.context;
+  static BuildContext context = AppSettings.navigatorKey.currentState!.context;
 
   static Text outsideHeader({required String title, TextAlign? textAlign, Color? color}) {
     return Text(
@@ -18,10 +18,10 @@ class MyTexts {
     );
   }
 
-  static Text zikrTitle({required String title}) {
+  static Text zikrTitle({required String title, Color? color}) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.bodyMedium,
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color),
       textAlign: TextAlign.center,
     );
   }

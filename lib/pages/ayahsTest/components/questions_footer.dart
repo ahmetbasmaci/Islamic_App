@@ -23,7 +23,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         SizedBox(height: Get.height * 0.02),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: Constants.isArabicLang
+          children: AppSettings.isArabicLang
               ? [
                   questionInfoAndNextButton(),
                   boottomSheetHandleButton(),
@@ -146,7 +146,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
           color: MyColors.zikrCard(),
           onPressed: () => getNextQuestion(),
           child: Row(
-            children: Constants.isArabicLang
+            children: AppSettings.isArabicLang
                 ? [
                     MyIcons.nextArrow(color: MyColors.primary()),
                     SizedBox(width: MySiezes.btnIcon),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
@@ -121,7 +122,7 @@ class QuranPageFooter extends StatelessWidget {
                       //isExpanded: true,
                       iconEnabledColor: MyColors.quranPrimary(),
                       dropdownColor: MyColors.quranBackGround(),
-                      value: _quranCtr.selectedPage.surahName.value.tr,
+                      value: _quranCtr.selectedPage.surahName.value,
                       menuMaxHeight: Get.size.height * .3,
                       onChanged: (newVal) {
                         if (newVal != null) {
@@ -140,15 +141,14 @@ class QuranPageFooter extends StatelessWidget {
                         for (Surah item in _quranData.getAllSurahs())
                           DropdownMenuItem(
                             value: item.name,
-                            child: MyTexts.quranSecondTitle(title: item.name),
+                            child: MyTexts.quranSecondTitle(title: AppSettings.removeTashkil(item.name.toString()).tr),
                           )
                       ],
                     ),
-                    Container(
-                      // color: Colors.green,
-                      child:
-                          MyTexts.quranSecondTitle(title: '${'الصفحة'.tr} :${_quranCtr.selectedPage.pageNumber.value}'),
-                    ),
+                    // Container(
+                    //   child:
+                    //       MyTexts.quranSecondTitle(title: '${'الصفحة'.tr} :${_quranCtr.selectedPage.pageNumber.value}'),
+                    // ),
                     // Container(
                     //   child: MyTexts.quranSecondTitle(title: 'الجزء  :${_quranCtr.selectedPage.juz.value}'),
                     // ),

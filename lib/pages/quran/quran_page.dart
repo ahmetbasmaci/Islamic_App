@@ -55,17 +55,20 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        key: Constants.scaffoldKey,
+        key: AppSettings.scaffoldKey,
         endDrawer: MyEndDrawer(),
         body: Stack(
           children: [
             SafeArea(
               child: SizedBox(
-                child: DefaultTabController(
-                  length: 604,
-                  child: TabBarView(
-                    controller: _quranCtr.tabCtr,
-                    children: quranBodys(),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: DefaultTabController(
+                    length: 604,
+                    child: TabBarView(
+                      controller: _quranCtr.tabCtr,
+                      children: quranBodys(),
+                    ),
                   ),
                 ),
               ),

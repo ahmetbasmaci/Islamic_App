@@ -209,6 +209,7 @@ class QuranSearchDelegate extends SearchDelegate {
         onPressed: () {
           Get.back();
           _quranCtr.tabCtr.index = ayah.page - 1;
+          _quranCtr.selectedAyah.value = ayah;
         },
         color: MyColors.quranItemBackGround(),
         child: Column(

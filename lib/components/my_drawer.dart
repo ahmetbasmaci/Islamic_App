@@ -28,7 +28,7 @@ class MyDrawer extends GetView<ThemeCtr> {
   Widget build(BuildContext context) {
     context.theme;
     return ClipPath(
-      clipper: Constants.isArabicLang ? OvalLeftBorderClipper() : OvalRightBorderClipper(),
+      clipper: AppSettings.isArabicLang ? OvalLeftBorderClipper() : OvalRightBorderClipper(),
       child: Drawer(
         width: MySiezes.drawerWith,
         child: ListView(
@@ -101,7 +101,7 @@ class MyDrawer extends GetView<ThemeCtr> {
               routeName: ReviewPage.id,
               onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
             ),
-            Constants.machineCode == Constants.developerMachineCode
+            AppSettings.machineCode == AppSettings.developerMachineCode
                 ? drawerItem(
                     title: 'ملاحظات المستخدمين'.tr,
                     icon: MyIcons.reviewSound(),
@@ -123,7 +123,7 @@ class MyDrawer extends GetView<ThemeCtr> {
       decoration: BoxDecoration(color: MyColors.primary()),
       otherAccountsPictures: [
         Padding(
-          padding: Constants.isArabicLang
+          padding: AppSettings.isArabicLang
               ? EdgeInsets.only(left: Get.width * 0.055)
               : EdgeInsets.only(right: Get.width * 0.055),
           child: CircleAvatar(
@@ -182,7 +182,7 @@ Widget drawerItem(
         title: title,
         size: 17,
         fontWeight: FontWeight.bold,
-        textAlign: Constants.isArabicLang ? TextAlign.right : TextAlign.left,
+        textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
         color: selected ? MyColors.white : MyColors.whiteBlack()),
     selected: selected,
     selectedColor: MyColors.white,

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     context.theme;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: currentIndex != 1 ? Constants.systemUiOverlayStyleDefault : Constants.systemUiOverlayStyleQuran,
+      value: currentIndex != 1 ? AppSettings.systemUiOverlayStyleDefault : AppSettings.systemUiOverlayStyleQuran,
       child: SafeArea(
         bottom: false,
         child: Scaffold(

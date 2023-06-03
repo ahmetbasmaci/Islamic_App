@@ -130,7 +130,7 @@ class QuranPageCtr extends GetxController {
 
     onShown.value = value;
     quranPageSetState();
-    Constants.focusScopeNode.unfocus();
+    AppSettings.focusScopeNode.unfocus();
   }
 
   void updateCurrentPageToWhereStartRead() async {
@@ -248,9 +248,12 @@ class QuranPageCtr extends GetxController {
     if (searchListMap.isNotEmpty) {
       for (var element in searchListMap) searchFilterList.add(FilterChipProp.fromJson(element).obs);
     } else {
-      searchFilterList.add(FilterChipProp(text: 'السور'.tr, isSelected: false.obs, searchFilter: SearchFilter.surah).obs);
-      searchFilterList.add(FilterChipProp(text: 'الايات'.tr, isSelected: false.obs, searchFilter: SearchFilter.ayah).obs);
-      searchFilterList.add(FilterChipProp(text: 'الصفحات'.tr, isSelected: false.obs, searchFilter: SearchFilter.page).obs);
+      searchFilterList
+          .add(FilterChipProp(text: 'السور'.tr, isSelected: false.obs, searchFilter: SearchFilter.surah).obs);
+      searchFilterList
+          .add(FilterChipProp(text: 'الايات'.tr, isSelected: false.obs, searchFilter: SearchFilter.ayah).obs);
+      searchFilterList
+          .add(FilterChipProp(text: 'الصفحات'.tr, isSelected: false.obs, searchFilter: SearchFilter.page).obs);
     }
   }
 

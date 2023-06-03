@@ -40,7 +40,8 @@ class PrayerTimeCtr extends GetxController {
         AlertDialogOkNo(
           title: "تشغيل خدمات الموقع الجغرافي".tr,
           content:
-              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام".tr,
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"
+                  .tr,
           okText: "حسنا".tr,
           noText: "رفض".tr,
           onOk: () async {
@@ -83,7 +84,8 @@ class PrayerTimeCtr extends GetxController {
         AlertDialogOkNo(
           title: "طلب الاذن بالوصول للموقع الحالي".tr,
           content:
-              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام".tr,
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"
+                  .tr,
           okText: "حسنا".tr,
           noText: "رفض".tr,
           onOk: () async => permission = await Geolocator.requestPermission(),
@@ -224,9 +226,9 @@ class PrayerTimeCtr extends GetxController {
       DateTime.now(),
     );
 
-    String houreTimeLeftTxt = Constants.formatInt2.format(leftTime.hour);
-    String minuteTimeLeftTxt = Constants.formatInt2.format(leftTime.minute);
-    String secondTimeLeftTxt = Constants.formatInt2.format(leftTime.second);
+    String houreTimeLeftTxt = AppSettings.formatInt2.format(leftTime.hour);
+    String minuteTimeLeftTxt = AppSettings.formatInt2.format(leftTime.minute);
+    String secondTimeLeftTxt = AppSettings.formatInt2.format(leftTime.second);
 
     timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
     if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkAndSetNextPrayTime();

@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 class MyColors {
   // static final List<Color> primaryColors = [Color.fromARGB(255, 2, 111, 111), Color.fromARGB(255, 172, 17, 94)];
   static const Color backgroundLight = Color(0xFFFFFFFF); //Color(0xffdbe2e7);
-  static const Color backgroundDark = Color(0xff222222);
+  static const Color backgroundDark = Color(0xff1d2125);
   static const Color _quranPrimary = Color(0xFF0A8468); // Color(0xFFB9791F);
   static const Color _quranPrimaryDark = Color(0xFF0A8468); // Color(0xFFAC7324);
   static const Color _markedAyah = Color(0xFF04FFC4); // Color(0xFFB9791F);
   static const Color _markedAyahDark = Color(0xFF04FFC4); // Color(0xFFAC7324);
   static const Color quranBackGroundLight = Color(0xFFFFFCFA); // Color(0xFFF7EDE3);
-  static const Color quranBackGroundDark = Color(0xFF050200);
+  static const Color quranBackGroundDark = Color(0xFF1d2125);
   static const Color quranItemBackGroundLight = Color(0xFFF7EDE3);
-  static const Color quranItemBackGroundDark = Color(0xFF000000);
+  static const Color quranItemBackGroundDark = Color(0x001d2125);
 // static const Color quranSelectedAyahBackColor = Color(0xFFF7EDE3);
 // static const Color quranSelectedAyahBackColorDark = Color(0xFF000000);
   static Color primary_ = Color(0xFF1A644F);

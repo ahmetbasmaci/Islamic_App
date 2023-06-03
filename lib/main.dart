@@ -23,7 +23,7 @@ import 'pages/prayerTimes/prayer_times.dart';
 
 void main() async {
   await GetStorage.init();
-  await Constants.setMechineCode();
+  await AppSettings.setMechineCode();
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(MyLocalCtr());
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
     // SqlDb().deleteDB();
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
-      navigatorKey: Constants.navigatorKey,
+      navigatorKey: AppSettings.navigatorKey,
       builder: BotToastInit(), //1. call BotToastInit
       navigatorObservers: [BotToastNavigatorObserver()], //2. registered route observer
       locale: Get.find<MyLocalCtr>().currentLocal,

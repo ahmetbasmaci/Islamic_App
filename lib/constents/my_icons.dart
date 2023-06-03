@@ -57,7 +57,7 @@ class MyIcons {
   static Icon leftArrow({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.arrow_forward_ios_rounded, color: color, size: size);
   static Icon nextArrow({Color? color, double size = MySiezes.icon}) =>
-      Icon(Constants.isArabicLang ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded,
+      Icon(AppSettings.isArabicLang ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded,
           color: color, size: size);
   static Icon search({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.search, color: color, size: size);

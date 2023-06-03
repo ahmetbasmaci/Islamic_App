@@ -62,28 +62,31 @@ class JsonService {
     allReaders = jsonDecode(allReadersString);
   }
 
-  
   static Future<Map> getAllHadithData(int bookNumber) async {
     if (allHadithData.isEmpty) await loadHadithData();
     return allHadithData[bookNumber - 1];
   }
 
-  static Future<ZikrData> getRandomHadith()async  {
+  static Future<ZikrData> getRandomHadith() async {
     if (allHadithData.isEmpty)
       await loadHadithData();
     else
       await Future.delayed(Duration(milliseconds: 200));
 
-    int randomBook = Random().nextInt(20) + 1;
+    // int randomBook = Random().nextInt(20) + 1;
+    int randomBook = Random().nextInt(allHadithData.length) + 1;
     Map<String, dynamic> hadithBookData = allHadithData[randomBook - 1];
     List<dynamic> hadithChaptarsMap = hadithBookData['chaptars'];
 
     int randomChapter = Random().nextInt(hadithChaptarsMap.length);
     List hadithsMap = hadithChaptarsMap[randomChapter]['hadiths'];
-    if (hadithsMap.isEmpty) return  getRandomHadith();
+    if (hadithsMap.isEmpty) return getRandomHadith();
 
     int randomHadith = Random().nextInt(hadithsMap.length);
-    return ZikrData(zikrType: ZikrType.hadith, title: 'حديث عن رسول الله ﷺ'.tr, content: hadithsMap[randomHadith]['text']);
+    return ZikrData(
+        zikrType: ZikrType.hadith,
+        title: 'حديث عن رسول الله ﷺ'.tr,
+        content: hadithsMap[randomHadith]['text'].toString().tr);
   }
 
   static Future<List<ZikrData>> getRandomAzkar({required int zikrIndexInJson}) async {
@@ -106,8 +109,7 @@ class JsonService {
     return zikrDataList;
   }
 
-  static String getRandomZikr()  {
-
+  static String getRandomZikr() {
     int randomZikrIndex = Random().nextInt(allZikrDataList.length);
 
     List<dynamic> azkarList = allZikrDataList[randomZikrIndex]['azkarList'];

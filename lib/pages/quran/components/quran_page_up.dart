@@ -93,7 +93,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
                       color: MyColors.quranBackGround(),
                       width: MySiezes.btnIcon,
                       height: MySiezes.btnIcon,
-                      onPressed: () => Constants.scaffoldKey.currentState!.openEndDrawer(),
+                      onPressed: () => AppSettings.scaffoldKey.currentState!.openEndDrawer(),
                       child: MyIcons.book(color: MyColors.quranPrimary()),
                     ),
                     SizedBox(width: MySiezes.btnIcon / 2),
@@ -186,7 +186,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
         ],
       ),
     ));
-    if (Constants.isArabicLang) {
+    if (AppSettings.isArabicLang) {
       itemsList.add(PopupMenuItem(
         value: changeFontTypeMenu,
         onTap: null,

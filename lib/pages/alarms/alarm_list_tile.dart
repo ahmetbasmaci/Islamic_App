@@ -143,8 +143,8 @@ class AlarmListTile extends GetView<ThemeCtr> {
                                 Get.dialog(
                                   AlertDialog(
                                     title: MyTexts.settingsTitle(title: 'غير مسموح'.tr),
-                                    content:
-                                        MyTexts.settingsContent(title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'.tr),
+                                    content: MyTexts.settingsContent(
+                                        title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'.tr),
                                     actions: [
                                       TextButton(
                                         child: MyTexts.settingsContent(title: 'حسنا'.tr),
@@ -165,7 +165,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
                     ? Container()
                     : MyTexts.settingsContent(
                         title:
-                            '${Constants.formatInt2.format(alarmProp.time.value.hour)}:${Constants.formatInt2.format(alarmProp.time.value.minute)}'),
+                            '${AppSettings.formatInt2.format(alarmProp.time.value.hour)}:${AppSettings.formatInt2.format(alarmProp.time.value.minute)}'),
               ],
             ),
           ),

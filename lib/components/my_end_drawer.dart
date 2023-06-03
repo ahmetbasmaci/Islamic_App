@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/constants.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
@@ -28,7 +29,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
     return SafeArea(
       child: Drawer(
         backgroundColor: MyColors.quranBackGround(),
-        width: Get.width * 0.5,
+        width: Get.width * 0.6,
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.01),
@@ -57,7 +58,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                             child: markedListTile(
                               title: '${'الجزء'.tr} ${_quranCtr.markedList[index].juz}',
                               subtitle:
-                                  '${_quranCtr.markedList[index].surahName.tr}  |  ${'الصفحة'.tr} ${_quranCtr.markedList[index].pageNumber}',
+                                  '${AppSettings.removeTashkil(_quranCtr.markedList[index].surahName).tr}  |  ${'الصفحة'.tr} ${_quranCtr.markedList[index].pageNumber}',
                               page: _quranCtr.markedList[index].pageNumber,
                             ),
                           ),
@@ -78,7 +79,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                             child: markedListTile(
                               title: markedAyahs[index].text,
                               subtitle:
-                                  '${markedAyahs[index].surahName.tr}  |  ${'الصفحة'.tr} ${markedAyahs[index].page} | ${'الجزء'.tr} ${markedAyahs[index].juz}',
+                                  '${AppSettings.removeTashkil(markedAyahs[index].surahName).tr}  |  ${'الصفحة'.tr} ${markedAyahs[index].page} | ${'الجزء'.tr} ${markedAyahs[index].juz}',
                               page: markedAyahs[index].page,
                             ),
                           ),

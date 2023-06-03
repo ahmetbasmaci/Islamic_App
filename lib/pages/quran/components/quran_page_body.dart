@@ -60,7 +60,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
               alignment: Alignment.topCenter,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
-                height: Constants.quranUpPartHeight,
+                height: AppSettings.quranUpPartHeight,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -93,22 +93,41 @@ class QuranPageBody extends GetView<ThemeCtr> {
                           ...ayahs.map(
                             (ayah) => ayah.isBasmalah
                                 ? WidgetSpan(
-                                    child: Center(
-                                      child: Container(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        width: double.maxFinite,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            MyTexts.quran(
-                                              textAlign: TextAlign.center,
-                                              title: '${ayah.surahName}\n${ayah.text.replaceAll('\n', '')}',
-                                              size: _quranCtr.quranFontSize.value * 1.05,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ],
+                                    child: Column(
+                                      children: [
+                                        Center(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/images/surah_header.png",
+                                                    height: _quranCtr.quranFontSize.value * 1.6,
+                                                    width: double.maxFinite,
+                                                    fit: BoxFit.fill,
+                                                    color: MyColors.primary(),
+                                                  ),
+                                                  Center(
+                                                    child: MyTexts.quran(
+                                                      textAlign: TextAlign.center,
+                                                      title: ayah.surahName,
+                                                      size: _quranCtr.quranFontSize.value * 1.05,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: MyColors.primary(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
+                                        Image.asset(
+                                          "assets/images/bismillah.png",
+                                          height: _quranCtr.quranFontSize.value * 1.6,
+                                          color: MyColors.whiteBlack(),
+                                        ),
+                                      ],
                                     ),
                                   )
                                 : TextSpan(
@@ -117,8 +136,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                       // fontFamily: MyFonts.uthmanic.name,
                                       fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
                                       wordSpacing: -1,
-                                      color: ayah.isBasmalah ? MyColors.quranPrimary() : MyColors.whiteBlack(),
-                                      fontSize: ayah.isBasmalah ? _quranCtr.quranFontSize.value * 1.05 : null,
+                                      color: MyColors.whiteBlack(),
                                       background: Paint()
                                         ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
                                                 _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
@@ -131,8 +149,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                         ..style = PaintingStyle.fill,
                                     ),
                                     recognizer: LongPressGestureRecognizer()
-                                      ..onLongPressStart =
-                                          (details) => ayah.isBasmalah ? {} : onAyahLongPressStart(details, ayah),
+                                      ..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
                                     children: [
                                       TextSpan(
                                         text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',
@@ -142,7 +159,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                           fontFamily: MyFonts.uthmanic2.name,
                                           color: MyColors.quranPrimary(),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                           ),

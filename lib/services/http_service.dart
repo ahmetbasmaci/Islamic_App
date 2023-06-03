@@ -31,8 +31,8 @@ class HttpService {
     for (var i = 1; i < ayahsList.length; i++) {
       if (!isDownloadedBefore && _httpCtrl.isStopDownload.value) break;
 
-      String formatedAyahNumber = Constants.formatInt3.format(i);
-      String formatedSurahNumber = Constants.formatInt3.format(surahNumber);
+      String formatedAyahNumber = AppSettings.formatInt3.format(i);
+      String formatedSurahNumber = AppSettings.formatInt3.format(surahNumber);
       String filePath =
           '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/$formatedSurahNumber$formatedAyahNumber.mp3';
       File file = File(filePath);
@@ -70,13 +70,13 @@ class HttpService {
   static Future<File?> getAyah(
       {required int surahNumber, required int ayahNumber, required String dir, required bool showToast}) async {
     String filePath =
-        '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/${Constants.formatInt3.format(surahNumber)}${Constants.formatInt3.format(ayahNumber)}.mp3';
+        '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/${AppSettings.formatInt3.format(surahNumber)}${AppSettings.formatInt3.format(ayahNumber)}.mp3';
     File file = File(filePath);
     bool exists = await file.exists();
     if (exists) return file;
     return await _downloadFile(
-        formatedSurahNumber: Constants.formatInt3.format(surahNumber),
-        formatedAyahNumber: Constants.formatInt3.format(ayahNumber),
+        formatedSurahNumber: AppSettings.formatInt3.format(surahNumber),
+        formatedAyahNumber: AppSettings.formatInt3.format(ayahNumber),
         filePath: filePath,
         showToast: showToast);
   }

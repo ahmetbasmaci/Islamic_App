@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
           Align(
-            alignment: Constants.isArabicLang ? Alignment.centerRight : Alignment.centerLeft,
+            alignment: AppSettings.isArabicLang ? Alignment.centerRight : Alignment.centerLeft,
             child: SizedBox(
               height: MySiezes.heightOfAzkarBlock,
               child: ListView.builder(

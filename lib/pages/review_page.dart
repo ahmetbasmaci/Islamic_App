@@ -34,7 +34,7 @@ class ReviewPage extends GetView<ThemeCtr> {
               shrinkWrap: true,
               children: [
                 Focus(
-                  focusNode: Constants.focusScopeNode,
+                  focusNode: AppSettings.focusScopeNode,
                   child: TextField(
                     maxLength: 30,
                     controller: nameTxtCtr,
@@ -50,7 +50,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                 ),
                 SizedBox(height: Get.height * .05),
                 Focus(
-                  focusNode: Constants.focusScopeNode,
+                  focusNode: AppSettings.focusScopeNode,
                   child: TextField(
                     controller: reviewTxtCtr,
                     minLines: 5,
@@ -96,12 +96,12 @@ class ReviewPage extends GetView<ThemeCtr> {
     try {
       isLoading.value = true;
       List<dynamic> allData = [];
-      var oldData = await _firestore.collection('users').doc(Constants.machineCode).get();
+      var oldData = await _firestore.collection('users').doc(AppSettings.machineCode).get();
       if (oldData.data() != null) {
         allData = oldData['data'];
       }
       allData.add({'review': reviewTxtCtr.text, 'name': nameTxtCtr.text});
-      await _firestore.collection('users').doc(Constants.machineCode).set({'data': allData});
+      await _firestore.collection('users').doc(AppSettings.machineCode).set({'data': allData});
       reviewTxtCtr.clear();
       nameTxtCtr.clear();
       Fluttertoast.showToast(msg: 'تم ارسال الرسالة للمطور بنجاح'.tr);

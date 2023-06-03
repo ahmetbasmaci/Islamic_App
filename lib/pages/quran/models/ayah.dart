@@ -38,11 +38,11 @@ class Ayah {
   int surahNumber;
   bool isBasmalah = false;
   bool isMarked = false;
-  String get formatedAyahNumber => Constants.formatInt3.format(ayahNumber);
-  String get formatedSurahNumber => Constants.formatInt3.format(surahNumber);
+  String get formatedAyahNumber => AppSettings.formatInt3.format(ayahNumber);
+  String get formatedSurahNumber => AppSettings.formatInt3.format(surahNumber);
 
   factory Ayah.fromJson(Map<String, dynamic> json) {
-   return Ayah(
+    return Ayah(
       ayahNumber: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
       text: json['text'].toString().contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')
@@ -57,6 +57,5 @@ class Ayah {
       isBasmalah: json['text'].toString().contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ'),
       isMarked: false,
     );
-
   }
 }

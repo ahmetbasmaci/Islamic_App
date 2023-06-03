@@ -12,7 +12,7 @@ class ZikrCountWidget extends GetView<SettingsCtr> {
     context.theme;
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      width: Get.width * .1,
+      width: Get.width * .2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
@@ -29,7 +29,7 @@ class ZikrCountWidget extends GetView<SettingsCtr> {
           ),
         ],
       ),
-      child: MyTexts.zikrTitle(title: title),
+      child: MyTexts.zikrTitle(title: title,color:MyColors.whiteBlack()),
     );
   }
 }
