@@ -17,7 +17,7 @@ import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/splash_screen.dart';
 import 'classes/controllers_binding.dart';
-import 'constents/constants.dart';
+import 'constents/app_settings.dart';
 import 'pages/favorite/favorite_page.dart';
 import 'pages/prayerTimes/prayer_times.dart';
 

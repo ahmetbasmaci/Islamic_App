@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
@@ -117,9 +117,6 @@ class QuranPageFooter extends StatelessWidget {
                       ],
                     ),
                     DropdownButton<String>(
-                      //underline: Container(),
-                      //alignment: Alignment.bottomRight,
-                      //isExpanded: true,
                       iconEnabledColor: MyColors.quranPrimary(),
                       dropdownColor: MyColors.quranBackGround(),
                       value: _quranCtr.selectedPage.surahName.value,
@@ -176,7 +173,7 @@ class QuranPageFooter extends StatelessWidget {
                       color: MyColors.quranBackGround(),
                       child: InkWell(
                         child: MyIcons.stop(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
-                        onTap: () => _audioCtr.stopAudio(),
+                        onTap: () => _quranCtr.stopAudio(),
                       ),
                     ),
                   ],
@@ -193,6 +190,7 @@ class QuranPageFooter extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         backgroundColor: MyColors.quranBackGround(),
+        contentPadding: EdgeInsets.all(MySiezes.screenPadding),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -202,7 +200,7 @@ class QuranPageFooter extends StatelessWidget {
         content: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(200)),
           height: Get.size.height * .6,
-          width: Get.size.width,
+          //width: Get.size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -275,8 +273,9 @@ class QuranPageFooter extends StatelessWidget {
 
   Widget startEndAyahsSelections(bool isStartAyah) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:  '.tr : 'الى الآية :  '.tr),
+        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:'.tr : 'الى الآية:'.tr),
         SizedBox(
           width: Get.size.width * .5,
           height: Get.size.height * .04,
@@ -365,60 +364,83 @@ class QuranPageFooter extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyTexts.quranSecondTitle(title: 'تكرار التلاوة:  '.tr, fontWeight: FontWeight.bold),
-        Row(
-          children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'المقطع :  '.tr),
-            Obx(
-              () => MyTexts.quranSecondTitle(
-                  title: _quranCtr.selectedPage.repeetAllCount.value.toString(), fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-              onPressed: () => _quranCtr.selectedPage.repeetAllCount.value++,
-              icon: MyIcons.plus(color: MyColors.quranPrimary()),
-            ),
-            IconButton(
-              onPressed: () {
-                if (_quranCtr.selectedPage.repeetAllCount.value != 1) _quranCtr.selectedPage.repeetAllCount.value--;
-              },
-              icon: MyIcons.minus(color: MyColors.quranPrimary()),
-            ),
-            Obx(
-              () => Checkbox(
+        Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              MyTexts.quranSecondTitle(
+                title: 'المقطع :  '.tr,
+              ),
+              MyTexts.quranSecondTitle(
+                title: _quranCtr.selectedPage.repeetAllCount.value.toString(),
+                fontWeight: FontWeight.bold,
+                color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+              ),
+              IconButton(
+                onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
+                    ? null
+                    : () => _quranCtr.selectedPage.repeetAllCount.value++,
+                icon: MyIcons.plus(
+                  color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+                ),
+              ),
+              IconButton(
+                onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
+                    ? null
+                    : () {
+                        if (_quranCtr.selectedPage.repeetAllCount.value != 1)
+                          _quranCtr.selectedPage.repeetAllCount.value--;
+                      },
+                icon: MyIcons.minus(
+                  color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+                ),
+              ),
+              Checkbox(
                 fillColor: MaterialStateProperty.all(MyColors.quranPrimary()),
                 value: _quranCtr.selectedPage.isUnlimitRepeatAll.value,
                 onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAll.value = value ?? false),
               ),
-            ),
-            MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
-          ],
+              MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
+            ],
+          ),
         ),
-        Row(
-          children: <Widget>[
-            MyTexts.quranSecondTitle(title: 'الآية   :  '.tr),
-            Obx(
-              () => MyTexts.quranSecondTitle(
-                  title: _quranCtr.selectedPage.repeetAyahCount.value.toString(), fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-              onPressed: () => _quranCtr.selectedPage.repeetAyahCount.value++,
-              icon: MyIcons.plus(color: MyColors.quranPrimary()),
-            ),
-            IconButton(
-              onPressed: () {
-                if (_quranCtr.selectedPage.repeetAyahCount.value != 1) _quranCtr.selectedPage.repeetAyahCount.value--;
-              },
-              icon: MyIcons.minus(color: MyColors.quranPrimary()),
-            ),
-            Obx(
-              () => Checkbox(
-                fillColor: MaterialStateProperty.all(MyColors.quranPrimary()),
-                value: _quranCtr.selectedPage.isUnlimitRepeatAyah.value,
-                onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAyah.value = value ?? false),
+        Obx(
+          () => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              MyTexts.quranSecondTitle(title: 'الآية   :  '.tr),
+              Obx(
+                () => MyTexts.quranSecondTitle(
+                  title: _quranCtr.selectedPage.repeetAyahCount.value.toString(),
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1),
+                ),
               ),
-            ),
-            MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
-          ],
-        ),
+              IconButton(
+                onPressed: () => _quranCtr.selectedPage.repeetAyahCount.value++,
+                icon: MyIcons.plus(
+                    color:
+                        MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
+              ),
+              IconButton(
+                onPressed: () {
+                  if (_quranCtr.selectedPage.repeetAyahCount.value != 1) _quranCtr.selectedPage.repeetAyahCount.value--;
+                },
+                icon: MyIcons.minus(
+                    color:
+                        MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
+              ),
+              Obx(
+                () => Checkbox(
+                  fillColor: MaterialStateProperty.all(MyColors.quranPrimary()),
+                  value: _quranCtr.selectedPage.isUnlimitRepeatAyah.value,
+                  onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAyah.value = value ?? false),
+                ),
+              ),
+              MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
+            ],
+          ),
+        )
       ],
     );
   }

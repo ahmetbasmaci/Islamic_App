@@ -1,4 +1,4 @@
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 
 class Ayah {
   Ayah({
@@ -45,7 +45,7 @@ class Ayah {
     return Ayah(
       ayahNumber: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
-      text: json['text'].toString().contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ')
+      text: json['text'].toString().contains(AppSettings.basmalahTxt)
           ? '\n${json['text']}\n'
           : json['text'],
       juz: json['juz'],
@@ -54,7 +54,7 @@ class Ayah {
       audioPath: '',
       surahName: json['surah'] ?? '',
       surahNumber: 0,
-      isBasmalah: json['text'].toString().contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ'),
+      isBasmalah: json['text'].toString().contains(AppSettings.basmalahTxt),
       isMarked: false,
     );
   }

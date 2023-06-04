@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/components/my_end_drawer.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_body.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_up.dart';

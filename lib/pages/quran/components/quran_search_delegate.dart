@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
@@ -49,8 +50,8 @@ class QuranSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) => suggestions();
 
   Widget suggestions() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
       child: SingleChildScrollView(
         physics: query.isEmpty ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
         child: Column(
@@ -74,7 +75,7 @@ class QuranSearchDelegate extends SearchDelegate {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
+                    alignment: AppSettings.isArabicLang ? Alignment.topRight : Alignment.topLeft,
                     child: MyTexts.quranSecondTitle(
                         title: _quranCtr.searchFilterList[0].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
@@ -95,7 +96,7 @@ class QuranSearchDelegate extends SearchDelegate {
             ? Column(
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
+                    alignment: AppSettings.isArabicLang ? Alignment.topRight : Alignment.topLeft,
                     child: MyTexts.quranSecondTitle(
                         title: _quranCtr.searchFilterList[1].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
@@ -116,7 +117,7 @@ class QuranSearchDelegate extends SearchDelegate {
             ? Column(
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
+                    alignment: AppSettings.isArabicLang ? Alignment.topRight : Alignment.topLeft,
                     child: MyTexts.quranSecondTitle(
                         title: _quranCtr.searchFilterList[2].value.text.tr, size: 19, fontWeight: FontWeight.bold),
                   ),
@@ -195,7 +196,7 @@ class QuranSearchDelegate extends SearchDelegate {
 
   Widget suggestedAyahItem({required Ayah ayah}) {
     return Container(
-      margin: EdgeInsets.only(bottom: Get.height * .02, left: Get.height * .02, right: Get.height * .02),
+      margin: EdgeInsets.only(bottom: Get.height * .02),
       // padding: EdgeInsets.symmetric(horizontal: Get.height * .02),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
@@ -208,10 +209,11 @@ class QuranSearchDelegate extends SearchDelegate {
       child: MaterialButton(
         onPressed: () {
           Get.back();
-          _quranCtr.tabCtr.index = ayah.page - 1;
           _quranCtr.selectedAyah.value = ayah;
+          _quranCtr.updateCurrentPageToCurrentAyah();
+          // _quranCtr.tabCtr.index = ayah.page - 1;
         },
-        color: MyColors.quranItemBackGround(),
+        color: MyColors.quranBackGround(),
         child: Column(
           children: [
             Row(
@@ -219,16 +221,39 @@ class QuranSearchDelegate extends SearchDelegate {
               children: [
                 Row(
                   children: [
-                    MyTexts.main(title: '${ayah.surahName}:', textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                    MyTexts.main(
+                        title: '${AppSettings.removeTashkil(ayah.surahName).tr}:',
+                        textAlign: TextAlign.right,
+                        color: MyColors.quranPrimary()),
                     SizedBox(width: Get.width * .03),
                     MyTexts.main(
-                        title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                        title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.quranPrimary()),
                   ],
                 ),
-                MyTexts.main(title: ayah.page.toString(), textAlign: TextAlign.right, color: MyColors.whiteBlack()),
+                Row(
+                  children: [
+                    MyTexts.main(
+                        title: "${'الصفحة'.tr}:  ".toString(),
+                        textAlign: TextAlign.right,
+                        color: MyColors.quranPrimary()),
+                    MyTexts.main(
+                      title: ayah.page.toString(),
+                      textAlign: TextAlign.right,
+                      color: MyColors.quranPrimary(),
+                    ),
+                  ],
+                ),
               ],
             ),
-            MyTexts.main(title: ayah.text, textAlign: TextAlign.right, color: MyColors.quranPrimary()),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: MyTexts.quran(
+                title: ayah.text,
+                textAlign: TextAlign.justify,
+                color: MyColors.whiteBlack(),
+                size: _quranCtr.quranFontSize.value,
+              ),
+            ),
           ],
         ),
       ),

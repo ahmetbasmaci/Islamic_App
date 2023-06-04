@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
-import '../../../constents/constants.dart';
+import '../../../constents/app_settings.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';
 

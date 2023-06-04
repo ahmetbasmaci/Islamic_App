@@ -11,7 +11,7 @@ import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import '../classes/block_data.dart';
-import '../constents/constants.dart';
+import '../constents/app_settings.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

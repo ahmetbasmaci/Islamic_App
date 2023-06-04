@@ -5,7 +5,7 @@ import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
 import 'package:zad_almumin/components/zikr_card/referesh_btn_rounded.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_count_widget.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';

@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';

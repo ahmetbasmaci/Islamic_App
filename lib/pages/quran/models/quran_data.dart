@@ -45,14 +45,15 @@ class QuranData extends GetxController {
   List<Surah> getAllSurahs() => _surahs;
 
   ///giving page return surah
-  Surah getSurahByPage(int page) {
-    Surah surah = Surah(name: '', startAtPage: 0, ayahs: [], number: 0);
-    for (var element in _surahs.reversed)
-      if (element.startAtPage <= page) {
-        surah = getSurahByNumber(element.number);
+  String getSurahNameByPage(int page) {
+    String surahName = "";
+    for (var surah in _surahs) {
+      if (surah.ayahs.first.page <= page && surah.ayahs.last.page >= page) {
+        surahName = surah.name;
         break;
       }
-    return surah;
+    }
+    return surahName;
   }
 
   ///giving surah number return surah
@@ -79,9 +80,6 @@ class QuranData extends GetxController {
   ///giving surah name return surah number
   int getSurahNumberByName(String surahName) => getSurahByName(surahName).number;
 
-  ///giving page number return surah name
-  String getSurahNameByPage(int page) => getSurahByPage(page).name;
-
   ///giving surah number return surah name
   String getSurahNameByNumber(int surahNumber) => getSurahByNumber(surahNumber).name;
 
@@ -93,12 +91,12 @@ class QuranData extends GetxController {
     List<List<Ayah>> allAyahsInPage = [];
     for (var surah in _surahs) {
       List<Ayah> ayahs = [];
-      if (surah.ayahs.first.page <= page || surah.ayahs.last.page >= page) {
+      if (surah.ayahs.first.page <= page && surah.ayahs.last.page >= page) {
         for (var ayah in surah.ayahs) {
           if (ayah.page == page) ayahs.add(ayah);
         }
+        allAyahsInPage.add(ayahs);
       }
-      allAyahsInPage.add(ayahs);
     }
     return allAyahsInPage;
   }

@@ -125,7 +125,8 @@ class AudioCtr extends GetxController {
 
     setAudioEvents(onEnded: onEnded);
 
-    AudioInfo info = AudioInfo("file://$path", title: "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", coverUrl: _imgPath);
+    AudioInfo info =
+        AudioInfo("file://$path", title: "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", coverUrl: _imgPath);
     if (AudioManager.instance.info != null) {
       if (AudioManager.instance.info!.url == info.url) {
         AudioManager.instance.playOrPause();
@@ -137,7 +138,8 @@ class AudioCtr extends GetxController {
       File file = File(path);
       bool exsist = await file.exists();
       if (exsist)
-        AudioManager.instance.start("file://$path", "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", cover: _imgPath);
+        AudioManager.instance
+            .start("file://$path", "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", cover: _imgPath);
       else {
         Fluttertoast.showToast(msg: 'حدث خطأ أثناء تشغيل الصوت'.tr);
         stopAudio();

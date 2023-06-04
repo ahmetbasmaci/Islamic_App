@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
@@ -109,6 +109,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
                                                     color: MyColors.primary(),
                                                   ),
                                                   Center(
+                                                    heightFactor: .9,
                                                     child: MyTexts.quran(
                                                       textAlign: TextAlign.center,
                                                       title: ayah.surahName,
@@ -378,11 +379,11 @@ class QuranPageBody extends GetView<ThemeCtr> {
         ),
         onPressed: () async {
           cancel();
-          List<Ayah> ayahsList = await HttpService.downloadSurah(surahNumber: ayah.surahNumber);
+          List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);
           _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
           _quranCtr.changeOnShownState(false);
           _audioCtr.stopAudio();
-          if (_httpCtr.downloadProgress.value == 100) {
+          if (_httpCtr.downloadCompated.value) {
             _audioCtr.playMultiAudio(ayahList: ayahsList);
           }
         },

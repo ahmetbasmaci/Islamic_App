@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';

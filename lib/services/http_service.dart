@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'package:archive/archive.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/json_service.dart';
@@ -15,73 +16,22 @@ class HttpService {
   static final HttpCtr _httpCtrl = Get.find<HttpCtr>();
   static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   static final QuranData _quranData = Get.find<QuranData>();
-  static Future<List<Ayah>> downloadSurah({required int surahNumber}) async {
-    List<Ayah> ayahsList = _quranData.getSurahAyahs(surahNumber);
-    bool isDownloadedBefore =
-        GetStorage().read('${_quranCtr.selectedPage.selectedQuranReader.value.name}$surahNumber') ?? false;
-
-    String dir = (await getApplicationDocumentsDirectory()).path;
-
-    if (!isDownloadedBefore) {
-      _httpCtrl.isLoading.value = true;
-      _httpCtrl.isStopDownload.value = false;
-    }
-
-    _httpCtrl.downloadProgress.value = 0;
-    for (var i = 1; i < ayahsList.length; i++) {
-      if (!isDownloadedBefore && _httpCtrl.isStopDownload.value) break;
-
-      String formatedAyahNumber = AppSettings.formatInt3.format(i);
-      String formatedSurahNumber = AppSettings.formatInt3.format(surahNumber);
-      String filePath =
-          '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/$formatedSurahNumber$formatedAyahNumber.mp3';
-      File file = File(filePath);
-
-      if (!isDownloadedBefore) {
-        bool exists = await file.exists();
-        if (!exists) {
-          File? dounloadedFile = await _downloadFile(
-            formatedSurahNumber: formatedSurahNumber,
-            formatedAyahNumber: formatedAyahNumber,
-            filePath: filePath,
-            showToast: false,
-          );
-          if (dounloadedFile == null)
-            return [];
-          else
-            file = dounloadedFile;
-        }
-      }
-
-      ayahsList.elementAt(i).audioPath = filePath;
-      _httpCtrl.downloadProgress.value = ((i) / (ayahsList.length - 1) * 100).toDouble();
-    }
-
-    if (!isDownloadedBefore) {
-      _httpCtrl.isLoading.value = false;
-      if (ayahsList.length == _quranCtr.selectedPage.totalAyahsNum.value) {
-        GetStorage().write('${_quranCtr.selectedPage.selectedQuranReader.value.name}$surahNumber', true);
-      }
-    }
-
-    return ayahsList;
-  }
 
   static Future<File?> getAyah(
       {required int surahNumber, required int ayahNumber, required String dir, required bool showToast}) async {
     String filePath =
         '$dir/${_quranCtr.selectedPage.selectedQuranReader.value.name}/${AppSettings.formatInt3.format(surahNumber)}${AppSettings.formatInt3.format(ayahNumber)}.mp3';
     File file = File(filePath);
-    bool exists = await file.exists();
-    if (exists) return file;
-    return await _downloadFile(
-        formatedSurahNumber: AppSettings.formatInt3.format(surahNumber),
-        formatedAyahNumber: AppSettings.formatInt3.format(ayahNumber),
-        filePath: filePath,
-        showToast: showToast);
+    if (file.existsSync()) return file;
+    return await _downloadAyah(
+      formatedSurahNumber: AppSettings.formatInt3.format(surahNumber),
+      formatedAyahNumber: AppSettings.formatInt3.format(ayahNumber),
+      filePath: filePath,
+      showToast: showToast,
+    );
   }
 
-  static Future<File?> _downloadFile(
+  static Future<File?> _downloadAyah(
       {required String formatedSurahNumber,
       required String formatedAyahNumber,
       required String filePath,
@@ -97,22 +47,6 @@ class HttpService {
       Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return null;
     } else {
-      // try {
-      //   var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
-      //   int total = response.contentLength ?? 0;
-
-      //   final List<int> bytes = [];
-      //   _httpCtrl.received.value = 0;
-      //   response.stream.listen((value) {
-      //     bytes.addAll(value);
-      //     _httpCtrl.received.value += 1 / (total / value.length);
-      //   }).onDone(() async {
-      //     await file.writeAsBytes(bytes);
-      //     if (showToast) Fluttertoast.showToast(msg: 'تم تحميل الآية بنجاح');
-      //   });
-      // } catch (e) {
-      //   if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت');
-      // }
       try {
         var response = await http.Client().get(Uri.parse(url));
         if (response.statusCode == 200) {
@@ -127,10 +61,124 @@ class HttpService {
       return file;
     }
   }
+
+  /// Download surah ayahs and save it in the device
+  static Future<List<Ayah>> getSurah({required int surahNumber}) async {
+    List<Ayah> ayahsList = _quranData.getSurahAyahs(surahNumber);
+    String formatedSurahNumber = AppSettings.formatInt3.format(surahNumber);
+    bool isDownloadedBefore =
+        GetStorage().read('${_quranCtr.selectedPage.selectedQuranReader.value.name}$formatedSurahNumber') ?? false;
+
+    String dir =
+        '${(await getApplicationDocumentsDirectory()).path}/${_quranCtr.selectedPage.selectedQuranReader.value.name}';
+    if (isDownloadedBefore) {
+      updateAyahsAudioPath(ayahsList, dir, formatedSurahNumber);
+      _httpCtrl.downloadCompated.value = true;
+    } else {
+      _httpCtrl.isLoading.value = true;
+      _httpCtrl.isStopDownload.value = false;
+      _httpCtrl.downloadCompated.value = false;
+
+      Map allReaders = await JsonService.getAllReaders();
+      String readerUrl = allReaders[_quranCtr.selectedPage.selectedQuranReader.value.name];
+      String url = '$readerUrl/zips/$formatedSurahNumber.zip';
+      try {
+        File zippedFile = await _downloadSurah(url, dir, formatedSurahNumber);
+        if (!zippedFile.existsSync()) return ayahsList;
+
+        await unarchiveAndSave(zippedFile, dir);
+
+        updateAyahsAudioPath(ayahsList, dir, formatedSurahNumber);
+
+        removeUnneceseryFiles(dir, formatedSurahNumber);
+      } catch (e) {
+        Fluttertoast.showToast(msg: '${'مشكلة في الاتصال بالانترنت'}.tr \t $e');
+      }
+    }
+
+    return ayahsList;
+  }
+
+  /// Download the ZIP file using the HTTP library
+  static Future<File> _downloadSurah(String url, String filePath, String formatedSurahNumber) async {
+    Fluttertoast.showToast(msg: 'جاري تحميل الآية'.tr);
+
+    File file = await File('$filePath/$formatedSurahNumber').create(recursive: true);
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
+      return file;
+    } else {
+      try {
+        _httpCtrl.downloadProgress.value = 0;
+        var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
+        int contentLength = response.contentLength ?? 0;
+        if (response.statusCode == 200) {
+          var receivedBytes = 0;
+
+          await response.stream.forEach(
+            (data) {
+              if (_httpCtrl.isStopDownload.value) return;
+              receivedBytes += data.length;
+              final progress = (receivedBytes / contentLength * 100).toStringAsFixed(1);
+              _httpCtrl.downloadProgress.value = double.parse(progress);
+              file.writeAsBytesSync(data, mode: FileMode.append);
+            },
+          );
+
+          //download complete
+          if (_httpCtrl.downloadProgress.value == 100) {
+            GetStorage().write('${_quranCtr.selectedPage.selectedQuranReader.value.name}$formatedSurahNumber', true);
+            _httpCtrl.downloadCompated.value = true;
+            Fluttertoast.showToast(msg: 'تم تحميل الآية بنجاح'.tr);
+          } else {
+            Fluttertoast.showToast(msg: 'لم يتم تحميل الآية بنجاح'.tr);
+          }
+          _httpCtrl.isLoading.value = false;
+          _httpCtrl.isStopDownload.value = true;
+          _httpCtrl.downloadProgress.value = 0;
+        }
+      } catch (e) {
+        Fluttertoast.showToast(msg: '${'مشكلة في الاتصال بالانترنت'}.tr \t $e');
+      }
+    }
+
+    return file;
+  }
+
+  // Unarchive and save the file in Documents directory and save the paths in the array
+  static Future unarchiveAndSave(File zippedFile, String dir) async {
+    var bytes = zippedFile.readAsBytesSync();
+    var archive = ZipDecoder().decodeBytes(bytes);
+    for (var file in archive) {
+      var fileName = '$dir/${file.name}';
+      if (file.isFile) {
+        var outFile = File(fileName);
+        outFile = await outFile.create(recursive: true);
+        await outFile.writeAsBytes(file.content);
+      }
+    }
+  }
+
+  static void removeUnneceseryFiles(String dir, String formatedSurahNumber) async {
+    var zipFile = File('$dir/$formatedSurahNumber.zip');
+    if (await zipFile.exists()) zipFile.delete();
+    var licenseFile = File('$dir/000_license');
+    if (await licenseFile.exists()) licenseFile.delete();
+  }
+
+  static void updateAyahsAudioPath(List<Ayah> ayahsList, String dir, String formatedSurahNumber) {
+    for (int i = 0; i < ayahsList.length; i++) {
+      ayahsList[i].audioPath = '$dir/$formatedSurahNumber${AppSettings.formatInt3.format(ayahsList[i].ayahNumber)}.mp3';
+    }
+  }
 }
 
 class HttpCtr extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStopDownload = false.obs;
   RxDouble downloadProgress = (0.0).obs;
+  RxBool downloadCompated = false.obs;
 }

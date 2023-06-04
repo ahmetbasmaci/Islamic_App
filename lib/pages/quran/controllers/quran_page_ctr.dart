@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
-import 'package:zad_almumin/constents/constants.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
@@ -50,8 +50,8 @@ class QuranPageCtr extends GetxController {
   dynamic showMarkDialog() {
     var pageProp = MarkedPage(
       pageNumber: selectedPage.pageNumber.value,
-      juz: _quranData.getJuzNumberByPage(selectedPage.pageNumber.value),
-      surahName: _quranData.getSurahNameByPage(selectedPage.pageNumber.value),
+      juz: selectedPage.juz.value,
+      surahName: selectedPage.surahName.value,
       isMarked: false,
     );
     for (var element in markedList)
@@ -333,10 +333,20 @@ class QuranPageCtr extends GetxController {
     if (audioCtr.isPlaying.value)
       audioCtr.pauseAudio();
     else {
-      if (selectedAyah.value.text == '')
-        selectedAyah.value = _quranData.getAyah(selectedPage.surahNumber.value, selectedPage.startAyahNum.value);
-      List<Ayah> ayahsList = await HttpService.downloadSurah(surahNumber: selectedAyah.value.surahNumber);
-      Get.find<AudioCtr>().playMultiAudio(ayahList: ayahsList);
+      if (selectedAyah.value.text == '') {
+        List<Ayah> ayahsInPage = _quranData.getAyahsInPage(selectedPage.pageNumber.value).first;
+        selectedAyah.value = ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt));
+      }
+      selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
+      List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: selectedAyah.value.surahNumber);
+      if (Get.find<HttpCtr>().downloadCompated.value) {
+        Get.find<AudioCtr>().playMultiAudio(ayahList: ayahsList);
+      }
     }
+  }
+
+  void stopAudio() {
+    selectedAyah.value = Ayah.empty();
+    Get.find<AudioCtr>().stopAudio();
   }
 }

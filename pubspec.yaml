@@ -8,6 +8,7 @@ environment:
 dependencies:
   animated_button: ^0.2.0
   animated_text_kit: ^4.2.2
+  archive: ^3.3.7
   audio_manager: ^0.8.2
   audioplayers: ^4.0.1
   auto_size_text: ^3.0.0

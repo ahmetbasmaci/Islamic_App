@@ -23,10 +23,9 @@ class AppSettings {
     systemNavigationBarDividerColor: Colors.transparent,
     statusBarBrightness: Brightness.dark,
   );
-
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // Create a key to can open drawer
-
+  static String basmalahTxt = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
   static FocusScopeNode focusScopeNode = FocusScopeNode();
   static NumberFormat formatInt3 = NumberFormat('000');
   static NumberFormat formatInt2 = NumberFormat('00');
