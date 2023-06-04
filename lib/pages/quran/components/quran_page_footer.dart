@@ -61,6 +61,7 @@ class QuranPageFooter extends StatelessWidget {
                     width: double.maxFinite,
                     decoration: BoxDecoration(boxShadow: []),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Expanded(
                           flex: 3,
@@ -72,9 +73,9 @@ class QuranPageFooter extends StatelessWidget {
                         ),
                         Expanded(
                             child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            MyTexts.quranSecondTitle(title: '${(_httpCtr.downloadProgress.value).toStringAsFixed(1)}%'),
+                            MyTexts.quranSecondTitle(title: '${(_httpCtr.downloadProgress.value).toStringAsFixed(0)}%'),
                             AnimatedButton(
                               color: MyColors.quranBackGround(),
                               width: MySiezes.btnIcon,
