@@ -113,7 +113,12 @@ class QuranPageFooter extends StatelessWidget {
                         for (QuranReaders item in QuranReaders.values)
                           DropdownMenuItem(
                             value: item,
-                            child: MyTexts.quranSecondTitle(title: item.arabicName.tr),
+                            child: MyTexts.quranSecondTitle(
+                              title: item.arabicName.tr,
+                              color: _quranCtr.selectedPage.selectedQuranReader.value.name == item.name
+                                  ? MyColors.primary()
+                                  : MyColors.whiteBlack(),
+                            ),
                           )
                       ],
                     ),
@@ -139,7 +144,12 @@ class QuranPageFooter extends StatelessWidget {
                         for (Surah item in _quranData.getAllSurahs())
                           DropdownMenuItem(
                             value: item.name,
-                            child: MyTexts.quranSecondTitle(title: AppSettings.removeTashkil(item.name.toString()).tr),
+                            child: MyTexts.quranSecondTitle(
+                              title: AppSettings.removeTashkil(item.name.toString()).tr,
+                              color: _quranCtr.selectedPage.surahName.value == item.name
+                                  ? MyColors.primary()
+                                  : MyColors.whiteBlack(),
+                            ),
                           )
                       ],
                     ),
