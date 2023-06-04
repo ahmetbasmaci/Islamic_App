@@ -31,7 +31,7 @@ extension AyahsAnswerTypesExtention on AyahsAnswersType {
   }
 }
 
-enum MyFonts { uthmanic, uthmanic2, kfgqpc, naskh,  arquran, maddina, noorehira, scheherazade }
+enum MyFonts { uthmanic, uthmanic2, kfgqpc, naskh, arquran, maddina, noorehira, scheherazade }
 
 extension MyFontsExtention on MyFonts {
   String get arabicName {
@@ -59,6 +59,7 @@ extension MyFontsExtention on MyFonts {
     }
   }
 }
+
 enum QuranReaders {
   yaserAldosary,
   yaserAlsalamah,
@@ -71,6 +72,17 @@ enum QuranReaders {
   abdullahBasfar,
   abuBakrAlshatiri,
   ahmedAlajamy,
+  haniRifai,
+  abdullaahAwwaad,
+  ahmedNeana,
+  warshAbdulBasit,
+  akramAlALqimy,
+  faresAbbad,
+  maherAlmuaqly,
+  nabilRifa3i,
+  naserAlqatami,
+  saoodAlShuraym,
+  mahmoudAliAlBanna,
 }
 
 extension QuranReadersExtention on QuranReaders {
@@ -98,6 +110,28 @@ extension QuranReadersExtention on QuranReaders {
         return 'ابو بكر الشاطري';
       case QuranReaders.ahmedAlajamy:
         return 'أحمد العجمي';
+      case QuranReaders.haniRifai:
+        return 'هاني رفاعي';
+      case QuranReaders.abdullaahAwwaad:
+        return 'عبدالله عواد';
+      case QuranReaders.ahmedNeana:
+        return 'أحمد نعينع';
+      case QuranReaders.warshAbdulBasit:
+        return 'ورش - عبد الباسط';
+      case QuranReaders.akramAlALqimy:
+        return 'أكرم العلاقمي';
+      case QuranReaders.faresAbbad:
+        return 'فارس عباد';
+      case QuranReaders.maherAlmuaqly:
+        return 'ماهر المعيقلي';
+      case QuranReaders.nabilRifa3i:
+        return 'نبيل الرفاعي';
+      case QuranReaders.naserAlqatami:
+        return 'ناصر القطامي';
+      case QuranReaders.saoodAlShuraym:
+        return 'سعود الشريم';
+      case QuranReaders.mahmoudAliAlBanna:
+        return 'محمود علي البنا';
       default:
         return 'null';
     }
