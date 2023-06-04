@@ -110,7 +110,7 @@ class QuranPageFooter extends StatelessWidget {
                             .write('selectedQuranReader', _quranCtr.selectedPage.selectedQuranReader.value.index);
                       },
                       items: [
-                        for (QuranReaders item in QuranReaders.values)
+                        for (QuranReaders item in sortedQuranReader)
                           DropdownMenuItem(
                             value: item,
                             child: MyTexts.quranSecondTitle(
@@ -195,6 +195,14 @@ class QuranPageFooter extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<QuranReaders> get sortedQuranReader {
+    if (AppSettings.isArabicLang) {
+      return QuranReaders.values.toList()..sort((a, b) => a.arabicName.compareTo(b.arabicName));
+    } else {
+      return QuranReaders.values.toList()..sort((a, b) => a.name.compareTo(b.name));
+    }
   }
 
   void showResitationSettings() {
