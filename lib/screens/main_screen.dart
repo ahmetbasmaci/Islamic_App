@@ -10,19 +10,15 @@ import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/animation_service.dart';
+import 'package:zad_almumin/services/theme_service.dart';
 import '../classes/block_data.dart';
 import '../constents/app_settings.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
+class MainScreen extends GetView<ThemeCtr> {
+  MainScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return AnimationLimiter(
       child: ListView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -32,7 +28,11 @@ class _MainScreenState extends State<MainScreen> {
           AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard().hadithCard()),
           const SizedBox(height: MySiezes.betweanCards),
           AnimationService.animationListItemDownToUp(
-            child: azkarBlocks(outsideTitle: 'مختلف الأذكار'.tr, azkars: BlockData.list, zikrType: ZikrType.azkar),
+            child: azkarBlocks(
+              outsideTitle: 'مختلف الأذكار'.tr,
+              azkars: BlockData.list,
+              zikrType: ZikrType.azkar,
+            ),
             index: 3,
           ),
           const SizedBox(height: MySiezes.betweanCards),
@@ -57,10 +57,12 @@ class _MainScreenState extends State<MainScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyTexts.outsideHeader(title: outsideTitle),
+              MyTexts.outsideHeader(title: outsideTitle, color: MyColors.primary()),
               GestureDetector(
                 onTap: () => Get.to(() => AzkarBlockScreen(), curve: Curves.elasticIn),
-                child: azkars.length > 1 ? MyTexts.outsideHeader(title: 'الكل >>>  '.tr) : Container(),
+                child: azkars.length > 1
+                    ? MyTexts.outsideHeader(title: 'الكل >>>  '.tr, color: MyColors.primary())
+                    : Container(),
               ),
             ],
           ),

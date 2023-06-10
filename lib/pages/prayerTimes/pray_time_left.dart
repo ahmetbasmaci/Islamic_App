@@ -31,7 +31,7 @@ class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
             MyTexts.main(
               title: prayerTimeCtr.nextPrayName.value.tr,
               size: 26,
-              color: MyColors.second(),
+              color: MyColors.primary(),
               fontWeight: FontWeight.bold,
             ),
             MyTexts.main(

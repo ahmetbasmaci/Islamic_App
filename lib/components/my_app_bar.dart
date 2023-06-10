@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/my_icons.dart';
@@ -32,7 +33,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
     context.theme;
     return AppBar(
       elevation: 0,
-      title: MyTexts.outsideHeader(title: title),
+      title: MyTexts.outsideHeader(title: title, color: MyColors.primary()),
       leading: leading ??
           (showDrawerBtn
               ? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer)

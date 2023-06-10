@@ -25,6 +25,7 @@ dependencies:
   firebase_core: ^2.11.0
   flutter:
     sdk: flutter
+  flutter_colorpicker: ^1.0.3
   flutter_custom_clippers: ^2.1.0
   flutter_inset_box_shadow: ^1.0.8
   flutter_launcher_icons: ^0.11.0
@@ -70,8 +71,8 @@ flutter:
     - assets/database/azkar/
     - assets/database/hadith/
     - assets/database/quran/
+    - assets/database/tafseer/
     - assets/images/
-    - assets/images/quran pages/
 
   fonts:
     - family: uthmanic

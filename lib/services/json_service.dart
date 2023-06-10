@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/models/ayah_tafseer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 
 class JsonService {
@@ -13,6 +14,7 @@ class JsonService {
   static List allZikrDataList = [];
   static List allAllahNamesList = [];
   static Map allReaders = {};
+  static List<SurahTafseer> allTafseer = [];
 
   static Future loadData() async {
     await loadQuranData();
@@ -20,6 +22,7 @@ class JsonService {
     await loadZikrData();
     await loadAllahNamesData();
     await loadAllReaders();
+    await loadTafseer();
   }
 
   static Future loadQuranData() async {
@@ -60,6 +63,26 @@ class JsonService {
     if (allReaders.isNotEmpty) return;
     var allReadersString = await rootBundle.loadString('assets/database/quran/readers_url.json');
     allReaders = jsonDecode(allReadersString);
+  }
+
+  static Future loadTafseer() async {
+    if (allTafseer.isNotEmpty) return;
+    var allTafseerString = await rootBundle.loadString('assets/database/tafseer/tafseer2.json');
+    Map tafseerMap = jsonDecode(allTafseerString);
+
+    for (var i = 1; i <= 114; i++) {
+      List surahTafseerMap = tafseerMap['surahId_$i'];
+      String surahName = _quranData.getSurahNameByNumber(i);
+      SurahTafseer surahTafseer = SurahTafseer(surahNumber: i, surahName: surahName, ayahsTafseer: []);
+
+      for (var ayah in surahTafseerMap) {
+        AyahTafseer newAyahTafseer = AyahTafseer.fromJson(ayah as Map);
+        newAyahTafseer.surahNumber = i;
+        newAyahTafseer.surahName = surahName;
+        surahTafseer.ayahsTafseer.add(newAyahTafseer);
+      }
+      allTafseer.add(surahTafseer);
+    }
   }
 
   static Future<Map> getAllHadithData(int bookNumber) async {

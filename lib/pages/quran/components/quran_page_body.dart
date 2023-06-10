@@ -14,6 +14,7 @@ import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/http_service.dart';
+import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class QuranPageBody extends GetView<ThemeCtr> {
@@ -24,13 +25,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   final int page;
   @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Stack(
-        children: _quranCtr.showAsImages.value ? getQuranImages(page: page) : getQuranTexts(page: page),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Stack(children: getQuranTexts(page: page));
 
   List<Widget> getQuranImages({required int page}) {
     List<Widget> images = [
@@ -52,149 +47,213 @@ class QuranPageBody extends GetView<ThemeCtr> {
 
     pages.add(
       Container(
-        padding: EdgeInsets.only(left: Get.width * 0.01, right: Get.width * 0.01, bottom: Get.height * 0.01),
+        padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, bottom: Get.height * 0.01),
         constraints: BoxConstraints(minHeight: Get.height),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
-                height: AppSettings.quranUpPartHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MyTexts.quran(
-                      title: '${'الجُزْءُ'}   ${_quranData.getJuzNumberByPage(page)}',
-                      size: 20,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.quranPrimary(),
-                    ),
-                    MyTexts.quran(
-                      title: '${_quranCtr.selectedPage.surahName}',
-                      size: 20,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.quranPrimary(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Obx(
-                    () => RichText(
-                      textAlign: TextAlign.justify,
-                      textDirection: TextDirection.rtl,
-                      text: TextSpan(
-                        children: [
-                          ...ayahs.map(
-                            (ayah) => ayah.isBasmalah
-                                ? WidgetSpan(
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  Image.asset(
-                                                    "assets/images/surah_header.png",
-                                                    height: _quranCtr.quranFontSize.value * 1.6,
-                                                    width: double.maxFinite,
-                                                    fit: BoxFit.fill,
-                                                    color: MyColors.primary(),
-                                                  ),
-                                                  Center(
-                                                    heightFactor: .9,
-                                                    child: MyTexts.quran(
-                                                      textAlign: TextAlign.center,
-                                                      title: ayah.surahName,
-                                                      size: _quranCtr.quranFontSize.value * 1.05,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: MyColors.primary(),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Image.asset(
-                                          "assets/images/bismillah.png",
-                                          height: _quranCtr.quranFontSize.value * 1.6,
-                                          color: MyColors.whiteBlack(),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : TextSpan(
-                                    text: ayah.text,
-                                    style: TextStyle(
-                                      // fontFamily: MyFonts.uthmanic.name,
-                                      fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
-                                      wordSpacing: -1,
-                                      color: MyColors.whiteBlack(),
-                                      background: Paint()
-                                        ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                                _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                            ? MyColors.quranPrimary().withOpacity(0.2)
-                                            : ayah.isMarked
-                                                ? MyColors.markedAyah().withOpacity(0.2)
-                                                : Colors.transparent
-                                        ..strokeJoin = StrokeJoin.round
-                                        ..strokeCap = StrokeCap.round
-                                        ..style = PaintingStyle.fill,
-                                    ),
-                                    recognizer: LongPressGestureRecognizer()
-                                      ..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
-                                    children: [
-                                      TextSpan(
-                                        text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',
-                                        style: TextStyle(
-                                          wordSpacing: 0,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: MyFonts.uthmanic2.name,
-                                          color: MyColors.quranPrimary(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ],
-                        style: MyTexts.quran(
-                          title: '',
-                          size: _quranCtr.quranFontSize.value,
-                        ).style!.copyWith(),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                height: Get.height * 0.03,
-                child: Center(
-                  child: MyTexts.quran(
-                    title: HelperMethods.convertToArabicNumber(page),
-                    // size: 16,
-                    fontWeight: FontWeight.bold,
-                    color: MyColors.quranPrimary(),
-                  ),
-                ),
-              ),
-            ),
+            quranUpPart(),
+            quranBodyPart(ayahs),
+            footerPart(),
           ],
         ),
       ),
     );
 
     return pages;
+  }
+
+  Widget quranUpPart() {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+        height: AppSettings.quranUpPartHeight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyTexts.quran(
+              title: '${'الجُزْءُ'}   ${_quranData.getJuzNumberByPage(page)}',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: MyColors.quranPrimary(),
+            ),
+            MyTexts.quran(
+              title: '${_quranCtr.selectedPage.surahName}',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: MyColors.quranPrimary(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget quranBodyPart(List<Ayah> ayahs) {
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Obx(
+            () => _quranCtr.showTafseerPage.value
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...ayahs.map((ayah) => ayah.isBasmalah
+                          ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                myRichText(textSpanChildredn: [ayahPart(ayah)]),
+                                tafseerPart(ayah),
+                              ],
+                            ))
+                    ],
+                  )
+                : myRichText(
+                    textSpanChildredn: [
+                      ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
+                    ],
+                  ),
+          )
+        ],
+      ),
+    );
+  }
+
+  RichText myRichText({required List<InlineSpan> textSpanChildredn}) {
+    return RichText(
+      textAlign: TextAlign.justify,
+      textDirection: TextDirection.rtl,
+      text: TextSpan(
+        children: textSpanChildredn,
+        style: MyTexts.quranStyle(fontSize: _quranCtr.quranFontSize.value),
+      ),
+    );
+  }
+
+  WidgetSpan basmalahPart(Ayah ayah) {
+    return WidgetSpan(
+      child: Column(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/surah_header.png",
+                      height: _quranCtr.quranFontSize.value * 1.6,
+                      width: double.maxFinite,
+                      fit: BoxFit.fill,
+                      color: MyColors.primary(),
+                    ),
+                    Center(
+                      heightFactor: .9,
+                      child: MyTexts.quran(
+                        textAlign: TextAlign.center,
+                        title: ayah.surahName,
+                        fontSize: _quranCtr.quranFontSize.value * 1.05,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.primary(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Image.asset(
+            "assets/images/bismillah.png",
+            height: _quranCtr.quranFontSize.value * 1.6,
+            color: MyColors.whiteBlack(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextSpan ayahPart(Ayah ayah) {
+    return TextSpan(
+      text: ayah.text,
+      style: TextStyle(
+        // fontFamily: MyFonts.uthmanic.name,
+        fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
+        wordSpacing: -1,
+        color: MyColors.whiteBlack(),
+        background: Paint()
+          ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                  _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+              ? MyColors.quranPrimary().withOpacity(0.2)
+              : ayah.isMarked
+                  ? MyColors.markedAyah().withOpacity(0.2)
+                  : Colors.transparent
+          ..strokeJoin = StrokeJoin.round
+          ..strokeCap = StrokeCap.round
+          ..style = PaintingStyle.fill,
+      ),
+      recognizer: LongPressGestureRecognizer()..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
+      children: [
+        TextSpan(
+          text: ' ${HelperMethods.convertToArabicNumber(ayah.ayahNumber)} ',
+          style: TextStyle(
+            wordSpacing: 0,
+            fontWeight: FontWeight.bold,
+            fontFamily: MyFonts.uthmanic2.name,
+            color: MyColors.quranPrimary(),
+          ),
+        ),
+        _quranCtr.showTafseerPage.value
+            ? WidgetSpan(
+                child: Container(
+                color: Colors.red,
+                child: MyTexts.quran(title: ""),
+              ))
+            : TextSpan(),
+      ],
+    );
+  }
+
+  Widget tafseerPart(Ayah ayah) {
+    String tafseerText = JsonService.allTafseer
+        .firstWhere((x) => x.surahNumber == ayah.surahNumber)
+        .ayahsTafseer
+        .firstWhere((x) => x.ayahNumber == ayah.ayahNumber)
+        .tafseerText;
+    return Container(
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+        color: MyColors.primary().withOpacity(.15),
+      ),
+      padding: EdgeInsets.all(MySiezes.screenPadding),
+      margin: EdgeInsets.symmetric(vertical: MySiezes.screenPadding),
+      child: MyTexts.quran(
+        title: tafseerText,
+        textAlign: TextAlign.justify,
+        // textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
+        color: MyColors.whiteBlack(),
+        fontSize: _quranCtr.quranFontSize.value,
+      ),
+    );
+  }
+
+  Widget footerPart() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        height: Get.height * 0.03,
+        child: Center(
+          child: MyTexts.quran(
+            title: HelperMethods.convertToArabicNumber(page),
+            // size: 16,
+            fontWeight: FontWeight.bold,
+            color: MyColors.quranPrimary(),
+          ),
+        ),
+      ),
+    );
   }
 
   void onAyahLongPressStart(LongPressStartDetails details, Ayah ayah) {
@@ -212,107 +271,6 @@ class QuranPageBody extends GetView<ThemeCtr> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              //??original cod
-              /*
-                                Container(
-                                  color: Colors.red,
-                                ),
-                                Container(
-                                  height   MySiezes.icon*2,
-                                  decoration: BoxD:  MySiezes.icon*2,
-                                  width:ecoration(
-                                      color: Color(0xfff3efdf),
-                                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                                  child: FutureBuilder<List<Ayat>>(
-                                      future: QuranCubit.get(context)
-                                          .handleRadioValueChanged(
-                                              QuranCubit.get(context).radioValue)
-                                          .getAyahTranslate((widget.surah!.number)),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState == ConnectionState.done) {
-                                          List<Ayat>? ayat = snapshot.data;
-                                          Ayat aya = Ayat();
-                                          return IconButton(
-                                            icon: Icon(
-                                              Icons.text_snippet_outlined,
-                                              size:  MySiezes.icon,
-                                              color: MyColors.quranPrimary(),
-                                            ),
-                                            onPressed: () {
-                                              TextCubit.translateAyah = "${aya.ayatext}";
-                                              TextCubit.translate = "${aya.translate}";
-                                              // showModalBottomSheet<void>(
-                                              //   context: context,
-                                              //   builder: (BuildContext context) {
-                                              //     return ShowTextTafseer();
-                                              //   },
-                                              // );
-                                              if (TextCubit.isShowBottomSheet) {
-                                                Navigator.pop(context);
-                                              } else {
-                                                TPageScaffoldKey.currentState?.showBottomSheet(
-                                                    shape: const RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.only(
-                                                            topLeft: Radius.circular(8),
-                                                            topRight: Radius.circular(8))),
-                                                    backgroundColor: Colors.transparent,
-                                                    (context) => Align(
-                                                          alignment: Alignment.bottomCenter,
-                                                          child: Padding(
-                                                            padding: orientation ==
-                                                                    Orientation.portrait
-                                                                ? const EdgeInsets.symmetric(
-                                                                    horizontal: 16.0)
-                                                                : const EdgeInsets.symmetric(
-                                                                    horizontal: 64.0),
-                                                            child: Container(
-                                                              height: orientation ==
-                                                                      Orientation.portrait
-                                                                  ? MediaQuery.of(context)
-                                                                          .size
-                                                                          .height *
-                                                                      1 /
-                                                                      2
-                                                                  : MediaQuery.of(context)
-                                                                      .size
-                                                                      .height,
-                                                              width: MediaQuery.of(context)
-                                                                  .size
-                                                                  .width,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    const BorderRadius.only(
-                                                                        topRight:
-                                                                            Radius.circular(12.0),
-                                                                        topLeft: Radius.circular(
-                                                                            12.0)),
-                                                                color: Theme.of(context)
-                                                                    .colorScheme
-                                                                    .background,
-                                                              ),
-                                                              child: const ShowTextTafseer(),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    elevation: 100);
-                                              }
-                                              // quranTextTafseer(context, TPageScaffoldKey,
-                                              //     MediaQuery.of(context).size.width);
-                                              cancel();
-                                            },
-                                          );
-                                        } else {
-                                          return Center(
-                                              child: Lottie.asset('assets/lottie/search.json',
-                                                  width: 100, height: 40));
-                                        }
-                                      }),
-                                ),
-                                SizedBox(
-                                  width:  MySiezes.icon/2
-                                ),
-*/
-
               addAyahMarkBtn(cancel, ayah),
               SizedBox(width: MySiezes.icon / 2),
               copyAyahBtn(cancel, ayah),

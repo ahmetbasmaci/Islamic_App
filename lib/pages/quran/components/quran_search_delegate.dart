@@ -251,7 +251,7 @@ class QuranSearchDelegate extends SearchDelegate {
                 title: ayah.text,
                 textAlign: TextAlign.justify,
                 color: MyColors.whiteBlack(),
-                size: _quranCtr.quranFontSize.value,
+                fontSize: _quranCtr.quranFontSize.value,
               ),
             ),
           ],

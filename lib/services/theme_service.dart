@@ -25,6 +25,7 @@ class ThemeCtr extends GetxController {
   TextStyle displayMedium_Info = TextStyle();
   TextStyle displayLarge_dropDownItem = TextStyle();
   TextStyle titleSmall_dropDownTitle = TextStyle();
+  TextStyle titleLarge_outsideCard = TextStyle();
 
   //endregion
 
@@ -36,7 +37,9 @@ class ThemeCtr extends GetxController {
   final _getStorage = GetStorage();
   final _darkKeyTheme = 'isDarkMode';
 
-  updateThemes() {
+  void updateThemes() {
+    updatePrimeryColor();
+
     updateTextStyles();
 
     lightThemeMode.value = ThemeData.light().copyWith(
@@ -92,7 +95,7 @@ class ThemeCtr extends GetxController {
       ),
       textTheme: TextTheme(
         bodySmall: bodySmall_main.copyWith(color: Colors.black),
-        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
+        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.primary_),
         bodyLarge: bodyLarge_blockTitle,
         labelSmall: labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
         labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContent),
@@ -102,6 +105,7 @@ class ThemeCtr extends GetxController {
         displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.black),
         titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primary_),
         titleMedium: bodySmall_quran.copyWith(color: MyColors.primary_),
+        titleLarge: titleLarge_outsideCard.copyWith(color: MyColors.primary_),
       ),
     );
 
@@ -157,7 +161,7 @@ class ThemeCtr extends GetxController {
       ),
       textTheme: TextTheme(
         bodySmall: bodySmall_main.copyWith(color: Colors.white),
-        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.second_),
+        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.primaryDark),
         bodyLarge: bodyLarge_blockTitle,
         labelSmall: labelSmall_settingsTitle.copyWith(color: MyColors.white),
         labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContentDark),
@@ -167,15 +171,25 @@ class ThemeCtr extends GetxController {
         displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.white),
         titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primaryDark),
         titleMedium: bodySmall_quran.copyWith(color: MyColors.white),
+        titleLarge: titleLarge_outsideCard.copyWith(color: MyColors.primaryDark),
       ),
     );
   }
 
+  void updatePrimeryColor() {
+    GetStorage storage = GetStorage();
+    int primaryColor = storage.read<int>('primary_') ?? MyColors.primary_.value;
+    int primaryDarkColor = storage.read<int>('primaryDark') ?? MyColors.primaryDark.value;
+    MyColors.primary_ = Color(primaryColor);
+    MyColors.primaryDark = Color(primaryDarkColor);
+  }
+
   void updateTextStyles() {
-    String? defaultFontMain = _localCtr.currentLocal.languageCode == "ar"
-        ? GetStorage().read<String>('defaultFontMain') ?? MyFonts.uthmanic.name
-        : null;
-    String defaultFontQuran = GetStorage().read<String>('defaultFontQuran') ?? MyFonts.uthmanic.name;
+    GetStorage storage = GetStorage();
+    String defaultFontMain = _localCtr.currentLocal.languageCode == "ar"
+        ? storage.read<String>('defaultFontMain') ?? MyFonts.uthmanic.name
+        : FontStyle.normal.name;
+    String defaultFontQuran = storage.read<String>('defaultFontQuran') ?? MyFonts.uthmanic.name;
     bodySmall_main = TextStyle(
       fontSize: Get.width * .04,
       height: 1.8,
@@ -221,6 +235,11 @@ class ThemeCtr extends GetxController {
     );
 
     headLine6_headers = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      fontFamily: defaultFontMain,
+    );
+    titleLarge_outsideCard = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,

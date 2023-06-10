@@ -42,7 +42,7 @@ class ZikrCard {
           outsideTitle != null && !isFavorite
               ? Align(
                   alignment: AppSettings.isArabicLang ? Alignment.centerRight : Alignment.bottomLeft,
-                  child: MyTexts.outsideHeader(title: outsideTitle))
+                  child: MyTexts.outsideHeader(title: outsideTitle, color: MyColors.primary()))
               : Container(),
           AnimatedButtonTapping(
             onTap: onTap,

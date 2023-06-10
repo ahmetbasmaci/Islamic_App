@@ -26,6 +26,7 @@ class MyIcons {
   static Icon alarm = Icon(Icons.alarm);
 
   static Icon lang({Color? color, double size = MySiezes.icon}) => Icon(Icons.language, color: color, size: size);
+  static Icon color({Color? color, double size = MySiezes.icon}) => Icon(Icons.color_lens_outlined, color: color, size: size);
   static Icon letterSize({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.textformat_size, color: color, size: size);
 
@@ -36,6 +37,8 @@ class MyIcons {
       Icon(CupertinoIcons.minus, color: color, size: size);
   static Icon send({Color? color, double size = MySiezes.icon}) => Icon(Icons.send, color: color, size: size);
   static Icon settings({Color? color, double size = MySiezes.icon}) => Icon(Icons.settings, color: color, size: size);
+  static Icon peaper({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.my_library_books_rounded, color: color, size: size);
   static Icon review({Color? color, double size = MySiezes.icon}) => Icon(Icons.reviews, color: color, size: size);
   static Icon reviewSound({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.record_voice_over, color: color, size: size);
@@ -80,8 +83,8 @@ class MyIcons {
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
       firstChild: Icon(CupertinoIcons.book_fill, color: color, size: size),
-      secondChild: Icon(CupertinoIcons.photo_on_rectangle, color: color, size: size),
-      crossFadeState: quranCtr.showAsImages.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      secondChild: Icon(Icons.library_books_outlined, color: color, size: size),
+      crossFadeState: quranCtr.showTafseerPage.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 

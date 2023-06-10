@@ -64,14 +64,14 @@ class QuranPageUp extends GetView<ThemeCtr> {
                       onPressed: () => Get.offAll(() => HomePage()),
                       child: MyIcons.home(color: MyColors.quranPrimary()),
                     ),
-                    SizedBox(width: MySiezes.btnIcon),
-                    AnimatedButton(
-                      color: MyColors.quranBackGround(),
-                      width: MySiezes.btnIcon,
-                      height: MySiezes.btnIcon,
-                      onPressed: () => _quranCtr.changeShowQuranStyle(),
-                      child: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary())),
-                    ),
+                    // SizedBox(width: MySiezes.btnIcon),
+                    // AnimatedButton(
+                    //   color: MyColors.quranBackGround(),
+                    //   width: MySiezes.btnIcon,
+                    //   height: MySiezes.btnIcon,
+                    //   onPressed: () => _quranCtr.changeShowQuranStyle(),
+                    //   child: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary())),
+                    // ),
                   ],
                 ),
               ),
@@ -163,7 +163,8 @@ class QuranPageUp extends GetView<ThemeCtr> {
           items: MyFonts.values
               .map((e) => DropdownMenuItem<String>(
                     value: e.name,
-                    child: Text(e.arabicName.toString(), style: TextStyle(fontFamily: e.name)),
+                    child: Text(e.arabicName.toString().tr,
+                        style: TextStyle(fontFamily: AppSettings.isArabicLang ? e.name : FontStyle.normal.toString())),
                   ))
               .toList(),
         );
@@ -186,22 +187,21 @@ class QuranPageUp extends GetView<ThemeCtr> {
         ],
       ),
     ));
-    if (AppSettings.isArabicLang) {
-      itemsList.add(PopupMenuItem(
-        value: changeFontTypeMenu,
-        onTap: null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            changeFontTypeMenu.icon,
-            SizedBox(width: Get.width * .04),
-            MyTexts.main(title: changeFontTypeMenu.title, color: MyColors.quranPrimary(), size: 16),
-            SizedBox(width: Get.width * .04),
-            changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
-          ],
-        ),
-      ));
-    }
+    itemsList.add(PopupMenuItem(
+      value: changeFontTypeMenu,
+      onTap: null,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          changeFontTypeMenu.icon,
+          SizedBox(width: Get.width * .04),
+          MyTexts.main(title: changeFontTypeMenu.title.tr, color: MyColors.quranPrimary(), size: 16),
+          SizedBox(width: Get.width * .04),
+          changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
+        ],
+      ),
+    ));
+
     itemsList.addAll(menuItemList.map(
       (e) => PopupMenuItem(
         value: e,

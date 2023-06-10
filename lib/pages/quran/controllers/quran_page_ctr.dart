@@ -24,7 +24,7 @@ class QuranPageCtr extends GetxController {
   final QuranData _quranData = Get.find<QuranData>();
   bool showInKahf = false;
   RxBool onShown = false.obs;
-  RxBool showAsImages = false.obs;
+  RxBool showTafseerPage = false.obs;
   Rx<Ayah> selectedAyah = Ayah.empty().obs;
   SelectedPageInfo selectedPage = SelectedPageInfo();
   RxList<MarkedPage> markedList = <MarkedPage>[].obs;
@@ -226,15 +226,15 @@ class QuranPageCtr extends GetxController {
   }
 
   void changeShowQuranStyle() {
-    showAsImages.value = !showAsImages.value;
+    showTafseerPage.value = !showTafseerPage.value;
     GetStorage storage = GetStorage();
-    storage.write('showAsImages', showAsImages.value);
+    storage.write('showTafseerPage', showTafseerPage.value);
   }
 
   void readFromStorage() {
     GetStorage storage = GetStorage();
 
-    showAsImages.value = storage.read<bool>('showAsImages') ?? showAsImages.value;
+    showTafseerPage.value = storage.read<bool>('showAsImages') ?? showTafseerPage.value;
     quranFontSize.value = storage.read<double>('quranFontSize') ?? quranFontSize.value;
 
     //get selected reader

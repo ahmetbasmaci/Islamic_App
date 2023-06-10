@@ -136,6 +136,21 @@ extension QuranReadersExtention on QuranReaders {
         return 'null';
     }
   }
+}
 
-  void talk() {}
+enum TafseerType { alcalaleyn }
+
+extension TafseerTypeValue on TafseerType {
+  int get id {
+    switch (this) {
+      case TafseerType.alcalaleyn:
+        return 2;
+    }
+  }
+    String get arabicName {
+    switch (this) {
+      case TafseerType.alcalaleyn:
+        return "تفسير الجلالين";
+    }
+  }
 }

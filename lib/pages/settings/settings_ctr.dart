@@ -15,11 +15,6 @@ class SettingsCtr extends GetxController {
   SettingsCtr() {
     isNotificationSoundOn.value = getStorage.read('isNotificationSoundOn') ?? true;
 
-    int primaryColor = getStorage.read<int>('primary_') ?? MyColors.primary_.value;
-    int primaryDarkColor = getStorage.read<int>('primaryDark') ?? MyColors.primaryDark.value;
-    MyColors.primary_ = Color(primaryColor);
-    MyColors.primaryDark = Color(primaryDarkColor);
-
     defaultFontMain.value = getStorage.read<String>('defaultFontMain') ?? defaultFontMain.value;
     defaultFontQuran.value = getStorage.read<String>('defaultFontQuran') ?? defaultFontQuran.value;
   }
@@ -32,13 +27,17 @@ class SettingsCtr extends GetxController {
     getStorage.write('isNotificationSoundOn', newValue);
   }
 
-  changeThemeColor(Color newColor) {
+  changeThemeColor(Color newColor, VoidCallback? setState) async {
     MyColors.primary_ = newColor;
     MyColors.primaryDark = newColor;
 
     getStorage.write("primary_", newColor.value);
     getStorage.write("primaryDark", newColor.value);
     Get.find<ThemeCtr>().updateThemes();
+
+    runApp(MyApp());
+    await Future.delayed(Duration(milliseconds: 200));
+    if (setState != null) setState.call();
   }
 
   void changeMainFont(String newFont, {VoidCallback? setState}) {
@@ -46,6 +45,7 @@ class SettingsCtr extends GetxController {
     getStorage.write('defaultFontMain', defaultFontMain.value);
     fontChanged(setState);
   }
+
   void changeQuranFont(String newFont, {VoidCallback? setState}) {
     defaultFontQuran.value = newFont;
     getStorage.write('defaultFontQuran', defaultFontQuran.value);
