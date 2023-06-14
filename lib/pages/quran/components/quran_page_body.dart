@@ -24,6 +24,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   final int page;
+  ScrollController listViewController= ScrollController();
   @override
   Widget build(BuildContext context) => Stack(children: getQuranTexts(page: page));
 
@@ -93,21 +94,42 @@ class QuranPageBody extends GetView<ThemeCtr> {
     return Expanded(
       child: ListView(
         shrinkWrap: true,
+        controller: listViewController,
         children: [
           Obx(
             () => _quranCtr.showTafseerPage.value
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ...ayahs.map((ayah) => ayah.isBasmalah
-                          ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                myRichText(textSpanChildredn: [ayahPart(ayah)]),
-                                tafseerPart(ayah),
-                              ],
-                            ))
+                      ...ayahs.map(
+                        (ayah) => ayah.isBasmalah
+                            ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  myRichText(
+                                    textSpanChildredn: [
+                                      WidgetSpan(
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                                            color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                                                    _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                                ? MyColors.quranPrimary().withOpacity(0.5)
+                                                : ayah.isMarked
+                                                    ? MyColors.markedAyah().withOpacity(0.2)
+                                                    : Colors.transparent,
+                                          ),
+                                          child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  tafseerPart(ayah),
+                                ],
+                              ),
+                      )
                     ],
                   )
                 : myRichText(
@@ -178,17 +200,18 @@ class QuranPageBody extends GetView<ThemeCtr> {
     return TextSpan(
       text: ayah.text,
       style: TextStyle(
-        // fontFamily: MyFonts.uthmanic.name,
         fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
         wordSpacing: -1,
         color: MyColors.whiteBlack(),
         background: Paint()
-          ..color = _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                  _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-              ? MyColors.quranPrimary().withOpacity(0.2)
-              : ayah.isMarked
-                  ? MyColors.markedAyah().withOpacity(0.2)
-                  : Colors.transparent
+          ..color = _quranCtr.showTafseerPage.value
+              ? Colors.transparent
+              : _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                      _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                  ? MyColors.quranPrimary().withOpacity(0.2)
+                  : ayah.isMarked
+                      ? MyColors.markedAyah().withOpacity(0.2)
+                      : Colors.transparent
           ..strokeJoin = StrokeJoin.round
           ..strokeCap = StrokeCap.round
           ..style = PaintingStyle.fill,
@@ -207,9 +230,10 @@ class QuranPageBody extends GetView<ThemeCtr> {
         _quranCtr.showTafseerPage.value
             ? WidgetSpan(
                 child: Container(
-                color: Colors.red,
-                child: MyTexts.quran(title: ""),
-              ))
+                  color: Colors.red,
+                  child: MyTexts.quran(title: ""),
+                ),
+              )
             : TextSpan(),
       ],
     );

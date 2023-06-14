@@ -143,27 +143,21 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                             TabBar(
                               controller: tabController,
                               tabs: [
-                                Tab(child: MyTexts.main(title: "يدوي".tr, color: MyColors.primary())),
                                 Tab(child: MyTexts.main(title: "مدرّج".tr, color: MyColors.primary())),
                                 Tab(child: MyTexts.main(title: "ثابت".tr, color: MyColors.primary())),
+                                Tab(child: MyTexts.main(title: "يدوي".tr, color: MyColors.primary())),
                               ],
                             ),
                             Expanded(
                               child: TabBarView(
                                 controller: tabController,
                                 children: [
-                                  ColorPicker(
-                                    pickerColor: MyColors.primary(),
-                                    onColorChanged: (val) => pickerColor = val,
-                                  ),
                                   MaterialPicker(
-                                    pickerColor: MyColors.primary(),
-                                    onColorChanged: (val) => pickerColor = val,
-                                  ),
+                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
                                   BlockPicker(
-                                    pickerColor: MyColors.primary(),
-                                    onColorChanged: (val) => pickerColor = val,
-                                  ),
+                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
+                                  ColorPicker(
+                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
                                 ],
                               ),
                             ),
