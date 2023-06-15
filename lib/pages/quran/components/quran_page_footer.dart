@@ -329,9 +329,12 @@ class QuranPageFooter extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      MyTexts.quranSecondTitle(title: 'اختر الآية:  '),
+                      MyTexts.quranSecondTitle(title: 'اختر الآية:  '.tr),
                       MyTexts.quranSecondTitle(
-                          title: _quranData.getSurahNameByNumber(_quranCtr.selectedPage.surahNumber.value)),
+                        title: AppSettings.removeTashkil(
+                                _quranData.getSurahNameByNumber(_quranCtr.selectedPage.surahNumber.value))
+                            .tr,
+                      ),
                     ],
                   ),
                   content: Container(
