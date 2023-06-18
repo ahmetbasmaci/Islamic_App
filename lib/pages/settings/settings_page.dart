@@ -6,7 +6,6 @@ import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
 import '../../components/my_switch.dart';
@@ -23,7 +22,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMixin {
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   final MyLocalCtr _myLocalCtr = Get.find<MyLocalCtr>();
-  final ThemeCtr _themeCtr = Get.find<ThemeCtr>();
   Color pickerColor = MyColors.primary();
   TabController? tabController;
 
@@ -135,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                     AlertDialog(
                       contentPadding: EdgeInsets.zero,
                       title: MyTexts.zikrTitle(title: "تغيير لون التطبيق".tr),
-                      content: Container(
+                      content: SizedBox(
                         height: Get.height,
                         width: Get.width,
                         child: Column(
