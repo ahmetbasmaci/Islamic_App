@@ -1,7 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -24,7 +26,6 @@ class QuranPageBody extends GetView<ThemeCtr> {
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   final int page;
-  ScrollController listViewController= ScrollController();
   @override
   Widget build(BuildContext context) => Stack(children: getQuranTexts(page: page));
 
@@ -92,54 +93,65 @@ class QuranPageBody extends GetView<ThemeCtr> {
 
   Widget quranBodyPart(List<Ayah> ayahs) {
     return Expanded(
-      child: ListView(
-        shrinkWrap: true,
-        controller: listViewController,
-        children: [
-          Obx(
-            () => _quranCtr.showTafseerPage.value
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ...ayahs.map(
-                        (ayah) => ayah.isBasmalah
-                            ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  myRichText(
-                                    textSpanChildredn: [
-                                      WidgetSpan(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                                            color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                                    _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                                ? MyColors.quranPrimary().withOpacity(0.5)
-                                                : ayah.isMarked
-                                                    ? MyColors.markedAyah().withOpacity(0.2)
-                                                    : Colors.transparent,
-                                          ),
-                                          child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  tafseerPart(ayah),
-                                ],
-                              ),
-                      )
-                    ],
-                  )
-                : myRichText(
-                    textSpanChildredn: [
-                      ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
-                    ],
-                  ),
-          )
-        ],
-      ),
+      child: Obx(() {
+        return _quranCtr.showTafseerPage.value ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
+      }),
+    );
+  }
+
+  Widget getQuranTafseePart(List<Ayah> ayahs) {
+    return ScrollablePositionedList.builder(
+      itemCount: ayahs.length,
+      shrinkWrap: true,
+      key: UniqueKey(),
+      itemScrollController: _quranCtr.itemScrollController,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) {
+        Ayah ayah = ayahs[index];
+
+        return Obx(
+          () => ayah.isBasmalah
+              ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    myRichText(
+                      textSpanChildredn: [
+                        WidgetSpan(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                              color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                                      _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                  ? MyColors.quranPrimary().withOpacity(0.5)
+                                  : ayah.isMarked
+                                      ? MyColors.markedAyah().withOpacity(0.2)
+                                      : Colors.transparent,
+                            ),
+                            child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
+                          ),
+                        )
+                      ],
+                    ),
+                    tafseerPart(ayah),
+                  ],
+                ),
+        );
+      },
+    );
+  }
+
+  Widget getQuranTextPart(List<Ayah> ayahs) {
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        myRichText(
+          textSpanChildredn: [
+            ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
+          ],
+        )
+      ],
     );
   }
 
@@ -155,6 +167,9 @@ class QuranPageBody extends GetView<ThemeCtr> {
   }
 
   WidgetSpan basmalahPart(Ayah ayah) {
+    // if(ayah.){
+    //   Scrollable.ensureVisible(context)
+    // }
     return WidgetSpan(
       child: Column(
         children: [
@@ -282,7 +297,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
 
   void onAyahLongPressStart(LongPressStartDetails details, Ayah ayah) {
     //set selected ayah
-    _quranCtr.selectedAyah.value = ayah;
+    _quranCtr.updateSelectedAyah(ayah);
     BotToast.showAttachedWidget(
       target: details.globalPosition,
       animationDuration: Duration(microseconds: 700),

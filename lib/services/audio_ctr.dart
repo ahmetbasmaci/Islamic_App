@@ -87,7 +87,7 @@ class AudioCtr extends GetxController {
               AudioManager.instance.play(index: 0);
             else {
               currentOfAllRepeatCount;
-              _quranCtr.selectedAyah.value = Ayah.empty(); //to hide background color
+              _quranCtr.updateSelectedAyah( Ayah.empty()); //to hide background color
               stopAudio();
             }
           } else {
@@ -98,8 +98,7 @@ class AudioCtr extends GetxController {
               AudioManager.instance.play(index: AudioManager.instance.curIndex);
             } else {
               currentAyahRepeatCount = 0;
-              _quranCtr.selectedAyah.value =
-                  ayahList.elementAt(AudioManager.instance.curIndex + 2); //to change background color
+              _quranCtr.updateSelectedAyah(  ayahList.elementAt(AudioManager.instance.curIndex + 2)); //to change background color
               _quranCtr.updateCurrentPageToCurrentAyah();
               AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
 

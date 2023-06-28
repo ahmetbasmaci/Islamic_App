@@ -516,7 +516,7 @@ class QuranPageFooter extends StatelessWidget {
                 _quranCtr.selectedPage.endAyahNum.value = _quranCtr.selectedPage.totalAyahsNum.value;
 
               Get.back();
-              if (isStartAyah) _quranCtr.selectedAyah.value = ayahs.elementAt(i);
+              if (isStartAyah) _quranCtr.updateSelectedAyah(ayahs.elementAt(i), index: i);
               _quranCtr.updateCurrentPageToWhereStartRead();
             },
             child: SingleChildScrollView(

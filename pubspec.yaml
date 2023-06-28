@@ -49,7 +49,7 @@ dependencies:
   path_provider: ^2.0.11
   rename: ^2.0.1
   rflutter_alert: ^2.0.4
-  scrollable_positioned_list: ^0.3.5
+  scrollable_positioned_list: ^0.3.8
   share_plus: ^6.3.0
   sqflite: ^2.0.3
   timezone: ^0.9.0

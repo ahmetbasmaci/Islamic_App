@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
@@ -35,6 +36,7 @@ class QuranPageCtr extends GetxController {
   late TabController tabCtr;
   Timer? _debounceTimer;
 
+  ItemScrollController itemScrollController = ItemScrollController();
   QuranPageCtr() {
     // _deleteQuranMarkedList();
     readFromStorage();
@@ -107,7 +109,7 @@ class QuranPageCtr extends GetxController {
     } else {
       Fluttertoast.showToast(msg: 'تم اضافة العلامة'.tr);
     }
-    selectedAyah.value = Ayah.empty();
+    updateSelectedAyah(Ayah.empty());
   }
 
   List<Ayah> getMarkedAyahs() {
@@ -324,7 +326,7 @@ class QuranPageCtr extends GetxController {
   void pagePressed() {
     changeOnShownState(!onShown.value);
     if (!Get.find<AudioCtr>().isPlaying.value) {
-      selectedAyah.value = Ayah.empty();
+      updateSelectedAyah(Ayah.empty());
     }
   }
 
@@ -335,7 +337,7 @@ class QuranPageCtr extends GetxController {
     else {
       if (selectedAyah.value.text == '') {
         List<Ayah> ayahsInPage = _quranData.getAyahsInPage(selectedPage.pageNumber.value).first;
-        selectedAyah.value = ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt));
+        updateSelectedAyah(ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt)));
       }
       selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
       List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: selectedAyah.value.surahNumber);
@@ -346,7 +348,36 @@ class QuranPageCtr extends GetxController {
   }
 
   void stopAudio() {
-    selectedAyah.value = Ayah.empty();
+    updateSelectedAyah(Ayah.empty());
     Get.find<AudioCtr>().stopAudio();
+  }
+
+  void updateSelectedAyah(Ayah elementAt, {index = -1}) {
+    selectedAyah.value = elementAt;
+    updateItemScrollIndex(index);
+  }
+
+  void updateItemScrollIndex(index) {
+    if (index >= 0) {
+      itemScrollController.jumpTo(index: index);
+    } else {
+      if (selectedAyah.value.text == "" || itemScrollController.isAttached == false) return;
+      index = 0;
+      bool founded = false;
+      List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
+
+      for (var ayahs in ayahsInPage) {
+        if (founded) break;
+        for (var i = 0; i < ayahs.length; i++) {
+          if (ayahs[i].text == selectedAyah.value.text) {
+            index += i;
+            founded = true;
+            break;
+          }
+        }
+        if (!founded) index += ayahs.length;
+      }
+      itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 800));
+    }
   }
 }
