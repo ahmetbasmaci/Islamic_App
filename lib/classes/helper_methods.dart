@@ -14,6 +14,14 @@ class HelperMethods {
     return inDebugMode;
   }
 
+  static bool get isFirstTime {
+    bool isFirstTime = GetStorage().read<bool>('isFirstTime') ?? true;
+    if (isFirstTime) {
+      GetStorage().write('isFirstTime', false);
+    }
+    return isFirstTime;
+  }
+
   static void setNewOpendPageId(String id) => GetStorage().write('lastOpendPageId', id);
   static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId') ?? HomePage.id;
   static Widget getNewOpendPage() {

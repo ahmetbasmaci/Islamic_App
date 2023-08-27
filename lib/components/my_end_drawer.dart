@@ -4,7 +4,7 @@ import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
-import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/theme_service.dart';
@@ -23,9 +23,6 @@ class MyEndDrawer extends GetView<ThemeCtr> {
     pageController = PageController(initialPage: myEndDrawerCtr.currentPage.value);
     _quranCtr.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
     markedAyahs = _quranCtr.getMarkedAyahs();
-    pageController.addListener(() {
-      myEndDrawerCtr.currentPage.value = pageController.page!.toInt();
-    });
     return SafeArea(
       child: Drawer(
         backgroundColor: MyColors.quranBackGround(),
@@ -116,8 +113,11 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                 )
               ],
             ),
-            onTap: () => pageController.animateTo(Get.width * 0.5 * index,
-                duration: Duration(milliseconds: 200), curve: Curves.easeIn),
+            onTap: () {
+              pageController.animateTo(Get.width * 0.5 * index,
+                  duration: Duration(milliseconds: 100), curve: Curves.easeIn);
+              myEndDrawerCtr.currentPage.value = index;
+            },
           ),
         );
       }),

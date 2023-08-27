@@ -8,7 +8,7 @@ import '../../../constents/my_colors.dart';
 import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
 import '../models/surah.dart';
-import '../controllers/quran_page_ctr.dart';
+import '../controllers/quran/quran_page_ctr.dart';
 import 'draggable_filter_chip.dart';
 
 class QuranSearchDelegate extends SearchDelegate {

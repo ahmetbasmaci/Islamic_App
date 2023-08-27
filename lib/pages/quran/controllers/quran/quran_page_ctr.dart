@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
@@ -17,9 +16,9 @@ import 'package:zad_almumin/pages/quran/models/surah.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/http_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../models/filter_chip_prop.dart';
-import '../models/marked_page.dart';
-import '../models/selected_surah.dart';
+import '../../models/filter_chip_prop.dart';
+import '../../models/marked_page.dart';
+import '../../models/selected_surah.dart';
 
 class QuranPageCtr extends GetxController {
   final QuranData _quranData = Get.find<QuranData>();
@@ -35,8 +34,8 @@ class QuranPageCtr extends GetxController {
   VoidCallback quranPageSetState = () {};
   late TabController tabCtr;
   Timer? _debounceTimer;
+  AutoScrollController autoScrollController = AutoScrollController();
 
-  ItemScrollController itemScrollController = ItemScrollController();
   QuranPageCtr() {
     // _deleteQuranMarkedList();
     readFromStorage();
@@ -341,7 +340,7 @@ class QuranPageCtr extends GetxController {
       }
       selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
       List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: selectedAyah.value.surahNumber);
-      if (Get.find<HttpCtr>().downloadCompated.value) {
+      if (Get.find<HttpCtr>().downloadComplated.value) {
         Get.find<AudioCtr>().playMultiAudio(ayahList: ayahsList);
       }
     }
@@ -357,11 +356,13 @@ class QuranPageCtr extends GetxController {
     updateItemScrollIndex(index);
   }
 
-  void updateItemScrollIndex(index) {
+  void updateItemScrollIndex(index) async {
     if (index >= 0) {
-      itemScrollController.jumpTo(index: index);
+      await autoScrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
+      // itemScrollController.jumpTo(index: index);
     } else {
-      if (selectedAyah.value.text == "" || itemScrollController.isAttached == false) return;
+      // if (selectedAyah.value.text == "" || itemScrollController.isAttached == false) return;
+      if (selectedAyah.value.text == "" || autoScrollController.isBlank == false) return;
       index = 0;
       bool founded = false;
       List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
@@ -377,7 +378,8 @@ class QuranPageCtr extends GetxController {
         }
         if (!founded) index += ayahs.length;
       }
-      itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 800));
+      await autoScrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
+      // itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 800));
     }
   }
 }

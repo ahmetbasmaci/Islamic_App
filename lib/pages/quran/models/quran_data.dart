@@ -58,7 +58,7 @@ class QuranData extends GetxController {
 
   ///giving surah number return surah
   Surah getSurahByName(String surahName) {
-    Surah surah = Surah(name: '', startAtPage: 0, ayahs: [], number: 0);
+    Surah surah = Surah.empty();
     for (var i = 0; i < _surahs.length; i++) {
       String dataSuraName = HelperMethods.normalise(_surahs[i].name);
       surahName = HelperMethods.normalise(surahName);
@@ -69,7 +69,7 @@ class QuranData extends GetxController {
 
   ///giving surah number return surah
   Surah getSurahByNumber(int surahNumber) {
-    Surah surah = Surah(name: '', startAtPage: 0, ayahs: [], number: 0);
+    Surah surah = Surah.empty();
     if (surahNumber > 0 && surahNumber <= 114)
       surah = _surahs[surahNumber - 1];
     else

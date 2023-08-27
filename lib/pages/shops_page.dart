@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
@@ -113,7 +113,7 @@ class _ShopsPageState extends State<ShopsPage> {
           // ),
           Divider(),
           isloading
-              ? MyCircularProgressIndecator()
+              ? MyCircularProgressIndicator()
               : ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -368,7 +368,7 @@ class _ShopsPageState extends State<ShopsPage> {
                     child: MyTexts.content(title: 'اجلب موقعك الحالي'),
                   ),
                   isLoading
-                      ? MyCircularProgressIndecator()
+                      ? MyCircularProgressIndicator()
                       : isLocationReady
                           ? MyIcons.done()
                           : MyIcons.error,

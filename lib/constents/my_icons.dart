@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
-import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 
@@ -21,11 +21,11 @@ class MyIcons {
   static Icon shop = Icon(Icons.shopify);
   static Icon delete = Icon(Icons.delete, color: Colors.red);
   static Icon backArrow = Icon(Icons.arrow_forward, size: MySiezes.icon);
-  static Icon info = Icon(Icons.info_outline, color: MyColors.info);
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
 
   static Icon lang({Color? color, double size = MySiezes.icon}) => Icon(Icons.language, color: color, size: size);
+  static Icon info({Color? color, double size = MySiezes.icon}) => Icon(Icons.info_outline, color: color, size: size);
   static Icon color({Color? color, double size = MySiezes.icon}) => Icon(Icons.color_lens_outlined, color: color, size: size);
   static Icon letterSize({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.textformat_size, color: color, size: size);
@@ -67,6 +67,10 @@ class MyIcons {
 
   static Icon favoriteFilled({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.favorite, color: color, size: size);
+  static Icon downlaod({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.download, color: color, size: size);
+  static Icon downlaodDone({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.download_done, color: color, size: size);
   static Icon favorite({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.favorite_border, color: color, size: size);
   static Icon downArrow({Color? color, double size = MySiezes.icon}) =>

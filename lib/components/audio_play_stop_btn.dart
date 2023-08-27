@@ -8,7 +8,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/my_colors.dart';
 import '../services/http_service.dart';
@@ -28,7 +28,7 @@ class AudioPlayStopBtn extends GetView<ThemeCtr> {
         future: autoPlay ? handleAudio() : Future.delayed(Duration(seconds: 0)).then((value) => ''),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
-            return SizedBox(height: MySiezes.icon, width: MySiezes.icon, child: MyCircularProgressIndecator());
+            return SizedBox(height: MySiezes.icon, width: MySiezes.icon, child: MyCircularProgressIndicator());
           else if (snapshot.hasError || snapshot.data == 'null')
             return Text(snapshot.error.toString());
           else {

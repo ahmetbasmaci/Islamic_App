@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
@@ -6,7 +7,7 @@ import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
-import '../../components/my_circular_progress_indecator.dart';
+import '../../components/my_circular_progress_indicator.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_sizes.dart';
 import 'components/question_button.dart';
@@ -29,7 +30,7 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
   }
 
   final QuranData _quranData = Get.find<QuranData>();
-  AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
+  AyahsQuestionsCtr ayahsQuestionCtr = Get.find<AyahsQuestionsCtr>();
   late Ayah selectedAyah;
   late AnimationController animCtr;
   late Animation rightToLeftAnim;
@@ -39,47 +40,65 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
     return Scaffold(
       appBar: MyAppBar(title: 'مراجعة القرآن'.tr),
       drawer: MyDrawer(),
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
-        child: Column(
-          children: [
-            MyTexts.outsideHeader(
-                title: "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية".tr, textAlign: TextAlign.center),
-            Expanded(
-              child: FutureBuilder(
-                  future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),
-                  builder: (context, AsyncSnapshot<Ayah> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting)
-                      return MyCircularProgressIndecator();
-                    else if (snapshot.hasError)
-                      return Center(
-                        child: Column(
-                          children: [
-                            IconButton(onPressed: () => setState(() {}), icon: MyIcons.refresh),
-                            Text(snapshot.error.toString()),
-                          ],
-                        ),
-                      );
+      body: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding),
+            child: Column(
+              children: [
+                MyTexts.outsideHeader(
+                    title: "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية".tr, textAlign: TextAlign.center),
+                Expanded(
+                  child: FutureBuilder(
+                      future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),
+                      builder: (context, AsyncSnapshot<Ayah> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting)
+                          return MyCircularProgressIndicator();
+                        else if (snapshot.hasError)
+                          return Center(
+                            child: Column(
+                              children: [
+                                IconButton(onPressed: () => setState(() {}), icon: MyIcons.refresh),
+                                Text(snapshot.error.toString()),
+                              ],
+                            ),
+                          );
 
-                    selectedAyah = snapshot.data!;
+                        selectedAyah = snapshot.data!;
 
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          QuestionCard(ayah: selectedAyah),
-                          QuestionAnswerOptions(selectedAyah: selectedAyah),
-                        ],
-                      ),
-                    );
-                  }),
+                        return SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              QuestionCard(ayah: selectedAyah),
+                              QuestionAnswerOptions(selectedAyah: selectedAyah),
+                            ],
+                          ),
+                        );
+                      }),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: QuestionsFooter(pageSetState: () => setState(() {})),
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: QuestionsFooter(pageSetState: () => setState(() {})),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              maxBlastForce: 30,
+              confettiController: ayahsQuestionCtr.confettiCtr,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: true,
+              numberOfParticles: 100,
+              gravity: 0.50,
+              emissionFrequency: 0.1,
+              minimumSize: const Size(10, 10),
+              maximumSize: const Size(30, 30),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

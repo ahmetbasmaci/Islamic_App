@@ -819,7 +819,6 @@ class MyLocal implements Translations {
         "تم تفعيل تذكير حديث عن رسول الله": "Hadith reminder has been activated",
         "لن يصلك اشعار حديث عن رسول الله":
             "You will not receive a notification for a hadith about the Messenger of Allah",
-
         //--------------------------------------------------------------------------------
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":

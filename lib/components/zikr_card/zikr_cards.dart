@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/audio_play_stop_btn.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
 import 'package:zad_almumin/components/zikr_card/referesh_btn_rounded.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_count_widget.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/database/sqldb.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
@@ -94,7 +94,7 @@ class ZikrCard {
           builder: (context, snapshot) {
             if (snapshot.hasError)
               return Text(snapshot.error.toString());
-            else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
+            else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
             // else if (!snapshot.hasData) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
             return ZikrCardInnerContainer(
@@ -169,7 +169,7 @@ class ZikrCard {
             future: myFuture,
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text(snapshot.error.toString());
-              if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndecator();
+              if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
               hadithZikrData ??= snapshot.data as ZikrData;
 
               return ZikrCardInnerContainer(

@@ -2,19 +2,23 @@ import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
+import 'package:zad_almumin/pages/readers_quran_download/readers_quran_download_page.dart';
 import '../../../services/audio_ctr.dart';
 import '../../../constents/my_colors.dart';
 import '../../../constents/my_icons.dart';
 import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
 import '../../../services/http_service.dart';
+import '../controllers/quran/tafseers.ctr.dart';
 import '../models/ayah.dart';
-import '../controllers/quran_page_ctr.dart';
+import '../controllers/quran/quran_page_ctr.dart';
+import '../models/ayah_tafseer.dart';
+import '../tafseer_page.dart';
 
 class QuranPageFooter extends StatelessWidget {
   QuranPageFooter({Key? key}) : super(key: key);
@@ -113,13 +117,25 @@ class QuranPageFooter extends StatelessWidget {
                         for (QuranReaders item in sortedQuranReader)
                           DropdownMenuItem(
                             value: item,
-                            child: MyTexts.quranSecondTitle(
-                              title: item.arabicName.tr,
-                              color: _quranCtr.selectedPage.selectedQuranReader.value.name == item.name
-                                  ? MyColors.primary()
-                                  : MyColors.whiteBlack(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                MyTexts.quranSecondTitle(
+                                  title: item.arabicName.tr,
+                                  color: _quranCtr.selectedPage.selectedQuranReader.value.name == item.name
+                                      ? MyColors.primary()
+                                      : MyColors.whiteBlack(),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Get.to(() => ReaderQuranDownloadPage(reader: item),
+                                        transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 200));
+                                  },
+                                  icon: MyIcons.info(),
+                                )
+                              ],
                             ),
-                          )
+                          ),
                       ],
                     ),
                     DropdownButton<String>(
@@ -197,7 +213,16 @@ class QuranPageFooter extends StatelessWidget {
                         child: InkWell(
                           child: Obx(() =>
                               MyIcons.animated_swichQuranImages(color: MyColors.primary(), size: MySiezes.icon * 1.2)),
-                          onTap: () async => _quranCtr.changeShowQuranStyle(),
+                          onTap: () async {
+                            List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
+                            if (allTafseer.isEmpty) {
+                              Get.to(() => TafseersPage(),
+                                  transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 200));
+                              return;
+                            }
+
+                            _quranCtr.changeShowQuranStyle();
+                          },
                         ),
                       ),
                     ),
@@ -354,7 +379,7 @@ class QuranPageFooter extends StatelessWidget {
                             ),
                           );
                         } else
-                          return MyCircularProgressIndecator();
+                          return MyCircularProgressIndicator();
                       },
                     ),
                   ),

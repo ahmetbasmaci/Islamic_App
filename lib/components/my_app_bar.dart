@@ -15,6 +15,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
     this.bottom,
     this.showSettingsBtn = false,
     this.showDrawerBtn = true,
+    this.centerTitle = false,
   }) : super(key: key);
   final String title;
 
@@ -23,6 +24,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   bool showSettingsBtn = false;
   bool showDrawerBtn = true;
+  bool centerTitle = false;
   @override
   Size get preferredSize {
     return Size.fromHeight(kToolbarHeight);
@@ -34,6 +36,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       title: MyTexts.outsideHeader(title: title, color: MyColors.primary()),
+      centerTitle: centerTitle,
       leading: leading ??
           (showDrawerBtn
               ? IconButton(onPressed: () => Scaffold.of(context).openDrawer(), icon: MyIcons.drawer)

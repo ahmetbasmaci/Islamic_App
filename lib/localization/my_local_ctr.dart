@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/tafseers.ctr.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class MyLocalCtr extends GetxController {
@@ -13,5 +14,7 @@ class MyLocalCtr extends GetxController {
     GetStorage().write("currentLang", lang);
     Get.find<ThemeCtr>().updateThemes();
     await Get.updateLocale(Locale(lang));
+
+    Get.find<TafseersCtr>().languageUpdated();
   }
 }

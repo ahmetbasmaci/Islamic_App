@@ -1,21 +1,24 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/tafseers.ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah_tafseer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 
+import '../pages/quran/models/tafseer_model.dart';
+
 class JsonService {
-  // static List allQuranData = [];
   static final QuranData _quranData = Get.find<QuranData>();
+  static final TafseersCtr _tafseersCtr = Get.find<TafseersCtr>();
   static List allHadithData = [];
   static List allZikrDataList = [];
   static List allAllahNamesList = [];
   static Map allReaders = {};
-  static List<SurahTafseer> allTafseer = [];
-
   static Future loadData() async {
     await loadQuranData();
     await loadHadithData();
@@ -23,6 +26,7 @@ class JsonService {
     await loadAllahNamesData();
     await loadAllReaders();
     await loadTafseer();
+    await loadTafseersManager();
   }
 
   static Future loadQuranData() async {
@@ -66,22 +70,25 @@ class JsonService {
   }
 
   static Future loadTafseer() async {
-    if (allTafseer.isNotEmpty) return;
-    var allTafseerString = await rootBundle.loadString('assets/database/tafseer/tafseer2.json');
-    Map tafseerMap = jsonDecode(allTafseerString);
+    if (_tafseersCtr.selectedTafseerId.value == 0) return;
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    var file = File('$dir/tafseer_${_tafseersCtr.selectedTafseerId.value}.json');
+    if (await file.exists()) {
+      Map tafseerMap = jsonDecode(await file.readAsString());
+      _tafseersCtr.allTafseer.clear();
+      for (var i = 1; i <= 114; i++) {
+        List surahTafseerMap = tafseerMap['surahId_$i'];
+        String surahName = _quranData.getSurahNameByNumber(i);
+        SurahTafseer surahTafseer = SurahTafseer(surahNumber: i, surahName: surahName, ayahsTafseer: []);
 
-    for (var i = 1; i <= 114; i++) {
-      List surahTafseerMap = tafseerMap['surahId_$i'];
-      String surahName = _quranData.getSurahNameByNumber(i);
-      SurahTafseer surahTafseer = SurahTafseer(surahNumber: i, surahName: surahName, ayahsTafseer: []);
-
-      for (var ayah in surahTafseerMap) {
-        AyahTafseer newAyahTafseer = AyahTafseer.fromJson(ayah as Map);
-        newAyahTafseer.surahNumber = i;
-        newAyahTafseer.surahName = surahName;
-        surahTafseer.ayahsTafseer.add(newAyahTafseer);
+        for (var ayah in surahTafseerMap) {
+          AyahTafseer newAyahTafseer = AyahTafseer.fromJson(ayah as Map);
+          newAyahTafseer.surahNumber = i;
+          newAyahTafseer.surahName = surahName;
+          surahTafseer.ayahsTafseer.add(newAyahTafseer);
+        }
+        _tafseersCtr.allTafseer.add(surahTafseer);
       }
-      allTafseer.add(surahTafseer);
     }
   }
 
@@ -162,5 +169,19 @@ class JsonService {
     if (allReaders.isEmpty) await loadAllReaders();
 
     return allReaders;
+  }
+
+  static Future<void> loadTafseersManager() async {
+    if (_tafseersCtr.tafseersManager.isNotEmpty) return;
+    List<TafseerModel> tafseerModels = [];
+    var tafseersManagerFileStr = await rootBundle.loadString('assets/database/tafseer/tafseers_manager.json');
+    List tafseersJsonList = jsonDecode(tafseersManagerFileStr);
+    for (var element in tafseersJsonList) {
+      tafseerModels.add(TafseerModel.fromJson(element));
+      var dir = await getApplicationDocumentsDirectory();
+      var file = File('${dir.path}/tafseer_${tafseerModels.last.id}.json');
+      if (await file.exists()) tafseerModels.last.downloadState.value = DownloadState.downloaded;
+    }
+    _tafseersCtr.addTafseer(tafseerModels);
   }
 }

@@ -1,9 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -11,13 +10,15 @@ import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
+import 'package:zad_almumin/pages/quran/models/ayah_tafseer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/services/http_service.dart';
-import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/services/theme_service.dart';
+
+import '../controllers/quran/tafseers.ctr.dart';
 
 class QuranPageBody extends GetView<ThemeCtr> {
   QuranPageBody({super.key, this.page = 0});
@@ -100,43 +101,49 @@ class QuranPageBody extends GetView<ThemeCtr> {
   }
 
   Widget getQuranTafseePart(List<Ayah> ayahs) {
-    return ScrollablePositionedList.builder(
+    return ListView.builder(
       itemCount: ayahs.length,
       shrinkWrap: true,
-      key: UniqueKey(),
-      itemScrollController: _quranCtr.itemScrollController,
+      controller: _quranCtr.autoScrollController,
+      //key: UniqueKey(),
+      // itemScrollController: _quranCtr.itemScrollController,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
         Ayah ayah = ayahs[index];
 
-        return Obx(
-          () => ayah.isBasmalah
-              ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    myRichText(
-                      textSpanChildredn: [
-                        WidgetSpan(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                              color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                      _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                  ? MyColors.quranPrimary().withOpacity(0.5)
-                                  : ayah.isMarked
-                                      ? MyColors.markedAyah().withOpacity(0.2)
-                                      : Colors.transparent,
+        return AutoScrollTag(
+          controller: _quranCtr.autoScrollController,
+          key: ValueKey(index),
+          index: index,
+          child: Obx(
+            () => ayah.isBasmalah
+                ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      myRichText(
+                        textSpanChildredn: [
+                          WidgetSpan(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                                color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                                        _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                    ? MyColors.quranPrimary().withOpacity(0.5)
+                                    : ayah.isMarked
+                                        ? MyColors.markedAyah().withOpacity(0.2)
+                                        : Colors.transparent,
+                              ),
+                              child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
                             ),
-                            child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
-                          ),
-                        )
-                      ],
-                    ),
-                    tafseerPart(ayah),
-                  ],
-                ),
+                          )
+                        ],
+                      ),
+                      tafseerPart(ayah),
+                    ],
+                  ),
+          ),
         );
       },
     );
@@ -255,7 +262,8 @@ class QuranPageBody extends GetView<ThemeCtr> {
   }
 
   Widget tafseerPart(Ayah ayah) {
-    String tafseerText = JsonService.allTafseer
+    List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
+    String tafseerText = allTafseer
         .firstWhere((x) => x.surahNumber == ayah.surahNumber)
         .ayahsTafseer
         .firstWhere((x) => x.ayahNumber == ayah.ayahNumber)
@@ -380,7 +388,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
           _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
           _quranCtr.changeOnShownState(false);
           _audioCtr.stopAudio();
-          if (_httpCtr.downloadCompated.value) {
+          if (_httpCtr.downloadComplated.value) {
             _audioCtr.playMultiAudio(ayahList: ayahsList);
           }
         },

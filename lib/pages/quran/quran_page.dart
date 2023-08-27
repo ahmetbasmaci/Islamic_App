@@ -9,7 +9,7 @@ import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_up.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../home_page.dart';
-import 'controllers/quran_page_ctr.dart';
+import 'controllers/quran/quran_page_ctr.dart';
 
 class QuranPage extends StatefulWidget {
   QuranPage({Key? key, bool? showInKahf}) : super(key: key) {

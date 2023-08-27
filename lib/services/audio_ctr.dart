@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
-import '../pages/quran/controllers/quran_page_ctr.dart';
+import '../pages/quran/controllers/quran/quran_page_ctr.dart';
 
 class AudioCtr extends GetxController {
   @override

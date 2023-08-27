@@ -12,7 +12,8 @@ import '../../../constents/my_texts.dart';
 import '../../../services/theme_service.dart';
 import '../../home_page.dart';
 import '../../settings/settings_ctr.dart';
-import '../controllers/quran_page_ctr.dart';
+import '../controllers/quran/quran_page_ctr.dart';
+import '../tafseer_page.dart';
 
 class QuranPageUp extends GetView<ThemeCtr> {
   QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
@@ -36,7 +37,11 @@ class QuranPageUp extends GetView<ThemeCtr> {
           color: MyColors.quranBackGround(),
           boxShadow: [
             BoxShadow(
-                color: MyColors.quranPrimary().withOpacity(0.5), offset: Offset(0, 5), blurRadius: 30, spreadRadius: .5)
+              color: MyColors.quranPrimary().withOpacity(0.5),
+              offset: Offset(0, 5),
+              blurRadius: 30,
+              spreadRadius: .5,
+            )
           ],
         ),
         child: Align(
@@ -133,6 +138,12 @@ class QuranPageUp extends GetView<ThemeCtr> {
           });
         },
       ),
+      MenuOptionsItem(
+        title: 'التفاسير'.tr,
+        icon: MyIcons.peaper(color: MyColors.quranPrimary()),
+        onTap: () =>
+            Get.to(() => TafseersPage(), transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 200)),
+      ),
     ];
     MenuOptionsItem changeFontSizeMenu = MenuOptionsItem(
       child: Obx(() {
@@ -176,7 +187,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
 
     itemsList.add(PopupMenuItem(
       value: changeFontSizeMenu,
-      onTap: null,
+      onTap: () {},
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -189,7 +200,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
     ));
     itemsList.add(PopupMenuItem(
       value: changeFontTypeMenu,
-      onTap: null,
+      onTap: () {},
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -205,7 +216,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
     itemsList.addAll(menuItemList.map(
       (e) => PopupMenuItem(
         value: e,
-        onTap: null,
+        onTap: () {},
         child: GestureDetector(
           onTap: () {
             Get.back();

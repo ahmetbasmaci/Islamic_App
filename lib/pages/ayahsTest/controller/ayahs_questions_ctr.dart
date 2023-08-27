@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,6 +25,7 @@ class AyahsQuestionsCtr extends GetxController {
   Rx<QuestionType> questionType = QuestionType.ayahInJuzAndPage.obs;
   Rx<AyahsAnswersType> answersType = AyahsAnswersType.dropDownMenu.obs;
   AyahsAnswerStates ayahsAnswerStates = AyahsAnswerStates.none;
+  ConfettiController confettiCtr = ConfettiController(duration: Duration(seconds: 1));
   int get getTrueAnwersCounter => trueAnswersCounter.value;
 
   AyahsQuestionsCtr() {
@@ -88,6 +90,8 @@ class AyahsQuestionsCtr extends GetxController {
       increaseTrueAnswerCounter();
       answerColor.value = MyColors.true_;
       ayahsAnswerStates = AyahsAnswerStates.correct;
+      confettiCtr.play();
+      Future.delayed(Duration(seconds: 2)).then((value) => confettiCtr.stop());
     } else {
       increaseWrongAnswerCounter();
       currectAnswerJuzDropDown.value = ayah.juz;

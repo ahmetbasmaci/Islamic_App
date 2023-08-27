@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:zad_almumin/constents/app_settings.dart';
-import 'package:zad_almumin/pages/quran/controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../pages/quran/models/ayah.dart';
@@ -63,34 +65,42 @@ class HttpService {
   }
 
   /// Download surah ayahs and save it in the device
-  static Future<List<Ayah>> getSurah({required int surahNumber}) async {
+  static Future<List<Ayah>> getSurah({required int surahNumber, QuranReaders? reader}) async {
     List<Ayah> ayahsList = _quranData.getSurahAyahs(surahNumber);
     String formatedSurahNumber = AppSettings.formatInt3.format(surahNumber);
     bool isDownloadedBefore =
         GetStorage().read('${_quranCtr.selectedPage.selectedQuranReader.value.name}$formatedSurahNumber') ?? false;
 
-    String dir =
-        '${(await getApplicationDocumentsDirectory()).path}/${_quranCtr.selectedPage.selectedQuranReader.value.name}';
+    String dir = '${AppSettings.filesDir}/${_quranCtr.selectedPage.selectedQuranReader.value.name}';
     if (isDownloadedBefore) {
       updateAyahsAudioPath(ayahsList, dir, formatedSurahNumber);
-      _httpCtrl.downloadCompated.value = true;
+      _httpCtrl.downloadComplated.value = true;
     } else {
+      var connectivityResult = await Connectivity().checkConnectivity();
+
+      if (connectivityResult == ConnectivityResult.none) {
+        Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
+        return ayahsList;
+      }
+
       _httpCtrl.isLoading.value = true;
       _httpCtrl.isStopDownload.value = false;
-      _httpCtrl.downloadCompated.value = false;
+      _httpCtrl.downloadComplated.value = false;
 
       Map allReaders = await JsonService.getAllReaders();
-      String readerUrl = allReaders[_quranCtr.selectedPage.selectedQuranReader.value.name];
+      reader ??= _quranCtr.selectedPage.selectedQuranReader.value;
+      String readerUrl = allReaders[reader.name];
       String url = '$readerUrl/zips/$formatedSurahNumber.zip';
       try {
         File zippedFile = await _downloadSurah(url, dir, formatedSurahNumber);
         if (!zippedFile.existsSync()) return ayahsList;
 
-        await unarchiveAndSave(zippedFile, dir);
+        await unArchiveAndSave(zippedFile, dir);
 
         updateAyahsAudioPath(ayahsList, dir, formatedSurahNumber);
 
-        removeUnneceseryFiles(dir, formatedSurahNumber);
+        dir = '$dir/$formatedSurahNumber.zip';
+        removeZipFile(dir);
       } catch (e) {
         Fluttertoast.showToast(msg: '${'مشكلة في الاتصال بالانترنت'}.tr \t $e');
       }
@@ -101,16 +111,15 @@ class HttpService {
 
   /// Download the ZIP file using the HTTP library
   static Future<File> _downloadSurah(String url, String filePath, String formatedSurahNumber) async {
-    Fluttertoast.showToast(msg: 'جاري تحميل الآية'.tr);
-
     File file = await File('$filePath/$formatedSurahNumber').create(recursive: true);
 
     var connectivityResult = await Connectivity().checkConnectivity();
-
+    
     if (connectivityResult == ConnectivityResult.none) {
       Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return file;
     } else {
+      Fluttertoast.showToast(msg: 'بدء تحميل السورة'.tr);
       try {
         _httpCtrl.downloadProgress.value = 0;
         var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
@@ -131,7 +140,7 @@ class HttpService {
           //download complete
           if (_httpCtrl.downloadProgress.value == 100) {
             GetStorage().write('${_quranCtr.selectedPage.selectedQuranReader.value.name}$formatedSurahNumber', true);
-            _httpCtrl.downloadCompated.value = true;
+            _httpCtrl.downloadComplated.value = true;
             Fluttertoast.showToast(msg: 'تم تحميل الآية بنجاح'.tr);
           } else {
             Fluttertoast.showToast(msg: 'لم يتم تحميل الآية بنجاح'.tr);
@@ -149,7 +158,7 @@ class HttpService {
   }
 
   // Unarchive and save the file in Documents directory and save the paths in the array
-  static Future unarchiveAndSave(File zippedFile, String dir) async {
+  static Future unArchiveAndSave(File zippedFile, String dir) async {
     var bytes = zippedFile.readAsBytesSync();
     var archive = ZipDecoder().decodeBytes(bytes);
     for (var file in archive) {
@@ -162,11 +171,15 @@ class HttpService {
     }
   }
 
-  static void removeUnneceseryFiles(String dir, String formatedSurahNumber) async {
-    var zipFile = File('$dir/$formatedSurahNumber.zip');
-    if (await zipFile.exists()) zipFile.delete();
-    var licenseFile = File('$dir/000_license');
-    if (await licenseFile.exists()) licenseFile.delete();
+  static void removeZipFile(String dir) async {
+    try {
+      var zipFile = File(dir);
+      if (await zipFile.exists()) zipFile.delete();
+      var licenseFile = File('$dir/000_license');
+      if (await licenseFile.exists()) licenseFile.delete();
+    } catch (e) {
+      print(e);
+    }
   }
 
   static void updateAyahsAudioPath(List<Ayah> ayahsList, String dir, String formatedSurahNumber) {
@@ -174,11 +187,47 @@ class HttpService {
       ayahsList[i].audioPath = '$dir/$formatedSurahNumber${AppSettings.formatInt3.format(ayahsList[i].ayahNumber)}.mp3';
     }
   }
+
+  static Future<bool> downloadTafsirById(int tafseerId) async {
+    bool downloadedSuccesfuly = false;
+    Directory baseDir = await getApplicationDocumentsDirectory();
+    String fileDir = '${baseDir.path}/tafseer_$tafseerId.json';
+    File zippedFile = File(fileDir);
+    try {
+      ListResult filesList = await FirebaseStorage.instance.ref('tafseers').listAll();
+
+      Reference? ref = filesList.items.firstWhereOrNull((element) => element.name.contains(tafseerId.toString()));
+
+      if (ref != null) {
+        String url = await ref.getDownloadURL();
+        var response = await http.get(Uri.parse(url));
+
+        if (response.statusCode == 200) {
+          await zippedFile.writeAsBytes(response.bodyBytes);
+
+          //  await unArchiveAndSave(zippedFile, baseDir.path);
+
+          // removeZipFile(fileDir);
+
+          downloadedSuccesfuly = true;
+          Fluttertoast.showToast(msg: 'تم تحميل التفسير بنجاح'.tr);
+        } else {
+          Fluttertoast.showToast(msg: 'لم يتم تحميل التفسير بنجاح'.tr);
+        }
+      } else {
+        Fluttertoast.showToast(msg: 'لم يتم تحميل التفسير بنجاح'.tr);
+      }
+    } catch (e) {
+      print(e);
+      Fluttertoast.showToast(msg: 'لم يتم تحميل التفسير بنجاح'.tr);
+    }
+    return downloadedSuccesfuly;
+  }
 }
 
 class HttpCtr extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStopDownload = false.obs;
   RxDouble downloadProgress = (0.0).obs;
-  RxBool downloadCompated = false.obs;
+  RxBool downloadComplated = false.obs;
 }

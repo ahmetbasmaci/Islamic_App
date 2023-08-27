@@ -8,6 +8,7 @@ import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
 import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
+import 'package:zad_almumin/pages/quran/tafseer_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/localization/my_local.dart';
@@ -57,9 +58,11 @@ class MyApp extends StatelessWidget {
         ReviewPage.id: (context) => ReviewPage(),
         UserReviews.id: (context) => UserReviews(),
         PrayerTimes.id: (context) => PrayerTimes(),
+        TafseersPage.id: (context) => TafseersPage(),
       },
       // home: DebouncedSearchBar(),
-      initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
+      initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
+      //initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
       darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,

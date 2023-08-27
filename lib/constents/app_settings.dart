@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'my_colors.dart';
 
 class AppSettings {
+  AppSettings() {
+    setFileDir();
+  }
   static SystemUiOverlayStyle systemUiOverlayStyleQuran = SystemUiOverlayStyle(
     statusBarColor: MyColors.quranStatus(),
     statusBarIconBrightness: Brightness.dark,
@@ -35,6 +39,10 @@ class AppSettings {
   static String machineCode = '';
   static String developerMachineCode = 'RP1A.200720.011';
   static get isArabicLang => Get.locale!.languageCode == 'ar';
+
+  void setFileDir() async => filesDir = (await getApplicationDocumentsDirectory()).path;
+  static String filesDir = "";
+
   static Future setMechineCode() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {

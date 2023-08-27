@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import '../../../constents/my_colors.dart';
 import '../models/filter_chip_prop.dart';
-import '../controllers/quran_page_ctr.dart';
+import '../controllers/quran/quran_page_ctr.dart';
 
 class DraggableFilterChip extends StatelessWidget {
   DraggableFilterChip({super.key});
