@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -10,6 +11,7 @@ import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/pages/quran/components/quran_page_body_images.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/ayah_tafseer.dart';
@@ -27,16 +29,22 @@ class QuranPageBody extends GetView<ThemeCtr> {
   final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   final int page;
-  @override
-  Widget build(BuildContext context) => Stack(children: getQuranTexts(page: page));
 
-  List<Widget> getQuranImages({required int page}) {
-    List<Widget> images = [
-      Center(child: Image.asset('assets/images/quran pages/00$page.png', color: MyColors.quranText())),
-      Center(child: Image.asset('assets/images/quran pages/000$page.png')),
-    ];
-    return images;
-  }
+  @override
+  Widget build(BuildContext context) => Obx(() =>
+      _quranCtr.showQuranImages.value ? QuranPageBodyImages(page: page) : Stack(children: getQuranTexts(page: page)));
+
+  // @override
+  // Widget build(BuildContext context) => Obx(
+  //     () => Stack(children: _quranCtr.showQuranImages.value ? getQuranImages(page: page) : getQuranTexts(page: page)));
+
+  // List<Widget> getQuranImages({required int page}) {
+  //   List<Widget> images = [
+  //     Center(child: Image.asset('assets/images/quran pages/00$page.png', color: MyColors.quranText())),
+  //     Center(child: Image.asset('assets/images/quran pages/000$page.png')),
+  //   ];
+  //   return images;
+  // }
 
   List<Widget> getQuranTexts({required int page}) {
     List<Widget> pages = [];
@@ -55,7 +63,7 @@ class QuranPageBody extends GetView<ThemeCtr> {
         child: Column(
           children: [
             quranUpPart(),
-            quranBodyPart(ayahs),
+            Expanded(child: quranBodyPart(ayahs)),
             footerPart(),
           ],
         ),
@@ -93,71 +101,57 @@ class QuranPageBody extends GetView<ThemeCtr> {
   }
 
   Widget quranBodyPart(List<Ayah> ayahs) {
-    return Expanded(
-      child: Obx(() {
-        return _quranCtr.showTafseerPage.value ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
-      }),
-    );
+    return Obx(() {
+      return _quranCtr.showTafseerPage.value ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
+    });
   }
 
   Widget getQuranTafseePart(List<Ayah> ayahs) {
-    return ListView.builder(
+    return ScrollablePositionedList.builder(
+      key: UniqueKey(),
       itemCount: ayahs.length,
       shrinkWrap: true,
-      controller: _quranCtr.autoScrollController,
-      //key: UniqueKey(),
-      // itemScrollController: _quranCtr.itemScrollController,
+      itemScrollController: _quranCtr.itemScrollController2,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
         Ayah ayah = ayahs[index];
-
-        return AutoScrollTag(
-          controller: _quranCtr.autoScrollController,
-          key: ValueKey(index),
-          index: index,
-          child: Obx(
-            () => ayah.isBasmalah
-                ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      myRichText(
-                        textSpanChildredn: [
-                          WidgetSpan(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                                color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
-                                        _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                    ? MyColors.quranPrimary().withOpacity(0.5)
-                                    : ayah.isMarked
-                                        ? MyColors.markedAyah().withOpacity(0.2)
-                                        : Colors.transparent,
-                              ),
-                              child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
+        return Obx(
+          () => ayah.isBasmalah
+              ? myRichText(textSpanChildredn: [basmalahPart(ayah)])
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    myRichText(
+                      textSpanChildredn: [
+                        WidgetSpan(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: MySiezes.screenPadding / 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                              color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
+                                      _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
+                                  ? MyColors.quranPrimary().withOpacity(0.5)
+                                  : ayah.isMarked
+                                      ? MyColors.markedAyah().withOpacity(0.2)
+                                      : Colors.transparent,
                             ),
-                          )
-                        ],
-                      ),
-                      tafseerPart(ayah),
-                    ],
-                  ),
-          ),
+                            child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
+                          ),
+                        )
+                      ],
+                    ),
+                    tafseerPart(ayah),
+                  ],
+                ),
         );
       },
     );
   }
 
   Widget getQuranTextPart(List<Ayah> ayahs) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        myRichText(
-          textSpanChildredn: [
-            ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
-          ],
-        )
+    return myRichText(
+      textSpanChildredn: [
+        ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
       ],
     );
   }

@@ -52,6 +52,7 @@ dependencies:
   rename: ^2.0.1
   rflutter_alert: ^2.0.4
   scroll_to_index: ^3.0.1
+  scrollable_positioned_list: ^0.3.8
   share_plus: ^6.3.0
   sqflite: ^2.0.3
   timezone: ^0.9.0
@@ -70,6 +71,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/images/quran pages/
     - assets/database/azkar/
     - assets/database/hadith/
     - assets/database/quran/

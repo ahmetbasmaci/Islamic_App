@@ -39,7 +39,8 @@ class MyColors {
 
   static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
   static Color quranPrimary() => Get.isDarkMode ? primaryDark : primary_;
-  static Color markedAyah() => Get.isDarkMode ? _markedAyahDark : _markedAyah;
+  static Color markedAyah() => Get.isDarkMode ? primaryDark : primary_;
+  // static Color markedAyah() => Get.isDarkMode ? _markedAyahDark : _markedAyah;
   static Color quranStatus() => Get.isDarkMode ? Color.fromARGB(255, 0, 0, 0) : Color.fromARGB(255, 210, 195, 174);
 
   static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;

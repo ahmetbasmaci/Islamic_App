@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 
 class Ayah {
@@ -45,9 +46,7 @@ class Ayah {
     return Ayah(
       ayahNumber: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
-      text: json['text'].toString().contains(AppSettings.basmalahTxt)
-          ? '\n${json['text']}\n'
-          : json['text'],
+      text: json['text'].toString().contains(AppSettings.basmalahTxt) ? '\n${json['text']}\n' : json['text'],
       juz: json['juz'],
       page: json['page'],
       haveSajda: false, //json['sajda'] ?? false,

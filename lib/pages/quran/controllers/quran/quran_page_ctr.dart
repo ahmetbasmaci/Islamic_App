@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
@@ -23,6 +23,7 @@ import '../../models/selected_surah.dart';
 class QuranPageCtr extends GetxController {
   final QuranData _quranData = Get.find<QuranData>();
   bool showInKahf = false;
+  RxBool showQuranImages = false.obs;
   RxBool onShown = false.obs;
   RxBool showTafseerPage = false.obs;
   Rx<Ayah> selectedAyah = Ayah.empty().obs;
@@ -34,8 +35,8 @@ class QuranPageCtr extends GetxController {
   VoidCallback quranPageSetState = () {};
   late TabController tabCtr;
   Timer? _debounceTimer;
-  AutoScrollController autoScrollController = AutoScrollController();
-
+  ItemScrollController itemScrollController = ItemScrollController();
+  ItemScrollController itemScrollController2 = ItemScrollController();
   QuranPageCtr() {
     // _deleteQuranMarkedList();
     readFromStorage();
@@ -226,16 +227,27 @@ class QuranPageCtr extends GetxController {
     return zikrData;
   }
 
+  void changeQuranImagesStyle() {
+    showQuranImages.value = !showQuranImages.value;
+    GetStorage storage = GetStorage();
+    storage.write('showQuranImages', showQuranImages.value);
+  }
+
   void changeShowQuranStyle() {
     showTafseerPage.value = !showTafseerPage.value;
     GetStorage storage = GetStorage();
     storage.write('showTafseerPage', showTafseerPage.value);
+
+    if (showTafseerPage.value && showQuranImages.value) {
+      changeQuranImagesStyle();
+    }
   }
 
   void readFromStorage() {
     GetStorage storage = GetStorage();
 
-    showTafseerPage.value = storage.read<bool>('showAsImages') ?? showTafseerPage.value;
+    // showTafseerPage.value = storage.read<bool>('showTafseerPage') ?? showTafseerPage.value;
+    showQuranImages.value = storage.read<bool>('showQuranImages') ?? showQuranImages.value;
     quranFontSize.value = storage.read<double>('quranFontSize') ?? quranFontSize.value;
 
     //get selected reader
@@ -358,28 +370,26 @@ class QuranPageCtr extends GetxController {
 
   void updateItemScrollIndex(index) async {
     if (index >= 0) {
-      await autoScrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
-      // itemScrollController.jumpTo(index: index);
+      itemScrollController.jumpTo(index: index);
     } else {
-      // if (selectedAyah.value.text == "" || itemScrollController.isAttached == false) return;
-      if (selectedAyah.value.text == "" || autoScrollController.isBlank == false) return;
-      index = 0;
-      bool founded = false;
-      List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
-
-      for (var ayahs in ayahsInPage) {
-        if (founded) break;
-        for (var i = 0; i < ayahs.length; i++) {
-          if (ayahs[i].text == selectedAyah.value.text) {
-            index += i;
-            founded = true;
-            break;
-          }
-        }
-        if (!founded) index += ayahs.length;
-      }
-      await autoScrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
-      // itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 800));
+      // if (selectedAyah.value.text == "") return; // || autoScrollController.isBlank == false
+      // index = 0;
+      // bool founded = false;
+      // List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
+      // for (var ayahs in ayahsInPage) {
+      //   if (founded) break;
+      //   for (var i = 0; i < ayahs.length; i++) {
+      //     if (ayahs[i].text == selectedAyah.value.text) {
+      //       index += i;
+      //       founded = true;
+      //       break;
+      //     }
+      //   }
+      //   if (!founded) {
+      //     index += ayahs.length;
+      //   }
+      // }
+      // itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
     }
   }
 }

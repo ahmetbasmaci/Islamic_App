@@ -212,7 +212,7 @@ class QuranPageFooter extends StatelessWidget {
                         message: "التنقل بين القران والتفسير".tr,
                         child: InkWell(
                           child: Obx(() =>
-                              MyIcons.animated_swichQuranImages(color: MyColors.primary(), size: MySiezes.icon * 1.2)),
+                              MyIcons.animated_swichQuranTafseer(color: MyColors.primary(), size: MySiezes.icon * 1.2)),
                           onTap: () async {
                             List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
                             if (allTafseer.isEmpty) {

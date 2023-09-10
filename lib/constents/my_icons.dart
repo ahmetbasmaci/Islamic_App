@@ -26,7 +26,8 @@ class MyIcons {
 
   static Icon lang({Color? color, double size = MySiezes.icon}) => Icon(Icons.language, color: color, size: size);
   static Icon info({Color? color, double size = MySiezes.icon}) => Icon(Icons.info_outline, color: color, size: size);
-  static Icon color({Color? color, double size = MySiezes.icon}) => Icon(Icons.color_lens_outlined, color: color, size: size);
+  static Icon color({Color? color, double size = MySiezes.icon}) =>
+      Icon(Icons.color_lens_outlined, color: color, size: size);
   static Icon letterSize({Color? color, double size = MySiezes.icon}) =>
       Icon(CupertinoIcons.textformat_size, color: color, size: size);
 
@@ -67,8 +68,7 @@ class MyIcons {
 
   static Icon favoriteFilled({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.favorite, color: color, size: size);
-  static Icon downlaod({Color? color, double size = MySiezes.icon}) =>
-      Icon(Icons.download, color: color, size: size);
+  static Icon downlaod({Color? color, double size = MySiezes.icon}) => Icon(Icons.download, color: color, size: size);
   static Icon downlaodDone({Color? color, double size = MySiezes.icon}) =>
       Icon(Icons.download_done, color: color, size: size);
   static Icon favorite({Color? color, double size = MySiezes.icon}) =>
@@ -82,6 +82,17 @@ class MyIcons {
   static Icon optinos({Color? color = Colors.green, double size = MySiezes.icon}) =>
       Icon(Icons.add_circle_outline_sharp, color: color, size: size);
   static Widget animated_swichQuranImages({Color? color, double size = MySiezes.icon}) {
+    color = color ?? MyColors.primary();
+    QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 200),
+      firstChild: Icon(CupertinoIcons.book_circle, color: color, size: size),
+      secondChild: Icon(Icons.image_sharp, color: color, size: size),
+      crossFadeState: quranCtr.showQuranImages.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+  }
+
+  static Widget animated_swichQuranTafseer({Color? color, double size = MySiezes.icon}) {
     color = color ?? MyColors.primary();
     QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
     return AnimatedCrossFade(

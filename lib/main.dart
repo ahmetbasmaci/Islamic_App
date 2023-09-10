@@ -12,6 +12,7 @@ import 'package:zad_almumin/pages/quran/tafseer_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/localization/my_local.dart';
+import 'package:zad_almumin/scroll_test.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
@@ -60,8 +61,8 @@ class MyApp extends StatelessWidget {
         PrayerTimes.id: (context) => PrayerTimes(),
         TafseersPage.id: (context) => TafseersPage(),
       },
-      // home: DebouncedSearchBar(),
-      initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
+       home: HomePage(),
+      //initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
       //initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
