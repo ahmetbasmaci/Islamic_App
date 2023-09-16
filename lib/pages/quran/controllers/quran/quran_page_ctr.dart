@@ -35,8 +35,10 @@ class QuranPageCtr extends GetxController {
   VoidCallback quranPageSetState = () {};
   late TabController tabCtr;
   Timer? _debounceTimer;
-  ItemScrollController itemScrollController = ItemScrollController();
+  // ItemScrollController itemScrollController = ItemScrollController();
   ItemScrollController itemScrollController2 = ItemScrollController();
+
+  ScrollController scrollController = ScrollController();
   QuranPageCtr() {
     // _deleteQuranMarkedList();
     readFromStorage();
@@ -370,26 +372,34 @@ class QuranPageCtr extends GetxController {
 
   void updateItemScrollIndex(index) async {
     if (index >= 0) {
-      itemScrollController.jumpTo(index: index);
+      if (showTafseerPage.value)
+        itemScrollController2.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
+      else
+        scrollController.animateTo(index * quranFontSize.value,
+            duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else {
-      // if (selectedAyah.value.text == "") return; // || autoScrollController.isBlank == false
-      // index = 0;
-      // bool founded = false;
-      // List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
-      // for (var ayahs in ayahsInPage) {
-      //   if (founded) break;
-      //   for (var i = 0; i < ayahs.length; i++) {
-      //     if (ayahs[i].text == selectedAyah.value.text) {
-      //       index += i;
-      //       founded = true;
-      //       break;
-      //     }
-      //   }
-      //   if (!founded) {
-      //     index += ayahs.length;
-      //   }
-      // }
-      // itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
+      if (selectedAyah.value.text == "" || !Get.find<AudioCtr>().isPlaying.value) return;
+      index = 0;
+      bool founded = false;
+      List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
+      for (var ayahs in ayahsInPage) {
+        if (founded) break;
+        for (var i = 0; i < ayahs.length; i++) {
+          if (ayahs[i].text == selectedAyah.value.text) {
+            index += i;
+            founded = true;
+            break;
+          }
+        }
+        if (!founded) {
+          index += ayahs.length;
+        }
+      }
+      if (showTafseerPage.value)
+        itemScrollController2.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
+      else
+        scrollController.animateTo(index * quranFontSize.value,
+            duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     }
   }
 }

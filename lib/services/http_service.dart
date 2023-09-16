@@ -98,11 +98,15 @@ class HttpService {
         await unArchiveAndSave(zippedFile, dir);
 
         updateAyahsAudioPath(ayahsList, dir, formatedSurahNumber);
-
+        _quranData.getSurahByNumber(surahNumber).downloadState.value = DownloadState.downloaded;
         dir = '$dir/$formatedSurahNumber.zip';
         removeZipFile(dir);
       } catch (e) {
         Fluttertoast.showToast(msg: '${'مشكلة في الاتصال بالانترنت'}.tr \t $e');
+      } finally {
+        _httpCtrl.isLoading.value = false;
+        _httpCtrl.isStopDownload.value = true;
+        _httpCtrl.downloadProgress.value = 0;
       }
     }
 
@@ -111,10 +115,15 @@ class HttpService {
 
   /// Download the ZIP file using the HTTP library
   static Future<File> _downloadSurah(String url, String filePath, String formatedSurahNumber) async {
+    if (_httpCtrl.isDownloading.value) {
+      Fluttertoast.showToast(msg: 'جاري تحميل سورة أخرى'.tr);
+      return File('$filePath/$formatedSurahNumber');
+    }
+    _httpCtrl.isDownloading.value = true;
     File file = await File('$filePath/$formatedSurahNumber').create(recursive: true);
 
     var connectivityResult = await Connectivity().checkConnectivity();
-    
+
     if (connectivityResult == ConnectivityResult.none) {
       Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return file;
@@ -129,7 +138,11 @@ class HttpService {
 
           await response.stream.forEach(
             (data) {
-              if (_httpCtrl.isStopDownload.value) return;
+              if (_httpCtrl.isStopDownload.value) {
+                //_httpCtrl.isDownloading.value = false;
+                return;
+              }
+
               receivedBytes += data.length;
               final progress = (receivedBytes / contentLength * 100).toStringAsFixed(1);
               _httpCtrl.downloadProgress.value = double.parse(progress);
@@ -141,6 +154,7 @@ class HttpService {
           if (_httpCtrl.downloadProgress.value == 100) {
             GetStorage().write('${_quranCtr.selectedPage.selectedQuranReader.value.name}$formatedSurahNumber', true);
             _httpCtrl.downloadComplated.value = true;
+
             Fluttertoast.showToast(msg: 'تم تحميل الآية بنجاح'.tr);
           } else {
             Fluttertoast.showToast(msg: 'لم يتم تحميل الآية بنجاح'.tr);
@@ -152,6 +166,7 @@ class HttpService {
       } catch (e) {
         Fluttertoast.showToast(msg: '${'مشكلة في الاتصال بالانترنت'}.tr \t $e');
       }
+      _httpCtrl.isDownloading.value = false;
     }
 
     return file;
@@ -159,15 +174,19 @@ class HttpService {
 
   // Unarchive and save the file in Documents directory and save the paths in the array
   static Future unArchiveAndSave(File zippedFile, String dir) async {
-    var bytes = zippedFile.readAsBytesSync();
-    var archive = ZipDecoder().decodeBytes(bytes);
-    for (var file in archive) {
-      var fileName = '$dir/${file.name}';
-      if (file.isFile) {
-        var outFile = File(fileName);
-        outFile = await outFile.create(recursive: true);
-        await outFile.writeAsBytes(file.content);
+    try {
+      var bytes = zippedFile.readAsBytesSync();
+      var archive = ZipDecoder().decodeBytes(bytes);
+      for (var file in archive) {
+        var fileName = '$dir/${file.name}';
+        if (file.isFile) {
+          var outFile = File(fileName);
+          outFile = await outFile.create(recursive: true);
+          await outFile.writeAsBytes(file.content);
+        }
       }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -230,4 +249,5 @@ class HttpCtr extends GetxController {
   RxBool isStopDownload = false.obs;
   RxDouble downloadProgress = (0.0).obs;
   RxBool downloadComplated = false.obs;
+  RxBool isDownloading = false.obs;
 }

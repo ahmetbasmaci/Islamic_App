@@ -4,7 +4,8 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/components/my_end_drawer.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
-import 'package:zad_almumin/pages/quran/components/quran_page_body.dart';
+import 'package:zad_almumin/pages/quran/components/quran_page_body_images.dart';
+import 'package:zad_almumin/pages/quran/components/quran_page_body_text.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_footer.dart';
 import 'package:zad_almumin/pages/quran/components/quran_page_up.dart';
 import 'package:zad_almumin/services/json_service.dart';
@@ -93,15 +94,18 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
       quranPages.add(
         isBannerWidget(
           isMarked: isMarked,
-          child: InkWell(
-            onTap: () => _quranCtr.pagePressed(),
-            onLongPress: () => _quranCtr.showMarkDialog(),
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 600),
-              color: MyColors.quranBackGround(),
-              child: QuranPageBody(page: page),
-            ),
-          ),
+          child: Obx(() {
+            return InkWell(
+              onTap: () => _quranCtr.pagePressed(),
+              onLongPress: () => _quranCtr.showMarkDialog(),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 600),
+                color: MyColors.quranBackGround(),
+                child:
+                    _quranCtr.showQuranImages.value ? QuranPageBodyImages(page: page) : QuranPageBodyTexts(page: page),
+              ),
+            );
+          }),
         ),
       );
     }
