@@ -7,7 +7,6 @@ import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../../components/my_circular_progress_indicator.dart';
 import '../../services/http_service.dart';
 import '../../services/theme_service.dart';
 import 'controllers/quran/tafseers.ctr.dart';

@@ -1,9 +1,7 @@
-import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
-import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class RefereshBtnRounded extends GetView<ThemeCtr> {

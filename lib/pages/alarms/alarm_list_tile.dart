@@ -103,7 +103,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
                                       for (var element in menuItemList) element.isSelected = false;
                                       e.isSelected = true;
                                       Get.back();
-                                      e.onTap();
+                                      e.onTap?.call();
                                     },
                                     child: Container(
                                       color: e.isSelected ? MyColors.primary() : MyColors.background(),

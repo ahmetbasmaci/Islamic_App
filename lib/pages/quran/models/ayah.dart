@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 
 class Ayah {

@@ -11,11 +11,13 @@
 </br>8- اوقات الصلاة حسب المكان الجغرافي للمستخدم
 </br>9- اسماء الله الحسنى مع الشرح
 </br>10- امكانية البحث عن الكلمات في القرآن الكريم
+</br>11- يحتوي على العديد من كتب التفاسير المشهورة
+</br>12- يدعم اللغات العربية والانكليزية والتركية
 </br></br>
 <a href="https://github.com/Eng-Ahmet/zad_almumin-Mobil_App/blob/main/README.md">تحميل التطبيق من غوغل بلاي</a>
 </br></br>
 <div display: flex>
-  <img src="https://user-images.githubusercontent.com/96287253/204239110-751bb7fa-8837-4037-ae18-03496d25f0b6.jpg"width="240 >
+  <img src="https://user-images.githubusercontent.com/96287253/204239110-751bb7fa-8837-4037-ae18-03496d25f0b6.jpg"width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/204239066-dfd64bb9-9c93-44ab-9cf4-82d32a662023.jpg" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/204239910-d94e6efc-be54-4465-8356-a0ef3d7b5feb.jpg" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/204240589-7ce6d501-55f8-4742-bf11-685c78060f49.jpg" width="240" >
