@@ -1,18 +1,18 @@
 ## زاد المؤمن
-</br>تطبيق يوفر لك قراءة القران الكريم بالاضافة لاهم الاذكار اليومية
-</br></br>اهم ميزات التطبيق:
-</br>1- قراءة القران الكريم
-</br>2- امكانية القراءة بالوضع الليلي
-</br>3- امكانية سماع القران الكريم للكثير من القراء المشهورين
-</br>4- اهم الاذكار اليومية مثل اذكار الصباح والمساء...
-</br>5- تذكر دائم باحاديث واذكار 
-</br>6- تذكير بصيام ايام الاثنين والخميس
-</br>7- مراجعة اوئل الايات من كل صفحة في القران على شكل اسئلة
-</br>8- اوقات الصلاة حسب المكان الجغرافي للمستخدم
-</br>9- اسماء الله الحسنى مع الشرح
-</br>10- امكانية البحث عن الكلمات في القران الكريم
-</br>11- يحتوي على العديد من كتب التفاسير المشهورة
-</br>12- يدعم اللغات العربية والانكليزية والتركية
+</br>An application that provides you with the ability to read the Quran along with important daily supplications.
+</br></br>Some features of the application:
+1- Quranic reading.
+2- Night mode for reading.
+3- Ability to listen to the Quran recited by various famous reciters.
+4- Important daily supplications, such as morning and evening supplications.
+5- Continuous reminders of Hadiths and supplications.
+6- Reminders for fasting on Mondays and Thursdays.
+7- Reviewing the first verses of each page of the Quran in the form of questions.
+8- Prayer times based on the user's geographical location.
+9- The beautiful names of Allah with explanations.
+10- The ability to search for words in the Quran.
+11- It contains many famous tafsir books.
+12- Supports Arabic, English, and Turkish languages.
 </br></br>
 <a href="https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin">
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
@@ -35,6 +35,7 @@
   <img src="https://user-images.githubusercontent.com/96287253/236660524-9616af3f-82a3-4bf2-99e1-7ce25dd0273b.png" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/236660525-39d3a6d7-9db4-4e79-b452-b8a4ddade266.png" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/236660527-56a0ef23-f852-4a3f-abbe-9989dde928a8.png" width="240" >
+  <img src="https://github.com/ahmetbasmaci/zad_almumin-Mobil_App/assets/96287253/b849ff9a-8142-4d4d-b229-2d9a7bfdb82a" width="240" >
 </div>
 
 
