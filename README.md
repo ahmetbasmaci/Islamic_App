@@ -11,6 +11,8 @@
 </br>8- اوقات الصلاة حسب المكان الجغرافي للمستخدم
 </br>9- اسماء الله الحسنى مع الشرح
 </br>10- امكانية البحث عن الكلمات في القران الكريم
+</br>11- يحتوي على العديد من كتب التفاسير المشهورة
+</br>12- يدعم اللغات العربية والانكليزية والتركية
 </br></br>
 <a href="https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin">
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
@@ -18,7 +20,7 @@
 
 </br></br>
 <div display: flex>
-  <img src="https://user-images.githubusercontent.com/96287253/236660505-5055479c-42b6-47d8-a2c5-29c3dc64dbf1.png"width="240 >
+  <img src="https://user-images.githubusercontent.com/96287253/236660505-5055479c-42b6-47d8-a2c5-29c3dc64dbf1.png"width="240">
   <img src="https://user-images.githubusercontent.com/96287253/236660509-7034163e-e001-4a9d-ad9e-17e9a314bf83.png" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/236660510-e18bcf0f-924d-4d99-bf42-691018cfe931.png" width="240" >
   <img src="https://user-images.githubusercontent.com/96287253/236660512-e56349b3-0fec-455e-9faa-970b33e806b7.png" width="240" >
