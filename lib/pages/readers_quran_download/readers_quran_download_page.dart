@@ -6,7 +6,6 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
-import '../../components/my_circular_progress_indicator.dart';
 import '../../constents/app_settings.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_texts.dart';
@@ -20,6 +19,7 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
   ReaderQuranDownloadCtr tafseersCtr = Get.find<ReaderQuranDownloadCtr>();
   final QuranData _quranData = Get.find<QuranData>();
   final HttpCtr _httpCtrl = Get.find<HttpCtr>();
+  GetStorage getStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
     List<Surah> allSurahs = _quranData.getAllSurahs();
@@ -32,7 +32,7 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
           Surah surah = allSurahs.elementAt(index);
 
           bool isDownloadedBefore =
-              GetStorage().read('${reader.name}${AppSettings.formatInt3.format(surah.number)}') ?? false;
+              getStorage.read('${reader.name}${AppSettings.formatInt3.format(surah.number)}') ?? false;
 
           surah.downloadState.value = isDownloadedBefore ? DownloadState.downloaded : DownloadState.notDownloaded;
           return Obx(
@@ -45,7 +45,7 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
                       ? MyIcons.downlaodDone()
                       : surah.downloadState.value == DownloadState.downloading
                           ? CircularProgressIndicator(
-                              value: Get.find<HttpCtr>().downloadProgress.value / 100,
+                              value: _httpCtrl.downloadProgress.value / 100,
                               valueColor: AlwaysStoppedAnimation<Color>(MyColors.quranPrimary()),
                             )
                           : MyIcons.downlaod(),
@@ -53,10 +53,9 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
                       ? () async {
                           surah.downloadState.value = DownloadState.downloading;
 
-                         await HttpService.getSurah(surahNumber: surah.number, reader: reader);
+                          await HttpService.getSurah(surahNumber: surah.number, reader: reader);
                           isDownloadedBefore =
-                              GetStorage().read('${reader.name}${AppSettings.formatInt3.format(surah.number)}') ??
-                                  false;
+                              getStorage.read('${reader.name}${AppSettings.formatInt3.format(surah.number)}') ?? false;
 
                           surah.downloadState.value =
                               isDownloadedBefore ? DownloadState.downloaded : DownloadState.notDownloaded;

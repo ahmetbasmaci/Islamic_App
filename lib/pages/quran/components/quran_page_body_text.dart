@@ -83,7 +83,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
     return ScrollablePositionedList.builder(
       itemCount: ayahs.length,
       shrinkWrap: true,
-      itemScrollController: _quranCtr.itemScrollController2,
+      itemScrollController: _quranCtr.getItemScrollController(),
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
         Ayah ayah = ayahs[index];

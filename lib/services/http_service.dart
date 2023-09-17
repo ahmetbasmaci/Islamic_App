@@ -138,10 +138,7 @@ class HttpService {
 
           await response.stream.forEach(
             (data) {
-              if (_httpCtrl.isStopDownload.value) {
-                //_httpCtrl.isDownloading.value = false;
-                return;
-              }
+              if (_httpCtrl.isStopDownload.value) return;
 
               receivedBytes += data.length;
               final progress = (receivedBytes / contentLength * 100).toStringAsFixed(1);

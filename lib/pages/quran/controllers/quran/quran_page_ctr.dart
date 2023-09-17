@@ -36,7 +36,11 @@ class QuranPageCtr extends GetxController {
   late TabController tabCtr;
   Timer? _debounceTimer;
   // ItemScrollController itemScrollController = ItemScrollController();
-  ItemScrollController itemScrollController2 = ItemScrollController();
+  ItemScrollController _itemScrollController = ItemScrollController();
+  ItemScrollController getItemScrollController() {
+    _itemScrollController = ItemScrollController();
+    return _itemScrollController;
+  }
 
   ScrollController scrollController = ScrollController();
   QuranPageCtr() {
@@ -371,9 +375,11 @@ class QuranPageCtr extends GetxController {
   }
 
   void updateItemScrollIndex(index) async {
+    if (selectedPage.pageNumber.value != selectedAyah.value.page) return;
+
     if (index >= 0) {
       if (showTafseerPage.value)
-        itemScrollController2.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
+        _itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
       else
         scrollController.animateTo(index * quranFontSize.value,
             duration: Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -395,8 +401,8 @@ class QuranPageCtr extends GetxController {
           index += ayahs.length;
         }
       }
-      if (showTafseerPage.value)
-        itemScrollController2.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
+      if (showTafseerPage.value && selectedPage.pageNumber.value == selectedAyah.value.page)
+        _itemScrollController.scrollTo(index: index, alignment: .02, duration: Duration(milliseconds: 500));
       else
         scrollController.animateTo(index * quranFontSize.value,
             duration: Duration(milliseconds: 500), curve: Curves.easeIn);
