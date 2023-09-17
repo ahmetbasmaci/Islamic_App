@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -16,6 +17,7 @@ class TafseersPage extends GetView<ThemeCtr> {
   TafseersPage({super.key});
   static String id = "TafseersPage";
   TafseersCtr tafseersCtr = Get.find<TafseersCtr>();
+  final HttpCtr _httpCtrl = Get.find<HttpCtr>();
   @override
   Widget build(BuildContext context) {
     context.theme;
@@ -41,10 +43,18 @@ class TafseersPage extends GetView<ThemeCtr> {
                 icon: tafseerModel.downloadState.value == DownloadState.downloaded
                     ? MyIcons.downlaodDone()
                     : tafseerModel.downloadState.value == DownloadState.downloading
-                        ? MyCircularProgressIndicator()
+                        ? CircularProgressIndicator(
+                            value: _httpCtrl.tafseerdownloadProgress.value / 100,
+                            valueColor: AlwaysStoppedAnimation<Color>(MyColors.quranPrimary()),
+                          )
                         : MyIcons.downlaod(),
                 onPressed: tafseerModel.downloadState.value == DownloadState.notDownloaded
                     ? () async {
+                        if (_httpCtrl.isTafseerDownloading.value) {
+                          Fluttertoast.showToast(msg: 'جاري تحميل تفسير أخر'.tr);
+                          return;
+                        }
+
                         tafseerModel.downloadState.value = DownloadState.downloading;
                         bool downloadedSuccesfuly = await HttpService.downloadTafsirById(tafseerModel.id);
                         if (downloadedSuccesfuly) {

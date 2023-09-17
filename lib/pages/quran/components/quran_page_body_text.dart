@@ -261,7 +261,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: Get.height * 0.03,
+        height: Get.height * 0.02,
         child: Center(
           child: MyTexts.quran(
             title: HelperMethods.convertToArabicNumber(page),

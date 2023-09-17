@@ -14,13 +14,11 @@ class RefereshBtnRounded extends GetView<ThemeCtr> {
   @override
   Widget build(BuildContext context) {
     context.theme;
-    return AnimatedButton(
-      enabled: enabled,
-      color: MyColors.zikrCard(),
-      width: MySiezes.btnIcon,
-      height: MySiezes.btnIcon,
-      onPressed: onPress,
-      child: MyIcons.refresh,
+    return IconButton(
+      color: MyColors.primary(),
+      highlightColor: Colors.transparent,
+      onPressed: enabled ? onPress : null,
+      icon: MyIcons.refresh,
     );
   }
 }

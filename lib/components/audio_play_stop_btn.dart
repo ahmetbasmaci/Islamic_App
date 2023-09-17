@@ -34,12 +34,11 @@ class AudioPlayStopBtn extends GetView<ThemeCtr> {
           else {
             String path = snapshot.data as String;
             if (path != '') startAudio(path);
-            return AnimatedButton(
-              color: MyColors.zikrCard(),
-              width: MySiezes.btnIcon,
-              height: MySiezes.btnIcon,
+            return IconButton(
+              color: MyColors.primary(),
+              highlightColor: Colors.transparent,
               onPressed: () => onPlayTap(),
-              child: AnimatedSwitcher(
+              icon: AnimatedSwitcher(
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: MyIcons.animated_Play_Pause(),

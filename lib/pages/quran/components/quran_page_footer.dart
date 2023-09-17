@@ -268,7 +268,6 @@ class QuranPageFooter extends StatelessWidget {
               Divider(),
               selectRepeet(),
               Divider(),
-              //changeFontSize(),
             ],
           ),
         ),

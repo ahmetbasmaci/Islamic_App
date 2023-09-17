@@ -1,4 +1,3 @@
-import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
@@ -18,7 +17,6 @@ import '../tafseer_page.dart';
 class QuranPageUp extends GetView<ThemeCtr> {
   QuranPageUp({Key? key, required this.quranPageSetState}) : super(key: key);
   VoidCallback quranPageSetState;
-  // final double _upPartHeight = Constants.quranUpPartHeight; //30 is the height of the menu options
   final double _upPartHeight = 50;
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
@@ -44,78 +42,50 @@ class QuranPageUp extends GetView<ThemeCtr> {
             )
           ],
         ),
-        child: Align(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AnimatedOpacity(
-                      opacity: _quranCtr.onShown.value ? 1 : 0,
-                      duration: Duration(milliseconds: 200),
-                      child: PopupMenuButton(
-                          color: MyColors.quranBackGround(),
-                          icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
-                          itemBuilder: (context) => getMenuItems()),
-                    ),
-                    AnimatedButton(
-                      color: MyColors.quranBackGround(),
-                      width: MySiezes.btnIcon,
-                      height: MySiezes.btnIcon,
-                      onPressed: () => Get.offAll(() => HomePage()),
-                      child: MyIcons.home(color: MyColors.quranPrimary()),
-                    ),
-                    SizedBox(width: MySiezes.btnIcon),
-                    AnimatedButton(
-                      color: MyColors.quranBackGround(),
-                      width: MySiezes.btnIcon,
-                      height: MySiezes.btnIcon,
-                      onPressed: () => _quranCtr.changeQuranImagesStyle(),
-                      child: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary())),
-                    ),
-                  ],
-                ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            AnimatedOpacity(
+              opacity: _quranCtr.onShown.value ? 1 : 0,
+              duration: Duration(milliseconds: 200),
+              child: PopupMenuButton(
+                color: MyColors.quranBackGround(),
+                icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
+                itemBuilder: (context) => getMenuItems(),
               ),
-              Expanded(flex: 2, child: Container()),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    AnimatedButton(
-                        color: MyColors.quranBackGround(),
-                        width: MySiezes.btnIcon,
-                        height: MySiezes.btnIcon,
-                        onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
-                        child: MyIcons.search(color: MyColors.quranPrimary())),
-                    SizedBox(width: MySiezes.btnIcon),
-                    AnimatedButton(
-                      color: MyColors.quranBackGround(),
-                      width: MySiezes.btnIcon,
-                      height: MySiezes.btnIcon,
-                      onPressed: () => AppSettings.scaffoldKey.currentState!.openEndDrawer(),
-                      child: MyIcons.book(color: MyColors.quranPrimary()),
-                    ),
-                    SizedBox(width: MySiezes.btnIcon / 2),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+            appBarButton(
+              onPressed: () => Get.offAll(() => HomePage()),
+              icon: MyIcons.home(color: MyColors.quranPrimary()),
+            ),
+            appBarButton(
+              onPressed: () => _quranCtr.changeQuranImagesStyle(),
+              icon: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary())),
+            ),
+            Expanded(flex: 2, child: Container()),
+            appBarButton(
+              onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
+              icon: MyIcons.search(color: MyColors.quranPrimary()),
+            ),
+            appBarButton(
+              onPressed: () => AppSettings.scaffoldKey.currentState!.openEndDrawer(),
+              icon: MyIcons.book(color: MyColors.quranPrimary()),
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget changeFontSize() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [],
+  Widget appBarButton({required VoidCallback onPressed, required Widget icon}) {
+    return AnimatedOpacity(
+      opacity: _quranCtr.onShown.value ? 1 : 0,
+      duration: Duration(milliseconds: 200),
+      child: IconButton(
+        color: MyColors.quranPrimary(),
+        onPressed: onPressed,
+        icon: icon,
+      ),
     );
   }
 
@@ -149,22 +119,19 @@ class QuranPageUp extends GetView<ThemeCtr> {
       child: Obx(() {
         return SizedBox(
           width: Get.width * .30,
-          // height: Get.width * .06,
           child: Slider(
             max: (Get.width * Get.height * 0.00010),
             min: (Get.width * Get.height * 0.000040),
             activeColor: MyColors.quranPrimary(),
             thumbColor: MyColors.quranBackGround(),
             value: _quranCtr.quranFontSize.value,
-            onChanged: (val) {
-              _quranCtr.updateQuranFontSize(val);
-            },
+            onChanged: (val) => _quranCtr.updateQuranFontSize(val),
           ),
         );
       }),
       icon: MyIcons.letterSize(color: MyColors.quranPrimary()),
       title: "حجم الخط".tr,
-      onTap: () async {},
+      onTap: null,
     );
     MenuOptionsItem changeFontTypeMenu = MenuOptionsItem(
       child: Obx(() {
@@ -182,12 +149,12 @@ class QuranPageUp extends GetView<ThemeCtr> {
       }),
       icon: MyIcons.letter(size: MySiezes.icon),
       title: "تعديل نوع الخط".tr,
-      onTap: () {},
+      onTap: null,
     );
 
     itemsList.add(PopupMenuItem(
       value: changeFontSizeMenu,
-      onTap: () {},
+      onTap: null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -200,7 +167,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
     ));
     itemsList.add(PopupMenuItem(
       value: changeFontTypeMenu,
-      onTap: () {},
+      onTap: null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -216,11 +183,11 @@ class QuranPageUp extends GetView<ThemeCtr> {
     itemsList.addAll(menuItemList.map(
       (e) => PopupMenuItem(
         value: e,
-        onTap: () {},
+        onTap: null,
         child: GestureDetector(
           onTap: () {
             Get.back();
-            e.onTap();
+            e.onTap?.call();
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -205,6 +205,8 @@ class HttpService {
   }
 
   static Future<bool> downloadTafsirById(int tafseerId) async {
+    _httpCtrl.isTafseerDownloading.value = true;
+
     bool downloadedSuccesfuly = false;
     Directory baseDir = await getApplicationDocumentsDirectory();
     String fileDir = '${baseDir.path}/tafseer_$tafseerId.json';
@@ -216,17 +218,33 @@ class HttpService {
 
       if (ref != null) {
         String url = await ref.getDownloadURL();
-        var response = await http.get(Uri.parse(url));
-
+        // var response = await http.get(Uri.parse(url));
+        var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
+        int contentLength = response.contentLength ?? 0;
         if (response.statusCode == 200) {
-          await zippedFile.writeAsBytes(response.bodyBytes);
+          // await zippedFile.writeAsBytes(response.bodyBytes);
 
-          //  await unArchiveAndSave(zippedFile, baseDir.path);
+          var receivedBytes = 0;
 
-          // removeZipFile(fileDir);
+          _httpCtrl.downloadProgress.value = 0;
 
-          downloadedSuccesfuly = true;
-          Fluttertoast.showToast(msg: 'تم تحميل التفسير بنجاح'.tr);
+          await response.stream.forEach(
+            (data) {
+              receivedBytes += data.length;
+              final progress = (receivedBytes / contentLength * 100).toStringAsFixed(1);
+              _httpCtrl.tafseerdownloadProgress.value = double.parse(progress);
+              zippedFile.writeAsBytesSync(data, mode: FileMode.append);
+            },
+          );
+          //download complete
+          if (_httpCtrl.tafseerdownloadProgress.value == 100) {
+            downloadedSuccesfuly = true;
+            Fluttertoast.showToast(msg: 'تم تحميل التفسير بنجاح'.tr);
+          } else {
+            Fluttertoast.showToast(msg: 'لم يتم تحميل التفسير بنجاح'.tr);
+          }
+          _httpCtrl.downloadProgress.value = 0;
+          _httpCtrl.isTafseerDownloading.value = false;
         } else {
           Fluttertoast.showToast(msg: 'لم يتم تحميل التفسير بنجاح'.tr);
         }
@@ -245,6 +263,8 @@ class HttpCtr extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStopDownload = false.obs;
   RxDouble downloadProgress = (0.0).obs;
+  RxDouble tafseerdownloadProgress = (0.0).obs;
   RxBool downloadComplated = false.obs;
   RxBool isDownloading = false.obs;
+  RxBool isTafseerDownloading = false.obs;
 }

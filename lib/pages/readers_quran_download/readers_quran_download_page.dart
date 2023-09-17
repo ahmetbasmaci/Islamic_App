@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -51,6 +52,10 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
                           : MyIcons.downlaod(),
                   onPressed: surah.downloadState.value == DownloadState.notDownloaded
                       ? () async {
+                          if (_httpCtrl.isDownloading.value) {
+                            Fluttertoast.showToast(msg: 'جاري تحميل سورة أخرى'.tr);
+                            return;
+                          }
                           surah.downloadState.value = DownloadState.downloading;
 
                           await HttpService.getSurah(surahNumber: surah.number, reader: reader);

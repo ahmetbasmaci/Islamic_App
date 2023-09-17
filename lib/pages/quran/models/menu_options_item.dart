@@ -12,7 +12,7 @@ class MenuOptionsItem {
   String title;
   Widget? child;
   Widget icon;
-  VoidCallback onTap;
+  VoidCallback? onTap;
   bool isSelected;
   ZikrRepeat zikrRepeat;
 }

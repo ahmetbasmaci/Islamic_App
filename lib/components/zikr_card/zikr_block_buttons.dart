@@ -37,10 +37,9 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
 
   favoriteButton() {
     return StatefulBuilder(builder: ((context, favoriteSetState) {
-      return AnimatedButton(
-        color: MyColors.zikrCard(),
-        width: MySiezes.btnIcon,
-        height: MySiezes.btnIcon,
+      return IconButton(
+        color: MyColors.primary(),
+        highlightColor: Colors.transparent,
         onPressed: () {
           SqlDb sqlDb = SqlDb();
           String toastText = '';
@@ -66,7 +65,7 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           widget.zikrData.isFavorite = !widget.zikrData.isFavorite;
           favoriteSetState(() {});
         },
-        child: AnimatedSwitcher(
+        icon: AnimatedSwitcher(
           duration: Duration(milliseconds: 300),
           child: widget.zikrData.isFavorite ? MyIcons.favoriteFilled() : Container(child: MyIcons.favorite()),
         ),
@@ -77,10 +76,9 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
   Widget copyButton() {
     bool isCopyed = false;
     return StatefulBuilder(builder: ((context, copySetState) {
-      return AnimatedButton(
-        color: MyColors.zikrCard(),
-        width: MySiezes.btnIcon,
-        height: MySiezes.btnIcon,
+      return IconButton(
+        color: MyColors.primary(),
+        highlightColor: Colors.transparent,
         onPressed: () {
           HelperMethods.copyText(widget.zikrData.content);
           copySetState(() {
@@ -92,9 +90,10 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
             });
           });
         },
-        child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: isCopyed ? MyIcons.copyFilled : Container(child: MyIcons.copy)),
+        icon: AnimatedSwitcher(
+          duration: Duration(milliseconds: 300),
+          child: isCopyed ? MyIcons.copyFilled : MyIcons.copy,
+        ),
       );
     }));
   }
@@ -102,12 +101,11 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
   shareButton() {
     return StatefulBuilder(
       builder: ((context, copySetState) {
-        return AnimatedButton(
-          color: MyColors.zikrCard(),
-          width: MySiezes.btnIcon,
-          height: MySiezes.btnIcon,
+        return IconButton(
+          color: MyColors.primary(),
+          highlightColor: Colors.transparent,
           onPressed: () => Share.share(widget.zikrData.content, subject: widget.zikrData.title),
-          child: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: MyIcons.share),
+          icon: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: MyIcons.share),
         );
       }),
     );
