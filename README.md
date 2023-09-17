@@ -1,4 +1,4 @@
-## زاد المؤمن
+## Zad-Almumin
 </br>An application that provides you with the ability to read the Quran along with important daily supplications.
 </br></br>Some features of the application:
 </br>1- Quranic reading.
