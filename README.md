@@ -1,18 +1,18 @@
 ## زاد المؤمن
 </br>An application that provides you with the ability to read the Quran along with important daily supplications.
 </br></br>Some features of the application:
-1- Quranic reading.
-2- Night mode for reading.
-3- Ability to listen to the Quran recited by various famous reciters.
-4- Important daily supplications, such as morning and evening supplications.
-5- Continuous reminders of Hadiths and supplications.
-6- Reminders for fasting on Mondays and Thursdays.
-7- Reviewing the first verses of each page of the Quran in the form of questions.
-8- Prayer times based on the user's geographical location.
-9- The beautiful names of Allah with explanations.
-10- The ability to search for words in the Quran.
-11- It contains many famous tafsir books.
-12- Supports Arabic, English, and Turkish languages.
+</br>1- Quranic reading.
+</br>2- Night mode for reading.
+</br>3- Ability to listen to the Quran recited by various famous reciters.
+</br>4- Important daily supplications, such as morning and evening supplications.
+</br>5- Continuous reminders of Hadiths and supplications.
+</br>6- Reminders for fasting on Mondays and Thursdays.
+</br>7- Reviewing the first verses of each page of the Quran in the form of questions.
+</br>8- Prayer times based on the user's geographical location.
+</br>9- The beautiful names of Allah with explanations.
+</br>10- The ability to search for words in the Quran.
+</br>11- It contains many famous tafsir books.
+</br>12- Supports Arabic, English, and Turkish languages.
 </br></br>
 <a href="https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin">
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
