@@ -15,6 +15,7 @@ class HelperMethods {
   }
 
   static bool get isFirstTime {
+    return true;
     bool isFirstTime = GetStorage().read<bool>('isFirstTime') ?? true;
     if (isFirstTime) {
       GetStorage().write('isFirstTime', false);
@@ -23,7 +24,9 @@ class HelperMethods {
   }
 
   static void setNewOpendPageId(String id) => GetStorage().write('lastOpendPageId', id);
+
   static String getNewOpendPageId() => GetStorage().read<String>('lastOpendPageId') ?? HomePage.id;
+
   static Widget getNewOpendPage() {
     switch (getNewOpendPageId()) {
       case HomePage.id:

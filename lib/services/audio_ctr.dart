@@ -4,6 +4,7 @@ import 'package:audio_manager/audio_manager.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 
 import '../pages/quran/controllers/quran/quran_page_ctr.dart';
@@ -22,7 +23,7 @@ class AudioCtr extends GetxController {
   RxDouble slider = (0.0).obs;
   double sliderVolume = 0;
   num curIndex = 0;
-  final String _imgPath = "assets/images/app_logo.png";
+  final String _imgPath = ImagesManager.appLogo;
   List<AudioInfo> audioList = [];
   int currentAyahRepeatCount = 0;
   int currentOfAllRepeatCount = 0;

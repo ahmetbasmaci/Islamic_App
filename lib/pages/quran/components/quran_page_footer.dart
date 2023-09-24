@@ -44,14 +44,14 @@ class QuranPageFooter extends StatelessWidget {
             width: Get.size.width,
             decoration: BoxDecoration(
               color: MyColors.quranBackGround(),
-              boxShadow: [
-                BoxShadow(
-                  color: MyColors.quranPrimary().withOpacity(.5),
-                  offset: Offset(0, 5),
-                  blurRadius: 30,
-                  spreadRadius: .5,
-                )
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: MyColors.quranPrimary().withOpacity(.5),
+              //     offset: Offset(0, 5),
+              //     blurRadius: 30,
+              //     spreadRadius: .5,
+              //   )
+              // ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

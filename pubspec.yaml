@@ -44,6 +44,7 @@ dependencies:
   hijri: ^3.0.0
   http: ^0.13.4
   intl: any
+  intro_slider: ^4.2.1
   like_button: ^2.0.4
   mailer: ^6.0.1
   modal_progress_hud_nsn: any

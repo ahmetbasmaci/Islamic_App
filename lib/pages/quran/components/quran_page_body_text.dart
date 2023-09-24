@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
@@ -158,7 +159,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
                 Stack(
                   children: [
                     Image.asset(
-                      "assets/images/surah_header.png",
+                      ImagesManager.surah_header,
                       height: _quranCtr.quranFontSize.value * 1.6,
                       width: double.maxFinite,
                       fit: BoxFit.fill,
@@ -180,7 +181,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
             ),
           ),
           Image.asset(
-            "assets/images/bismillah.png",
+           ImagesManager.bismillah,
             height: _quranCtr.quranFontSize.value * 1.6,
             color: MyColors.whiteBlack(),
           ),

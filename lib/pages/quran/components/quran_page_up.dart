@@ -33,14 +33,14 @@ class QuranPageUp extends GetView<ThemeCtr> {
         width: Get.size.width,
         decoration: BoxDecoration(
           color: MyColors.quranBackGround(),
-          boxShadow: [
-            BoxShadow(
-              color: MyColors.quranPrimary().withOpacity(0.5),
-              offset: Offset(0, 5),
-              blurRadius: 30,
-              spreadRadius: .5,
-            )
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: MyColors.quranPrimary().withOpacity(0.5),
+          //     offset: Offset(0, 5),
+          //     blurRadius: 30,
+          //     spreadRadius: .5,
+          //   )
+          // ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

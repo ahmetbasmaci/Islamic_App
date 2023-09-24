@@ -132,7 +132,7 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                   Get.dialog(
                     AlertDialog(
                       contentPadding: EdgeInsets.zero,
-                      title: MyTexts.zikrTitle(title: "تغيير لون التطبيق".tr),
+                      title: MyTexts.main(title: "تغيير لون التطبيق".tr, size: 20),
                       content: SizedBox(
                         height: Get.height,
                         width: Get.width,
@@ -141,18 +141,18 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                             TabBar(
                               controller: tabController,
                               tabs: [
-                                Tab(child: MyTexts.main(title: "مدرّج".tr, color: MyColors.primary())),
-                                Tab(child: MyTexts.main(title: "ثابت".tr, color: MyColors.primary())),
-                                Tab(child: MyTexts.main(title: "يدوي".tr, color: MyColors.primary())),
+                                Tab(child: MyTexts.main(title: "ثابت".tr)),
+                                Tab(child: MyTexts.main(title: "مدرّج".tr)),
+                                Tab(child: MyTexts.main(title: "يدوي".tr)),
                               ],
                             ),
                             Expanded(
                               child: TabBarView(
                                 controller: tabController,
                                 children: [
-                                  MaterialPicker(
-                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
                                   BlockPicker(
+                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
+                                  MaterialPicker(
                                       pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
                                   ColorPicker(
                                       pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
@@ -175,9 +175,7 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                             ),
                             TextButton(
                               child: MyTexts.main(title: 'إالغاء'.tr),
-                              onPressed: () async {
-                                Get.back();
-                              },
+                              onPressed: () async => Get.back(),
                             ),
                           ],
                         ),

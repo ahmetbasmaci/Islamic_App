@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_drawer.dart';
@@ -50,7 +51,7 @@ class _AlarmPageState extends State<AlarmPage> {
         children: [
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/azkarAlarm.png',
+              imagePath: ImagesManager.azkarAlarm,
               title: 'أذكار عشوائية'.tr,
               subtitle: 'سيصلك اشعار بذكر عشوائي'.tr,
               value: alarmsCtr.azkarProp.isActive.value,
@@ -62,7 +63,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/azkarAlarm.png',
+                imagePath: ImagesManager.azkarAlarm,
                 title: 'أذكار الصباح'.tr,
                 subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار الصباح'.tr,
                 value: alarmsCtr.morningAzkarProp.isActive.value,
@@ -73,7 +74,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/azkarAlarm.png',
+                imagePath: ImagesManager.azkarAlarm,
                 title: 'أذكار المساء'.tr,
                 subtitle: 'سيصلك اشعار لتذكيرك بقراءة أذكار المساء'.tr,
                 value: alarmsCtr.nightAzkarProp.isActive.value,
@@ -93,7 +94,7 @@ class _AlarmPageState extends State<AlarmPage> {
         children: [
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/quranAlarm.png',
+                imagePath: ImagesManager.quranAlarm,
                 title: 'قراءة صفحة من القرآن كل يوم'.tr,
                 subtitle: 'سيصلك اشعار كل يوم لتذكيرك بقراءة صفحة من القرآن'.tr,
                 value: alarmsCtr.quranPageEveryDayProp.isActive.value,
@@ -104,7 +105,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/quranAlarm.png',
+              imagePath: ImagesManager.quranAlarm,
               title: 'قراءة سورة الكهف'.tr,
               subtitle: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف يوم الجمعة'.tr,
               value: alarmsCtr.kahfSureProp.isActive.value,
@@ -126,7 +127,7 @@ class _AlarmPageState extends State<AlarmPage> {
         children: [
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/fastingAlarm.png',
+                imagePath: ImagesManager.fastingAlarm,
                 title: 'صيام الاثنين'.tr,
                 subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
                 value: alarmsCtr.mondayFastProp.isActive.value,
@@ -137,7 +138,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/fastingAlarm.png',
+                imagePath: ImagesManager.fastingAlarm,
                 title: 'صيام الخميس'.tr,
                 subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
                 value: alarmsCtr.thursdayFastProp.isActive.value,
@@ -148,7 +149,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           // Obx(
           //   () => AlarmListTile(
-          //       imagePath: 'assets/images/fastingAlarm.png',
+          //       imagePath: ImagesManager.fastingAlarm,
           //       title: 'صيام الايام البيض'.tr,
           //       subtitle: 'قم بالتفعيل ليصلك اشعار لتذكيرك بالصوم'.tr,
           //       value: alarmsCtr.whitedayFastProp.isActive.value,
@@ -168,7 +169,7 @@ class _AlarmPageState extends State<AlarmPage> {
         children: [
           Obx(
             () => AlarmListTile(
-                imagePath: 'assets/images/hadithAlarm.png',
+                imagePath: ImagesManager.hadithAlarm,
                 title: 'حديث رسول الله ﷺ'.tr,
                 subtitle: 'سيصلك اشعار بحديث رسول الله ﷺ'.tr,
                 value: alarmsCtr.hadithEveryDayProp.isActive.value,
@@ -188,7 +189,7 @@ class _AlarmPageState extends State<AlarmPage> {
         children: [
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/prayAlarm.png',
+              imagePath: ImagesManager.prayAlarm,
               title: 'صلاة الفجر'.tr,
               subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.fajrPrayProp.isActive.value,
@@ -201,7 +202,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/prayAlarm.png',
+              imagePath: ImagesManager.prayAlarm,
               title: 'صلاة الظهر'.tr,
               subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.duhrPrayProp.isActive.value,
@@ -214,7 +215,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/prayAlarm.png',
+              imagePath: ImagesManager.prayAlarm,
               title: 'صلاة العصر'.tr,
               subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.asrPrayProp.isActive.value,
@@ -227,7 +228,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/prayAlarm.png',
+              imagePath: ImagesManager.prayAlarm,
               title: 'صلاة المغرب'.tr,
               subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.maghribPrayProp.isActive.value,
@@ -240,7 +241,7 @@ class _AlarmPageState extends State<AlarmPage> {
           ),
           Obx(
             () => AlarmListTile(
-              imagePath: 'assets/images/prayAlarm.png',
+              imagePath: ImagesManager.prayAlarm,
               title: 'صلاة العشاء'.tr,
               subtitle: 'سيصلك اشعار قبل موعد الاذان بدقائق'.tr,
               value: alarmsCtr.ishaPrayProp.isActive.value,

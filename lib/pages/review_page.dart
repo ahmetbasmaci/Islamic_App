@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
@@ -19,8 +21,10 @@ class ReviewPage extends GetView<ThemeCtr> {
   TextEditingController reviewTxtCtr = TextEditingController();
   TextEditingController nameTxtCtr = TextEditingController();
   RxBool isLoading = false.obs;
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: MyAppBar(title: "ملاحظة للمطور".tr),
       drawer: MyDrawer(),
@@ -33,6 +37,7 @@ class ReviewPage extends GetView<ThemeCtr> {
             child: ListView(
               shrinkWrap: true,
               children: [
+                Image.asset(ImagesManager.cosrumerSurvices_3d), //developer_3d
                 Focus(
                   focusNode: AppSettings.focusScopeNode,
                   child: TextField(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
@@ -40,7 +41,7 @@ class MainScreen extends GetView<ThemeCtr> {
             index: 4,
             child: azkarBlocks(
               outsideTitle: 'أسماء الله الحسنى'.tr,
-              azkars: [BlockData(imageSource: "assets/images/quran.png", title: 'تعرّف على اسماء الله الحسنى'.tr)],
+              azkars: [BlockData(imageSource: ImagesManager.quran, title: 'تعرّف على اسماء الله الحسنى'.tr)],
               zikrType: ZikrType.allahNames,
             ),
           ),

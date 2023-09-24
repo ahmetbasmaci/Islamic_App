@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/test.dart';
 
 class SplashPage extends StatefulWidget {
   static const id = 'SplashPage';
@@ -28,7 +29,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            Get.offAll(HelperMethods.getNewOpendPage());
+            Get.offAll(OnboardingScreen());
             // Timer(Duration(milliseconds: 300), () => scaleController.reset());
           }
         },
@@ -107,7 +108,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/app_logo.png'),
+                        image: AssetImage(ImagesManager.appLogo),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -233,7 +234,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen> with Ticker
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Image.asset('assets/images/app_logo.png')),
+                  child: Image.asset(ImagesManager.appLogo)),
             ),
           ),
         ],

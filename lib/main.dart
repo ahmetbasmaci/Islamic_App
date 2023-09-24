@@ -16,6 +16,7 @@ import 'package:zad_almumin/pages/azkar_page.dart';
 import 'package:zad_almumin/pages/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/splash_screen.dart';
+import 'package:zad_almumin/test.dart';
 import 'classes/controllers_binding.dart';
 import 'constents/app_settings.dart';
 import 'pages/favorite/favorite_page.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       locale: Get.find<MyLocalCtr>().currentLocal,
       translations: MyLocal(),
       routes: {
+        OnboardingScreen.id: (context) => OnboardingScreen(),
         SplashPage.id: (context) => SplashPage(),
         HomePage.id: (context) => HomePage(), //'/${HomePage.id}'
         SettingsPage.id: (context) => SettingsPage(),
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
         PrayerTimes.id: (context) => PrayerTimes(),
         TafseersPage.id: (context) => TafseersPage(),
       },
-       home: HomePage(),
+      home: OnboardingScreen(),
       //initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
       //initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       body:Column(
         children: <Widget>[
-          Expanded(flex:2,child: Image.asset('assets/images/quran.png')),
+          Expanded(flex:2,child: Image.asset(ImagesManager.quran)),
           Expanded(flex:3,child:Column(
             children: <Widget>[],
           ) ),
