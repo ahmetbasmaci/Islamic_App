@@ -1,5 +1,3 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,7 +6,6 @@ import 'package:zad_almumin/components/my_drawer.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
-import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
 import '../../constents/my_icons.dart';

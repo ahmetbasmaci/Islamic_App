@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';

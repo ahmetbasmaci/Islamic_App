@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -11,7 +10,6 @@ import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
-import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class ReviewPage extends GetView<ThemeCtr> {
