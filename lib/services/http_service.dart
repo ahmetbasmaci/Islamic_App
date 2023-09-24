@@ -208,8 +208,7 @@ class HttpService {
     _httpCtrl.isTafseerDownloading.value = true;
 
     bool downloadedSuccesfuly = false;
-    Directory baseDir = await getApplicationDocumentsDirectory();
-    String fileDir = '${baseDir.path}/tafseer_$tafseerId.json';
+    String fileDir = '${AppSettings.filesDir}/tafseer_${AppSettings.selectedLangCode}_$tafseerId.json';
     File zippedFile = File(fileDir);
     try {
       ListResult filesList = await FirebaseStorage.instance.ref('tafseers').listAll();

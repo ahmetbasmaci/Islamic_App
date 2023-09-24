@@ -10,7 +10,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/classes/block_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
-import '../pages/azkar_page.dart';
+import '../pages/azkar/azkar_page.dart';
 
 class AzkarBlockScreen extends StatefulWidget {
   const AzkarBlockScreen({Key? key}) : super(key: key);

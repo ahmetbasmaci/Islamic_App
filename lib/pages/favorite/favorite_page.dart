@@ -31,37 +31,42 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(
-          title: 'المفضلة'.tr,
-          actions: [
-            MyIcons.menu(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<ZikrType>(
-                    iconEnabledColor: MyColors.primary(),
-                    value: favoriteCtr.selectedZikrType.value,
-                    items: [
-                      DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(title: 'الكل'.tr)),
-                      DropdownMenuItem(
-                          value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله'.tr)),
-                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار'.tr)),
-                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن الكريم'.tr)),
-                      DropdownMenuItem(value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث الشريف'.tr)),
-                    ],
-                    onChanged: (newSelectedType) {
-                      getStorage.write('selectedZikrType', newSelectedType!.index);
-                      setState(() => favoriteCtr.selectedZikrType.value = newSelectedType);
-                    }),
-              ),
+      appBar: MyAppBar(
+        title: 'المفضلة'.tr,
+        actions: [
+          MyIcons.menu(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<ZikrType>(
+                  iconEnabledColor: MyColors.primary(),
+                  value: favoriteCtr.selectedZikrType.value,
+                  items: [
+                    DropdownMenuItem(
+                      value: ZikrType.all,
+                      child: MyTexts.dropDownMenuItem(title: 'الكل'.tr),
+                    ),
+                    DropdownMenuItem(
+                        value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله'.tr)),
+                    DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار'.tr)),
+                    DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن الكريم'.tr)),
+                    DropdownMenuItem(
+                        value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث الشريف'.tr)),
+                  ],
+                  onChanged: (newSelectedType) {
+                    getStorage.write('selectedZikrType', newSelectedType!.index);
+                    setState(() => favoriteCtr.selectedZikrType.value = newSelectedType);
+                  }),
             ),
-            IconButton(
-              icon: MyIcons.search(),
-              onPressed: () => showSearch(context: context, delegate: FavoriteSearchDelegate()),
-            ),
-          ],
-        ),
-        drawer: MyDrawer(),
-        body: FavoriteBody());
+          ),
+          IconButton(
+            icon: MyIcons.search(),
+            onPressed: () => showSearch(context: context, delegate: FavoriteSearchDelegate()),
+          ),
+        ],
+      ),
+      drawer: MyDrawer(),
+      body: FavoriteBody(),
+    );
   }
 }

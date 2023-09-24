@@ -8,7 +8,7 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
-import 'package:zad_almumin/pages/azkar_page.dart';
+import 'package:zad_almumin/pages/azkar/azkar_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/theme_service.dart';
@@ -59,14 +59,22 @@ class MainScreen extends GetView<ThemeCtr> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyTexts.outsideHeader(title: outsideTitle, color: MyColors.primary()),
-              GestureDetector(
-                onTap: () => Get.to(() => AzkarBlockScreen(), curve: Curves.elasticIn),
+              TextButton(
+                style: azkars.length > 1
+                    ? ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(MyColors.primary().withOpacity(.2)),
+                        elevation: MaterialStateProperty.all(10),
+                        backgroundColor: MaterialStateProperty.all(MyColors.background()),
+                      )
+                    : null,
+                onPressed: azkars.length > 1 ? () => Get.to(() => AzkarBlockScreen(), curve: Curves.elasticIn) : null,
                 child: azkars.length > 1
                     ? MyTexts.outsideHeader(title: 'الكل >>>  '.tr, color: MyColors.primary())
                     : Container(),
               ),
             ],
           ),
+          const SizedBox(height: MySiezes.betweanAzkarBlock),
           Align(
             alignment: AppSettings.isArabicLang ? Alignment.centerRight : Alignment.centerLeft,
             child: SizedBox(
@@ -78,6 +86,7 @@ class MainScreen extends GetView<ThemeCtr> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     child: Container(
+                      width: 200,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
                         color: MyColors.primary(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';
@@ -27,6 +29,9 @@ class _PrayerTimesState extends State<PrayerTimes> {
   void initState() {
     super.initState();
     //prayerTimeCtr.updatePrayerTimes();
+    if (prayerTimeCtr.checkIfPrayerTimesNotSeted) {
+      Fluttertoast.showToast(msg: 'اذا لم تجد الوقت الصحيح اضغط على تحديث'.tr);
+    }
   }
 
   @override
@@ -54,6 +59,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 color: MyColors.primary(),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 onPressed: () async {
+                  prayerTimeCtr.updateLocationPermitionState(false);
                   await prayerTimeCtr.updatePrayerTimes();
                   if (mounted) setState(() {});
                 },

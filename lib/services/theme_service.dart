@@ -229,7 +229,7 @@ class ThemeCtr extends GetxController {
     );
 
     labelMedium_settingContent = TextStyle(
-      fontSize: 14,
+      fontSize: 17,
       color: MyColors.settingsContent,
       fontFamily: defaultFontMain,
     );
@@ -253,12 +253,12 @@ class ThemeCtr extends GetxController {
     );
 
     displayLarge_dropDownItem = TextStyle(
-      fontFamily: defaultFontMain,
-    );
+         fontFamily: defaultFontMain,
+        );
 
     titleSmall_dropDownTitle = TextStyle(
       fontSize: 20,
-      fontFamily: defaultFontMain,
+       fontFamily: defaultFontMain,
     );
   }
 

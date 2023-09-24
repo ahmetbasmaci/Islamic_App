@@ -38,7 +38,8 @@ class AppSettings {
 
   static String machineCode = '';
   static String developerMachineCode = 'RP1A.200720.011';
-  static get isArabicLang => Get.locale!.languageCode == 'ar';
+  static bool get isArabicLang => Get.locale!.languageCode == 'ar';
+  static String get selectedLangCode => Get.locale!.languageCode;
 
   void setFileDir() async => filesDir = (await getApplicationDocumentsDirectory()).path;
   static String filesDir = "";

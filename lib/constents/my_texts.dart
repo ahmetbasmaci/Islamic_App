@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 
 import 'my_colors.dart';
 
@@ -82,7 +83,11 @@ class MyTexts {
   static Text settingsTitle({String title = "", Color? color, double? size}) {
     return Text(
       title,
-      style: Get.textTheme.labelSmall!.copyWith(color: color, fontSize: size),
+      textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
+      style: Get.textTheme.labelSmall!.copyWith(
+        color: color,
+        fontSize: size,
+      ),
     );
   }
 
@@ -100,9 +105,11 @@ class MyTexts {
     );
   }
 
-  static Text dropDownMenuItem({String title = "", required, double size = 20, FontWeight? fontWeight}) {
+  static Text dropDownMenuItem(
+      {String title = "", required, double size = 17, FontWeight? fontWeight = FontWeight.normal}) {
     return Text(
       title,
+      textAlign: TextAlign.center,
       style: Get.textTheme.displayLarge!.copyWith(fontWeight: fontWeight, fontSize: size),
     );
   }

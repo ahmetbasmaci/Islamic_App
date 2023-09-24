@@ -8,7 +8,7 @@ import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/animation_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
-import '../components/my_drawer.dart';
+import '../../components/my_drawer.dart';
 
 class AzkarPage extends StatefulWidget {
   const AzkarPage({Key? key, this.zikrIndexInJson = 0, this.zikrType = ZikrType.none}) : super(key: key);

@@ -129,7 +129,7 @@ class AlarmsCtr extends GetxController {
     snackBarEnabeldTitle: 'تم تفعيل تذكير أذكار الصباح'.tr,
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة أذكار الصباح'.tr,
     snackBarDesabledTitle: 'تم تعطيل الاشعار '.tr,
-    snackBarDesabeldBody: 'لن يصلك اشعار أذكار الصباج'.tr,
+    snackBarDesabeldBody: 'لن يصلك اشعار أذكار الصباح'.tr,
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.moorningAzkar,
     notificationSound: NotificationSound.random,

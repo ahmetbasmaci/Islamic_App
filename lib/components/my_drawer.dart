@@ -6,8 +6,9 @@ import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/favorite/favorite_page.dart';
-import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/home/home_page.dart';
 import 'package:zad_almumin/pages/prayerTimes/prayer_times.dart';
+import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
@@ -41,6 +42,12 @@ class MyDrawer extends GetView<ThemeCtr> {
               icon: MyIcons.home(),
               routeName: HomePage.id,
               onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
+            ),
+            drawerItem(
+              title: 'القرآن الكريم'.tr,
+              icon: MyIcons.quran(),
+              routeName: QuranPage.id,
+              onTap: () async => navigateTo(context: context, routeName: QuranPage.id, page: QuranPage()),
             ),
 
             // drawerItem(
@@ -96,7 +103,7 @@ class MyDrawer extends GetView<ThemeCtr> {
               onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
             ),
             drawerItem(
-              title: 'ملاحظة للمطور'.tr,
+              title: 'مطور التطبيق'.tr,
               icon: MyIcons.review(),
               routeName: ReviewPage.id,
               onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),

@@ -11,6 +11,7 @@ import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/constents/my_texts.dart';
+import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
 class ReviewPage extends GetView<ThemeCtr> {
@@ -24,9 +25,8 @@ class ReviewPage extends GetView<ThemeCtr> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: MyAppBar(title: "ملاحظة للمطور".tr),
+      appBar: MyAppBar(title: "مطور التطبيق".tr),
       drawer: MyDrawer(),
       body: Obx(() {
         return ModalProgressHUD(
@@ -37,7 +37,15 @@ class ReviewPage extends GetView<ThemeCtr> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Image.asset(ImagesManager.cosrumerSurvices_3d), //developer_3d
+                Image.asset(ImagesManager.cosrumerSurvices_3d), //developer_3d,cosrumerSurvices_3d
+                MyTexts.settingsTitle(title: 'مرحبا, انا مطور البرنامج أسمي (أحمد بصمه جي)'.tr),
+                Wrap(
+                  children: <Widget>[
+                    MyTexts.settingsTitle(title: "تواصل معي عبر الايميل:"),
+                    SelectableText('engahmet10@gmail.com'.tr)
+                  ],
+                ),
+                MyTexts.settingsContent(title: 'أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه'.tr),
                 Focus(
                   focusNode: AppSettings.focusScopeNode,
                   child: TextField(
@@ -53,7 +61,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                     ),
                   ),
                 ),
-                SizedBox(height: Get.height * .05),
+                SizedBox(height: Get.height * .01),
                 Focus(
                   focusNode: AppSettings.focusScopeNode,
                   child: TextField(
@@ -69,7 +77,7 @@ class ReviewPage extends GetView<ThemeCtr> {
                     ),
                   ),
                 ),
-                SizedBox(height: Get.height * .05),
+                SizedBox(height: Get.height * .01),
                 ElevatedButton(
                   onPressed: () => sentReviewToDeveloper(),
                   style: ButtonStyle(

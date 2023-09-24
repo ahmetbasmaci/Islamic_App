@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,10 @@ import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/screens/main_screen.dart';
-import '../constents/my_icons.dart';
-import 'quran/quran_page.dart';
+import '../../constents/my_icons.dart';
+import '../quran/quran_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     HelperMethods.setNewOpendPageId(HomePage.id);
+    Get.find<PrayerTimeCtr>().updatePrayerTimes();
   }
 
   int currentIndex = 0;
@@ -59,34 +62,34 @@ class _HomePageState extends State<HomePage> {
         bottom: false,
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: currentIndex != 1 ? MyAppBar(title: 'الرئيسية'.tr, showSettingsBtn: true) : null,
-            drawer: currentIndex != 1 ? MyDrawer() : null,
-            bottomNavigationBar: currentIndex != 1
-                ? CurvedNavigationBar(
-                    height: MySiezes.navigationTap,
-                    items: icons,
-                    color: MyColors.primary(),
-                    backgroundColor: MyColors.background(),
-                    animationCurve: Curves.easeInOut,
-                    animationDuration: Duration(milliseconds: 300),
-                    index: currentIndex,
-                    onTap: (newIndex) {
-                      updateCurrentIndex(newIndex);
-                    },
+            appBar: currentIndex != 1
+                ? MyAppBar(
+                    title: 'الرئيسية'.tr,
+                    showSettingsBtn: true,
+                    actions: [
+                      IconButton(
+                        onPressed: () => Get.offAll(QuranPage(),
+                            duration: Duration(milliseconds: 200), transition: Transition.zoom),
+                        icon: MyIcons.quran(),
+                      )
+                    ],
                   )
                 : null,
-            // bottomNavigationBar: ConvexAppBar.badge(
-            //   const <int, dynamic>{3: '99+'},
-            //   style: TabStyle.react,
-            //   activeColor: MyColors.white,
-            //   backgroundColor: MyColors.primary(),
-            //   color: MyColors.background(),
-            //   badgeColor: Colors.red,
-            //   items: <TabItem>[
-            //     for (final entry in icons) TabItem(icon: entry, title: ''),
-            //   ],
-            //   onTap: (newIndex) => updateCurrentIndex(newIndex),
-            // ),
+            drawer: currentIndex != 1 ? MyDrawer() : null,
+            // bottomNavigationBar: currentIndex != 1
+            //     ? CurvedNavigationBar(
+            //         height: MySiezes.navigationTap,
+            //         items: icons,
+            //         color: MyColors.primary(),
+            //         backgroundColor: MyColors.background(),
+            //         animationCurve: Curves.easeInOut,
+            //         animationDuration: Duration(milliseconds: 300),
+            //         index: currentIndex,
+            //         onTap: (newIndex) {
+            //           updateCurrentIndex(newIndex);
+            //         },
+            //       )
+            //     : null,
             body: RefreshIndicator(
               onRefresh: () async {
                 await Future.delayed(Duration(seconds: 1));

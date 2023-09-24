@@ -352,7 +352,7 @@ class MyLocal implements Translations {
         "لا تنسى قراءة أذكار الصباح ": "Sabah dualarını okumayı unutma",
         "لأذكار الصباح فضل عظيم لا تفوته": "Sabah duaları büyük bir fazilettir, kaçırmayın",
         "تم تفعيل تذكير أذكار الصباح": "Sabah duaları hatırlatıcısı etkinleştirildi",
-        "لن يصلك اشعار أذكار الصباج": "Sabah duaları hatırlatıcısı için bildirim almayacaksınız",
+        "لن يصلك اشعار أذكار الصباح": "Sabah duaları hatırlatıcısı için bildirim almayacaksınız",
         "اذكر الله": "Allah'ı zikret",
         "تم تفعيل الذكر العشوائي": "Rastgele zikir etkinleştirildi",
         "سيصلك اشعار بأذكار مختلفة": "Farklı dualar için bildirim alacaksınız",
@@ -388,7 +388,35 @@ class MyLocal implements Translations {
         "سيصلك اشعار بحديث عن رسول الله": "Hz. Muhammed (s.a.v.)'den hadis hatırlatıcısı için bildirim alacaksınız",
         "تم تفعيل تذكير حديث عن رسول الله": "Hz. Muhammed (s.a.v.)'den hadis hatırlatıcısı etkinleştirildi",
         "لن يصلك اشعار حديث عن رسول الله": "Hz. Muhammed (s.a.v.)'den hadis hatırlatıcısı için bildirim almayacaksınız",
+        "السابق": "Önceki",
+        "تخطي": "Atla",
+        "اهلا بك في تطبيق زاد المؤمن": "Zad Al-Mu'min uygulamasına hoş geldiniz",
+        "يمكنك قراءة القرآن الكريم كاملاً والاستماع له بصوت العديد من القراء":
+            "Kur'an-ı Kerim'i tamamen okuyabilir ve birçok okuyucunun sesini dinleyebilirsiniz",
+        "تفسير القرآن الكريم": "Kur'an-ı Kerim'in tefsiri",
+        "يمكنك قراءة تفسير القرآن الكريم للعديد من العلماء والمفسرين الكبار ":
+            "Birçok büyük bilim adamı ve tefsircinin Kur'an-ı Kerim'in tefsirini okuyabilirsiniz",
+        "تذكير بالاحاديث والصيام": "Hadis ve oruç hatırlatıcısı",
+        "يتيح لك التطبيق تذكيرك بالاحاديث والصيام والصلاة والاستغفار والاذكار والقرآن الكريم":
+            "Uygulama, hadisleri, oruç tutmayı, namazı, istiğfarı, zikirleri ve Kur'an-ı Kerim'i hatırlamanıza olanak tanır",
+        "يمكنك معرفة اوقات الصلاة والاذان عبر مشاركة موقعك الجغرافي مع التطبيق":
+            "Konumunuzu uygulamayla paylaşarak namaz ve ezan saatlerini öğrenebilirsiniz",
+        "اسئلة عن القرآن الكريم": "Kur'an-ı Kerim ile ilgili sorular",
+        "يمكنك اختبار مدى قوة حفظك للقرآن الكريم عبر اجابة على الاسئلة المتعلقة بالقرآن الكريم":
+            "Kur'an-ı Kerim ile ilgili soruları cevaplayarak Kur'an-ı Kerim'i ne kadar iyi ezberlediğinizi test edebilirsiniz",
+        "عدد الصفحات": "Sayfa sayısı",
+        "اذا لم تجد الوقت الصحيح اضغط على تحديث": "Doğru zamanı bulamazsanız güncelleyin",
+        "أعوذ بالله من الشيطان الرجيم": "Euzü billahi mineşşeytani rracim",
+        "التفاسير": "",
+        "تفاسير القرآن": "Kur'an tefsirleri",
+        "التنقل بين القران والتفسير": "Kur'an ve tefsir arasında gezinme",
+        "جاري تحميل تفسير أخر": "Şu anda başka bir tefsir yükleniyor",
+        "جاري تحميل سورة أخرى": "Başka bir sure yükleniyor",
+        "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Uygulama hakkındaki görüşlerinizi yazın",
+        "مطور التطبيق": "Uygulama geliştiricisi",
+
         //--------------------------------------------------------------------------------
+
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":
             "O, Allah'tır. O, en büyük isimdir. O, Allah, kendisini özel kıldı ve kendisine özgü kıldı ve onu ilk isim olarak kıldı ve onu tüm isimlerle birlikte kıldı. O, kendi zatı üzerinde bilgili ve yücedir",
@@ -751,7 +779,7 @@ class MyLocal implements Translations {
         "تبقى القليل لموعد اذان المغرب": "There is little left for the Maghrib Adhan",
         "تم تفعيل تذكير اذان المغرب": "Maghrib Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان المغرب": "You will receive a notification to remind you of the Maghrib Adhan",
-        "تم تعطيل الاشعار ": "The Maghrib Adhan notification has been disabled",
+        "تم تعطيل الاشعار ": "Thne notification has been disabled",
         "لن يصلك اشعار اذان المغرب": "You will not receive a notification for the Maghrib Adhan",
         "اذان العصر": "Asr Adhan",
         "تبقى القليل لموعد اذان العصر": "There is little left for the Asr Adhan",
@@ -772,18 +800,18 @@ class MyLocal implements Translations {
         "تم تفعيل تذكير اذان الفجر": "Fajr Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان الفجر": "You will receive a notification to remind you of the Fajr Adhan",
         "لن يصلك اشعار اذان الفجر": "You will not receive a notification for the Fajr Adhan",
-        "لا تنسى قراءة أذكار المساء ": "Do not forget to read the evening dhikr",
-        "لأذكار المساء فضل عظيم لا تفوته": "For the evening dhikr, a great virtue not to be missed",
-        "تم تفعيل تذكير أذكار المساء": "Evening dhikr reminder has been activated",
-        "لن يصلك اشعار أذكار المساء": "You will not receive a notification for the evening dhikr",
-        "لا تنسى قراءة أذكار الصباح ": "Do not forget to read the morning dhikr",
-        "لأذكار الصباح فضل عظيم لا تفوته": "For the morning dhikr, a great virtue not to be missed",
-        "تم تفعيل تذكير أذكار الصباح": "Morning dhikr reminder has been activated",
-        "لن يصلك اشعار أذكار الصباج": "You will not receive a notification for the morning dhikr",
+        "لا تنسى قراءة أذكار المساء ": "Do not forget to read the evening zikr",
+        "لأذكار المساء فضل عظيم لا تفوته": "For the evening zikr, a great virtue not to be missed",
+        "تم تفعيل تذكير أذكار المساء": "Evening zikr reminder has been activated",
+        "لن يصلك اشعار أذكار المساء": "You will not receive a notification for the evening zikr",
+        "لا تنسى قراءة أذكار الصباح ": "Do not forget to read the morning zikr",
+        "لأذكار الصباح فضل عظيم لا تفوته": "For the morning zikr, a great virtue not to be missed",
+        "تم تفعيل تذكير أذكار الصباح": "Morning zikr reminder has been activated",
+        "لن يصلك اشعار أذكار الصباح": "You will not receive a notification for the morning zikr",
         "اذكر الله": "Do Thikr",
-        "تم تفعيل الذكر العشوائي": "Random dhikr has been activated",
-        "سيصلك اشعار بأذكار مختلفة": "You will receive a notification for different dhikr",
-        "لن يصلك اشعار الذكر العشوائي": "You will not receive a notification for the random dhikr",
+        "تم تفعيل الذكر العشوائي": "Random zikr has been activated",
+        "سيصلك اشعار بأذكار مختلفة": "You will receive a notification for different zikr",
+        "لن يصلك اشعار الذكر العشوائي": "You will not receive a notification for the random zikr",
         "لا تنسى صيام غدا فهو من الايام البيض ": "Do not forget to fast tomorrow, it is from the white days",
         "كان صلى الله عليه وسلم يصوم ثلاثة ايام من كل شهر هجري":
             "The Prophet (s.a.w.) used to fast three days of every Hijri month",
@@ -819,6 +847,33 @@ class MyLocal implements Translations {
         "تم تفعيل تذكير حديث عن رسول الله": "Hadith reminder has been activated",
         "لن يصلك اشعار حديث عن رسول الله":
             "You will not receive a notification for a hadith about the Messenger of Allah",
+        "السابق": "Previous",
+        "تخطي": "Skip",
+        "اهلا بك في تطبيق زاد المؤمن": "Welcome to Zad Al-Mu'min",
+        "يمكنك قراءة القرآن الكريم كاملاً والاستماع له بصوت العديد من القراء":
+            "You can read the entire Holy Quran and listen to it in the voice of many readers",
+        "تفسير القرآن الكريم": "Interpretation of the Holy Quran",
+        "يمكنك قراءة تفسير القرآن الكريم للعديد من العلماء والمفسرين الكبار ":
+            "You can read the interpretation of the Holy Quran for many of the great scholars and interpreters",
+        "تذكير بالاحاديث والصيام": "Reminder of Hadith and fasting",
+        "يتيح لك التطبيق تذكيرك بالاحاديث والصيام والصلاة والاستغفار والاذكار والقرآن الكريم":
+            "The application allows you to remind you of hadiths, fasting, prayer, forgiveness, zikr and the Holy Quran",
+        "يمكنك معرفة اوقات الصلاة والاذان عبر مشاركة موقعك الجغرافي مع التطبيق":
+            "You can know the prayer times and the adhan by sharing your geolocation with the application",
+        "اسئلة عن القرآن الكريم": "Questions about the Holy Quran",
+        "يمكنك اختبار مدى قوة حفظك للقرآن الكريم عبر اجابة على الاسئلة المتعلقة بالقرآن الكريم":
+            "You can test the strength of your memorization of the Holy Quran by answering questions related to the Holy Quran",
+        "عدد الصفحات": "Number of pages",
+        "اذا لم تجد الوقت الصحيح اضغط على تحديث": "If you do not find the correct time, click Update",
+        "أعوذ بالله من الشيطان الرجيم": "I seek refuge in Allah from the accursed Satan",
+        "التفاسير": "The interpretations",
+        "تفاسير القرآن": "Interpretations of the Quran",
+        "التنقل بين القران والتفسير": "Navigate between the Quran and the interpretation",
+        "جاري تحميل تفسير أخر": "Currently loading another interpretation",
+        "جاري تحميل سورة أخرى": "Currently loading another surah",
+        "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Write me your notes about the application in order to improve it",
+        "مطور التطبيق": "Application developer",
+
         //--------------------------------------------------------------------------------
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":

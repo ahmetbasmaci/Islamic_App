@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
 import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
@@ -12,11 +13,11 @@ import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/localization/my_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-import 'package:zad_almumin/pages/azkar_page.dart';
-import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/azkar/azkar_page.dart';
+import 'package:zad_almumin/pages/home/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/splash_screen.dart';
-import 'package:zad_almumin/test.dart';
+import 'package:zad_almumin/onboarding_screen.dart';
 import 'classes/controllers_binding.dart';
 import 'constents/app_settings.dart';
 import 'pages/favorite/favorite_page.dart';
@@ -61,8 +62,8 @@ class MyApp extends StatelessWidget {
         PrayerTimes.id: (context) => PrayerTimes(),
         TafseersPage.id: (context) => TafseersPage(),
       },
-      home: OnboardingScreen(),
-      //initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
+      //home: OnboardingScreen(),
+      initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
       //initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,

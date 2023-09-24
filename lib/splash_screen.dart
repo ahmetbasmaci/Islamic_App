@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
-import 'package:zad_almumin/test.dart';
+import 'package:zad_almumin/onboarding_screen.dart';
 
 class SplashPage extends StatefulWidget {
   static const id = 'SplashPage';
@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    scaleController = AnimationController(
+    scaleController =AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 600),
     )..addStatusListener(

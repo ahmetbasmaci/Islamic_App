@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
 import '../../../constents/app_settings.dart';
@@ -24,11 +25,15 @@ class PrayerTimeCtr extends GetxController {
   Rx<Time> nextPrayTime = Time().obs;
   Time currentTime = Time(DateTime.now().hour, DateTime.now().minute);
   Rx<DateTime> curerntDate = DateTime.now().obs;
+  Rx<bool> isLocationPermessionDenieted = false.obs;
   Position? _currentPosition;
+  bool get checkIfPrayerTimesNotSeted => fajrTime.value.hour == 0;
   PrayerTimeCtr() {
-    updatePrayerTimes();
+    isLocationPermessionDenieted.value = GetStorage().read<bool>("isLocationPermessionDenieted") ?? false;
   }
   Future<Position?> _determinePosition() async {
+    if (isLocationPermessionDenieted.value) return null;
+
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -79,7 +84,7 @@ class PrayerTimeCtr extends GetxController {
     if (!serviceEnabled) return null;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      await Future.delayed(Duration(seconds: 5));
+      // await Future.delayed(Duration(seconds: 5));
       await Get.dialog(
         AlertDialogOkNo(
           title: "طلب الاذن بالوصول للموقع الحالي".tr,
@@ -89,30 +94,11 @@ class PrayerTimeCtr extends GetxController {
           okText: "حسنا".tr,
           noText: "رفض".tr,
           onOk: () async => permission = await Geolocator.requestPermission(),
-          onNo: () => Get.back(),
+          onNo: () {
+            updateLocationPermitionState(true);
+            Get.back();
+          },
         ),
-        // AlertDialog(
-        //   title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
-        //   content: MyTexts.settingsContent(
-        //       title:
-        //           "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
-        //   actions: [
-        //     TextButton(
-        //       onPressed: () async {
-        //         Get.back();
-        //         //Geolocator.openLocationSettings();
-        //         permission = await Geolocator.requestPermission();
-        //       },
-        //       child: MyTexts.normal(title: "حسنا"),
-        //     ),
-        //     TextButton(
-        //       onPressed: () {
-        //         Get.back();
-        //       },
-        //       child: MyTexts.normal(title: "رفض"),
-        //     ),
-        //   ],
-        // )
       );
 
       if (permission == LocationPermission.denied) return null; // Future.error('Location permissions are denied');
@@ -123,6 +109,11 @@ class PrayerTimeCtr extends GetxController {
       return Future.error('Location permissions are permanently denied, we cannot request permissions.');
 
     return await Geolocator.getCurrentPosition();
+  }
+
+  void updateLocationPermitionState(bool newValue) {
+    isLocationPermessionDenieted.value = newValue;
+    GetStorage().write('isLocationPermessionDenieted', newValue);
   }
 
   updatePrayerTimes({DateTime? newTime}) async {
@@ -294,4 +285,5 @@ class PrayerTimeCtr extends GetxController {
       nextPrayType = PrayerTimeType.isha.obs;
     }
   }
+
 }

@@ -30,11 +30,11 @@ class TafseersPage extends GetView<ThemeCtr> {
             () => ListTile(
               title: MyTexts.settingsTitle(title: "${tafseerModel.name} - ${tafseerModel.bookName}", size: 16),
               subtitle: MyTexts.settingsContent(title: tafseerModel.author),
-              selected: tafseersCtr.selectedTafseerId.value == index + 1,
+              selected: tafseersCtr.selectedTafseerId.value == tafseerModel.id,
               selectedTileColor: MyColors.primary().withOpacity(0.3),
               onTap: tafseerModel.downloadState.value == DownloadState.downloaded
                   ? () async {
-                      tafseersCtr.updateSelectedTafseerId(index + 1);
+                      tafseersCtr.updateSelectedTafseerId(tafseerModel.id);
                       await JsonService.loadTafseer();
                     }
                   : null,
@@ -59,7 +59,7 @@ class TafseersPage extends GetView<ThemeCtr> {
                         if (downloadedSuccesfuly) {
                           tafseerModel.downloadState.value = DownloadState.downloaded;
                           if (tafseersCtr.selectedTafseerId.value == 0) {
-                            tafseersCtr.updateSelectedTafseerId(index + 1);
+                            tafseersCtr.updateSelectedTafseerId(tafseerModel.id);
                             await JsonService.loadTafseer();
                           }
                         } else

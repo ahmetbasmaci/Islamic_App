@@ -202,7 +202,7 @@ class QuranPageCtr extends GetxController {
 
     ZikrData zikrData = ZikrData(
       zikrType: ZikrType.quran,
-      title: 'اعوذ بالله من الشيطان الرجيم',
+      title: 'أعوذ بالله من الشيطان الرجيم'.tr,
       content: randomAyah.text,
       ayahNumber: randomAyah.ayahNumber,
       surahNumber: randomAyah.surahNumber,
@@ -220,7 +220,7 @@ class QuranPageCtr extends GetxController {
 
     ZikrData zikrData = ZikrData(
       zikrType: ZikrType.quran,
-      title: 'اعوذ بالله من الشيطان الرجيم',
+      title: 'أعوذ بالله من الشيطان الرجيم'.tr,
       content: ayah.text,
       ayahNumber: ayah.ayahNumber,
       surahNumber: ayah.surahNumber,

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
+import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran/tafseers.ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah_tafseer.dart';
@@ -71,8 +72,8 @@ class JsonService {
 
   static Future loadTafseer() async {
     if (_tafseersCtr.selectedTafseerId.value == 0) return;
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    var file = File('$dir/tafseer_${_tafseersCtr.selectedTafseerId.value}.json');
+    var file = File(
+        '${AppSettings.filesDir}/tafseer_${AppSettings.selectedLangCode}_${_tafseersCtr.selectedTafseerId.value}.json');
     if (await file.exists()) {
       Map tafseerMap = jsonDecode(await file.readAsString());
       _tafseersCtr.allTafseer.clear();
@@ -178,8 +179,7 @@ class JsonService {
     List tafseersJsonList = jsonDecode(tafseersManagerFileStr);
     for (var element in tafseersJsonList) {
       tafseerModels.add(TafseerModel.fromJson(element));
-      var dir = await getApplicationDocumentsDirectory();
-      var file = File('${dir.path}/tafseer_${tafseerModels.last.id}.json');
+      var file = File('${AppSettings.filesDir}/tafseer_${tafseerModels.last.language}_${tafseerModels.last.id}.json');
       if (await file.exists()) tafseerModels.last.downloadState.value = DownloadState.downloaded;
     }
     _tafseersCtr.addTafseer(tafseerModels);

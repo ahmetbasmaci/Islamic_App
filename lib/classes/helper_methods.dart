@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/home/home_page.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 
 class HelperMethods {
@@ -15,7 +15,7 @@ class HelperMethods {
   }
 
   static bool get isFirstTime {
-    return true;
+    //return true;
     bool isFirstTime = GetStorage().read<bool>('isFirstTime') ?? true;
     if (isFirstTime) {
       GetStorage().write('isFirstTime', false);

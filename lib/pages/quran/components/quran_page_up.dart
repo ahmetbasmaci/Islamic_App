@@ -9,7 +9,7 @@ import '../../../constents/my_colors.dart';
 import '../../../constents/my_icons.dart';
 import '../../../constents/my_texts.dart';
 import '../../../services/theme_service.dart';
-import '../../home_page.dart';
+import '../../home/home_page.dart';
 import '../../settings/settings_ctr.dart';
 import '../controllers/quran/quran_page_ctr.dart';
 import '../tafseer_page.dart';
