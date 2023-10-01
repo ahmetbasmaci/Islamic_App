@@ -45,11 +45,11 @@ class QuestionsFooter extends GetView<ThemeCtr> {
       return Container(
         width: 120,
         decoration: BoxDecoration(
-          color: MyColors.primary(),
+          color: MyColors.primary,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: MyColors.primary(),
+              color: MyColors.primary,
               blurRadius: 100,
               spreadRadius: .1,
             )
@@ -82,14 +82,14 @@ class QuestionsFooter extends GetView<ThemeCtr> {
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: MyColors.background(),
+            color: MyColors.background,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             boxShadow: [
               BoxShadow(
-                color: MyColors.shadow(),
+                color: MyColors.shadow,
                 blurRadius: 10,
                 spreadRadius: 5,
               )
@@ -119,9 +119,9 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         //   child: Container(
         //     padding: EdgeInsets.all(2),
         //     decoration:
-        //         BoxDecoration(color: MyColors.background(), borderRadius: BorderRadius.circular(100), boxShadow: [
+        //         BoxDecoration(color: MyColors.background, borderRadius: BorderRadius.circular(100), boxShadow: [
         //       BoxShadow(
-        //         color: MyColors.primary().withOpacity(.2),
+        //         color: MyColors.primary.withOpacity(.2),
         //         blurRadius: 10,
         //         spreadRadius: 5,
         //       )
@@ -143,23 +143,23 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         MaterialButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
           elevation: 5,
-          color: MyColors.zikrCard(),
+          color: MyColors.zikrCard,
           onPressed: () => getNextQuestion(),
           child: Row(
             children: AppSettings.isArabicLang
                 ? [
-                    MyIcons.nextArrow(color: MyColors.primary()),
+                    MyIcons.nextArrow(color: MyColors.primary),
                     SizedBox(width: MySiezes.btnIcon),
-                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack()),
+                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack),
                   ]
                 : [
-                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack()),
+                    MyTexts.main(title: 'التالي'.tr, color: MyColors.whiteBlack),
                     SizedBox(width: MySiezes.btnIcon),
-                    MyIcons.nextArrow(color: MyColors.primary()),
+                    MyIcons.nextArrow(color: MyColors.primary),
                   ],
           ),
         ),
-        //MyTexts.normal(title: ' السؤال رقم ${ayahsQuestionsCtr.quastionNumber.value}', color: MyColors.whiteBlack())
+        //MyTexts.normal(title: ' السؤال رقم ${ayahsQuestionsCtr.quastionNumber.value}', color: MyColors.whiteBlack)
       ],
     );
   }
@@ -190,7 +190,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         MyTexts.dropDownMenuTitle(title: 'نوع الاختبار:  '.tr),
         DropdownButton<QuestionType>(
           value: ayahsQuestionsCtr.questionType.value,
-          iconEnabledColor: MyColors.primary(),
+          iconEnabledColor: MyColors.primary,
           onChanged: (QuestionType? val) {
             if (ayahsQuestionsCtr.questionType.value != val) {
               ayahsQuestionsCtr.changeQuestionType(val!);
@@ -240,7 +240,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
             (index) => DropdownMenuItem(value: index + 1, child: MyTexts.dropDownMenuItem(title: '${index + 1}')),
           ),
           value: isPage ? ayahsQuestionsCtr.pageFrom.value : ayahsQuestionsCtr.juzFrom.value,
-          iconEnabledColor: MyColors.primary(),
+          iconEnabledColor: MyColors.primary,
           onChanged: (val) {
             if (isPage) {
               ayahsQuestionsCtr.changePageFrom(val!);
@@ -263,7 +263,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
         MyTexts.dropDownMenuTitle(title: isPage ? 'الى الصفحة    '.tr : 'الى الجزء    '.tr),
         DropdownButton<int>(
           value: isPage ? ayahsQuestionsCtr.pageTo.value : ayahsQuestionsCtr.juzTo.value,
-          iconEnabledColor: MyColors.primary(),
+          iconEnabledColor: MyColors.primary,
           onChanged: (val) {
             if (isPage) {
               ayahsQuestionsCtr.changePageTo(val!);
@@ -296,7 +296,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
       padding: const EdgeInsets.all(MySiezes.cardPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: MyColors.background(),
+        color: MyColors.background,
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(.2), blurRadius: 1, offset: Offset(0, 10)),
         ],
@@ -307,7 +307,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
           //Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: isCorrect ? MyIcons.done() : MyIcons.error),
           MyTexts.main(
             title: isCorrect ? 'الاجابات الصحيحة:   '.tr : 'الاجابات الخاطئة:  '.tr,
-            color: isCorrect ? MyColors.true_ : MyColors.false_,
+            color: isCorrect ? MyColors.correct : MyColors.wrong,
             //size: 13,
           ),
           Material(
@@ -318,7 +318,7 @@ class QuestionsFooter extends GetView<ThemeCtr> {
               child: MyTexts.main(
                   title:
                       isCorrect ? '${ayahsQuestionsCtr.trueAnswersCounter}' : '${ayahsQuestionsCtr.wrongAnwersCounter}',
-                  color: isCorrect ? MyColors.true_ : MyColors.false_),
+                  color: isCorrect ? MyColors.correct : MyColors.wrong),
             ),
           )
         ],

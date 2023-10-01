@@ -68,19 +68,126 @@ class AlarmListTile extends GetView<ThemeCtr> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: MySiezes.betweanAzkarBlock),
-      child: Row(
+      child: ListTile(
+        title: MyTexts.settingsTitle(title: title),
+        leading: Image.asset(imagePath, width: Get.width * .12),
+        //subtitle: MyTexts.settingsContent(title: subtitle),
+        subtitle: alarmProp.notificationType == NotificationType.azkar ||
+                alarmProp.notificationType == NotificationType.hadith
+            ? Container()
+            : MyTexts.settingsContent(
+                title:
+                    '${AppSettings.formatInt2.format(alarmProp.time.value.hour)}:${AppSettings.formatInt2.format(alarmProp.time.value.minute)}'),
+        trailing: SizedBox(
+          width: Get.width * .3,
+          child: Row(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  alarmProp.notificationType == NotificationType.azkar ||
+                          alarmProp.notificationType == NotificationType.hadith
+                      ? azkarCountBtn(menuItemList)
+                      : handleZikrTime(context),
+                ],
+              ),
+              MySwitch(value: value, onChanged: onChanged)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconButton handleZikrTime(BuildContext context) {
+    return IconButton(
+      onPressed: canChange
+          ? () async {
+              TimeOfDay? newTime = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
+                builder: (BuildContext context, Widget? child) => child!,
+              );
+              if (newTime == null) return;
+              alarmProp.time.value = Time(newTime.hour, newTime.minute);
+              getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
+              onChanged(true);
+            }
+          : () {
+              Get.dialog(
+                AlertDialog(
+                  title: MyTexts.settingsTitle(title: 'غير مسموح'.tr),
+                  content: MyTexts.settingsContent(title: 'لا يمكنك تغيير الاشعارات الخاصة بهذه الصلاة'.tr),
+                  actions: [
+                    TextButton(
+                      child: MyTexts.settingsContent(title: 'حسنا'.tr),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+                transitionDuration: Duration(milliseconds: 300),
+                transitionCurve: Curves.easeInCirc,
+              );
+            },
+      icon: MyIcons.alarm,
+    );
+  }
+
+  PopupMenuButton<MenuOptionsItem> azkarCountBtn(List<MenuOptionsItem> menuItemList) {
+    return PopupMenuButton<MenuOptionsItem>(
+      color: MyColors.background,
+      icon: MyIcons.moreVert(color: MyColors.primary),
+      onSelected: (value) {},
+      itemBuilder: (context) {
+        return [
+          ...menuItemList.map((e) => PopupMenuItem(
+                value: e,
+                textStyle: MyTexts.main(title: '').style,
+                child: InkWell(
+                  onTap: () {
+                    for (var element in menuItemList) element.isSelected = false;
+                    e.isSelected = true;
+                    Get.back();
+                    e.onTap?.call();
+                  },
+                  child: Container(
+                    color: e.isSelected ? MyColors.primary : MyColors.background,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        MyIcons.leftArrow(color: e.isSelected ? MyColors.background : null),
+                        SizedBox(width: Get.width * .04),
+                        MyTexts.settingsTitle(
+                          title: e.title,
+                          size: 16,
+                          color: e.isSelected ? MyColors.background : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
+        ];
+      },
+    );
+  }
+}
+/*
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Expanded(child: Image.asset(imagePath, width: 50)),
           const SizedBox(width: 15),
           Expanded(
-            flex: 4,
+            flex: 2,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyTexts.settingsTitle(title: title),
-                MyTexts.settingsContent(title: subtitle),
+                //MyTexts.settingsContent(title: subtitle),
               ],
             ),
           ),
@@ -90,8 +197,8 @@ class AlarmListTile extends GetView<ThemeCtr> {
                 alarmProp.notificationType == NotificationType.azkar ||
                         alarmProp.notificationType == NotificationType.hadith
                     ? PopupMenuButton<MenuOptionsItem>(
-                        color: MyColors.background(),
-                        icon: MyIcons.moreVert(color: MyColors.primary()),
+                        color: MyColors.background,
+                        icon: MyIcons.moreVert(color: MyColors.primary),
                         onSelected: (value) {},
                         itemBuilder: (context) {
                           return [
@@ -106,16 +213,16 @@ class AlarmListTile extends GetView<ThemeCtr> {
                                       e.onTap?.call();
                                     },
                                     child: Container(
-                                      color: e.isSelected ? MyColors.primary() : MyColors.background(),
+                                      color: e.isSelected ? MyColors.primary : MyColors.background,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          MyIcons.leftArrow(color: e.isSelected ? MyColors.background() : null),
+                                          MyIcons.leftArrow(color: e.isSelected ? MyColors.background : null),
                                           SizedBox(width: Get.width * .04),
                                           MyTexts.settingsTitle(
                                             title: e.title,
                                             size: 16,
-                                            color: e.isSelected ? MyColors.background() : null,
+                                            color: e.isSelected ? MyColors.background : null,
                                           ),
                                         ],
                                       ),
@@ -172,6 +279,5 @@ class AlarmListTile extends GetView<ThemeCtr> {
           Expanded(child: MySwitch(value: value, onChanged: onChanged)),
         ],
       ),
-    );
-  }
-}
+
+*/

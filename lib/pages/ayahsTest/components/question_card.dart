@@ -19,7 +19,7 @@ class QuestionCard extends GetView<ThemeCtr> {
       padding: EdgeInsets.all(MySiezes.cardPadding * 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.zikrCard(),
+        color: MyColors.zikrCard,
         border: Border.all(color: Colors.black, width: 1),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),

@@ -31,7 +31,7 @@ class TafseersPage extends GetView<ThemeCtr> {
               title: MyTexts.settingsTitle(title: "${tafseerModel.name} - ${tafseerModel.bookName}", size: 16),
               subtitle: MyTexts.settingsContent(title: tafseerModel.author),
               selected: tafseersCtr.selectedTafseerId.value == tafseerModel.id,
-              selectedTileColor: MyColors.primary().withOpacity(0.3),
+              selectedTileColor: MyColors.primary.withOpacity(0.3),
               onTap: tafseerModel.downloadState.value == DownloadState.downloaded
                   ? () async {
                       tafseersCtr.updateSelectedTafseerId(tafseerModel.id);
@@ -44,7 +44,7 @@ class TafseersPage extends GetView<ThemeCtr> {
                     : tafseerModel.downloadState.value == DownloadState.downloading
                         ? CircularProgressIndicator(
                             value: _httpCtrl.tafseerdownloadProgress.value / 100,
-                            valueColor: AlwaysStoppedAnimation<Color>(MyColors.quranPrimary()),
+                            valueColor: AlwaysStoppedAnimation<Color>(MyColors.quranPrimary),
                           )
                         : MyIcons.downlaod(),
                 onPressed: tafseerModel.downloadState.value == DownloadState.notDownloaded

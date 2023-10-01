@@ -60,13 +60,13 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
               title: '${'الجُزْءُ'}   ${_quranData.getJuzNumberByPage(page)}',
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: MyColors.quranPrimary(),
+              color: MyColors.quranPrimary,
             ),
             MyTexts.quran(
               title: '${_quranCtr.selectedPage.surahName}',
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: MyColors.quranPrimary(),
+              color: MyColors.quranPrimary,
             ),
           ],
         ),
@@ -103,9 +103,9 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
                               borderRadius: BorderRadius.circular(MySiezes.blockRadius),
                               color: _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
                                       _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                                  ? MyColors.quranPrimary().withOpacity(0.5)
+                                  ? MyColors.quranPrimary.withOpacity(0.5)
                                   : ayah.isMarked
-                                      ? MyColors.markedAyah().withOpacity(0.2)
+                                      ? MyColors.markedAyah.withOpacity(0.2)
                                       : Colors.transparent,
                             ),
                             child: myRichText(textSpanChildredn: [ayahPart(ayah)]),
@@ -163,7 +163,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
                       height: _quranCtr.quranFontSize.value * 1.6,
                       width: double.maxFinite,
                       fit: BoxFit.fill,
-                      color: MyColors.primary(),
+                      color: MyColors.primary,
                     ),
                     Center(
                       heightFactor: .9,
@@ -172,7 +172,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
                         title: ayah.surahName,
                         fontSize: _quranCtr.quranFontSize.value * 1.05,
                         fontWeight: FontWeight.bold,
-                        color: MyColors.primary(),
+                        color: MyColors.primary,
                       ),
                     ),
                   ],
@@ -181,9 +181,9 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
             ),
           ),
           Image.asset(
-           ImagesManager.bismillah,
+            ImagesManager.bismillah,
             height: _quranCtr.quranFontSize.value * 1.6,
-            color: MyColors.whiteBlack(),
+            color: MyColors.whiteBlack,
           ),
         ],
       ),
@@ -196,15 +196,15 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
       style: TextStyle(
         fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
         wordSpacing: -1,
-        color: MyColors.whiteBlack(),
+        color: MyColors.whiteBlack,
         background: Paint()
           ..color = _quranCtr.showTafseerPage.value
               ? Colors.transparent
               : _quranCtr.selectedAyah.value.ayahNumber == ayah.ayahNumber &&
                       _quranCtr.selectedAyah.value.surahNumber == ayah.surahNumber
-                  ? MyColors.quranPrimary().withOpacity(0.2)
+                  ? MyColors.quranPrimary.withOpacity(0.2)
                   : ayah.isMarked
-                      ? MyColors.markedAyah().withOpacity(0.2)
+                      ? MyColors.markedAyah.withOpacity(0.2)
                       : Colors.transparent
           ..strokeJoin = StrokeJoin.round
           ..strokeCap = StrokeCap.round
@@ -218,7 +218,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
             wordSpacing: 0,
             fontWeight: FontWeight.bold,
             fontFamily: MyFonts.uthmanic2.name,
-            color: MyColors.quranPrimary(),
+            color: MyColors.quranPrimary,
           ),
         ),
         _quranCtr.showTafseerPage.value
@@ -244,7 +244,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
       width: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.primary().withOpacity(.15),
+        color: MyColors.primary.withOpacity(.15),
       ),
       padding: EdgeInsets.all(MySiezes.screenPadding),
       margin: EdgeInsets.symmetric(vertical: MySiezes.screenPadding),
@@ -252,7 +252,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
         title: tafseerText,
         textAlign: TextAlign.justify,
         // textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
-        color: MyColors.whiteBlack(),
+        color: MyColors.whiteBlack,
         fontSize: _quranCtr.quranFontSize.value,
       ),
     );
@@ -268,7 +268,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
             title: HelperMethods.convertToArabicNumber(page),
             // size: 16,
             fontWeight: FontWeight.bold,
-            color: MyColors.quranPrimary(),
+            color: MyColors.quranPrimary,
           ),
         ),
       ),

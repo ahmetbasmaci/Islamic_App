@@ -100,7 +100,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
               onLongPress: () => _quranCtr.showMarkDialog(),
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 600),
-                color: MyColors.quranBackGround(),
+                color: MyColors.quranBackGround,
                 child:
                     _quranCtr.showQuranImages.value ? QuranPageBodyImages(page: page) : QuranPageBodyTexts(page: page),
               ),

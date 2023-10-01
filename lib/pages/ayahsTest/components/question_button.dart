@@ -36,7 +36,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                 child: DropdownButton<AyahsAnswersType>(
                   value: ayahsQuestionsCtr.answersType.value,
                   onChanged: (val) => ayahsQuestionsCtr.changeAnswerType(val!),
-                  iconEnabledColor: MyColors.primary(),
+                  iconEnabledColor: MyColors.primary,
                   style: MyTexts.dropDownMenuTitle(title: '').style,
                   items: List.generate(
                     AyahsAnswersType.values.length,
@@ -73,7 +73,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
               duration: Duration(milliseconds: 200),
               child: MyTexts.main(
                 title: ayahsQuestionsCtr.currectAnswerJuzDropDown.value.toString(),
-                color: MyColors.true_,
+                color: MyColors.correct,
                 fontWeight: FontWeight.bold,
                 size: 20,
               ),
@@ -81,7 +81,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
             DropdownButton<int>(
               value: ayahsQuestionsCtr.answerJuzDropDown.value,
               onChanged: (val) => ayahsQuestionsCtr.answerJuzDropDown.value = val!,
-              iconEnabledColor: MyColors.primary(),
+              iconEnabledColor: MyColors.primary,
               items: _getSelectJuzOptions(),
             )
           ],
@@ -96,7 +96,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
               duration: Duration(milliseconds: 200),
               child: MyTexts.main(
                 title: ayahsQuestionsCtr.currectAnswerPageDropDown.value.toString(),
-                color: MyColors.true_,
+                color: MyColors.correct,
                 fontWeight: FontWeight.bold,
                 size: 20,
               ),
@@ -104,7 +104,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
             DropdownButton<int>(
               value: ayahsQuestionsCtr.answerPageDropDown.value,
               onChanged: (val) => ayahsQuestionsCtr.answerPageDropDown.value = val!,
-              iconEnabledColor: MyColors.primary(),
+              iconEnabledColor: MyColors.primary,
               items: _getSelectPageOptions(),
             )
           ],
@@ -124,12 +124,12 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                 duration: Duration(milliseconds: 200),
                 width: Get.size.width * .4,
                 decoration: BoxDecoration(
-                  color: ayahsQuestionsCtr.isPressed.value ? ayahsQuestionsCtr.answerColor.value : MyColors.zikrCard(),
+                  color: ayahsQuestionsCtr.isPressed.value ? ayahsQuestionsCtr.answerColor.value : MyColors.zikrCard,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
                       offset: -distance,
-                      color: MyColors.whiteBlack().withOpacity(.2),
+                      color: MyColors.whiteBlack.withOpacity(.2),
                       blurRadius: blure,
                       inset: ayahsQuestionsCtr.isPressed.value,
                     ),
@@ -144,8 +144,7 @@ class QuestionAnswerOptions extends GetView<ThemeCtr> {
                 ),
                 alignment: Alignment.center,
                 child: MyTexts.main(
-                    title: "تأكيد".tr,
-                    color: ayahsQuestionsCtr.isPressed.value ? MyColors.white : MyColors.whiteBlack()),
+                    title: "تأكيد".tr, color: ayahsQuestionsCtr.isPressed.value ? MyColors.white : MyColors.whiteBlack),
               ),
             ),
           ),
@@ -284,12 +283,12 @@ class OptionButton extends GetView<ThemeCtr> {
             duration: Duration(milliseconds: 200),
             width: Get.size.width * .4,
             decoration: BoxDecoration(
-              color: ayahsQuestionsCtr.isPressed.value ? optionBtnProps.color : MyColors.zikrCard(),
+              color: ayahsQuestionsCtr.isPressed.value ? optionBtnProps.color : MyColors.zikrCard,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
                   offset: -distance,
-                  color: MyColors.whiteBlack().withOpacity(.2),
+                  color: MyColors.whiteBlack.withOpacity(.2),
                   blurRadius: blure,
                   inset: ayahsQuestionsCtr.isPressed.value,
                 ),
@@ -325,12 +324,12 @@ class OptionButton extends GetView<ThemeCtr> {
       currectAnswerIsTrue = optionBtnProps.juz == selectedAyah.juz;
 
     if (currectAnswerIsTrue) {
-      optionBtnProps.color = MyColors.true_;
+      optionBtnProps.color = MyColors.correct;
       optionBtnProps.textColor = MyColors.white;
       ayahsQuestionsCtr.increaseTrueAnswerCounter();
       ayahsQuestionsCtr.ayahsAnswerStates = AyahsAnswerStates.correct;
     } else {
-      optionBtnProps.color = MyColors.false_;
+      optionBtnProps.color = MyColors.wrong;
       optionBtnProps.textColor = MyColors.white;
       ayahsQuestionsCtr.increaseWrongAnswerCounter();
       ayahsQuestionsCtr.ayahsAnswerStates = AyahsAnswerStates.wrong;
@@ -341,7 +340,7 @@ class OptionButton extends GetView<ThemeCtr> {
   void findCurrectAnswer() {
     for (OptionBtnProps optionBtnProps in questionBtnProps)
       if (optionBtnProps.juz == selectedAyah.juz && optionBtnProps.page == selectedAyah.page) {
-        optionBtnProps.color = MyColors.true_;
+        optionBtnProps.color = MyColors.correct;
         optionBtnProps.textColor = MyColors.white;
         ayahsQuestionsCtr.currectAnswerJuzDropDown.value = selectedAyah.juz;
         ayahsQuestionsCtr.currectAnswerPageDropDown.value = selectedAyah.page;

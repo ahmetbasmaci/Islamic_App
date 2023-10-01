@@ -42,7 +42,7 @@ class ZikrCard {
           outsideTitle != null && !isFavorite
               ? Align(
                   alignment: AppSettings.isArabicLang ? Alignment.centerRight : Alignment.bottomLeft,
-                  child: MyTexts.outsideHeader(title: outsideTitle, color: MyColors.primary()))
+                  child: MyTexts.outsideHeader(title: outsideTitle, color: MyColors.primary))
               : Container(),
           AnimatedButtonTapping(
             onTap: onTap,
@@ -115,7 +115,7 @@ class ZikrCard {
                         }
                       })
                   // AnimatedButton(
-                  //     color: MyColors.zikrCard(),
+                  //     color: MyColors.zikrCard,
                   //     width: MySiezes.btnIcon,
                   //     height: MySiezes.btnIcon,
                   //     enabled: !isLoading,
@@ -212,7 +212,7 @@ class ZikrCard {
             ? null
             : BoxShadow(
                 offset: Offset(0, 0),
-                color: MyColors.primary().withOpacity(1),
+                color: MyColors.primary.withOpacity(1),
                 blurRadius: 5,
                 spreadRadius: 2,
                 blurStyle: BlurStyle.outer,

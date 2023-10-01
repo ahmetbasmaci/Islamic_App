@@ -7,8 +7,8 @@ import '../constents/my_colors.dart';
 
 class MyCircularProgressIndicator extends StatelessWidget {
   MyCircularProgressIndicator({Key? key, this.color, this.backgroundColor}) : super(key: key);
-  Color? color = MyColors.primary();
-  Color? backgroundColor = MyColors.background();
+  Color? color = MyColors.primary;
+  Color? backgroundColor = MyColors.background;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -414,7 +414,7 @@ class MyLocal implements Translations {
         "جاري تحميل سورة أخرى": "Başka bir sure yükleniyor",
         "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Uygulama hakkındaki görüşlerinizi yazın",
         "مطور التطبيق": "Uygulama geliştiricisi",
-
+        "أذكار متنوعة": "Çeşitli dualar",
         //--------------------------------------------------------------------------------
 
         "اللَّهُ": "Allah",
@@ -873,7 +873,7 @@ class MyLocal implements Translations {
         "جاري تحميل سورة أخرى": "Currently loading another surah",
         "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Write me your notes about the application in order to improve it",
         "مطور التطبيق": "Application developer",
-
+        "أذكار متنوعة": "Various dhikr",
         //--------------------------------------------------------------------------------
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":

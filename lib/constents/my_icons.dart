@@ -82,7 +82,7 @@ class MyIcons {
   static Icon optinos({Color? color = Colors.green, double size = MySiezes.icon}) =>
       Icon(Icons.add_circle_outline_sharp, color: color, size: size);
   static Widget animated_swichQuranImages({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary();
+    color = color ?? MyColors.primary;
     QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
@@ -93,7 +93,7 @@ class MyIcons {
   }
 
   static Widget animated_swichQuranTafseer({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary();
+    color = color ?? MyColors.primary;
     QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
@@ -104,7 +104,7 @@ class MyIcons {
   }
 
   static Widget animated_Light_Dark({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary();
+    color = color ?? MyColors.primary;
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
       firstChild: Icon(Icons.dark_mode, color: color, size: size),
@@ -114,7 +114,7 @@ class MyIcons {
   }
 
   static Widget animatedSound_On_Of({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary();
+    color = color ?? MyColors.primary;
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
       firstChild: Icon(Icons.notifications, color: color, size: size),
@@ -125,7 +125,7 @@ class MyIcons {
   }
 
   static Widget animated_Play_Pause({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary();
+    color = color ?? MyColors.primary;
     AudioCtr audioCtr = Get.find<AudioCtr>();
     return Obx(
       () => AnimatedCrossFade(

@@ -55,7 +55,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
               nextPrevDaysArrows(),
               PrayTimesInfo(),
               MaterialButton(
-                color: MyColors.primary(),
+                color: MyColors.primary,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 onPressed: () async {
                   prayerTimeCtr.updateLocationPermitionState(false);
@@ -147,9 +147,9 @@ class _PrayerTimesState extends State<PrayerTimes> {
                   !prayerTimeCtr.isLoading.value && // check if loading when getting data
                   prayerTimeCtr.curerntDate.value.day == DateTime.now().day //check if today
               ? BoxDecoration(
-                  color: MyColors.zikrCard(),
+                  color: MyColors.zikrCard,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3))],
+                  boxShadow: [BoxShadow(color: MyColors.shadow, blurRadius: 10, offset: Offset(0, 3))],
                 )
               : BoxDecoration(),
           child: Column(

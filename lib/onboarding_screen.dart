@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Directionality(
         textDirection: TextDirection.ltr,
         child: IntroSlider(
-          backgroundColorAllTabs: MyColors.background(),
+          backgroundColorAllTabs: MyColors.background,
           listContentConfig: pages,
           renderDoneBtn: MyTexts.zikrTitle(title: 'تم'.tr),
           renderNextBtn: MyTexts.zikrTitle(title: 'التالي'.tr),
@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           isShowNextBtn: true,
           indicatorConfig: IndicatorConfig(
             colorIndicator: Colors.grey,
-            colorActiveIndicator: MyColors.primary(),
+            colorActiveIndicator: MyColors.primary,
             sizeIndicator: 10.5,
             typeIndicatorAnimation: TypeIndicatorAnimation.sliding,
           ),
@@ -82,7 +82,7 @@ class MyContentConfig extends ContentConfig {
           title: title,
           description: description,
           pathImage: pathImage,
-          styleTitle: MyTexts.quranStyle(fontSize: 25, color: MyColors.whiteBlack()),
-          styleDescription: MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack()),
+          styleTitle: MyTexts.quranStyle(fontSize: 25, color: MyColors.whiteBlack),
+          styleDescription: MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack),
         );
 }

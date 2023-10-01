@@ -13,9 +13,9 @@ class AppSettings {
     setFileDir();
   }
   static SystemUiOverlayStyle systemUiOverlayStyleQuran = SystemUiOverlayStyle(
-    statusBarColor: MyColors.quranStatus(),
+    statusBarColor: MyColors.quranStatus,
     statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: MyColors.quranStatus(),
+    systemNavigationBarColor: MyColors.quranStatus,
     systemNavigationBarDividerColor: Colors.transparent,
     systemNavigationBarIconBrightness: Brightness.dark,
   );

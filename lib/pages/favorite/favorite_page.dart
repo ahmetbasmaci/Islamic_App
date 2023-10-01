@@ -39,7 +39,7 @@ class _FavoritePageState extends State<FavoritePage> {
             padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<ZikrType>(
-                  iconEnabledColor: MyColors.primary(),
+                  iconEnabledColor: MyColors.primary,
                   value: favoriteCtr.selectedZikrType.value,
                   items: [
                     DropdownMenuItem(

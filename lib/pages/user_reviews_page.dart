@@ -59,7 +59,7 @@ class _UserReviewsState extends State<UserReviews> {
                               leading: Icon(Icons.list),
                               // backgroundColor: MyColors.expansionTile(),
                               // collapsedBackgroundColor: MyColors.expansionTile(),
-                              iconColor: MyColors.primary(),
+                              iconColor: MyColors.primary,
                               children: [
                                 SizedBox(height: MySiezes.betweanAzkarBlock),
                                 ...userReviewsCard(items: itemsList[index].data),
@@ -96,7 +96,7 @@ class _UserReviewsState extends State<UserReviews> {
         right: MySiezes.betweanAzkarBlock,
       ),
       decoration: BoxDecoration(
-        color: MyColors.background(),
+        color: MyColors.background,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [BoxShadow(color: MyColors.black.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)],
       ),
@@ -105,7 +105,7 @@ class _UserReviewsState extends State<UserReviews> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MyTexts.main(title: item.name, textAlign: TextAlign.start, color: MyColors.primary()),
+            MyTexts.main(title: item.name, textAlign: TextAlign.start, color: MyColors.primary),
             Divider(height: 10),
             MyTexts.main(title: item.review, textAlign: TextAlign.start, size: Get.width * 0.04),
           ],

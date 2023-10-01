@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    scaleController =AnimationController(
+    scaleController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 600),
     )..addStatusListener(
@@ -89,11 +89,11 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 opacity: _opacity,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: MyColors.background(),
+                    color: MyColors.background,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: MyColors.primary(),
+                        color: MyColors.primary,
                         blurRadius: 10,
                         spreadRadius: 10,
                       ),

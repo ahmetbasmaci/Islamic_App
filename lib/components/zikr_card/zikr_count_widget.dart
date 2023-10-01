@@ -20,16 +20,16 @@ class ZikrCountWidget extends GetView<SettingsCtr> {
           topRight: Radius.circular(100),
           bottomLeft: Radius.circular(10),
         ),
-        color: MyColors.zikrCard(),
+        color: MyColors.zikrCard,
         boxShadow: [
           BoxShadow(
             offset: Offset(0, 5),
-            color: MyColors.primary().withOpacity(.2),
+            color: MyColors.primary.withOpacity(.2),
             blurRadius: 5,
           ),
         ],
       ),
-      child: MyTexts.zikrTitle(title: title,color:MyColors.whiteBlack()),
+      child: MyTexts.zikrTitle(title: title, color: MyColors.whiteBlack),
     );
   }
 }

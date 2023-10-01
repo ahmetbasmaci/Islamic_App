@@ -34,7 +34,7 @@ class AudioPlayStopBtn extends GetView<ThemeCtr> {
             String path = snapshot.data as String;
             if (path != '') startAudio(path);
             return IconButton(
-              color: MyColors.primary(),
+              color: MyColors.primary,
               highlightColor: Colors.transparent,
               onPressed: () => onPlayTap(),
               icon: AnimatedSwitcher(

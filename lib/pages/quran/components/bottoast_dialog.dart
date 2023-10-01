@@ -21,7 +21,7 @@ class BotToastDialog {
       animationDuration: Duration(microseconds: 700),
       animationReverseDuration: Duration(microseconds: 700),
       attachedBuilder: (cancel) => Card(
-        color: MyColors.quranBackGround(),
+        color: MyColors.quranBackGround,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -46,11 +46,10 @@ class BotToastDialog {
     return Container(
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,
-      decoration:
-          BoxDecoration(color: MyColors.whiteBlackReversed(), borderRadius: BorderRadius.all(Radius.circular(50))),
+      decoration: BoxDecoration(color: MyColors.blackWhite, borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
         icon: Icon(ayah.isMarked ? Icons.bookmark : Icons.bookmark_border,
-            size: MySiezes.icon, color: MyColors.quranPrimary()),
+            size: MySiezes.icon, color: MyColors.quranPrimary),
         onPressed: () {
           _quranCtr.addRemoveAyahMark(ayah);
           cancel();
@@ -64,14 +63,14 @@ class BotToastDialog {
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,
       decoration: BoxDecoration(
-        color: MyColors.whiteBlackReversed(),
+        color: MyColors.blackWhite,
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: IconButton(
         icon: Icon(
           Icons.copy_outlined,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary(),
+          color: MyColors.quranPrimary,
         ),
         onPressed: () {
           HelperMethods.copyText(ayah.text);
@@ -84,13 +83,12 @@ class BotToastDialog {
   static Container _playAyahBtn(CancelFunc cancel, Ayah ayah) {
     return Container(
       height: MySiezes.icon * 2,
-      decoration:
-          BoxDecoration(color: MyColors.whiteBlackReversed(), borderRadius: BorderRadius.all(Radius.circular(50))),
+      decoration: BoxDecoration(color: MyColors.blackWhite, borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
         icon: Icon(
           Icons.play_circle,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary(),
+          color: MyColors.quranPrimary,
         ),
         onPressed: () async {
           cancel();
@@ -110,13 +108,12 @@ class BotToastDialog {
     return Container(
       height: MySiezes.icon * 2,
       width: MySiezes.icon * 2,
-      decoration:
-          BoxDecoration(color: MyColors.whiteBlackReversed(), borderRadius: BorderRadius.all(Radius.circular(50))),
+      decoration: BoxDecoration(color: MyColors.blackWhite, borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
         icon: Icon(
           Icons.share_outlined,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary(),
+          color: MyColors.quranPrimary,
         ),
         onPressed: () {
           Share.share(ayah.text, subject: ayah.surahName);

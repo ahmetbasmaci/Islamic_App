@@ -76,7 +76,7 @@ class QuranPageCtr extends GetxController {
         title: MyTexts.main(title: title, fontWeight: FontWeight.bold),
         content: MyTexts.main(title: content),
         actionsAlignment: MainAxisAlignment.spaceAround,
-        backgroundColor: MyColors.quranBackGround(),
+        backgroundColor: MyColors.quranBackGround,
         actions: [
           ElevatedButton(
             onPressed: () {

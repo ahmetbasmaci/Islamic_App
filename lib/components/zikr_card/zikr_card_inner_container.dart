@@ -31,11 +31,11 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
       padding: EdgeInsets.all(MySiezes.cardPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.zikrCard(),
+        color: MyColors.zikrCard,
         boxShadow: [
           // BoxShadow(color: Colors.black.withOpacity(.5), blurRadius: 10, offset: Offset(0, 5)),
-          //BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
-          // BoxShadow(color: MyColors.primary().withOpacity(0.1), blurRadius: 40, spreadRadius: 10),
+          //BoxShadow(color: MyColors.primary.withOpacity(.5), blurRadius: 5, offset: Offset(0, 0)),
+          // BoxShadow(color: MyColors.primary.withOpacity(0.1), blurRadius: 40, spreadRadius: 10),
           BoxShadow(color: MyColors.black.withOpacity(0.2), blurRadius: 20, spreadRadius: 2)
         ],
       ),
@@ -58,8 +58,8 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
                           child: Obx(
                             () => LinearProgressIndicator(
                               value: audioCtr.slider.value,
-                              valueColor: AlwaysStoppedAnimation<Color>(MyColors.primary()),
-                              backgroundColor: MyColors.background(),
+                              valueColor: AlwaysStoppedAnimation<Color>(MyColors.primary),
+                              backgroundColor: MyColors.background,
                             ),
                           ),
                         )
@@ -73,7 +73,7 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
           MyTexts.main(title: zikrData.content.tr),
           zikrData.description != ''
               ? Row(children: [
-                  MyIcons.info(color: MyColors.info),
+                  MyIcons.info(color: MyColors.second),
                   Expanded(child: MyTexts.info(title: zikrData.description))
                 ])
               : Container(),

@@ -44,30 +44,30 @@ class ThemeCtr extends GetxController {
 
     lightThemeMode.value = ThemeData.light().copyWith(
       timePickerTheme: TimePickerThemeData(
-        dialHandColor: MyColors.primary(),
-        dayPeriodBorderSide: BorderSide(color: MyColors.primary(), width: 1),
+        dialHandColor: MyColors.primary,
+        dayPeriodBorderSide: BorderSide(color: MyColors.primary, width: 1),
       ),
-      primaryColor: MyColors.primary_,
+      primaryColor: MyColors.primaryLight,
       scaffoldBackgroundColor: MyColors.backgroundLight,
       drawerTheme: DrawerThemeData(backgroundColor: MyColors.backgroundLight),
-      iconTheme: IconThemeData(color: MyColors.primary_, size: MySiezes.icon),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: MyColors.primary_, elevation: 10),
-      indicatorColor: MyColors.primary_,
-      bottomAppBarTheme: BottomAppBarTheme(color: MyColors.primary_),
+      iconTheme: IconThemeData(color: MyColors.primaryLight, size: MySiezes.icon),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: MyColors.primaryLight, elevation: 10),
+      indicatorColor: MyColors.primaryLight,
+      bottomAppBarTheme: BottomAppBarTheme(color: MyColors.primaryLight),
       listTileTheme: ListTileThemeData(
-        selectedColor: MyColors.primary_,
-        iconColor: MyColors.primary_,
+        selectedColor: MyColors.primaryLight,
+        iconColor: MyColors.primaryLight,
         textColor: MyColors.black,
-        selectedTileColor: MyColors.primary_.withOpacity(.8),
+        selectedTileColor: MyColors.primaryLight.withOpacity(.8),
       ),
       appBarTheme: AppBarTheme(
         color: MyColors.backgroundLight,
-        iconTheme: IconThemeData(color: MyColors.primary_, size: MySiezes.icon),
-        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: MyColors.primary_),
+        iconTheme: IconThemeData(color: MyColors.primaryLight, size: MySiezes.icon),
+        titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: MyColors.primaryLight),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(MyColors.primary_),
+          backgroundColor: MaterialStateProperty.all(MyColors.primaryLight),
           foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 255, 255)),
           elevation: MaterialStateProperty.all(10),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
@@ -81,12 +81,12 @@ class ThemeCtr extends GetxController {
       ),
       colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: MyColors.primary_,
-        onPrimary: MyColors.primary_,
-        secondary: MyColors.primary_,
-        onSecondary: MyColors.primary_,
-        error: MyColors.primary_,
-        onError: MyColors.primary_,
+        primary: MyColors.primaryLight,
+        onPrimary: MyColors.primaryLight,
+        secondary: MyColors.primaryLight,
+        onSecondary: MyColors.primaryLight,
+        error: MyColors.primaryLight,
+        onError: MyColors.primaryLight,
         background: MyColors.backgroundLight,
         onBackground: MyColors.backgroundLight,
         surface: MyColors.backgroundLight,
@@ -95,24 +95,24 @@ class ThemeCtr extends GetxController {
       ),
       textTheme: TextTheme(
         bodySmall: bodySmall_main.copyWith(color: Colors.black),
-        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.primary_),
+        bodyMedium: bodyMedium_zikrTitle.copyWith(color: MyColors.primaryLight),
         bodyLarge: bodyLarge_blockTitle,
         labelSmall: labelSmall_settingsTitle.copyWith(color: MyColors.settingsTitle),
-        labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContent),
+        labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContentLight),
         labelLarge: headLine6_headers.copyWith(color: MyColors.white), //default
-        displaySmall: displaySmall_content.copyWith(color: MyColors.content),
-        displayMedium: displayMedium_Info.copyWith(color: MyColors.info),
+        displaySmall: displaySmall_content.copyWith(color: MyColors.contentLight),
+        displayMedium: displayMedium_Info.copyWith(color: MyColors.secondLight),
         displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.black),
-        titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primary_),
-        titleMedium: bodySmall_quran.copyWith(color: MyColors.primary_),
-        titleLarge: titleLarge_outsideCard.copyWith(color: MyColors.primary_),
+        titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primaryLight),
+        titleMedium: bodySmall_quran.copyWith(color: MyColors.primaryLight),
+        titleLarge: titleLarge_outsideCard.copyWith(color: MyColors.primaryLight),
       ),
     );
 
     darkThemeMode.value = ThemeData.dark().copyWith(
       timePickerTheme: TimePickerThemeData(
-        dialHandColor: MyColors.primary(),
-        dayPeriodBorderSide: BorderSide(color: MyColors.primary(), width: 1),
+        dialHandColor: MyColors.primary,
+        dayPeriodBorderSide: BorderSide(color: MyColors.primary, width: 1),
       ),
       primaryColor: MyColors.primaryDark,
       scaffoldBackgroundColor: MyColors.backgroundDark,
@@ -167,7 +167,7 @@ class ThemeCtr extends GetxController {
         labelMedium: labelMedium_settingContent.copyWith(color: MyColors.settingsContentDark),
         labelLarge: headLine6_headers.copyWith(color: MyColors.white, shadows: []),
         displaySmall: displaySmall_content.copyWith(color: MyColors.contentDark),
-        displayMedium: displayMedium_Info.copyWith(color: MyColors.info),
+        displayMedium: displayMedium_Info.copyWith(color: MyColors.secondDark),
         displayLarge: displayLarge_dropDownItem.copyWith(color: MyColors.white),
         titleSmall: titleSmall_dropDownTitle.copyWith(color: MyColors.primaryDark),
         titleMedium: bodySmall_quran.copyWith(color: MyColors.white),
@@ -178,10 +178,9 @@ class ThemeCtr extends GetxController {
 
   void updatePrimeryColor() {
     GetStorage storage = GetStorage();
-    int primaryColor = storage.read<int>('primary_') ?? MyColors.primary_.value;
-    int primaryDarkColor = storage.read<int>('primaryDark') ?? MyColors.primaryDark.value;
-    MyColors.primary_ = Color(primaryColor);
-    MyColors.primaryDark = Color(primaryDarkColor);
+    int primaryLigth = storage.read<int>('primary_') ?? MyColors.primaryLight.value;
+    int primaryDark = storage.read<int>('primaryDark') ?? MyColors.primaryDark.value;
+    MyColors.updatePrimaryColor(primaryLigth, primaryDark);
   }
 
   void updateTextStyles() {
@@ -191,21 +190,21 @@ class ThemeCtr extends GetxController {
         : FontStyle.normal.name;
     String defaultFontQuran = storage.read<String>('defaultFontQuran') ?? MyFonts.uthmanic.name;
     bodySmall_main = TextStyle(
-      fontSize: Get.width * .04,
+      fontSize: 17,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
       fontFamily: defaultFontMain,
     );
     bodySmall_quran = TextStyle(
-      fontSize: Get.width * .04,
+      fontSize: 17,
       height: 1.8,
       wordSpacing: 5.5,
       fontWeight: FontWeight.w500,
       fontFamily: defaultFontQuran,
     );
     bodyMedium_zikrTitle = TextStyle(
-      fontSize: Get.width * .04,
+      fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
@@ -217,7 +216,7 @@ class ThemeCtr extends GetxController {
     );
 
     bodyLarge_blockTitle = TextStyle(
-      fontSize: Get.width * .04,
+      fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
@@ -229,36 +228,36 @@ class ThemeCtr extends GetxController {
     );
 
     labelMedium_settingContent = TextStyle(
-      fontSize: 17,
-      color: MyColors.settingsContent,
+      fontSize: 15,
+      color: MyColors.settingsContentLight,
       fontFamily: defaultFontMain,
     );
 
     headLine6_headers = TextStyle(
-      fontSize: 20,
+      fontSize: 22,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
     titleLarge_outsideCard = TextStyle(
-      fontSize: 20,
+      fontSize: 21,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
     displayMedium_Info = TextStyle(
       fontSize: 17,
-      color: MyColors.info,
+      color: MyColors.second,
       wordSpacing: 3.5,
       fontFamily: defaultFontMain,
     );
 
     displayLarge_dropDownItem = TextStyle(
-         fontFamily: defaultFontMain,
-        );
+      fontFamily: defaultFontMain,
+    );
 
     titleSmall_dropDownTitle = TextStyle(
       fontSize: 20,
-       fontFamily: defaultFontMain,
+      fontFamily: defaultFontMain,
     );
   }
 

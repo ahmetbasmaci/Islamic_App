@@ -193,7 +193,7 @@ class PrayerTimeCtr extends GetxController {
       DateTime.now().day,
       time2.hour,
       time2.minute,
-      time1.second,
+      time2.second,
     );
 
     Duration fiffrenc = t1.difference(t2);
@@ -205,17 +205,27 @@ class PrayerTimeCtr extends GetxController {
 
   updateCurrentTime() async {
     await Future.delayed(Duration(seconds: 1));
-    Time leftTime = differenceTimes(
-      DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
-        nextPrayTime.value.hour,
-        nextPrayTime.value.minute,
-        nextPrayTime.value.second,
-      ),
-      DateTime.now(),
-    );
+    DateTime time1 = nextPrayType.value == PrayerTimeType.fajr
+        ? DateTime.now()
+        : DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
+            nextPrayTime.value.hour,
+            nextPrayTime.value.minute,
+            nextPrayTime.value.second,
+          );
+    DateTime time2 = nextPrayType.value != PrayerTimeType.fajr
+        ? DateTime.now()
+        : DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
+            nextPrayTime.value.hour,
+            nextPrayTime.value.minute,
+            nextPrayTime.value.second,
+          );
+    Time leftTime = differenceTimes(time1, time2);
 
     String houreTimeLeftTxt = AppSettings.formatInt2.format(leftTime.hour);
     String minuteTimeLeftTxt = AppSettings.formatInt2.format(leftTime.minute);
@@ -285,5 +295,4 @@ class PrayerTimeCtr extends GetxController {
       nextPrayType = PrayerTimeType.isha.obs;
     }
   }
-
 }

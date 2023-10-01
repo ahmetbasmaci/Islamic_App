@@ -43,10 +43,10 @@ class QuranPageFooter extends StatelessWidget {
             height: _httpCtr.isLoading.value ? _loadingRowHeight + _downPartHeight : _downPartHeight,
             width: Get.size.width,
             decoration: BoxDecoration(
-              color: MyColors.quranBackGround(),
+              color: MyColors.quranBackGround,
               // boxShadow: [
               //   BoxShadow(
-              //     color: MyColors.quranPrimary().withOpacity(.5),
+              //     color: MyColors.quranPrimary.withOpacity(.5),
               //     offset: Offset(0, 5),
               //     blurRadius: 30,
               //     spreadRadius: .5,
@@ -72,7 +72,7 @@ class QuranPageFooter extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: _httpCtr.downloadProgress.value == 0 ? 0 : _httpCtr.downloadProgress.value / 100,
                             backgroundColor: Colors.grey,
-                            color: MyColors.quranPrimary(),
+                            color: MyColors.quranPrimary,
                           ),
                         ),
                         Expanded(
@@ -81,7 +81,7 @@ class QuranPageFooter extends StatelessWidget {
                           children: [
                             MyTexts.quranSecondTitle(title: '${(_httpCtr.downloadProgress.value).toStringAsFixed(0)}%'),
                             AnimatedButton(
-                              color: MyColors.quranBackGround(),
+                              color: MyColors.quranBackGround,
                               width: MySiezes.btnIcon,
                               height: MySiezes.btnIcon,
                               onPressed: () {
@@ -89,7 +89,7 @@ class QuranPageFooter extends StatelessWidget {
                                 _httpCtr.isLoading.value = false;
                                 _audioCtr.stopAudio();
                               },
-                              child: MyIcons.close(color: MyColors.quranPrimary()),
+                              child: MyIcons.close(color: MyColors.quranPrimary),
                             ),
                           ],
                         )),
@@ -104,8 +104,8 @@ class QuranPageFooter extends StatelessWidget {
                       //underline: Container(),
                       //alignment: Alignment.bottomRight,
                       //isExpanded: true,
-                      iconEnabledColor: MyColors.quranPrimary(),
-                      dropdownColor: MyColors.quranBackGround(),
+                      iconEnabledColor: MyColors.quranPrimary,
+                      dropdownColor: MyColors.quranBackGround,
                       value: _quranCtr.selectedPage.selectedQuranReader.value,
                       menuMaxHeight: Get.size.height * .3,
                       onChanged: (newVal) {
@@ -123,8 +123,8 @@ class QuranPageFooter extends StatelessWidget {
                                 MyTexts.quranSecondTitle(
                                   title: item.arabicName.tr,
                                   color: _quranCtr.selectedPage.selectedQuranReader.value.name == item.name
-                                      ? MyColors.primary()
-                                      : MyColors.whiteBlack(),
+                                      ? MyColors.primary
+                                      : MyColors.whiteBlack,
                                 ),
                                 IconButton(
                                   onPressed: () {
@@ -139,8 +139,8 @@ class QuranPageFooter extends StatelessWidget {
                       ],
                     ),
                     DropdownButton<String>(
-                      iconEnabledColor: MyColors.quranPrimary(),
-                      dropdownColor: MyColors.quranBackGround(),
+                      iconEnabledColor: MyColors.quranPrimary,
+                      dropdownColor: MyColors.quranBackGround,
                       value: _quranCtr.selectedPage.surahName.value,
                       menuMaxHeight: Get.size.height * .3,
                       onChanged: (newVal) {
@@ -163,8 +163,8 @@ class QuranPageFooter extends StatelessWidget {
                             child: MyTexts.quranSecondTitle(
                               title: AppSettings.removeTashkil(item.name.toString()).tr,
                               color: _quranCtr.selectedPage.surahName.value == item.name
-                                  ? MyColors.primary()
-                                  : MyColors.whiteBlack(),
+                                  ? MyColors.primary
+                                  : MyColors.whiteBlack,
                             ),
                           )
                       ],
@@ -183,36 +183,36 @@ class QuranPageFooter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Card(
-                      color: MyColors.quranBackGround(),
+                      color: MyColors.quranBackGround,
                       child: Tooltip(
                         message: "ضبط اعدادات القراءة".tr,
                         child: InkWell(
-                          child: MyIcons.settings(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                          child: MyIcons.settings(color: MyColors.quranPrimary, size: MySiezes.icon * 1.2),
                           onTap: () async => showResitationSettings(),
                         ),
                       ),
                     ),
                     Card(
-                      color: MyColors.quranBackGround(),
+                      color: MyColors.quranBackGround,
                       child: InkWell(
-                        child: MyIcons.animated_Play_Pause(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                        child: MyIcons.animated_Play_Pause(color: MyColors.quranPrimary, size: MySiezes.icon * 1.2),
                         onTap: () => _quranCtr.playPauseBtnPress(),
                       ),
                     ),
                     Card(
-                      color: MyColors.quranBackGround(),
+                      color: MyColors.quranBackGround,
                       child: InkWell(
-                        child: MyIcons.stop(color: MyColors.quranPrimary(), size: MySiezes.icon * 1.2),
+                        child: MyIcons.stop(color: MyColors.quranPrimary, size: MySiezes.icon * 1.2),
                         onTap: () => _quranCtr.stopAudio(),
                       ),
                     ),
                     Card(
-                      color: MyColors.quranBackGround(),
+                      color: MyColors.quranBackGround,
                       child: Tooltip(
                         message: "التنقل بين القران والتفسير".tr,
                         child: InkWell(
                           child: Obx(() =>
-                              MyIcons.animated_swichQuranTafseer(color: MyColors.primary(), size: MySiezes.icon * 1.2)),
+                              MyIcons.animated_swichQuranTafseer(color: MyColors.primary, size: MySiezes.icon * 1.2)),
                           onTap: () async {
                             List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
                             if (allTafseer.isEmpty) {
@@ -247,7 +247,7 @@ class QuranPageFooter extends StatelessWidget {
   void showResitationSettings() {
     Get.dialog(
       AlertDialog(
-        backgroundColor: MyColors.quranBackGround(),
+        backgroundColor: MyColors.quranBackGround,
         contentPadding: EdgeInsets.all(MySiezes.screenPadding),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -301,8 +301,8 @@ class QuranPageFooter extends StatelessWidget {
                     child: MyTexts.quranSecondTitle(
                       title: item.arabicName.tr,
                       color: item == _quranCtr.selectedPage.selectedQuranReader.value
-                          ? MyColors.primary()
-                          : MyColors.whiteBlack(),
+                          ? MyColors.primary
+                          : MyColors.whiteBlack,
                     ),
                   )
               ],
@@ -344,12 +344,12 @@ class QuranPageFooter extends StatelessWidget {
           child: MaterialButton(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(color: MyColors.quranPrimary()),
+              side: BorderSide(color: MyColors.quranPrimary),
             ),
             onPressed: () {
               Get.dialog(
                 AlertDialog(
-                  backgroundColor: MyColors.quranBackGround(),
+                  backgroundColor: MyColors.quranBackGround,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -415,7 +415,7 @@ class QuranPageFooter extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(Icons.keyboard_arrow_down, color: MyColors.quranPrimary()),
+                Icon(Icons.keyboard_arrow_down, color: MyColors.quranPrimary),
               ],
             ),
           ),
@@ -446,7 +446,7 @@ class QuranPageFooter extends StatelessWidget {
                     ? null
                     : () => _quranCtr.selectedPage.repeetAllCount.value++,
                 icon: MyIcons.plus(
-                  color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+                  color: MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
                 ),
               ),
               IconButton(
@@ -457,11 +457,11 @@ class QuranPageFooter extends StatelessWidget {
                           _quranCtr.selectedPage.repeetAllCount.value--;
                       },
                 icon: MyIcons.minus(
-                  color: MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+                  color: MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
                 ),
               ),
               Checkbox(
-                fillColor: MaterialStateProperty.all(MyColors.whiteBlack()),
+                fillColor: MaterialStateProperty.all(MyColors.whiteBlack),
                 value: _quranCtr.selectedPage.isUnlimitRepeatAll.value,
                 onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAll.value = value ?? false),
               ),
@@ -485,7 +485,7 @@ class QuranPageFooter extends StatelessWidget {
                 onPressed: () => _quranCtr.selectedPage.repeetAyahCount.value++,
                 icon: MyIcons.plus(
                     color:
-                        MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
+                        MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
               ),
               IconButton(
                 onPressed: () {
@@ -493,11 +493,11 @@ class QuranPageFooter extends StatelessWidget {
                 },
                 icon: MyIcons.minus(
                     color:
-                        MyColors.quranPrimary().withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
+                        MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
               ),
               Obx(
                 () => Checkbox(
-                  fillColor: MaterialStateProperty.all(MyColors.whiteBlack()),
+                  fillColor: MaterialStateProperty.all(MyColors.whiteBlack),
                   value: _quranCtr.selectedPage.isUnlimitRepeatAyah.value,
                   onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAyah.value = value ?? false),
                 ),
@@ -524,10 +524,10 @@ class QuranPageFooter extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 0),
           color: isStartAyah
               ? i == _quranCtr.selectedPage.startAyahNum.value
-                  ? MyColors.quranPrimary().withOpacity(.4)
+                  ? MyColors.quranPrimary.withOpacity(.4)
                   : Colors.transparent
               : i == _quranCtr.selectedPage.endAyahNum.value
-                  ? MyColors.quranPrimary().withOpacity(.4)
+                  ? MyColors.quranPrimary.withOpacity(.4)
                   : Colors.transparent,
           child: MaterialButton(
             onPressed: () {

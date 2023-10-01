@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -22,7 +21,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMixin {
   final SettingsCtr _settingsCtr = Get.find<SettingsCtr>();
   final MyLocalCtr _myLocalCtr = Get.find<MyLocalCtr>();
-  Color pickerColor = MyColors.primary();
+  Color pickerColor = MyColors.primary;
   TabController? tabController;
 
   List<MyLanguages> languagesList = [
@@ -79,9 +78,8 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                         child: MyTexts.main(
                           title: e.lang,
                           fontFamily: MyFonts.uthmanic.name,
-                          color: e.code == _myLocalCtr.currentLocal.languageCode
-                              ? MyColors.primary()
-                              : MyColors.whiteBlack(),
+                          color:
+                              e.code == _myLocalCtr.currentLocal.languageCode ? MyColors.primary : MyColors.whiteBlack,
                         ),
                       ),
                     ),
@@ -112,8 +110,8 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                                       style: TextStyle(
                                         fontFamily: e.name,
                                         color: e.name == _settingsCtr.defaultFontMain.value
-                                            ? MyColors.primary()
-                                            : MyColors.whiteBlack(),
+                                            ? MyColors.primary
+                                            : MyColors.whiteBlack,
                                       ),
                                     ),
                                   ))
@@ -123,85 +121,85 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
                     )
                   : Container(),
               Divider(),
-              ListTile(
-                title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'.tr),
-                subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار لون التطبيق'.tr),
-                leading: MyIcons.color(size: MySiezes.icon * 1.2),
-                trailing: CircleAvatar(backgroundColor: MyColors.primary()),
-                onTap: () {
-                  Get.dialog(
-                    AlertDialog(
-                      contentPadding: EdgeInsets.zero,
-                      title: MyTexts.main(title: "تغيير لون التطبيق".tr, size: 20),
-                      content: SizedBox(
-                        height: Get.height,
-                        width: Get.width,
-                        child: Column(
-                          children: [
-                            TabBar(
-                              controller: tabController,
-                              tabs: [
-                                Tab(child: MyTexts.main(title: "ثابت".tr)),
-                                Tab(child: MyTexts.main(title: "مدرّج".tr)),
-                                Tab(child: MyTexts.main(title: "يدوي".tr)),
-                              ],
-                            ),
-                            Expanded(
-                              child: TabBarView(
-                                controller: tabController,
-                                children: [
-                                  BlockPicker(
-                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
-                                  MaterialPicker(
-                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
-                                  ColorPicker(
-                                      pickerColor: MyColors.primary(), onColorChanged: (val) => pickerColor = val),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ElevatedButton(
-                              child: MyTexts.main(title: 'تأكيد'.tr, color: MyColors.white),
-                              onPressed: () async {
-                                await _settingsCtr.changeThemeColor(pickerColor, () => setState(() {}));
-                                Get.back();
-                              },
-                            ),
-                            TextButton(
-                              child: MyTexts.main(title: 'إالغاء'.tr),
-                              onPressed: () async => Get.back(),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    // AlertDialog(
-                    //   content: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //     children: <Widget>[
-                    //       ...MyColors.primaryColors.map(
-                    //         (e) => CircleAvatar(
-                    //           backgroundColor: e,
-                    //           child: InkWell(
-                    //             onTap: () async {
-                    //               await _settingsCtr.changeThemeColor(e, () => setState(() {}));
-                    //               Get.back();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                  );
-                },
-              ),
+              // ListTile(
+              //   title: MyTexts.settingsTitle(title: 'تغيير لون التطبيق'.tr),
+              //   subtitle: MyTexts.settingsContent(title: 'انقر هنا لاختيار لون التطبيق'.tr),
+              //   leading: MyIcons.color(size: MySiezes.icon * 1.2),
+              //   trailing: CircleAvatar(backgroundColor: MyColors.primary),
+              //   onTap: () {
+              //     Get.dialog(
+              //       AlertDialog(
+              //         contentPadding: EdgeInsets.zero,
+              //         title: MyTexts.main(title: "تغيير لون التطبيق".tr, size: 20),
+              //         content: SizedBox(
+              //           height: Get.height,
+              //           width: Get.width,
+              //           child: Column(
+              //             children: [
+              //               TabBar(
+              //                 controller: tabController,
+              //                 tabs: [
+              //                   Tab(child: MyTexts.main(title: "ثابت".tr)),
+              //                   Tab(child: MyTexts.main(title: "مدرّج".tr)),
+              //                   Tab(child: MyTexts.main(title: "يدوي".tr)),
+              //                 ],
+              //               ),
+              //               Expanded(
+              //                 child: TabBarView(
+              //                   controller: tabController,
+              //                   children: [
+              //                     BlockPicker(
+              //                         pickerColor: MyColors.primary, onColorChanged: (val) => pickerColor = val),
+              //                     MaterialPicker(
+              //                         pickerColor: MyColors.primary, onColorChanged: (val) => pickerColor = val),
+              //                     ColorPicker(
+              //                         pickerColor: MyColors.primary, onColorChanged: (val) => pickerColor = val),
+              //                   ],
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         actions: <Widget>[
+              //           Row(
+              //             mainAxisAlignment: MainAxisAlignment.start,
+              //             children: [
+              //               ElevatedButton(
+              //                 child: MyTexts.main(title: 'تأكيد'.tr, color: MyColors.white),
+              //                 onPressed: () async {
+              //                   await _settingsCtr.changeThemeColor(pickerColor, () => setState(() {}));
+              //                   Get.back();
+              //                 },
+              //               ),
+              //               TextButton(
+              //                 child: MyTexts.main(title: 'إالغاء'.tr),
+              //                 onPressed: () async => Get.back(),
+              //               ),
+              //             ],
+              //           ),
+              //         ],
+              //       ),
+              //       // AlertDialog(
+              //       //   content: Row(
+              //       //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       //     children: <Widget>[
+              //       //       ...MyColors.primaryColors.map(
+              //       //         (e) => CircleAvatar(
+              //       //           backgroundColor: e,
+              //       //           child: InkWell(
+              //       //             onTap: () async {
+              //       //               await _settingsCtr.changeThemeColor(e, () => setState(() {}));
+              //       //               Get.back();
+              //       //             },
+              //       //           ),
+              //       //         ),
+              //       //       ),
+              //       //     ],
+              //       //   ),
+              //       // ),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),

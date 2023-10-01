@@ -25,7 +25,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
     markedAyahs = _quranCtr.getMarkedAyahs();
     return SafeArea(
       child: Drawer(
-        backgroundColor: MyColors.quranBackGround(),
+        backgroundColor: MyColors.quranBackGround,
         width: Get.width * 0.6,
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class MyEndDrawer extends GetView<ThemeCtr> {
                 markCategory(title: 'الايات'.tr, icon: MyIcons.book(), index: 1),
               ],
             ),
-            Divider(color: MyColors.quranPrimary()),
+            Divider(color: MyColors.quranPrimary),
             Expanded(
               child: PageView(
                 controller: pageController,
@@ -97,19 +97,17 @@ class MyEndDrawer extends GetView<ThemeCtr> {
     return Expanded(
       child: Obx(() {
         return Container(
-          color: myEndDrawerCtr.currentPage.value == index ? MyColors.quranPrimary() : Colors.transparent,
+          color: myEndDrawerCtr.currentPage.value == index ? MyColors.quranPrimary : Colors.transparent,
           child: InkWell(
             child: Column(
               children: [
                 icon = Icon(
                   icon.icon,
-                  color:
-                      myEndDrawerCtr.currentPage.value == index ? MyColors.quranBackGround() : MyColors.quranPrimary(),
+                  color: myEndDrawerCtr.currentPage.value == index ? MyColors.quranBackGround : MyColors.quranPrimary,
                 ),
                 MyTexts.quranSecondTitle(
                   title: title,
-                  color:
-                      myEndDrawerCtr.currentPage.value == index ? MyColors.quranBackGround() : MyColors.quranPrimary(),
+                  color: myEndDrawerCtr.currentPage.value == index ? MyColors.quranBackGround : MyColors.quranPrimary,
                 )
               ],
             ),
@@ -130,10 +128,10 @@ class MyEndDrawer extends GetView<ThemeCtr> {
         ListTile(
           title: MyTexts.settingsTitle(title: title),
           subtitle: MyTexts.settingsContent(title: subtitle),
-          //shape: Border(bottom: BorderSide(color: MyColors.quranPrimary())),
+          //shape: Border(bottom: BorderSide(color: MyColors.quranPrimary)),
           onTap: () => _quranCtr.markedItemBtnPress(page),
         ),
-        Divider(color: MyColors.quranPrimary())
+        Divider(color: MyColors.quranPrimary)
       ],
     );
   }

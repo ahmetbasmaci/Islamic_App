@@ -10,7 +10,7 @@ import '../../../moduls/enums.dart';
 class AyahsQuestionsCtr extends GetxController {
   GetStorage getStorage = GetStorage();
   RxBool isPressed = false.obs;
-  Rx<Color> answerColor = MyColors.false_.obs;
+  Rx<Color> answerColor = MyColors.wrong.obs;
   RxInt quastionNumber = 1.obs;
   RxInt trueAnswersCounter = 0.obs;
   RxInt wrongAnwersCounter = 0.obs;
@@ -88,7 +88,7 @@ class AyahsQuestionsCtr extends GetxController {
     isPressed.value = true;
     if (answerJuzDropDown.value == ayah.juz && answerPageDropDown.value == ayah.page) {
       increaseTrueAnswerCounter();
-      answerColor.value = MyColors.true_;
+      answerColor.value = MyColors.correct;
       ayahsAnswerStates = AyahsAnswerStates.correct;
       confettiCtr.play();
       Future.delayed(Duration(seconds: 2)).then((value) => confettiCtr.stop());
@@ -96,7 +96,7 @@ class AyahsQuestionsCtr extends GetxController {
       increaseWrongAnswerCounter();
       currectAnswerJuzDropDown.value = ayah.juz;
       currectAnswerPageDropDown.value = ayah.page;
-      answerColor.value = MyColors.false_;
+      answerColor.value = MyColors.wrong;
       ayahsAnswerStates = AyahsAnswerStates.wrong;
     }
   }

@@ -15,11 +15,11 @@ class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
     return Container(
       margin: EdgeInsets.only(top: MySiezes.betweanAzkarBlock),
       decoration: BoxDecoration(
-        color: MyColors.background(),
+        color: MyColors.background,
         borderRadius: BorderRadius.circular(100),
         boxShadow: [
-          BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3)),
-          BoxShadow(color: MyColors.shadowPrimary(), blurRadius: 6, offset: Offset(0, 3)),
+          BoxShadow(color: MyColors.shadow, blurRadius: 10, offset: Offset(0, 3)),
+          BoxShadow(color: MyColors.shadowPrimary, blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
       width: Get.width * .55,
@@ -31,7 +31,7 @@ class PrayTmeNextPrayInfo extends GetView<ThemeCtr> {
             MyTexts.main(
               title: prayerTimeCtr.nextPrayName.value.tr,
               size: 26,
-              color: MyColors.primary(),
+              color: MyColors.primary,
               fontWeight: FontWeight.bold,
             ),
             MyTexts.main(

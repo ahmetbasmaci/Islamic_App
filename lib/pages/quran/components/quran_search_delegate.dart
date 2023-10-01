@@ -19,20 +19,20 @@ class QuranSearchDelegate extends SearchDelegate {
 
   @override
   ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(
-        scaffoldBackgroundColor: MyColors.quranBackGround(),
-        iconTheme: IconThemeData(color: MyColors.quranPrimary()),
+        scaffoldBackgroundColor: MyColors.quranBackGround,
+        iconTheme: IconThemeData(color: MyColors.quranPrimary),
         textTheme: TextTheme(
-          titleMedium: TextStyle(color: MyColors.quranPrimary()),
+          titleMedium: TextStyle(color: MyColors.quranPrimary),
         ),
         appBarTheme: AppBarTheme(
-          color: MyColors.quranBackGround(),
-          iconTheme: IconThemeData(color: MyColors.quranPrimary()),
-          titleTextStyle: TextStyle(color: MyColors.quranPrimary()),
+          color: MyColors.quranBackGround,
+          iconTheme: IconThemeData(color: MyColors.quranPrimary),
+          titleTextStyle: TextStyle(color: MyColors.quranPrimary),
         ),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: InputBorder.none,
           border: InputBorder.none,
-          labelStyle: MyTexts.main(title: '', color: MyColors.quranPrimary()).style,
+          labelStyle: MyTexts.main(title: '', color: MyColors.quranPrimary).style,
         ),
       );
 
@@ -213,7 +213,7 @@ class QuranSearchDelegate extends SearchDelegate {
           _quranCtr.updateCurrentPageToCurrentAyah();
           // _quranCtr.tabCtr.index = ayah.page - 1;
         },
-        color: MyColors.quranBackGround(),
+        color: MyColors.quranBackGround,
         child: Column(
           children: [
             Row(
@@ -224,10 +224,10 @@ class QuranSearchDelegate extends SearchDelegate {
                     MyTexts.main(
                         title: '${AppSettings.removeTashkil(ayah.surahName).tr}:',
                         textAlign: TextAlign.right,
-                        color: MyColors.quranPrimary()),
+                        color: MyColors.quranPrimary),
                     SizedBox(width: Get.width * .03),
                     MyTexts.main(
-                        title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.quranPrimary()),
+                        title: ayah.ayahNumber.toString(), textAlign: TextAlign.right, color: MyColors.quranPrimary),
                   ],
                 ),
                 Row(
@@ -235,11 +235,11 @@ class QuranSearchDelegate extends SearchDelegate {
                     MyTexts.main(
                         title: "${'الصفحة'.tr}:  ".toString(),
                         textAlign: TextAlign.right,
-                        color: MyColors.quranPrimary()),
+                        color: MyColors.quranPrimary),
                     MyTexts.main(
                       title: ayah.page.toString(),
                       textAlign: TextAlign.right,
-                      color: MyColors.quranPrimary(),
+                      color: MyColors.quranPrimary,
                     ),
                   ],
                 ),
@@ -250,7 +250,7 @@ class QuranSearchDelegate extends SearchDelegate {
               child: MyTexts.quran(
                 title: ayah.text,
                 textAlign: TextAlign.justify,
-                color: MyColors.whiteBlack(),
+                color: MyColors.whiteBlack,
                 fontSize: _quranCtr.quranFontSize.value,
               ),
             ),

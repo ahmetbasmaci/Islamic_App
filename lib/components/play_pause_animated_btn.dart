@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 
-
 class PlayPauseAnimatedBtn extends GetView<ThemeCtr> {
   PlayPauseAnimatedBtn({
     super.key,
@@ -25,7 +24,7 @@ class PlayPauseAnimatedBtn extends GetView<ThemeCtr> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: MyColors.zikrCard(),
+          color: MyColors.zikrCard,
           boxShadow: [
             BoxShadow(
               color: MyColors.black.withOpacity(.6),
@@ -41,4 +40,3 @@ class PlayPauseAnimatedBtn extends GetView<ThemeCtr> {
     );
   }
 }
-

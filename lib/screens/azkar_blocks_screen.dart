@@ -50,7 +50,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                      color: MyColors.primary(),
+                      color: MyColors.zikrCard,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(.6),
@@ -62,9 +62,9 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
                     margin:
                         EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
                     child: ListTile(
-                      title: MyTexts.blockTitle(title: BlockData.list[index].title.tr),
+                      title: MyTexts.blockTitle(title: BlockData.list[index].title.tr, color: MyColors.primary),
                       leading: Image.asset(BlockData.list[index].imageSource),
-                      trailing: MyIcons.leftArrow(color: MyColors.white),
+                      trailing: MyIcons.leftArrow(color: MyColors.primary),
                       onTap: () {
                         Get.to(
                           AzkarPage(
@@ -92,7 +92,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-            color: MyColors.primary(),
+            color: MyColors.primary,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(.6),

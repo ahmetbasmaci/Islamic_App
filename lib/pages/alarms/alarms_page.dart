@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/constents/assets_manager.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
 import '../../components/my_drawer.dart';
@@ -26,6 +27,7 @@ class _AlarmPageState extends State<AlarmPage> {
         return Scaffold(
           appBar: MyAppBar(title: 'المنبه'.tr),
           drawer: MyDrawer(),
+          backgroundColor: MyColors.background,
           body: ListView(
             children: [
               alarmBlockTitle(title: 'تذكير الاحاديث'.tr),
@@ -52,7 +54,7 @@ class _AlarmPageState extends State<AlarmPage> {
           Obx(
             () => AlarmListTile(
               imagePath: ImagesManager.azkarAlarm,
-              title: 'أذكار عشوائية'.tr,
+              title: 'أذكار متنوعة'.tr,
               subtitle: 'سيصلك اشعار بذكر عشوائي'.tr,
               value: alarmsCtr.azkarProp.isActive.value,
               alarmProp: alarmsCtr.azkarProp.time.value.minute == 0 ? alarmsCtr.azkarProp : alarmsCtr.azkarProp,

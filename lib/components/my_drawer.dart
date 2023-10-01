@@ -127,7 +127,7 @@ class MyDrawer extends GetView<ThemeCtr> {
     return UserAccountsDrawerHeader(
       accountName: MyTexts.drawerTitle(title: 'اقسام البرنامج'.tr),
       accountEmail: Text(''),
-      decoration: BoxDecoration(color: MyColors.primary()),
+      decoration: BoxDecoration(color: MyColors.primary),
       otherAccountsPictures: [
         Padding(
           padding: AppSettings.isArabicLang
@@ -190,10 +190,10 @@ Widget drawerItem(
         size: 17,
         fontWeight: FontWeight.bold,
         textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
-        color: selected ? MyColors.white : MyColors.whiteBlack()),
+        color: selected ? MyColors.white : MyColors.whiteBlack),
     selected: selected,
     selectedColor: MyColors.white,
-    iconColor: MyColors.primary(),
+    iconColor: MyColors.primary,
     onTap: onTap,
   );
 }

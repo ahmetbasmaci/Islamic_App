@@ -34,7 +34,8 @@ class AlarmsCtr extends GetxController {
     storageKey: 'kahfSure',
     notificationTitle: 'لا تنسى قراءة سورة الكهف '.tr,
     notificationBody:
-        ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((مَن قَرَأَ سورةَ الكَهفِ يومَ الجُمُعةِ أضاءَ له من النورِ ما بَينَ الجُمُعتينِ  ))'.tr,
+        ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((مَن قَرَأَ سورةَ الكَهفِ يومَ الجُمُعةِ أضاءَ له من النورِ ما بَينَ الجُمُعتينِ  ))'
+            .tr,
     snackBarEnabeldTitle: 'تم تفعيل تذكير قراءة سورة الكهف'.tr,
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة سورة الكهف'.tr,
     snackBarDesabledTitle: 'تم تعطيل الاشعار '.tr,
@@ -50,7 +51,8 @@ class AlarmsCtr extends GetxController {
     storageKey: 'quranPageEveryDay',
     notificationTitle: 'لا تنسى قراءة وردك اليومي من القرآن '.tr,
     notificationBody:
-        ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((اقْرَءُوا الْقُرْآنَ فَإِنَّهُ يَأْتِي يَوْمَ الْقِيَامَةِ شَفِيعًا لأَصْحَابِهِ))'.tr,
+        ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((اقْرَءُوا الْقُرْآنَ فَإِنَّهُ يَأْتِي يَوْمَ الْقِيَامَةِ شَفِيعًا لأَصْحَابِهِ))'
+            .tr,
     snackBarEnabeldTitle: 'تم تفعيل تذكير قراءة الورد اليومي للقران'.tr,
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة وردك اليومي من القرآن الكريم'.tr,
     snackBarDesabledTitle: 'تم تعطيل الاشعار '.tr,
@@ -348,16 +350,16 @@ class AlarmsCtr extends GetxController {
       message,
       icon: icon,
       snackPosition: SnackPosition.BOTTOM,
-      colorText: MyColors.whiteBlack(),
-      backgroundColor: MyColors.background(),
-      boxShadows: [BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
+      colorText: MyColors.whiteBlack,
+      backgroundColor: MyColors.background,
+      boxShadows: [BoxShadow(color: MyColors.primary.withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
       titleText: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack()),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack),
       ),
       messageText: Text(
         message,
-        style: TextStyle(fontSize: 16, color: MyColors.whiteBlack()),
+        style: TextStyle(fontSize: 16, color: MyColors.whiteBlack),
       ),
     );
   }

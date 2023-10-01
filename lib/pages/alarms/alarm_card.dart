@@ -13,7 +13,7 @@ class AlarmCard extends GetView<ThemeCtr> {
     return Container(
       margin: EdgeInsets.all(MySiezes.cardPadding),
       decoration: BoxDecoration(
-        color: MyColors.background(),
+        color: MyColors.background,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

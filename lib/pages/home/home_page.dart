@@ -65,8 +65,8 @@ class _HomePageState extends State<HomePage> {
                     showSettingsBtn: true,
                     actions: [
                       IconButton(
-                        onPressed: () => Get.offAll(QuranPage(),
-                            duration: Duration(milliseconds: 200), transition: Transition.zoom),
+                        onPressed: () =>
+                            Get.offAll(QuranPage(), duration: Duration(milliseconds: 200), transition: Transition.zoom),
                         icon: MyIcons.quran(),
                       )
                     ],
@@ -77,8 +77,8 @@ class _HomePageState extends State<HomePage> {
             //     ? CurvedNavigationBar(
             //         height: MySiezes.navigationTap,
             //         items: icons,
-            //         color: MyColors.primary(),
-            //         backgroundColor: MyColors.background(),
+            //         color: MyColors.primary,
+            //         backgroundColor: MyColors.background,
             //         animationCurve: Curves.easeInOut,
             //         animationDuration: Duration(milliseconds: 300),
             //         index: currentIndex,

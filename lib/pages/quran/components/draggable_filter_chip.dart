@@ -90,9 +90,9 @@ class DraggableFilterChip extends StatelessWidget {
       () => FilterChip(
         label: MyTexts.main(
             title: filterChipProp.text.tr,
-            color: filterChipProp.isSelected.value ? MyColors.white : MyColors.whiteBlack()),
+            color: filterChipProp.isSelected.value ? MyColors.white : MyColors.whiteBlack),
         selected: filterChipProp.isSelected.value,
-        selectedColor: MyColors.quranPrimary(),
+        selectedColor: MyColors.quranPrimary,
         checkmarkColor: MyColors.white,
         onSelected: (value) {
           filterChipProp.isSelected.value = value;
@@ -104,7 +104,7 @@ class DraggableFilterChip extends StatelessWidget {
       label: MyTexts.main(title: '           '),
       selected: false,
       onSelected: (value) {},
-      selectedColor: MyColors.quranPrimary(),
+      selectedColor: MyColors.quranPrimary,
     );
     return Draggable<FilterChipProp>(
       data: filterChipProp,

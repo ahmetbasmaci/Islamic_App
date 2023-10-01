@@ -10,11 +10,11 @@ class FavoriteSearchDelegate extends SearchDelegate {
 
   @override
   ThemeData appBarTheme(BuildContext context) => Theme.of(context).copyWith(
-        scaffoldBackgroundColor: MyColors.background(),
-        iconTheme: IconThemeData(color: MyColors.primary()),
-        appBarTheme: AppBarTheme(color: MyColors.background(), iconTheme: IconThemeData(color: MyColors.primary())),
-        textTheme: TextTheme(labelLarge: TextStyle(color: MyColors.primary())),
-        textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.primary()),
+        scaffoldBackgroundColor: MyColors.background,
+        iconTheme: IconThemeData(color: MyColors.primary),
+        appBarTheme: AppBarTheme(color: MyColors.background, iconTheme: IconThemeData(color: MyColors.primary)),
+        textTheme: TextTheme(labelLarge: TextStyle(color: MyColors.primary)),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.primary),
         inputDecorationTheme: InputDecorationTheme(focusedBorder: InputBorder.none, border: InputBorder.none),
       );
 

@@ -2,61 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyColors {
-  static final List<Color> primaryColors = [Color(0xFF0A8468), Color(0xFF8A8F0C), Color(0xFFAC7324), Color(0xFFAAAC24)];
-  static const Color backgroundLight = Color(0xFFFFFFFF); //Color(0xffdbe2e7);
-  static const Color backgroundDark = Color(0xff1e1e1e);
-  // static const Color _markedAyah = Color(0xFF04FFC4); // Color(0xFFB9791F);
-  // static const Color _markedAyahDark = Color(0xFF04FFC4); // Color(0xFFAC7324);
-  static const Color quranBackGroundLight = Color(0xFFFFFCFA); // Color(0xFFF7EDE3);
-  static const Color quranBackGroundDark = Color(0xff1e1e1e);
-  static const Color quranItemBackGroundLight = Color(0xFFF7EDE3);
-  static const Color quranItemBackGroundDark = Color(0xff1e1e1e);
-// static const Color quranSelectedAyahBackColor = Color(0xFFF7EDE3);
-// static const Color quranSelectedAyahBackColorDark = Color(0xFF000000);
-  static Color primary_ = Color(0xFF1A644F);
-  static Color primaryDark = Color(0xFF004134);
-  static const Color lightModeShadow = Color(0xFF3F3F3F);
-  // static const Color second_ = Color(0xFF1A644F);
-  // static const Color secondDark = Color(0xFF1A644F);
-  static const Color content = Color(0xFF000000);
-  static const Color contentDark = Color(0xFFFFFFFF);
-  static const Color info = Color(0xFF2AB58D);
-  static const Color settingsTitle = Color(0xFF000000);
-  static const Color settingsContent = Color(0xFF3B3B3B);
-  static const Color settingsContentDark = Color.fromARGB(255, 152, 152, 152);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-  static const Color _zikrCardDark = Color(0xff1e1e1e);
-  static const Color _zikrCard = Color(0xFFFFFFFF);
-  static const Color _trueDark = Color(0xFF2AD540);
-  static const Color true_ = Color(0xFF2AD540);
-  static const Color false_ = Color(0xFFCB2828);
+  static Color get primaryLight => Color(0xFF1A644F);
+  static Color get primaryDark => Color(0xFF48A27F);
+  static Color get primary => Get.isDarkMode ? primaryDark : primaryLight;
+  static Color get quranPrimary => primary;
 
-  static Color background() => Get.isDarkMode ? backgroundDark : backgroundLight;
+  static Color get secondLight => Color(0xFF2E41F2);
+  static Color get secondDark => Color(0xFF6171F7);
+  static Color get second => Get.isDarkMode ? secondDark : secondLight;
+  static Color get markedAyah => second;
 
-  static Color whiteBlack() => Get.isDarkMode ? white : black;
-  static Color whiteBlackReversed() => Get.isDarkMode ? black : white;
+  static Color get backgroundLight => Color(0xFFFFFFFF);
+  static Color get backgroundDark => Color(0xff1e1e1e); //0xff1e1e1e
+  static Color get background => Get.isDarkMode ? backgroundDark : backgroundLight;
 
-  static Color quranText() => Get.isDarkMode ? quranBackGroundLight : black;
-  static Color quranPrimary() => Get.isDarkMode ? primaryDark : primary_;
-  static Color markedAyah() => Get.isDarkMode ? primaryDark : primary_;
-  // static Color markedAyah() => Get.isDarkMode ? _markedAyahDark : _markedAyah;
-  static Color quranStatus() => Get.isDarkMode ? Color.fromARGB(255, 0, 0, 0) : Color.fromARGB(255, 210, 195, 174);
+  static Color get correctLight => Color(0xFF28A034);
+  static Color get correctDark => Color(0xFF56C557);
+  static Color get correct => Get.isDarkMode ? correctDark : correctLight;
 
-  static Color quranBackGround() => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;
-  static Color quranItemBackGround() => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
-  //static Color quranSelectedAyahBackColor() => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
+  static Color get wrongLight => Color(0xFFCC1A3E);
+  static Color get wrongDark => Color(0xFFCC1A3E);
+  static Color get wrong => Get.isDarkMode ? wrongDark : wrongLight;
 
-  static Color primary() => Get.isDarkMode ? primaryDark : primary_;
+  static Color get white => Color(0xFFFFFFFF);
+  static Color get black => Color(0xFF000000);
+  static Color get whiteBlack => Get.isDarkMode ? white : black;
+  static Color get blackWhite => Get.isDarkMode ? black : white;
 
-  static Color currect() => Get.isDarkMode ? _trueDark : true_;
+  static Color get quranBackGroundLight => Color(0xFFFFFCFA); // Color(0xFFF7EDE3);
+  static Color get quranBackGroundDark => Color(0xff1e1e1e);
+  static Color get quranBackGround => Get.isDarkMode ? quranBackGroundDark : quranBackGroundLight;
 
-  //static Color second() => Get.isDarkMode ? secondDark : second_;
+  static Color get quranItemBackGroundLight => Color(0xFFF7EDE3);
+  static Color get quranItemBackGroundDark => Color(0xff1e1e1e);
+  static Color get quranItemBackGround => Get.isDarkMode ? quranItemBackGroundDark : quranItemBackGroundLight;
 
-  static Color shadow() => Get.isDarkMode ? black : black;
+  static Color get _zikrCardDark => Color(0xff1e1e1e);
+  static Color get _zikrCardLight => Color(0xFFFFFFFF);
+  static Color get zikrCard => Get.isDarkMode ? _zikrCardDark : _zikrCardLight;
 
-  static Color zikrCard() => Get.isDarkMode ? _zikrCardDark : _zikrCard;
-  static Color zikrCard2() => Get.isDarkMode ? black : lightModeShadow;
+  static Color get settingsContentLight => Color(0xFF3B3B3B);
+  static Color get settingsContentDark => Color.fromARGB(255, 152, 152, 152);
+  static Color get settingsContent => Get.isDarkMode ? settingsContentDark : settingsContentLight;
 
-  static Color shadowPrimary() => Get.isDarkMode ? primaryDark : primary_;
+  static Color get contentLight => Color(0xFF000000);
+  static Color get contentDark => Color(0xFFFFFFFF);
+  static Color get content => Get.isDarkMode ? contentDark : contentLight;
+
+  static Color get settingsTitle => Color(0xFF000000);
+
+  static Color get quranText => Get.isDarkMode ? quranBackGroundLight : black;
+
+  static Color get quranStatus => background;
+
+  static Color get shadowPrimary => primary;
+  static Color get lightModeShadow => Color(0xFF3F3F3F);
+  static Color get shadow => Get.isDarkMode ? black : lightModeShadow;
+
+  static void setNewPrimaryColor(Color newColor) {}
+
+  static void updatePrimaryColor(int primaryLight, int primaryDark) {
+    // _primary = Color(primaryLight);
+    // _primaryDark = Color(primaryDark);
+  }
 }

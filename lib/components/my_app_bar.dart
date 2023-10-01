@@ -35,7 +35,7 @@ class MyAppBar extends GetView<ThemeCtr> implements PreferredSizeWidget {
     context.theme;
     return AppBar(
       elevation: 0,
-      title: MyTexts.outsideHeader(title: title, color: MyColors.primary()),
+      title: MyTexts.outsideHeader(title: title, color: MyColors.primary),
       centerTitle: centerTitle,
       leading: leading ??
           (showDrawerBtn

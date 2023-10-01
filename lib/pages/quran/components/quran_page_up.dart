@@ -32,10 +32,10 @@ class QuranPageUp extends GetView<ThemeCtr> {
         height: _quranCtr.onShown.value ? _upPartHeight : 0,
         width: Get.size.width,
         decoration: BoxDecoration(
-          color: MyColors.quranBackGround(),
+          color: MyColors.quranBackGround,
           // boxShadow: [
           //   BoxShadow(
-          //     color: MyColors.quranPrimary().withOpacity(0.5),
+          //     color: MyColors.quranPrimary.withOpacity(0.5),
           //     offset: Offset(0, 5),
           //     blurRadius: 30,
           //     spreadRadius: .5,
@@ -49,27 +49,27 @@ class QuranPageUp extends GetView<ThemeCtr> {
               opacity: _quranCtr.onShown.value ? 1 : 0,
               duration: Duration(milliseconds: 200),
               child: PopupMenuButton(
-                color: MyColors.quranBackGround(),
-                icon: MyIcons.moreVert(color: MyColors.quranPrimary()),
+                color: MyColors.quranBackGround,
+                icon: MyIcons.moreVert(color: MyColors.quranPrimary),
                 itemBuilder: (context) => getMenuItems(),
               ),
             ),
             appBarButton(
               onPressed: () => Get.offAll(() => HomePage()),
-              icon: MyIcons.home(color: MyColors.quranPrimary()),
+              icon: MyIcons.home(color: MyColors.quranPrimary),
             ),
             appBarButton(
               onPressed: () => _quranCtr.changeQuranImagesStyle(),
-              icon: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary())),
+              icon: Obx(() => MyIcons.animated_swichQuranImages(color: MyColors.quranPrimary)),
             ),
             Expanded(flex: 2, child: Container()),
             appBarButton(
               onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate()),
-              icon: MyIcons.search(color: MyColors.quranPrimary()),
+              icon: MyIcons.search(color: MyColors.quranPrimary),
             ),
             appBarButton(
               onPressed: () => AppSettings.scaffoldKey.currentState!.openEndDrawer(),
-              icon: MyIcons.book(color: MyColors.quranPrimary()),
+              icon: MyIcons.book(color: MyColors.quranPrimary),
             )
           ],
         ),
@@ -82,7 +82,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
       opacity: _quranCtr.onShown.value ? 1 : 0,
       duration: Duration(milliseconds: 200),
       child: IconButton(
-        color: MyColors.quranPrimary(),
+        color: MyColors.quranPrimary,
         onPressed: onPressed,
         icon: icon,
       ),
@@ -94,12 +94,12 @@ class QuranPageUp extends GetView<ThemeCtr> {
     List<MenuOptionsItem> menuItemList = [
       MenuOptionsItem(
         title: 'اضافة علامة'.tr,
-        icon: MyIcons.mark(color: MyColors.quranPrimary()),
+        icon: MyIcons.mark(color: MyColors.quranPrimary),
         onTap: () => _quranCtr.showMarkDialog(),
       ),
       MenuOptionsItem(
         title: 'تغير الثيم'.tr,
-        icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary()),
+        icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary),
         onTap: () {
           _settingsCtr.changeDarkModeState(!Get.isDarkMode);
           _quranCtr.changeOnShownState(false);
@@ -110,7 +110,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
       ),
       MenuOptionsItem(
         title: 'التفاسير'.tr,
-        icon: MyIcons.peaper(color: MyColors.quranPrimary()),
+        icon: MyIcons.peaper(color: MyColors.quranPrimary),
         onTap: () =>
             Get.to(() => TafseersPage(), transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 200)),
       ),
@@ -122,14 +122,14 @@ class QuranPageUp extends GetView<ThemeCtr> {
           child: Slider(
             max: (Get.width * Get.height * 0.00010),
             min: (Get.width * Get.height * 0.000040),
-            activeColor: MyColors.quranPrimary(),
-            thumbColor: MyColors.quranBackGround(),
+            activeColor: MyColors.quranPrimary,
+            thumbColor: MyColors.quranBackGround,
             value: _quranCtr.quranFontSize.value,
             onChanged: (val) => _quranCtr.updateQuranFontSize(val),
           ),
         );
       }),
-      icon: MyIcons.letterSize(color: MyColors.quranPrimary()),
+      icon: MyIcons.letterSize(color: MyColors.quranPrimary),
       title: "حجم الخط".tr,
       onTap: null,
     );
@@ -160,7 +160,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
         children: [
           changeFontSizeMenu.icon,
           SizedBox(width: Get.width * .04),
-          MyTexts.main(title: changeFontSizeMenu.title, color: MyColors.quranPrimary(), size: 16),
+          MyTexts.main(title: changeFontSizeMenu.title, color: MyColors.quranPrimary, size: 16),
           changeFontSizeMenu.child != null ? changeFontSizeMenu.child! : Container(),
         ],
       ),
@@ -173,7 +173,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
         children: [
           changeFontTypeMenu.icon,
           SizedBox(width: Get.width * .04),
-          MyTexts.main(title: changeFontTypeMenu.title.tr, color: MyColors.quranPrimary(), size: 16),
+          MyTexts.main(title: changeFontTypeMenu.title.tr, color: MyColors.quranPrimary, size: 16),
           SizedBox(width: Get.width * .04),
           changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
         ],
@@ -194,7 +194,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
             children: [
               e.icon,
               SizedBox(width: Get.width * .04),
-              MyTexts.main(title: e.title, color: MyColors.quranPrimary(), size: 16),
+              MyTexts.main(title: e.title, color: MyColors.quranPrimary, size: 16),
               e.child != null ? e.child! : Container(),
             ],
           ),

@@ -16,7 +16,7 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
     context.theme;
     return Container(
       padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(color: MyColors.zikrCard(), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: MyColors.zikrCard, borderRadius: BorderRadius.circular(20)),
       child: Column(
         children: <Widget>[
           Row(
@@ -110,9 +110,9 @@ class PrayTimesInfo extends GetView<ThemeCtr> {
                   !prayerTimeCtr.isLoading.value && // check if loading when getting data
                   prayerTimeCtr.curerntDate.value.day == DateTime.now().day //check if today
               ? BoxDecoration(
-                  color: MyColors.zikrCard(),
+                  color: MyColors.zikrCard,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3))],
+                  boxShadow: [BoxShadow(color: MyColors.shadow, blurRadius: 10, offset: Offset(0, 3))],
                 )
               : BoxDecoration(),
           child: Column(

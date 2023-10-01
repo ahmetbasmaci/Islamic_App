@@ -28,8 +28,7 @@ class SettingsCtr extends GetxController {
   }
 
   changeThemeColor(Color newColor, VoidCallback? setState) async {
-    MyColors.primary_ = newColor;
-    MyColors.primaryDark = newColor;
+    MyColors.setNewPrimaryColor(newColor);
 
     getStorage.write("primary_", newColor.value);
     getStorage.write("primaryDark", newColor.value);

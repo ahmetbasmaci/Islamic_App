@@ -13,7 +13,7 @@ class RefereshBtnRounded extends GetView<ThemeCtr> {
   Widget build(BuildContext context) {
     context.theme;
     return IconButton(
-      color: MyColors.primary(),
+      color: MyColors.primary,
       highlightColor: Colors.transparent,
       onPressed: enabled ? onPress : null,
       icon: MyIcons.refresh,

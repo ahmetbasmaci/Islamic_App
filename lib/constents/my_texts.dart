@@ -11,7 +11,7 @@ class MyTexts {
     return Text(
       title,
       textAlign: textAlign,
-      style: Get.textTheme.titleLarge!.copyWith(fontSize: 18, color: color),
+      style: Get.textTheme.titleLarge!.copyWith(color: color),
     );
   }
 
@@ -23,10 +23,10 @@ class MyTexts {
     );
   }
 
-  static Text blockTitle({String title = ""}) {
+  static Text blockTitle({String title = "", Color? color}) {
     return Text(
       title,
-      style: Get.textTheme.bodyLarge,
+      style: Get.textTheme.bodyLarge!.copyWith(color: color),
     );
   }
 
@@ -34,7 +34,7 @@ class MyTexts {
     return Text(
       title,
       textAlign: textAlign ?? TextAlign.center,
-      style: Get.textTheme.displaySmall!.copyWith(fontWeight: fontWeight, fontSize: size, color: color),
+      style: Get.textTheme.displaySmall!.copyWith(fontWeight: fontWeight, color: color),
     );
   }
 
@@ -51,8 +51,7 @@ class MyTexts {
       title,
       textAlign: textAlign,
       overflow: overflow,
-      style: Get.textTheme.bodySmall!
-          .copyWith(fontWeight: fontWeight, color: color, fontSize: size, fontFamily: fontFamily),
+      style: Get.textTheme.bodySmall!.copyWith(fontWeight: fontWeight, color: color, fontFamily: fontFamily),
     );
   }
 
@@ -86,7 +85,7 @@ class MyTexts {
       textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
       style: Get.textTheme.labelSmall!.copyWith(
         color: color,
-        fontSize: size,
+        // fontSize: size,
       ),
     );
   }
@@ -117,17 +116,13 @@ class MyTexts {
   static Text dropDownMenuTitle({String title = "", double? size, FontWeight? fontWeight}) {
     return Text(
       title,
-      style: Get.textTheme.titleSmall!.copyWith(fontWeight: fontWeight, fontSize: size),
+      style: Get.textTheme.titleSmall!.copyWith(fontWeight: fontWeight),
     );
   }
 
   static Text quranSecondTitle({String title = "", double? size, FontWeight? fontWeight, Color? color}) {
     return main(
-        title: title,
-        size: size,
-        fontWeight: fontWeight,
-        color: color ?? MyColors.primary(),
-        textAlign: TextAlign.right);
+        title: title, size: size, fontWeight: fontWeight, color: color ?? MyColors.primary, textAlign: TextAlign.right);
     // Text(
     //   title,
     //   textAlign: TextAlign.right,
