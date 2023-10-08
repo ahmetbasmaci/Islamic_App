@@ -112,9 +112,9 @@ class MainScreen extends GetView<ThemeCtr> {
                             children: <Widget>[
                               Image.asset(
                                 azkars[index].imageSource,
-                                width: MySiezes.image,
+                                width: MySiezes.image * .8,
                               ),
-                              MyIcons.leftArrow(color: MyColors.primary)
+                              MyIcons.leftArrow()
                             ],
                           ),
                         ],

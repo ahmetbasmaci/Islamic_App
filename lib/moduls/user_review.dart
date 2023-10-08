@@ -21,13 +21,14 @@ class UserReviewsData {
 class ReviewData {
   String name;
   String review;
-
-  ReviewData({required this.name, required this.review});
+  String machineCode;
+  ReviewData({required this.name, required this.review, required this.machineCode});
 
   factory ReviewData.fromJson(Map<String, dynamic> json) {
     return ReviewData(
       name: json['name'],
       review: json['review'],
+      machineCode: json['machineCode'],
     );
   }
 
@@ -35,6 +36,7 @@ class ReviewData {
     final Map<String, dynamic> data = {};
     data['review'] = review;
     data['name'] = name;
+    data['machineCode'] = machineCode;
     return data;
   }
 }

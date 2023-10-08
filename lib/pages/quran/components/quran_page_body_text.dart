@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/components/my_indicator.dart';
 import 'package:zad_almumin/constents/assets_manager.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
@@ -26,24 +28,31 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(page);
-    List<Ayah> ayahs = [];
-    for (var surahAyahs in ayahsInPage) {
-      for (var ayah in surahAyahs) {
-        ayahs.add(ayah);
-      }
-    }
+    return FutureBuilder(
+      future: _quranData.getAyahsInPage(page),
+      builder: (context, snapshot) {
+        if (snapshot.data == null) return MyIndicator();
 
-    return Container(
-      padding: EdgeInsets.only(left: Get.width * 0.03, right: Get.width * 0.03, bottom: Get.height * 0.01),
-      constraints: BoxConstraints(minHeight: Get.height),
-      child: Column(
-        children: [
-          quranUpPart(),
-          Expanded(child: quranBodyPart(ayahs)),
-          footerPart(),
-        ],
-      ),
+        List<List<Ayah>> ayahsInPage = snapshot.data as List<List<Ayah>>;
+        List<Ayah> ayahs = [];
+        for (var surahAyahs in ayahsInPage) {
+          for (var ayah in surahAyahs) {
+            ayahs.add(ayah);
+          }
+        }
+
+        return Container(
+          padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.04, bottom: Get.height * 0.01),
+          constraints: BoxConstraints(minHeight: Get.height),
+          child: Column(
+            children: [
+              quranUpPart(),
+              Expanded(child: quranBodyPart(ayahs)),
+              footerPart(),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -262,7 +271,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: Get.height * 0.02,
+        height: Get.height * 0.03,
         child: Center(
           child: MyTexts.quran(
             title: HelperMethods.convertToArabicNumber(page),

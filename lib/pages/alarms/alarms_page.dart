@@ -21,6 +21,7 @@ class _AlarmPageState extends State<AlarmPage> {
   var alarmsCtr = Get.find<AlarmsCtr>();
   @override
   Widget build(BuildContext context) {
+    context.theme;
     return Obx(
       () {
         Get.find<ThemeCtr>().isDarkMode.value;
@@ -29,6 +30,7 @@ class _AlarmPageState extends State<AlarmPage> {
           drawer: MyDrawer(),
           backgroundColor: MyColors.background,
           body: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               alarmBlockTitle(title: 'تذكير الاحاديث'.tr),
               hadithsAlarms(),

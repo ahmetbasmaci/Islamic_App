@@ -36,7 +36,6 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
   favoriteButton() {
     return StatefulBuilder(builder: ((context, favoriteSetState) {
       return IconButton(
-        color: MyColors.primary,
         highlightColor: Colors.transparent,
         onPressed: () {
           SqlDb sqlDb = SqlDb();
@@ -75,7 +74,6 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
     bool isCopyed = false;
     return StatefulBuilder(builder: ((context, copySetState) {
       return IconButton(
-        color: MyColors.primary,
         highlightColor: Colors.transparent,
         onPressed: () {
           HelperMethods.copyText(widget.zikrData.content);
@@ -100,7 +98,6 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
     return StatefulBuilder(
       builder: ((context, copySetState) {
         return IconButton(
-          color: MyColors.primary,
           highlightColor: Colors.transparent,
           onPressed: () => Share.share(widget.zikrData.content, subject: widget.zikrData.title),
           icon: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: MyIcons.share),

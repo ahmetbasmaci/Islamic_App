@@ -178,7 +178,7 @@ class PrayerTimeCtr extends GetxController {
     );
   }
 
-  bool compareTimes(Time time1, Time time2) {
+  bool compareTimes(Time time1, Time time2, {bool isFajr = false}) {
     DateTime t1 = DateTime(
       DateTime.now().year,
       DateTime.now().month,
@@ -190,13 +190,13 @@ class PrayerTimeCtr extends GetxController {
     DateTime t2 = DateTime(
       DateTime.now().year,
       DateTime.now().month,
-      DateTime.now().day,
+      DateTime.now().day + (isFajr ? 1 : 0),
       time2.hour,
       time2.minute,
       time2.second,
     );
 
-    Duration fiffrenc = t1.difference(t2);
+    Duration fiffrenc = t2.difference(t1);
     if (fiffrenc.inSeconds > 0)
       return true;
     else
@@ -205,6 +205,7 @@ class PrayerTimeCtr extends GetxController {
 
   updateCurrentTime() async {
     await Future.delayed(Duration(seconds: 1));
+    var alarmCtr = Get.find<AlarmsCtr>();
     DateTime time1 = nextPrayType.value == PrayerTimeType.fajr
         ? DateTime.now()
         : DateTime(
@@ -226,18 +227,15 @@ class PrayerTimeCtr extends GetxController {
             nextPrayTime.value.second,
           );
     Time leftTime = differenceTimes(time1, time2);
-
     String houreTimeLeftTxt = AppSettings.formatInt2.format(leftTime.hour);
     String minuteTimeLeftTxt = AppSettings.formatInt2.format(leftTime.minute);
     String secondTimeLeftTxt = AppSettings.formatInt2.format(leftTime.second);
 
     timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
-    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkAndSetNextPrayTime();
 
-    if (leftTime.hour == 0 &&
-        leftTime.minute == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan &&
-        leftTime.second == 0) {
+    if (leftTime.hour == 0 && leftTime.minute == alarmCtr.distanceBetweenAlarmAndAzan && leftTime.second == 0) {
       Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+      checkAndSetNextPrayTime();
     }
 
     updateCurrentTime();
@@ -255,17 +253,17 @@ class PrayerTimeCtr extends GetxController {
   }
 
   void checkAndSetNextPrayTime() {
-    if (compareTimes(currentTime, ishaTime.value))
+    if (compareTimes(currentTime, fajrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.fajr);
-    else if (compareTimes(currentTime, maghribTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.isha);
-    else if (compareTimes(currentTime, asrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
-    else if (compareTimes(currentTime, duhrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
     else if (compareTimes(currentTime, sunTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, duhrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
-    else if (compareTimes(currentTime, fajrTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, asrTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
+    else if (compareTimes(currentTime, maghribTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
+    else if (compareTimes(currentTime, ishaTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.isha);
   }
 
   setNextPrayTime({required PrayerTimeType prayTimeType}) {

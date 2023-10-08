@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/components/audio_play_stop_btn.dart';
-import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
+import 'package:zad_almumin/components/my_indicator.dart';
 import 'package:zad_almumin/components/zikr_card/referesh_btn_rounded.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_card_inner_container.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_count_widget.dart';
@@ -94,7 +94,7 @@ class ZikrCard {
           builder: (context, snapshot) {
             if (snapshot.hasError)
               return Text(snapshot.error.toString());
-            else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
+            else if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
             // else if (!snapshot.hasData) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
             return ZikrCardInnerContainer(
@@ -169,7 +169,7 @@ class ZikrCard {
             future: myFuture,
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text(snapshot.error.toString());
-              if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
+              if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
               hadithZikrData ??= snapshot.data as ZikrData;
 
               return ZikrCardInnerContainer(

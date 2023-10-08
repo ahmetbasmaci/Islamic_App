@@ -415,6 +415,8 @@ class MyLocal implements Translations {
         "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Uygulama hakkındaki görüşlerinizi yazın",
         "مطور التطبيق": "Uygulama geliştiricisi",
         "أذكار متنوعة": "Çeşitli dualar",
+        "شارك التطبيق": "Uygulamayı paylaş",
+        "حذف": "Sil",
         //--------------------------------------------------------------------------------
 
         "اللَّهُ": "Allah",
@@ -460,7 +462,7 @@ class MyLocal implements Translations {
         "تنشيط الوضع اليلي": "Activate Dark Mode",
         "الإعدادات": "Settings",
         "انقر هنا لاختيار الوضع اليلي": "Click here to select dark mode",
-        "تشفيل صوت الاشعارات": "Enable Notification Sound",
+        "تشغيل صوت الاشعارات": "Enable Notification Sound",
         "عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات":
             "When you activate this option, the notification sound will be turned on",
         "لغة البرنامج": "App Language",
@@ -874,6 +876,8 @@ class MyLocal implements Translations {
         "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Write me your notes about the application in order to improve it",
         "مطور التطبيق": "Application developer",
         "أذكار متنوعة": "Various dhikr",
+        "شارك التطبيق": "Share the app",
+        "حذف": "Delete",
         //--------------------------------------------------------------------------------
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":

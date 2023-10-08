@@ -15,11 +15,11 @@ class MyIcons {
   static Icon copy = Icon(Icons.file_copy_outlined);
   static Icon copyFilled = Icon(Icons.file_copy);
   static Icon share = Icon(Icons.share_outlined);
-  static Icon error = Icon(Icons.error_outline, color: Colors.red);
+  static Icon error = Icon(Icons.error_outline, color: MyColors.wrong);
   static Icon ayahsTest = Icon(Icons.menu_book_sharp);
   static Icon person = Icon(Icons.person);
   static Icon shop = Icon(Icons.shopify);
-  static Icon delete = Icon(Icons.delete, color: Colors.red);
+  static Icon delete = Icon(Icons.delete, color: MyColors.wrong);
   static Icon backArrow = Icon(Icons.arrow_forward, size: MySiezes.icon);
   static Icon selectAll = Icon(Icons.select_all);
   static Icon alarm = Icon(Icons.alarm);
@@ -82,7 +82,7 @@ class MyIcons {
   static Icon optinos({Color? color = Colors.green, double size = MySiezes.icon}) =>
       Icon(Icons.add_circle_outline_sharp, color: color, size: size);
   static Widget animated_swichQuranImages({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary;
+    color = color ?? MyColors.second;
     QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
@@ -93,7 +93,6 @@ class MyIcons {
   }
 
   static Widget animated_swichQuranTafseer({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary;
     QuranPageCtr quranCtr = Get.find<QuranPageCtr>();
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
@@ -104,7 +103,6 @@ class MyIcons {
   }
 
   static Widget animated_Light_Dark({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary;
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
       firstChild: Icon(Icons.dark_mode, color: color, size: size),
@@ -114,7 +112,6 @@ class MyIcons {
   }
 
   static Widget animatedSound_On_Of({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary;
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 200),
       firstChild: Icon(Icons.notifications, color: color, size: size),
@@ -125,13 +122,12 @@ class MyIcons {
   }
 
   static Widget animated_Play_Pause({Color? color, double size = MySiezes.icon}) {
-    color = color ?? MyColors.primary;
     AudioCtr audioCtr = Get.find<AudioCtr>();
     return Obx(
       () => AnimatedCrossFade(
         duration: Duration(milliseconds: 200),
-        firstChild: Icon(Icons.play_arrow, color: color, size: size),
-        secondChild: Icon(Icons.pause, color: color, size: size),
+        firstChild: Icon(Icons.play_arrow_outlined, color: color, size: size),
+        secondChild: Icon(Icons.pause_outlined, color: color, size: size),
         crossFadeState: audioCtr.isPlaying.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       ),
     );

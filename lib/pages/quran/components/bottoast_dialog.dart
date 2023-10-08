@@ -70,7 +70,7 @@ class BotToastDialog {
         icon: Icon(
           Icons.copy_outlined,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary,
+          // color: MyColors.quranPrimary,
         ),
         onPressed: () {
           HelperMethods.copyText(ayah.text);
@@ -86,9 +86,9 @@ class BotToastDialog {
       decoration: BoxDecoration(color: MyColors.blackWhite, borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
         icon: Icon(
-          Icons.play_circle,
+          Icons.play_circle_outline_outlined,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary,
+          // color: MyColors.quranPrimary,
         ),
         onPressed: () async {
           cancel();
@@ -113,7 +113,7 @@ class BotToastDialog {
         icon: Icon(
           Icons.share_outlined,
           size: MySiezes.icon,
-          color: MyColors.quranPrimary,
+          // color: MyColors.quranPrimary,
         ),
         onPressed: () {
           Share.share(ayah.text, subject: ayah.surahName);

@@ -7,7 +7,7 @@ import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/pages/ayahsTest/components/questions_footer.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
-import '../../components/my_circular_progress_indicator.dart';
+import '../../components/my_indicator.dart';
 import '../../constents/my_icons.dart';
 import '../../constents/my_sizes.dart';
 import 'components/question_button.dart';
@@ -53,7 +53,7 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
                       future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),
                       builder: (context, AsyncSnapshot<Ayah> snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting)
-                          return MyCircularProgressIndicator();
+                          return MyIndicator();
                         else if (snapshot.hasError)
                           return Center(
                             child: Column(

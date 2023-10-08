@@ -82,7 +82,6 @@ class QuranPageUp extends GetView<ThemeCtr> {
       opacity: _quranCtr.onShown.value ? 1 : 0,
       duration: Duration(milliseconds: 200),
       child: IconButton(
-        color: MyColors.quranPrimary,
         onPressed: onPressed,
         icon: icon,
       ),
@@ -99,7 +98,7 @@ class QuranPageUp extends GetView<ThemeCtr> {
       ),
       MenuOptionsItem(
         title: 'تغير الثيم'.tr,
-        icon: MyIcons.animated_Light_Dark(color: MyColors.quranPrimary),
+        icon: MyIcons.animated_Light_Dark(),
         onTap: () {
           _settingsCtr.changeDarkModeState(!Get.isDarkMode);
           _quranCtr.changeOnShownState(false);
@@ -139,11 +138,18 @@ class QuranPageUp extends GetView<ThemeCtr> {
           onChanged: (val) => _settingsCtr.changeQuranFont(val!, setState: quranPageSetState),
           value: _settingsCtr.defaultFontQuran.value,
           items: MyFonts.values
-              .map((e) => DropdownMenuItem<String>(
-                    value: e.name,
-                    child: Text(e.arabicName.toString().tr,
-                        style: TextStyle(fontFamily: AppSettings.isArabicLang ? e.name : FontStyle.normal.toString())),
-                  ))
+              .map(
+                (e) => DropdownMenuItem<String>(
+                  value: e.name,
+                  child: Text(
+                    e.arabicName.toString().tr,
+                    style: TextStyle(
+                      fontFamily: AppSettings.isArabicLang ? e.name : FontStyle.normal.toString(),
+                      color: _settingsCtr.defaultFontQuran.value == e.name ? MyColors.primary : MyColors.whiteBlack,
+                    ),
+                  ),
+                ),
+              )
               .toList(),
         );
       }),
@@ -152,55 +158,61 @@ class QuranPageUp extends GetView<ThemeCtr> {
       onTap: null,
     );
 
-    itemsList.add(PopupMenuItem(
-      value: changeFontSizeMenu,
-      onTap: null,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          changeFontSizeMenu.icon,
-          SizedBox(width: Get.width * .04),
-          MyTexts.main(title: changeFontSizeMenu.title, color: MyColors.quranPrimary, size: 16),
-          changeFontSizeMenu.child != null ? changeFontSizeMenu.child! : Container(),
-        ],
-      ),
-    ));
-    itemsList.add(PopupMenuItem(
-      value: changeFontTypeMenu,
-      onTap: null,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          changeFontTypeMenu.icon,
-          SizedBox(width: Get.width * .04),
-          MyTexts.main(title: changeFontTypeMenu.title.tr, color: MyColors.quranPrimary, size: 16),
-          SizedBox(width: Get.width * .04),
-          changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
-        ],
-      ),
-    ));
-
-    itemsList.addAll(menuItemList.map(
-      (e) => PopupMenuItem(
-        value: e,
+    itemsList.add(
+      PopupMenuItem(
+        value: changeFontSizeMenu,
         onTap: null,
-        child: GestureDetector(
-          onTap: () {
-            Get.back();
-            e.onTap?.call();
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              e.icon,
-              SizedBox(width: Get.width * .04),
-              MyTexts.main(title: e.title, color: MyColors.quranPrimary, size: 16),
-              e.child != null ? e.child! : Container(),
-            ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            changeFontSizeMenu.icon,
+            SizedBox(width: Get.width * .04),
+            MyTexts.main(title: changeFontSizeMenu.title, size: 16),
+            changeFontSizeMenu.child != null ? changeFontSizeMenu.child! : Container(),
+          ],
+        ),
+      ),
+    );
+    itemsList.add(
+      PopupMenuItem(
+        value: changeFontTypeMenu,
+        onTap: null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            changeFontTypeMenu.icon,
+            SizedBox(width: Get.width * .04),
+            MyTexts.main(title: changeFontTypeMenu.title.tr, size: 16),
+            SizedBox(width: Get.width * .04),
+            changeFontTypeMenu.child != null ? changeFontTypeMenu.child! : Container(),
+          ],
+        ),
+      ),
+    );
+
+    itemsList.addAll(
+      menuItemList.map(
+        (e) => PopupMenuItem(
+          value: e,
+          onTap: null,
+          child: GestureDetector(
+            onTap: () {
+              Get.back();
+              e.onTap?.call();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                e.icon,
+                SizedBox(width: Get.width * .04),
+                MyTexts.main(title: e.title, size: 16),
+                e.child != null ? e.child! : Container(),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
 
     return itemsList;
   }

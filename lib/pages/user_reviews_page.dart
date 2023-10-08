@@ -57,8 +57,6 @@ class _UserReviewsState extends State<UserReviews> {
                                   size: Get.width * 0.06,
                                   textAlign: TextAlign.center),
                               leading: Icon(Icons.list),
-                              // backgroundColor: MyColors.expansionTile(),
-                              // collapsedBackgroundColor: MyColors.expansionTile(),
                               iconColor: MyColors.primary,
                               children: [
                                 SizedBox(height: MySiezes.betweanAzkarBlock),
@@ -84,31 +82,46 @@ class _UserReviewsState extends State<UserReviews> {
   }
 
   Widget reviewCard({required ReviewData item}) {
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: MySiezes.betweanAzkarBlock,
-        left: MySiezes.betweanAzkarBlock,
-        right: MySiezes.betweanAzkarBlock,
-      ),
-      padding: EdgeInsets.only(
-        bottom: MySiezes.betweanAzkarBlock,
-        left: MySiezes.betweanAzkarBlock,
-        right: MySiezes.betweanAzkarBlock,
-      ),
-      decoration: BoxDecoration(
-        color: MyColors.background,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: MyColors.black.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)],
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(MySiezes.betweanAzkarBlock),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MyTexts.main(title: item.name, textAlign: TextAlign.start, color: MyColors.primary),
-            Divider(height: 10),
-            MyTexts.main(title: item.review, textAlign: TextAlign.start, size: Get.width * 0.04),
-          ],
+    return InkWell(
+      onLongPress: () {
+        //how to delete item from firebase
+        Get.defaultDialog(
+          onConfirm: () async {
+            await FirebaseFirestore.instance.collection("users").doc(item.machineCode).delete();
+            Get.back();
+          },
+          textConfirm: "حذف".tr,
+          textCancel: "الغاء".tr,
+          title: "حذف الملاحظة".tr,
+          middleText: "هل انت متأكد من حذف الملاحظة".tr,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+          bottom: MySiezes.betweanAzkarBlock,
+          left: MySiezes.betweanAzkarBlock,
+          right: MySiezes.betweanAzkarBlock,
+        ),
+        padding: EdgeInsets.only(
+          bottom: MySiezes.betweanAzkarBlock,
+          left: MySiezes.betweanAzkarBlock,
+          right: MySiezes.betweanAzkarBlock,
+        ),
+        decoration: BoxDecoration(
+          color: MyColors.background,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [BoxShadow(color: MyColors.black.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)],
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(MySiezes.betweanAzkarBlock),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyTexts.main(title: item.name, textAlign: TextAlign.start, color: MyColors.primary),
+              Divider(height: 10),
+              MyTexts.main(title: item.review, textAlign: TextAlign.start, size: Get.width * 0.04),
+            ],
+          ),
         ),
       ),
     );

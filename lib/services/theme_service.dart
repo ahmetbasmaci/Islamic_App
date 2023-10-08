@@ -12,8 +12,7 @@ class ThemeCtr extends GetxController {
   ThemeCtr() {
     updateThemes();
   }
-  //write regin block
-  //region
+
   TextStyle bodySmall_main = TextStyle();
   TextStyle bodySmall_quran = TextStyle();
   TextStyle bodyMedium_zikrTitle = TextStyle();
@@ -26,8 +25,6 @@ class ThemeCtr extends GetxController {
   TextStyle displayLarge_dropDownItem = TextStyle();
   TextStyle titleSmall_dropDownTitle = TextStyle();
   TextStyle titleLarge_outsideCard = TextStyle();
-
-  //endregion
 
   RxBool isDarkMode = false.obs;
   Rx<ThemeData> lightThemeMode = ThemeData.light().obs;
@@ -68,29 +65,34 @@ class ThemeCtr extends GetxController {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(MyColors.primaryLight),
-          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 255, 255)),
+          foregroundColor: MaterialStateProperty.all(MyColors.white),
           elevation: MaterialStateProperty.all(10),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 199, 5, 5)),
+          foregroundColor: MaterialStateProperty.all(MyColors.wrongLight),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
         ),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(MyColors.primaryLight),
+        checkColor: MaterialStateProperty.all(MyColors.backgroundLight),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: MyColors.primaryLight,
         onPrimary: MyColors.primaryLight,
-        secondary: MyColors.primaryLight,
+        secondary: MyColors.second,
         onSecondary: MyColors.primaryLight,
         error: MyColors.primaryLight,
         onError: MyColors.primaryLight,
         background: MyColors.backgroundLight,
         onBackground: MyColors.backgroundLight,
         surface: MyColors.backgroundLight,
-        onSurface: MyColors.black,
+        onSurface: MyColors.primaryLight,
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
@@ -134,16 +136,21 @@ class ThemeCtr extends GetxController {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(MyColors.primaryDark),
-          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 255, 255)),
+          foregroundColor: MaterialStateProperty.all(MyColors.white),
           elevation: MaterialStateProperty.all(10),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all(Color.fromARGB(255, 64, 183, 206)),
+          foregroundColor: MaterialStateProperty.all(MyColors.wrongDark),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
         ),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(MyColors.primaryDark),
+        checkColor: MaterialStateProperty.all(MyColors.backgroundDark),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       colorScheme: ColorScheme(
         brightness: Brightness.dark,
@@ -156,7 +163,7 @@ class ThemeCtr extends GetxController {
         background: MyColors.backgroundDark,
         onBackground: MyColors.backgroundDark,
         surface: MyColors.backgroundDark,
-        onSurface: MyColors.white,
+        onSurface: MyColors.primaryDark,
         shadow: Colors.transparent,
       ),
       textTheme: TextTheme(
@@ -204,7 +211,7 @@ class ThemeCtr extends GetxController {
       fontFamily: defaultFontQuran,
     );
     bodyMedium_zikrTitle = TextStyle(
-      fontSize: 19,
+      fontSize: 17,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
@@ -216,13 +223,13 @@ class ThemeCtr extends GetxController {
     );
 
     bodyLarge_blockTitle = TextStyle(
-      fontSize: 19,
+      fontSize: 17,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
     labelSmall_settingsTitle = TextStyle(
-      fontSize: 19,
+      fontSize: 17,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
@@ -234,18 +241,18 @@ class ThemeCtr extends GetxController {
     );
 
     headLine6_headers = TextStyle(
-      fontSize: 22,
+      fontSize: 20,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
     titleLarge_outsideCard = TextStyle(
-      fontSize: 21,
+      fontSize: 19,
       fontWeight: FontWeight.bold,
       fontFamily: defaultFontMain,
     );
 
     displayMedium_Info = TextStyle(
-      fontSize: 17,
+      fontSize: 15,
       color: MyColors.second,
       wordSpacing: 3.5,
       fontFamily: defaultFontMain,
@@ -256,7 +263,7 @@ class ThemeCtr extends GetxController {
     );
 
     titleSmall_dropDownTitle = TextStyle(
-      fontSize: 20,
+      fontSize: 19,
       fontFamily: defaultFontMain,
     );
   }

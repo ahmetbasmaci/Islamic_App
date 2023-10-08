@@ -47,7 +47,7 @@ class ReaderQuranDownloadPage extends GetView<ThemeCtr> {
                       : surah.downloadState.value == DownloadState.downloading
                           ? CircularProgressIndicator(
                               value: _httpCtrl.downloadProgress.value / 100,
-                              valueColor: AlwaysStoppedAnimation<Color>(MyColors.quranPrimary),
+                              valueColor: AlwaysStoppedAnimation<Color>(MyColors.second),
                             )
                           : MyIcons.downlaod(),
                   onPressed: surah.downloadState.value == DownloadState.notDownloaded

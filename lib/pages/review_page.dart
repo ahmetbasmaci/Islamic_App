@@ -111,7 +111,7 @@ class ReviewPage extends GetView<ThemeCtr> {
       if (oldData.data() != null) {
         allData = oldData['data'];
       }
-      allData.add({'review': reviewTxtCtr.text, 'name': nameTxtCtr.text});
+      allData.add({'review': reviewTxtCtr.text, 'name': nameTxtCtr.text,"machineCode":AppSettings.machineCode});
       await _firestore.collection('users').doc(AppSettings.machineCode).set({'data': allData});
       reviewTxtCtr.clear();
       nameTxtCtr.clear();

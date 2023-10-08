@@ -2,7 +2,7 @@ import 'package:animated_button/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
+import 'package:zad_almumin/components/my_indicator.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
@@ -378,7 +378,7 @@ class QuranPageFooter extends StatelessWidget {
                             ),
                           );
                         } else
-                          return MyCircularProgressIndicator();
+                          return MyIndicator();
                       },
                     ),
                   ),

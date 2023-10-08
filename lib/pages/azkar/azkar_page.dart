@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
-import 'package:zad_almumin/components/my_circular_progress_indicator.dart';
+import 'package:zad_almumin/components/my_indicator.dart';
 import 'package:zad_almumin/components/zikr_card/zikr_cards.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/services/animation_service.dart';
@@ -43,7 +43,7 @@ class _AzkarPageState extends State<AzkarPage> {
         builder: ((context, snapshot) {
           if (widget.zikrType == ZikrType.none) return Container();
 
-          if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
+          if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
 
           return AnimationLimiter(
             child: ListView.builder(

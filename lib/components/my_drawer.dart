@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/constents/app_settings.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
@@ -32,90 +33,104 @@ class MyDrawer extends GetView<ThemeCtr> {
       clipper: AppSettings.isArabicLang ? OvalLeftBorderClipper() : OvalRightBorderClipper(),
       child: Drawer(
         width: MySiezes.drawerWith,
-        child: ListView(
-          shrinkWrap: true,
-          physics: PageScrollPhysics(),
+        child: Column(
           children: [
             headerPart(),
-            drawerItem(
-              title: 'الرئيسية'.tr,
-              icon: MyIcons.home(),
-              routeName: HomePage.id,
-              onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
-            ),
-            drawerItem(
-              title: 'القرآن الكريم'.tr,
-              icon: MyIcons.quran(),
-              routeName: QuranPage.id,
-              onTap: () async => navigateTo(context: context, routeName: QuranPage.id, page: QuranPage()),
-            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    drawerItem(
+                      title: 'الرئيسية'.tr,
+                      icon: MyIcons.home(),
+                      routeName: HomePage.id,
+                      onTap: () async => navigateTo(context: context, routeName: HomePage.id, page: HomePage()),
+                    ),
+                    drawerItem(
+                      title: 'القرآن الكريم'.tr,
+                      icon: MyIcons.quran(),
+                      routeName: QuranPage.id,
+                      onTap: () async => navigateTo(context: context, routeName: QuranPage.id, page: QuranPage()),
+                    ),
+                    // drawerItem(
+                    //   title: 'مواقع الاسواق',
+                    //   icon: MyIcons.shop,
+                    //   routeName: ShopsPage.id,
+                    //   onTap: () async {
+                    //     var route = ModalRoute.of(context);
+                    //     if (route!.settings.name != ShopsPage.id) {
+                    //       await Get.to(ShopsPage());
+                    //       if (Get.currentRoute.contains(HomePage.id)) Get.offAll(HomePage());
+                    //     } else
+                    //       Get.back();
+                    //   },
+                    // ),
 
-            // drawerItem(
-            //   title: 'مواقع الاسواق',
-            //   icon: MyIcons.shop,
-            //   routeName: ShopsPage.id,
-            //   onTap: () async {
-            //     var route = ModalRoute.of(context);
-            //     if (route!.settings.name != ShopsPage.id) {
-            //       await Get.to(ShopsPage());
-            //       if (Get.currentRoute.contains(HomePage.id)) Get.offAll(HomePage());
-            //     } else
-            //       Get.back();
-            //   },
-            // ),
-
-            drawerItem(
-              title: 'المنبه'.tr,
-              icon: MyIcons.notification(),
-              routeName: AlarmPage.id,
-              onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
-            ),
-            drawerItem(
-              title: 'اوقات الصلاة'.tr,
-              icon: MyIcons.prayersTime(),
-              routeName: PrayerTimes.id,
-              onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
-            ),
-            drawerItem(
-              title: 'مراجعة القرآن'.tr,
-              icon: MyIcons.ayahsTest,
-              routeName: AyahsQuestions.id,
-              onTap: () async => navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
-            ),
-            drawerItem(
-              title: 'أذكار المسلم'.tr,
-              icon: MyIcons.azkar(),
-              routeName: AzkarBlockScreen.id,
-              onTap: () async => navigateTo(context: context, routeName: AzkarBlockScreen.id, page: AzkarBlockScreen()),
-            ),
-
-            Divider(height: 50, thickness: 2),
-            drawerItem(
-              title: 'المفضلة'.tr,
-              icon: MyIcons.favoriteFilled(),
-              routeName: FavoritePage.id,
-              onTap: () async => navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage()),
-            ),
-            drawerItem(
-              title: 'الإعدادات'.tr,
-              icon: MyIcons.settings(),
-              routeName: SettingsPage.id,
-              onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
-            ),
-            drawerItem(
-              title: 'مطور التطبيق'.tr,
-              icon: MyIcons.review(),
-              routeName: ReviewPage.id,
-              onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
-            ),
-            AppSettings.machineCode == AppSettings.developerMachineCode
-                ? drawerItem(
-                    title: 'ملاحظات المستخدمين'.tr,
-                    icon: MyIcons.reviewSound(),
-                    routeName: UserReviews.id,
-                    onTap: () async => navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
-                  )
-                : Container(),
+                    drawerItem(
+                      title: 'المنبه'.tr,
+                      icon: MyIcons.notification(),
+                      routeName: AlarmPage.id,
+                      onTap: () async => navigateTo(context: context, routeName: AlarmPage.id, page: AlarmPage()),
+                    ),
+                    drawerItem(
+                      title: 'اوقات الصلاة'.tr,
+                      icon: MyIcons.prayersTime(),
+                      routeName: PrayerTimes.id,
+                      onTap: () async => navigateTo(context: context, routeName: PrayerTimes.id, page: PrayerTimes()),
+                    ),
+                    drawerItem(
+                      title: 'مراجعة القرآن'.tr,
+                      icon: MyIcons.ayahsTest,
+                      routeName: AyahsQuestions.id,
+                      onTap: () async =>
+                          navigateTo(context: context, routeName: AyahsQuestions.id, page: AyahsQuestions()),
+                    ),
+                    drawerItem(
+                      title: 'أذكار المسلم'.tr,
+                      icon: MyIcons.azkar(),
+                      routeName: AzkarBlockScreen.id,
+                      onTap: () async =>
+                          navigateTo(context: context, routeName: AzkarBlockScreen.id, page: AzkarBlockScreen()),
+                    ),
+                    Divider(height: 50, thickness: 2),
+                    drawerItem(
+                      title: 'المفضلة'.tr,
+                      icon: MyIcons.favoriteFilled(),
+                      routeName: FavoritePage.id,
+                      onTap: () async => navigateTo(context: context, routeName: FavoritePage.id, page: FavoritePage()),
+                    ),
+                    drawerItem(
+                      title: 'الإعدادات'.tr,
+                      icon: MyIcons.settings(),
+                      routeName: SettingsPage.id,
+                      onTap: () async => navigateTo(context: context, routeName: SettingsPage.id, page: SettingsPage()),
+                    ),
+                    drawerItem(
+                      title: 'مطور التطبيق'.tr,
+                      icon: MyIcons.review(),
+                      routeName: ReviewPage.id,
+                      onTap: () async => navigateTo(context: context, routeName: ReviewPage.id, page: ReviewPage()),
+                    ),
+                    drawerItem(
+                      title: 'شارك التطبيق'.tr,
+                      icon: MyIcons.share,
+                      routeName: "",
+                      onTap: () =>
+                          Share.share("https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin&pli=1"),
+                    ),
+                    AppSettings.machineCode == AppSettings.developerMachineCode
+                        ? drawerItem(
+                            title: 'ملاحظات المستخدمين'.tr,
+                            icon: MyIcons.reviewSound(),
+                            routeName: UserReviews.id,
+                            onTap: () async =>
+                                navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -141,7 +156,7 @@ class MyDrawer extends GetView<ThemeCtr> {
                 _settingsCtr.changeDarkModeState(!isDark);
                 Get.back();
               },
-              icon: MyIcons.animated_Light_Dark(),
+              icon: MyIcons.animated_Light_Dark(color: MyColors.primary),
             ),
           ),
         )
@@ -182,7 +197,7 @@ class MyDrawer extends GetView<ThemeCtr> {
 
 Widget drawerItem(
     {required String title, required Widget icon, required String routeName, required VoidCallback onTap}) {
-  bool selected = Get.currentRoute.contains(routeName);
+  bool selected = routeName != "" && Get.currentRoute.contains(routeName);
   return ListTile(
     leading: icon,
     title: MyTexts.content(

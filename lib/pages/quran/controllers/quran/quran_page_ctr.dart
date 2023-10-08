@@ -353,7 +353,7 @@ class QuranPageCtr extends GetxController {
       audioCtr.pauseAudio();
     else {
       if (selectedAyah.value.text == '') {
-        List<Ayah> ayahsInPage = _quranData.getAyahsInPage(selectedPage.pageNumber.value).first;
+        List<Ayah> ayahsInPage = (await _quranData.getAyahsInPage(selectedPage.pageNumber.value)).first;
         updateSelectedAyah(ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt)));
       }
       selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
@@ -384,10 +384,11 @@ class QuranPageCtr extends GetxController {
         scrollController.animateTo(index * quranFontSize.value,
             duration: Duration(milliseconds: 500), curve: Curves.easeIn);
     } else {
-      if (selectedAyah.value.text == "" || !Get.find<AudioCtr>().isPlaying.value) return;
+      var audioCtr = Get.find<AudioCtr>();
+      if (selectedAyah.value.text == "" || audioCtr.isPlaying.value) return;
       index = 0;
       bool founded = false;
-      List<List<Ayah>> ayahsInPage = _quranData.getAyahsInPage(selectedAyah.value.page);
+      List<List<Ayah>> ayahsInPage = await _quranData.getAyahsInPage(selectedAyah.value.page);
       for (var ayahs in ayahsInPage) {
         if (founded) break;
         for (var i = 0; i < ayahs.length; i++) {

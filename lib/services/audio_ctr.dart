@@ -88,7 +88,7 @@ class AudioCtr extends GetxController {
               AudioManager.instance.play(index: 0);
             else {
               currentOfAllRepeatCount;
-              _quranCtr.updateSelectedAyah( Ayah.empty()); //to hide background color
+              _quranCtr.updateSelectedAyah(Ayah.empty()); //to hide background color
               stopAudio();
             }
           } else {
@@ -99,11 +99,12 @@ class AudioCtr extends GetxController {
               AudioManager.instance.play(index: AudioManager.instance.curIndex);
             } else {
               currentAyahRepeatCount = 0;
-              _quranCtr.updateSelectedAyah(  ayahList.elementAt(AudioManager.instance.curIndex + 2)); //to change background color
+              _quranCtr.updateSelectedAyah(
+                  ayahList.elementAt(AudioManager.instance.curIndex + 2)); //to change background color
               _quranCtr.updateCurrentPageToCurrentAyah();
-              AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
+              //AudioManager.instance.play(index: AudioManager.instance.curIndex + 1);
 
-              //AudioManager.instance.next();
+              AudioManager.instance.next();
             }
           }
         },
@@ -119,33 +120,37 @@ class AudioCtr extends GetxController {
     required String desc,
     required VoidCallback onEnded,
   }) async {
-    isPlaying.value = true;
-
-    AudioManager.instance.nextMode(playMode: PlayMode.single);
-
-    setAudioEvents(onEnded: onEnded);
-
-    AudioInfo info =
-        AudioInfo("file://$path", title: "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", coverUrl: _imgPath);
-    if (AudioManager.instance.info != null) {
-      if (AudioManager.instance.info!.url == info.url) {
-        AudioManager.instance.playOrPause();
-        return;
-      }
-    }
-    _position = Duration();
     try {
-      File file = File(path);
-      bool exsist = await file.exists();
-      if (exsist)
-        AudioManager.instance
-            .start("file://$path", "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", cover: _imgPath);
-      else {
+      isPlaying.value = true;
+
+      AudioManager.instance.nextMode(playMode: PlayMode.single);
+
+      setAudioEvents(onEnded: onEnded);
+
+      AudioInfo info =
+          AudioInfo("file://$path", title: "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", coverUrl: _imgPath);
+      if (AudioManager.instance.info != null) {
+        if (AudioManager.instance.info!.url == info.url) {
+          AudioManager.instance.playOrPause();
+          return;
+        }
+      }
+      _position = Duration();
+      try {
+        File file = File(path);
+        bool exsist = await file.exists();
+        if (exsist)
+          AudioManager.instance
+              .start("file://$path", "${'سورة'.tr} $title", desc: "${'الآية'.tr}  $desc", cover: _imgPath);
+        else {
+          Fluttertoast.showToast(msg: 'حدث خطأ أثناء تشغيل الصوت'.tr);
+          stopAudio();
+        }
+      } catch (e) {
         Fluttertoast.showToast(msg: 'حدث خطأ أثناء تشغيل الصوت'.tr);
-        stopAudio();
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'حدث خطأ أثناء تشغيل الصوت'.tr);
+      print(e);
     }
   }
 

@@ -6,7 +6,7 @@ import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_times_info.dart';
 import '../../components/my_app_bar.dart';
-import '../../components/my_circular_progress_indicator.dart';
+import '../../components/my_indicator.dart';
 import '../../components/my_drawer.dart';
 import '../../constents/my_colors.dart';
 import '../../constents/my_sizes.dart';
@@ -74,7 +74,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                             ? AnimatedOpacity(
                                 duration: Duration(milliseconds: 3000),
                                 opacity: prayerTimeCtr.isLoading.value ? 1 : 0,
-                                child: MyCircularProgressIndicator(
+                                child: MyIndicator(
                                   color: MyColors.white,
                                   backgroundColor: Colors.black,
                                 ),
@@ -159,7 +159,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: prayerTimeCtr.isLoading.value
-                    ? MyCircularProgressIndicator()
+                    ? MyIndicator()
                     : MyTexts.main(title: time, fontWeight: FontWeight.bold),
               ),
             ],

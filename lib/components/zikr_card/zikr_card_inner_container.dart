@@ -72,10 +72,7 @@ class ZikrCardInnerContainer extends GetView<ThemeCtr> {
           ),
           MyTexts.main(title: zikrData.content.tr),
           zikrData.description != ''
-              ? Row(children: [
-                  MyIcons.info(color: MyColors.second),
-                  Expanded(child: MyTexts.info(title: zikrData.description))
-                ])
+              ? Row(children: [Expanded(child: MyTexts.info(title: zikrData.description))])
               : Container(),
           ZikrBlockButtons(zikrData: zikrData, onDeleteFromFavorite: onDeleteFromFavorite)
         ],

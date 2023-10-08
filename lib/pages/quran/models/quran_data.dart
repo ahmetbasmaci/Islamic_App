@@ -87,7 +87,11 @@ class QuranData extends GetxController {
   List<Ayah> getSurahAyahs(int surahNumber) => getSurahByNumber(surahNumber).ayahs;
 
   ///giving page return ayahs in page
-  List<List<Ayah>> getAyahsInPage(int page) {
+  Future<List<List<Ayah>>> getAyahsInPage(int page) async {
+    while (_surahs.isEmpty) {
+      await Future.delayed(Duration(seconds: 1));
+    }
+
     List<List<Ayah>> allAyahsInPage = [];
     for (var surah in _surahs) {
       List<Ayah> ayahs = [];
