@@ -43,7 +43,7 @@ class _AzkarPageState extends State<AzkarPage> {
         builder: ((context, snapshot) {
           if (widget.zikrType == ZikrType.none) return Container();
 
-          if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
+          if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
 
           return AnimationLimiter(
             child: ListView.builder(

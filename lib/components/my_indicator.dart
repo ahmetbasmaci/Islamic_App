@@ -13,20 +13,29 @@ class MyIndicator extends StatelessWidget {
 
   var spinkit = SpinKitWaveSpinner(
     color: MyColors.primary,
-    size: 50.0,
+    size: 5,
     waveColor: MyColors.second.withOpacity(.5),
   );
 
   @override
   Widget build(BuildContext context) {
     return spinkit;
+  }
+}
+
+class MyCircularProgressIndicator extends StatelessWidget {
+  MyCircularProgressIndicator({Key? key, this.color, this.backgroundColor}) : super(key: key);
+  Color? color = MyColors.primary;
+  Color? backgroundColor = MyColors.background;
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       width: MySiezes.circularProgressIndecator,
       height: MySiezes.circularProgressIndecator,
       child: Center(
         child: CircularProgressIndicator(
           color: color,
-          strokeWidth: 2,
           backgroundColor: backgroundColor,
         ),
       ),

@@ -70,7 +70,7 @@ class FavoriteBody extends StatelessWidget {
               },
             );
           } else
-            return MyIndicator();
+            return MyCircularProgressIndicator();
         },
       ),
     );

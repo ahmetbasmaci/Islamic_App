@@ -53,7 +53,7 @@ class _AyahsQuestionsState extends State<AyahsQuestions> with TickerProviderStat
                       future: Future.delayed(Duration(seconds: 0)).then((value) => _quranData.getRandomPageStartAyah()),
                       builder: (context, AsyncSnapshot<Ayah> snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting)
-                          return MyIndicator();
+                          return MyCircularProgressIndicator();
                         else if (snapshot.hasError)
                           return Center(
                             child: Column(

@@ -35,7 +35,7 @@ class ReviewPage extends GetView<ThemeCtr> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Image.asset(ImagesManager.cosrumerSurvices_3d), //developer_3d,cosrumerSurvices_3d
+                Image.asset(ImagesManager.developer_3d), //developer_3d,cosrumerSurvices_3d
                 MyTexts.settingsTitle(title: 'مرحبا, انا مطور البرنامج أسمي (أحمد بصمه جي)'.tr),
                 Wrap(
                   children: <Widget>[

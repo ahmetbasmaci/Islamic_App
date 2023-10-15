@@ -94,7 +94,7 @@ class ZikrCard {
           builder: (context, snapshot) {
             if (snapshot.hasError)
               return Text(snapshot.error.toString());
-            else if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
+            else if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
             // else if (!snapshot.hasData) return MyCircularProgressIndecator();
             if (isNewAyah) quranZikrData = snapshot.data as ZikrData;
             return ZikrCardInnerContainer(
@@ -169,7 +169,7 @@ class ZikrCard {
             future: myFuture,
             builder: (context, snapshot) {
               if (snapshot.hasError) return Text(snapshot.error.toString());
-              if (snapshot.connectionState == ConnectionState.waiting) return MyIndicator();
+              if (snapshot.connectionState == ConnectionState.waiting) return MyCircularProgressIndicator();
               hadithZikrData ??= snapshot.data as ZikrData;
 
               return ZikrCardInnerContainer(

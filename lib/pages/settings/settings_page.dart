@@ -56,8 +56,8 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
               Divider(),
               Obx(
                 () => ListTile(
-                  title: MyTexts.settingsTitle(title: 'تشفيل صوت الاشعارات'.tr),
-                  subtitle: MyTexts.settingsContent(title: 'عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات'.tr),
+                  title: MyTexts.settingsTitle(title: 'تشغيل صوت الاشعارات'.tr),
+                  subtitle: MyTexts.settingsContent(title: 'عند تفعيل هذا الخيار سيتم تشغيل صوت الاشعارات'.tr),
                   trailing: MySwitch(
                     value: _settingsCtr.isNotificationSoundOn.value,
                     onChanged: (newValue) => _settingsCtr.changeNotificationSoundMode(newValue),

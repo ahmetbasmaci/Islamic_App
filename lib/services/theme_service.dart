@@ -230,7 +230,7 @@ class ThemeCtr extends GetxController {
 
     labelSmall_settingsTitle = TextStyle(
       fontSize: 17,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w400,
       fontFamily: defaultFontMain,
     );
 

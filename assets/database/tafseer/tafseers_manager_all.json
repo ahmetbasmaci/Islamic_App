@@ -1,10 +1,26 @@
 [
     {
+        "id": 1,
+        "name": "التفسير الميسر",
+        "language": "ar",
+        "author": "نخبة من العلماء",
+        "book_name": "التفسير الميسر",
+        "downloadState": "notDownloaded"
+    },
+    {
         "id": 2,
         "name": "تفسير الجلالين",
         "language": "ar",
         "author": "جلال الدين المحلي و السيوطي",
         "book_name": "تفسير الجلالين",
+        "downloadState": "notDownloaded"
+    },
+    {
+        "id": 3,
+        "name": "تفسير السعدي",
+        "language": "ar",
+        "author": "عبد الرحمن بن ناصر بن عبد الله السعدي التميمي مفسر",
+        "book_name": "تيسير الكريم الرحمن في تفسير كلام المنان",
         "downloadState": "notDownloaded"
     },
     {

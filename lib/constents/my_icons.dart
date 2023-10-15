@@ -50,7 +50,8 @@ class MyIcons {
   static Icon home({Color? color, double size = MySiezes.icon}) => Icon(Icons.home, color: color);
   static Icon mark({Color? color, double size = MySiezes.icon}) => Icon(Icons.bookmark_add_sharp, color: color);
   static Icon book({Color? color, double size = MySiezes.icon}) => Icon(Icons.book, color: color);
-  static Icon quran({Color? color, double size = MySiezes.icon}) => Icon(CupertinoIcons.book_solid, color: color);
+  static Icon quran({Color? color, double size = MySiezes.icon}) =>
+      Icon(CupertinoIcons.book_solid, color: color, size: size);
   static Icon azkar({Color? color, double size = MySiezes.icon}) => Icon(Icons.workspace_premium_sharp, color: color);
   static Icon prayersTime({Color? color, double size = MySiezes.icon}) => Icon(CupertinoIcons.timer_fill, color: color);
   static Icon menu({Color? color, double size = MySiezes.icon}) => Icon(Icons.menu_book, color: color, size: size);

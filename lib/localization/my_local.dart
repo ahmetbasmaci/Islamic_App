@@ -7,8 +7,8 @@ class MyLocal implements Translations {
         "تنشيط الوضع اليلي": "Gece Modunu Aktif Et",
         "الإعدادات": "Ayarlar",
         "انقر هنا لاختيار الوضع اليلي": "Gece Modunu Seçmek İçin Tıklayın",
-        "تشفيل صوت الاشعارات": "Bildirim Sesi Etkinleştir",
-        "عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات":
+        "تشغيل صوت الاشعارات": "Bildirim Sesi Etkinleştir",
+        "عند تفعيل هذا الخيار سيتم تشغيل صوت الاشعارات":
             "Bu seçeneği etkinleştirdiğinizde, bildirim sesi etkinleştirilecektir",
         "لغة البرنامج": "Uygulama Dili",
         "قم بإختيار لغة البرنامج المناسبة لك": "Size uygun uygulama dili seçin",
@@ -463,7 +463,7 @@ class MyLocal implements Translations {
         "الإعدادات": "Settings",
         "انقر هنا لاختيار الوضع اليلي": "Click here to select dark mode",
         "تشغيل صوت الاشعارات": "Enable Notification Sound",
-        "عند تفعيل هذا الخيار سيتم تشفيل صوت الاشعارات":
+        "عند تفعيل هذا الخيار سيتم تشغيل صوت الاشعارات":
             "When you activate this option, the notification sound will be turned on",
         "لغة البرنامج": "App Language",
         "قم بإختيار لغة البرنامج المناسبة لك": "Choose the appropriate app language for you",
