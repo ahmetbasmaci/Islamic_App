@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class MyLocal implements Translations {
   @override
   Map<String, Map<String, String>> get keys => {"tr": tr, "en": en};
+
   Map<String, String> get tr => {
         "تنشيط الوضع اليلي": "Gece Modunu Aktif Et",
         "الإعدادات": "Ayarlar",
@@ -417,6 +418,18 @@ class MyLocal implements Translations {
         "أذكار متنوعة": "Çeşitli dualar",
         "شارك التطبيق": "Uygulamayı paylaş",
         "حذف": "Sil",
+
+        "تذكير بالدعاء": "Dua",
+        "😔دعاء لأهلنا في فلسطين😔": "😔Filistin kardeşlerimiz için dua😔",
+        "أللهم فرّج همَّهم وانصرهم يا عزيز يا اللّه🤲🏻 .لا تنسى إخوانك في فلسطين من الدعاء فمن لم يهتم لأمر المسلمين ليس منهم":
+            "Allah'ım, onların kederini gider ve onlara yardım et, ey Aziz Allah 🤲🏻. Filistin'deki kardeşlerini dua etmeyi unutma, çünkü Müslümanların işine ilgi göstermeyen kimse onlardan değildir",
+        "تم تفعيل تذكير الدعاء لأهلنا في  فلسطين": "Filistine dua hatırlatıcısı etkinleştirildi",
+        "سيصلك اشعار لتذكيرك بالدعاء لأهلنا في  فلسطين":
+            "Filistine dua etmeyi hatırlatmak için bir bildirim alacaksınız",
+        "لن يصلك اشعار تذكير بالدعاء": "Dua hatırlatıcısı almayacaksınız",
+        "دعاء لأهلنا في فلسطين😔🤲🏻": "Filistinli Kardeşlerimiz için dua et😔🤲🏻",
+        "سيصلك اشعار لتذكيرك بالدعاء لأهلنا في فلسطين":
+            "Filistinli kardeşlerimiz için dua etmeyi hatırlatmak için bir bildirim alacaksınız",
         //--------------------------------------------------------------------------------
 
         "اللَّهُ": "Allah",
@@ -781,7 +794,7 @@ class MyLocal implements Translations {
         "تبقى القليل لموعد اذان المغرب": "There is little left for the Maghrib Adhan",
         "تم تفعيل تذكير اذان المغرب": "Maghrib Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان المغرب": "You will receive a notification to remind you of the Maghrib Adhan",
-        "تم تعطيل الاشعار ": "Thne notification has been disabled",
+        "تم تعطيل الاشعار ": "The notification has been disabled",
         "لن يصلك اشعار اذان المغرب": "You will not receive a notification for the Maghrib Adhan",
         "اذان العصر": "Asr Adhan",
         "تبقى القليل لموعد اذان العصر": "There is little left for the Asr Adhan",
@@ -875,9 +888,20 @@ class MyLocal implements Translations {
         "جاري تحميل سورة أخرى": "Currently loading another surah",
         "أكتب لي ملاحظاتك عن التطبيق من اجل تحسينه": "Write me your notes about the application in order to improve it",
         "مطور التطبيق": "Application developer",
-        "أذكار متنوعة": "Various dhikr",
+        "أذكار متنوعة": "Various zikr",
         "شارك التطبيق": "Share the app",
         "حذف": "Delete",
+        "تذكير بالدعاء": "Pray/Dua",
+        "😔دعاء لأهلنا في فلسطين😔": "😔Pray for Phalastine😔",
+        "أللهم فرّج همَّهم وانصرهم يا عزيز يا اللّه🤲🏻 .لا تنسى إخوانك في فلسطين من الدعاء فمن لم يهتم لأمر المسلمين ليس منهم":
+            "O Allah, relieve their worries and grant them victory, O Almighty, O Allah. 🤲🏻 Don't forget to pray for your brothers in Palestine, for those who don't care about the affairs of the Muslims are not one of them",
+        "تم تفعيل تذكير الدعاء لأهلنا في  فلسطين": "Dua reminder for the people of Palestine has been activated.",
+        "سيصلك اشعار لتذكيرك بالدعاء لأهلنا في  فلسطين": "",
+        "لن يصلك اشعار تذكير بالدعاء": "You will not receive prayer reminders.",
+        "دعاء لأهلنا في فلسطين😔🤲🏻": "A prayer for our people in Palestine. 😔🤲🏻",
+        "سيصلك اشعار لتذكيرك بالدعاء لأهلنا في فلسطين":
+            "You will receive notifications to remind you to pray for our people in Palestine.",
+
         //--------------------------------------------------------------------------------
         "اللَّهُ": "Allah",
         "وهو الاسم الأعظم الذي تفرد به الحق سبحانه وخص به نفسه وجعله أول أسمائه، وأضافها كلها إليه فهو علم على ذاته سبحانه":

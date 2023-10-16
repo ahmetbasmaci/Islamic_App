@@ -6,7 +6,13 @@ enum QuestionType { ayahInJuzAndPage, surahInJuz }
 
 enum PrayerTimeType { fajr, sun, duhr, asr, maghrib, isha }
 
-enum NotificationType { azkar, kahfQuran, randomQuran, fast, moorningAzkar, nightAzkar, hadith, pray }
+enum NotificationType { azkar, kahfQuran, randomQuran, fast, moorningAzkar, nightAzkar, hadith, pray, phalastine }
+
+extension NotificationTypeExtension on NotificationType {
+  bool get showAzkarCountBtn {
+    return (this == NotificationType.azkar || this == NotificationType.hadith || this == NotificationType.phalastine);
+  }
+}
 
 enum NotificationSound { random, hadith, azhan }
 

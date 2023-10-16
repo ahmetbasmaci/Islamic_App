@@ -72,8 +72,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
         title: MyTexts.settingsTitle(title: title),
         leading: Image.asset(imagePath, width: Get.width * .12),
         //subtitle: MyTexts.settingsContent(title: subtitle),
-        subtitle: alarmProp.notificationType == NotificationType.azkar ||
-                alarmProp.notificationType == NotificationType.hadith
+        subtitle: alarmProp.notificationType.showAzkarCountBtn
             ? Container()
             : MyTexts.settingsContent(
                 title:
@@ -85,10 +84,7 @@ class AlarmListTile extends GetView<ThemeCtr> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  alarmProp.notificationType == NotificationType.azkar ||
-                          alarmProp.notificationType == NotificationType.hadith
-                      ? azkarCountBtn(menuItemList)
-                      : handleZikrTime(context),
+                  alarmProp.notificationType.showAzkarCountBtn ? azkarCountBtn(menuItemList) : handleZikrTime(context),
                 ],
               ),
               MySwitch(value: value, onChanged: onChanged)

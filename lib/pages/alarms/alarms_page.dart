@@ -32,6 +32,8 @@ class _AlarmPageState extends State<AlarmPage> {
           body: ListView(
             physics: BouncingScrollPhysics(),
             children: [
+              alarmBlockTitle(title: 'تذكير بالدعاء'.tr),
+              duaAlarms(),
               alarmBlockTitle(title: 'تذكير الاحاديث'.tr),
               hadithsAlarms(),
               alarmBlockTitle(title: 'الأذكار اليومية'.tr),
@@ -162,6 +164,27 @@ class _AlarmPageState extends State<AlarmPage> {
           //         alarmsCtr.changeState(alarmProp: alarmsCtr.whitedayFastProp, newValue: newValue);
           //       }),
           // ),
+        ],
+      ),
+    );
+  }
+
+  Widget duaAlarms() {
+    return AlarmCard(
+      child: Column(
+        children: [
+          Obx(
+            () => AlarmListTile(
+              imagePath: ImagesManager.phalastine,
+              title: 'دعاء لأهلنا في فلسطين😔🤲🏻'.tr,
+              subtitle: 'سيصلك اشعار لتذكيرك بالدعاء لأهلنا في فلسطين'.tr,
+              value: alarmsCtr.phalastineProp.isActive.value,
+              alarmProp: alarmsCtr.phalastineProp,
+              onChanged: (newValue) {
+                alarmsCtr.changeState(alarmProp: alarmsCtr.phalastineProp, newValue: newValue);
+              },
+            ),
+          ),
         ],
       ),
     );

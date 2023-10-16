@@ -33,4 +33,5 @@ class ImagesManager {
   static const String surah_header = 'assets/images/surah_header.png';
   static const String toilet = 'assets/images/toilet.png';
   static const String wakeup = 'assets/images/wakeup.png';
+  static const String phalastine = 'assets/images/phalastine.png';
 }

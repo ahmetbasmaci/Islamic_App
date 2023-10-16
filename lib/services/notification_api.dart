@@ -160,12 +160,12 @@ class NotificationService {
 
     await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
     );
@@ -181,7 +181,10 @@ class NotificationService {
     //set random duration by selected repeat type
     Duration duration = Duration(seconds: 0);
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
-      //  duration = Duration(seconds: 2);
+    //  duration = Duration(seconds: 2);
+    if (alarmProp.notificationType == NotificationType.phalastine)
+      duration = Duration(minutes: Random().nextInt(30) + 10); //10-40
+    else
       duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
       duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
@@ -194,13 +197,13 @@ class NotificationService {
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectTimeByDuration(duration: duration),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -217,15 +220,15 @@ class NotificationService {
   static Future setDailyNotification({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectHourAndMinute(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
+        bigTitle: alarmProp.notificationTitle.tr,
         bigBody: alarmProp.notificationType == NotificationType.hadith
             ? (await JsonService.getRandomHadith()).content
-            : alarmProp.notificationBody,
+            : alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -238,13 +241,13 @@ class NotificationService {
   static Future setWeecklyNotifivation({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectDateTime(dateTime: alarmProp.day, hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -257,13 +260,13 @@ class NotificationService {
   static Future setWhiteDaysFastNotification({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectHicriDateTime(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
