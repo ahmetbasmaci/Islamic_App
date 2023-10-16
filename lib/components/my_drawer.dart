@@ -13,7 +13,6 @@ import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'package:zad_almumin/pages/review_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
-import 'package:zad_almumin/pages/user_reviews_page.dart';
 import 'package:zad_almumin/screens/azkar_blocks_screen.dart';
 import 'package:zad_almumin/services/theme_service.dart';
 import '../constents/my_icons.dart';
@@ -118,15 +117,15 @@ class MyDrawer extends GetView<ThemeCtr> {
                       onTap: () =>
                           Share.share("https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin&pli=1"),
                     ),
-                    AppSettings.machineCode == AppSettings.developerMachineCode
-                        ? drawerItem(
-                            title: 'ملاحظات المستخدمين'.tr,
-                            icon: MyIcons.reviewSound(),
-                            routeName: UserReviews.id,
-                            onTap: () async =>
-                                navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
-                          )
-                        : Container(),
+                    // AppSettings.machineCode == AppSettings.developerMachineCode
+                    //     ? drawerItem(
+                    //         title: 'ملاحظات المستخدمين'.tr,
+                    //         icon: MyIcons.reviewSound(),
+                    //         routeName: UserReviews.id,
+                    //         onTap: () async =>
+                    //             navigateTo(context: context, routeName: UserReviews.id, page: UserReviews()),
+                    //       )
+                    //     : Container(),
                   ],
                 ),
               ),

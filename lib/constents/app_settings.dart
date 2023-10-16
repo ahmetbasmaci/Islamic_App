@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -49,11 +49,15 @@ class AppSettings {
     if (Platform.isIOS) {
       // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;
-      machineCode = iosDeviceInfo.identifierForVendor; // unique ID on iOS
+      machineCode = iosDeviceInfo.identifierForVendor!; // unique ID on iOS
     } else if (Platform.isAndroid) {
       var androidDeviceInfo = await deviceInfo.androidInfo;
       machineCode = androidDeviceInfo.id; // unique ID on Android
     }
+    //TODO create immutable class for device info
+    print((await deviceInfo.androidInfo));
+    print((await deviceInfo.androidInfo).id);
+    print((await deviceInfo.androidInfo).model);
   }
 
   //write method take arabic name  as paraemter and return that string without every tashkil char and hamza

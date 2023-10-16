@@ -73,31 +73,35 @@ class SqlDb {
     print(" onCreate =====================================");
   }
 */
-/// read all data from local database
+  /// read all data from local database
   Future<List<Map>> readData(String table) async {
     Database? mydb = await db;
     List<Map> response = await mydb!.query(table);
     return response;
   }
-/// insert data to local database
+
+  /// insert data to local database
   insertData(String table, Map<String, Object?> values) async {
     Database? mydb = await db;
     int response = await mydb!.insert(table, values);
     return response;
   }
-/// update specific table data from local database
+
+  /// update specific table data from local database
   updateData(String table, Map<String, dynamic> values, String? where) async {
     Database? mydb = await db;
     int response = await mydb!.update(table, values, where: where);
     return response;
   }
-/// delete specific table data from local database
+
+  /// delete specific table data from local database
   deleteData(String table, String? where) async {
     Database? mydb = await db;
     int response = await mydb!.delete(table, where: where);
     return response;
   }
-/// delete all data from local database
+
+  /// delete all data from local database
   deleteDB() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, '$dbName.db');
@@ -105,7 +109,5 @@ class SqlDb {
     await deleteDatabase(path);
 
     print(" database deleted =====================================");
-
   }
-
 }
