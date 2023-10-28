@@ -11,7 +11,7 @@ import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
-import 'package:zad_almumin/services/audio_ctr.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
@@ -24,7 +24,6 @@ class ZikrCard {
   VoidCallback? onDeleteFromFavorite;
   ZikrCard({this.isLoading = false, this.haveMargin = false, this.onDeleteFromFavorite});
   final QuranData _quranData = Get.find<QuranData>();
-  final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
   Widget outContainer(
       {required Widget child,
@@ -104,10 +103,9 @@ class ZikrCard {
                       enabled: !isLoading,
                       onPress: () async {
                         quranZikrData = null;
-                        myFuture =
-                            Future.delayed(Duration(seconds: 0)).then((value) => _quranCtr.getRandomZikrDataAyah());
+                        myFuture = _quranCtr.getRandomZikrDataAyah();
                         autoPlaySound = false;
-                        _audioCtr.stopAudio();
+                        AudioService.stopAudio();
                         try {
                           setState(() {});
                         } catch (e) {
@@ -138,10 +136,9 @@ class ZikrCard {
                 zikrData: quranZikrData!,
                 autoPlay: autoPlaySound,
                 onComplite: () async {
-                  myFuture = Future.delayed(Duration(seconds: 0))
-                      .then((value) => _quranCtr.getNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber));
+                  myFuture = _quranCtr.getNextAyah(quranZikrData!.surahNumber, quranZikrData!.ayahNumber);
                   autoPlaySound = true;
-                  checkIfIsFavorite(quranZikrData!);
+                  if (quranZikrData != null) checkIfIsFavorite(quranZikrData!);
 
                   try {
                     setState(() {});

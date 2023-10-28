@@ -6,14 +6,13 @@ import 'package:zad_almumin/classes/helper_methods.dart';
 import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
-import 'package:zad_almumin/services/audio_ctr.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import 'package:zad_almumin/services/http_service.dart';
 
 import '../models/ayah.dart';
 
 class BotToastDialog {
   static final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-  static final AudioCtr _audioCtr = Get.find<AudioCtr>();
   static final HttpCtr _httpCtr = Get.find<HttpCtr>();
   static void showToastDialog({required LongPressStartDetails details, required Ayah ayah}) {
     BotToast.showAttachedWidget(
@@ -94,10 +93,14 @@ class BotToastDialog {
           cancel();
           List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);
           _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
+          _quranCtr.selectedPage.endAyahNum.value = ayahsList.last.ayahNumber;
+          _quranCtr.selectedPage.surahName.value = ayah.surahName;
+          _quranCtr.selectedPage.surahNumber.value = ayah.surahNumber;
+          _quranCtr.selectedPage.totalAyahsNum.value = ayahsList.length;
           _quranCtr.changeOnShownState(false);
-          _audioCtr.stopAudio();
+
           if (_httpCtr.downloadComplated.value) {
-            _audioCtr.playMultiAudio(ayahList: ayahsList);
+            AudioService.playMultiAudio(ayahList: ayahsList);
           }
         },
       ),

@@ -140,6 +140,7 @@ class JsonService {
   }
 
   static String getRandomZikr() {
+    if (allZikrDataList.isEmpty) return "";
     int randomZikrIndex = Random().nextInt(allZikrDataList.length);
 
     List<dynamic> azkarList = allZikrDataList[randomZikrIndex]['azkarList'];

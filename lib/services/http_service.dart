@@ -52,7 +52,7 @@ class HttpService {
         var response = await http.Client().get(Uri.parse(url));
         if (response.statusCode == 200) {
           await file.writeAsBytes(response.bodyBytes);
-          if (showToast) Fluttertoast.showToast(msg: 'تم تحيل الآية بنجاح'.tr);
+          if (showToast) Fluttertoast.showToast(msg: 'تم تحميل الآية بنجاح'.tr);
         } else {
           if (showToast) Fluttertoast.showToast(msg: 'مشكلة في الاتصال بالانترنت'.tr);
         }

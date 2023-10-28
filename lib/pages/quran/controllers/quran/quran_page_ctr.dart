@@ -14,6 +14,7 @@ import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import 'package:zad_almumin/services/http_service.dart';
 import 'package:zad_almumin/services/json_service.dart';
 import '../../models/filter_chip_prop.dart';
@@ -153,6 +154,7 @@ class QuranPageCtr extends GetxController {
   }
 
   void updateCurrentPageToCurrentAyah() async {
+    if (selectedAyah.value.page <= 0) return;
     tabCtr.index = selectedAyah.value.page - 1;
   }
 
@@ -349,29 +351,33 @@ class QuranPageCtr extends GetxController {
 
   void playPauseBtnPress() async {
     AudioCtr audioCtr = Get.find<AudioCtr>();
-    if (audioCtr.isPlaying.value)
-      audioCtr.pauseAudio();
-    else {
+    if (audioCtr.isPlaying.value) {
+      AudioService.pauseAudio();
+    } else {
       if (selectedAyah.value.text == '') {
-        List<Ayah> ayahsInPage = (await _quranData.getAyahsInPage(selectedPage.pageNumber.value)).first;
-        updateSelectedAyah(ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt)));
+        // List<Ayah> ayahsInPage = (await _quranData.getAyahsInPage(selectedPage.pageNumber.value)).first;
+        // updateSelectedAyah(ayahsInPage.firstWhere((element) => !element.text.contains(AppSettings.basmalahTxt)));
+        Ayah ayah = _quranData.getAyah(selectedPage.surahNumber.value, selectedPage.startAyahNum.value);
+        updateSelectedAyah(ayah);
       }
-      selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
+      // selectedPage.startAyahNum.value = selectedAyah.value.ayahNumber;
       List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: selectedAyah.value.surahNumber);
       if (Get.find<HttpCtr>().downloadComplated.value) {
-        Get.find<AudioCtr>().playMultiAudio(ayahList: ayahsList);
+        AudioService.playMultiAudio(ayahList: ayahsList);
       }
     }
   }
 
   void stopAudio() {
     updateSelectedAyah(Ayah.empty());
-    Get.find<AudioCtr>().stopAudio();
+    AudioService.stopAudio();
   }
 
   void updateSelectedAyah(Ayah elementAt, {index = -1}) {
     selectedAyah.value = elementAt;
     updateItemScrollIndex(index);
+
+    updateCurrentPageToCurrentAyah();
   }
 
   void updateItemScrollIndex(index) async {

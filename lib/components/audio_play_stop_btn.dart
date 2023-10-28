@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:zad_almumin/constents/my_icons.dart';
 import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/components/my_indicator.dart';
@@ -47,9 +49,9 @@ class AudioPlayStopBtn extends GetView<ThemeCtr> {
   }
 
   onPlayTap() async {
-    if (_audioCtr.isPlaying.value)
-      _audioCtr.pauseAudio();
-    else {
+    if (_audioCtr.isPlaying.value) {
+      AudioService.pauseAudio();
+    } else {
       String path = await handleAudio();
       startAudio(path);
     }
@@ -65,11 +67,13 @@ class AudioPlayStopBtn extends GetView<ThemeCtr> {
   }
 
   void startAudio(String filePath) {
-    _audioCtr.playSingleAudio(
-      path: filePath,
-      title: _quranData.getSurahNameByNumber(zikrData.surahNumber),
-      desc: zikrData.ayahNumber.toString(),
-      onEnded: onComplite,
+    Ayah ayah = Ayah.empty();
+    ayah.audioPath = filePath;
+    ayah.surahName = _quranData.getSurahNameByNumber(zikrData.surahNumber);
+    ayah.ayahNumber = zikrData.ayahNumber;
+    AudioService.playSingleAudio(
+      ayah: ayah,
+      onComplite: onComplite,
     );
   }
 }

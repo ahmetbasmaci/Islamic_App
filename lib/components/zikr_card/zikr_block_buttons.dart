@@ -3,9 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zad_almumin/classes/helper_methods.dart';
-import 'package:zad_almumin/services/audio_ctr.dart';
 import 'package:zad_almumin/classes/zikr_data.dart';
 import 'package:zad_almumin/database/sqldb.dart';
+import 'package:zad_almumin/moduls/enums.dart';
+import 'package:zad_almumin/services/audio_ctr.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import '../../constents/my_icons.dart';
 
 class ZikrBlockButtons extends StatefulWidget {
@@ -42,7 +44,13 @@ class _ZikrBlockButtonsState extends State<ZikrBlockButtons> {
           if (widget.zikrData.isFavorite) {
             sqlDb.deleteData(SqlDb.dbName, 'content="${widget.zikrData.content}"');
             toastText = 'تم حذف النص من المفضلة'.tr;
-            Get.find<AudioCtr>().stopAudio();
+            var audioCtr = Get.find<AudioCtr>();
+            if (audioCtr.isPlaying.value) {
+              if (audioCtr.assetsAudioPlayer.current.value!.audio.audio.surahNumber == widget.zikrData.surahNumber &&
+                  audioCtr.assetsAudioPlayer.current.value!.audio.audio.ayahNumber == widget.zikrData.ayahNumber) {
+                AudioService.pauseAudio();
+              }
+            }
           } else {
             sqlDb.insertData('favorite', {
               'zikrType': widget.zikrData.zikrType.index,

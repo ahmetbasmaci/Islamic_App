@@ -30,7 +30,7 @@ class QuranPageBodyTexts extends GetView<ThemeCtr> {
     return FutureBuilder(
       future: _quranData.getAyahsInPage(page),
       builder: (context, snapshot) {
-        if (snapshot.data == null) return MyIndicator();
+        if (snapshot.data == null) return MyIndicator(size: 0);
 
         List<List<Ayah>> ayahsInPage = snapshot.data as List<List<Ayah>>;
         List<Ayah> ayahs = [];

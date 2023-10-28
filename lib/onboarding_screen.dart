@@ -19,7 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     MyContentConfig(
       title: "اهلا بك في تطبيق زاد المؤمن".tr,
       description: "يمكنك قراءة القرآن الكريم كاملاً والاستماع له بصوت العديد من القراء".tr,
-      pathImage: ImagesManager.man_3d,
+      pathImage: ImagesManager.pray_3d,
     ),
     MyContentConfig(
       title: "تفسير القرآن الكريم".tr,

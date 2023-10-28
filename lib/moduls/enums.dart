@@ -1,3 +1,5 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
+
 enum ZikrType { all, azkar, allahNames, quran, hadith, sermon, none }
 
 enum ALarmPeriod { daily, weekly, monthly, once, repeat }
@@ -145,3 +147,25 @@ extension QuranReadersExtention on QuranReaders {
 }
 
 enum DownloadState { notDownloaded, downloading, downloaded }
+
+extension AssetsAudioPlayerExtentsion on AssetsAudioPlayer {
+  /// Returns the current index of the playlist, return -1 if no playlist is set
+  int get currentIndex {
+    if (!current.hasValue) return -1;
+    return current.value?.index ?? -1;
+  }
+}
+
+extension AudioExtension on Audio {
+  int get surahNumber {
+    if (path == "") return 0;
+    return int.parse(_getNum.substring(0, 3));
+  }
+
+  int get ayahNumber {
+    if (path == "") return 0;
+    return int.parse(_getNum.substring(3));
+  }
+
+  String get _getNum => path.split('/').last.split('.').first;
+}

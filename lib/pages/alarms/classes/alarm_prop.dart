@@ -19,7 +19,7 @@ class AlarmProp {
     this.day = 0,
     this.zikrRepeat =ZikrRepeat.none,
   });
-  RxBool isActive = false.obs;
+  RxBool isActive = true.obs;
   int id;
   Rx<Time> time;
   String storageKey;

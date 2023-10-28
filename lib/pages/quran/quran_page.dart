@@ -35,7 +35,6 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
     _quranCtr.setCurrentPage(this);
 
-
     _quranCtr.changeOnShownState(false);
 
     _quranCtr.tabCtr.addListener(() => _quranCtr.updateCurrentPageCtr());
@@ -45,7 +44,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _quranCtr.updateCurrentPageCtr();
+    // _quranCtr.updateCurrentPageCtr();
     return WillPopScope(
       key: UniqueKey(),
       onWillPop: () async {

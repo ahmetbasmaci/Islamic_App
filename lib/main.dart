@@ -22,7 +22,6 @@ import 'classes/controllers_binding.dart';
 import 'constents/app_settings.dart';
 import 'pages/favorite/favorite_page.dart';
 import 'pages/prayerTimes/prayer_times.dart';
-
 void main() async {
   await GetStorage.init();
   await AppSettings.setMechineCode();
@@ -30,7 +29,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(MyLocalCtr());
   Get.put(ThemeCtr());
-
   runApp(MyApp());
 }
 

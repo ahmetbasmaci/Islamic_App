@@ -125,7 +125,7 @@ class MyLocal implements Translations {
         "تعرّف على اسماء الله الحسنى": "Allah'ın İsimlerini Öğren",
         "الآية ": "Ayet",
         "حدث خطأ أثناء تشغيل الصوت": "Ses oynatılırken bir hata oluştu",
-        "تم تحيل الآية بنجاح": "Ayet başarıyla işaretlendi",
+        "تم تحميل الآية بنجاح": "Ayet başarıyla işaretlendi",
         "مشكلة في الاتصال بالانترنت": "İnternet bağlantısında bir sorun oluştu",
         "لا يوجد اتصال بالانترنت": "İnternet bağlantısı yok",
         "جاري تحميل الآية": "Ayet yükleniyor",
@@ -315,34 +315,34 @@ class MyLocal implements Translations {
         "شهرزاد": "Şehrazat",
         "ملاحظات المستخدمين": "Kullanıcı notları",
         "تم تحديث وقت الاشعار": "Bildirim zamanı güncellendi",
-        "اذان العشاء": "Akşam ezanı",
-        "تبقى القليل لموعد اذان العشاء": "Akşam ezanına az kaldı",
-        "تم تفعيل تذكير اذان العشاء": "Akşam ezanı hatırlatıcısı etkinleştirildi",
-        "سيصلك اشعار لتذكيرك باذان العشاء": "Akşam ezanı hatırlatıcısı için bildirim alacaksınız",
-        "تم تعطيل الاشعار الخاص بالعشاء": "Akşam ezanı hatırlatıcısı devre dışı bırakıldı",
-        "لن يصلك اشعار اذان العشاء": "Akşam ezanı hatırlatıcısı için bildirim almayacaksınız",
+        "اذان العشاء": "Yatsı ezanı",
+        "تبقى حوالي 10 دقائق لموعد اذان العشاء": "Yatsı ezanına yklaşık 10dk kaldı",
+        "تم تفعيل تذكير اذان العشاء": "Yatsı ezanı hatırlatıcısı etkinleştirildi",
+        "سيصلك اشعار لتذكيرك باذان العشاء": "Yatsı ezanı hatırlatıcısı için bildirim alacaksınız",
+        "تم تعطيل الاشعار الخاص بالعشاء": "Yatsı ezanı hatırlatıcısı devre dışı bırakıldı",
+        "لن يصلك اشعار اذان العشاء": "Yatsı ezanı hatırlatıcısı için bildirim almayacaksınız",
         "اذان  لمغرب": "Akşam ezanı",
-        "تبقى القليل لموعد اذان المغرب": "Akşam ezanına az kaldı",
+        "تبقى حوالي 10 دقائق لموعد اذان المغرب": "Akşam ezanına yklaşık 10dk kaldı",
         "تم تفعيل تذكير اذان المغرب": "Akşam ezanı hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك باذان المغرب": "Akşam ezanı hatırlatıcısı için bildirim alacaksınız",
         "تم تعطيل الاشعار ": "bildirim devre dışı bırakıldı",
         "لن يصلك اشعار اذان المغرب": "Akşam ezanı hatırlatıcısı için bildirim almayacaksınız",
         "اذان العصر": "İkindi ezanı",
-        "تبقى القليل لموعد اذان العصر": "İkindi ezanına az kaldı",
+        "تبقى حوالي 10 دقائق لموعد اذان العصر": "İkindi ezanına yklaşık 10dk kaldı",
         "تم تفعيل تذكير اذان العصر": "İkindi ezanı hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك باذان العصر": "İkindi ezanı hatırlatıcısı için bildirim alacaksınız",
         "لن يصلك اشعار اذان العصر": "İkindi ezanı hatırlatıcısı için bildirim almayacaksınız",
         "اذان الظهر": "Öğle ezanı",
-        "تبقى القليل لموعد اذان الظهر": "Öğle ezanına az kaldı",
+        "تبقى حوالي 10 دقائق حوالي 10 دقائق لموعد اذان الظهر": "Öğle ezanına yklaşık 10dk kaldı",
         "تم تفعيل تذكير اذان الظهر": "Öğle ezanı hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك باذان الظهر": "Öğle ezanı hatırlatıcısı için bildirim alacaksınız",
         "لن يصلك اشعار اذان الظهر": "Öğle ezanı hatırlatıcısı için bildirim almayacaksınız",
-        "تبقى القليل لموعد شروق الشمس": "Güneşin doğuşuna az kaldı",
+        "تبقى حوالي 10 دقائق لموعد شروق الشمس": "Güneşin doğuşuna yklaşık 10dk kaldı",
         "تم تفعيل تذكير شروق الشمس": "Güneşin doğuşu hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك بموعد شروق الشمس": "Güneşin doğuşu hatırlatıcısı için bildirim alacaksınız",
         "لن يصلك اشعار  شروق الشمس": "Güneşin doğuşu hatırlatıcısı için bildirim almayacaksınız",
         "اذان الفجر": "Sabah ezanı",
-        "تبقى القليل لموعد اذان الفجر": "Sabah ezanına az kaldı",
+        "تبقى حوالي 10 دقائق لموعد اذان الفجر": "Sabah ezanına yklaşık 10dk kaldı",
         "تم تفعيل تذكير اذان الفجر": "Sabah ezanı hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك باذان الفجر": "Sabah ezanı hatırlatıcısı için bildirim alacaksınız",
         "لن يصلك اشعار اذان الفجر": "Sabah ezanı hatırlatıcısı için bildirim almayacaksınız",
@@ -422,7 +422,7 @@ class MyLocal implements Translations {
         "تذكير بالدعاء": "Dua",
         "😔دعاء لأهلنا في فلسطين😔": "😔Filistin kardeşlerimiz için dua😔",
         "أللهم فرّج همَّهم وانصرهم يا عزيز يا اللّه🤲🏻 .لا تنسى إخوانك في فلسطين من الدعاء فمن لم يهتم لأمر المسلمين ليس منهم":
-            "Allah'ım, onların kederini gider ve onlara yardım et, ey Aziz Allah 🤲🏻. Filistin'deki kardeşlerini dua etmeyi unutma, çünkü Müslümanların işine ilgi göstermeyen kimse onlardan değildir",
+            "Allah'ım, onların kederini gider ve onlara yardım et, ey yklaşık 10dkiz Allah 🤲🏻. Filistin'deki kardeşlerini dua etmeyi unutma, çünkü Müslümanların işine ilgi göstermeyen kimse onlardan değildir",
         "تم تفعيل تذكير الدعاء لأهلنا في  فلسطين": "Filistine dua hatırlatıcısı etkinleştirildi",
         "سيصلك اشعار لتذكيرك بالدعاء لأهلنا في  فلسطين":
             "Filistine dua etmeyi hatırlatmak için bir bildirim alacaksınız",
@@ -594,7 +594,7 @@ class MyLocal implements Translations {
         "تعرّف على اسماء الله الحسنى": "Learn the names of Allah",
         "الآية ": "Ayah",
         "حدث خطأ أثناء تشغيل الصوت": "An error occurred while playing the sound",
-        "تم تحيل الآية بنجاح": "The Ayah has been bookmarked successfully",
+        "تم تحميل الآية بنجاح": "The Ayah has been bookmarked successfully",
         "مشكلة في الاتصال بالانترنت": "Problem connecting to the Internet",
         "لا يوجد اتصال بالانترنت": "No Internet connection",
         "جاري تحميل الآية": "Loading Ayah",
@@ -785,33 +785,33 @@ class MyLocal implements Translations {
         "ملاحظات المستخدمين": "User Notes",
         "تم تحديث وقت الاشعار": "The notification time has been updated",
         "اذان العشاء": "Isha Adhan",
-        "تبقى القليل لموعد اذان العشاء": "There is little left for the Isha Adhan",
+        "تبقى حوالي 10 دقائق لموعد اذان العشاء": "There is about 10m left for the Isha Adhan",
         "تم تفعيل تذكير اذان العشاء": "Isha Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان العشاء": "You will receive a notification to remind you of the Isha Adhan",
         "تم تعطيل الاشعار الخاص بالعشاء": "The Isha Adhan notification has been disabled",
         "لن يصلك اشعار اذان العشاء": "You will not receive a notification for the Isha Adhan",
         "اذان  لمغرب": "Maghrib Adhan",
-        "تبقى القليل لموعد اذان المغرب": "There is little left for the Maghrib Adhan",
+        "تبقى حوالي 10 دقائق لموعد اذان المغرب": "There is about 10m left for the Maghrib Adhan",
         "تم تفعيل تذكير اذان المغرب": "Maghrib Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان المغرب": "You will receive a notification to remind you of the Maghrib Adhan",
         "تم تعطيل الاشعار ": "The notification has been disabled",
         "لن يصلك اشعار اذان المغرب": "You will not receive a notification for the Maghrib Adhan",
         "اذان العصر": "Asr Adhan",
-        "تبقى القليل لموعد اذان العصر": "There is little left for the Asr Adhan",
+        "تبقى حوالي 10 دقائق لموعد اذان العصر": "There is about 10m left for the Asr Adhan",
         "تم تفعيل تذكير اذان العصر": "Asr Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان العصر": "You will receive a notification to remind you of the Asr Adhan",
         "لن يصلك اشعار اذان العصر": "You will not receive a notification for the Asr Adhan",
         "اذان الظهر": "Dhuhr Adhan",
-        "تبقى القليل لموعد اذان الظهر": "There is little left for the Dhuhr Adhan",
+        "تبقى حوالي 10 دقائق لموعد اذان الظهر": "There is about 10m left for the Dhuhr Adhan",
         "تم تفعيل تذكير اذان الظهر": "Dhuhr Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان الظهر": "You will receive a notification to remind you of the Dhuhr Adhan",
         "لن يصلك اشعار اذان الظهر": "You will not receive a notification for the Dhuhr Adhan",
-        "تبقى القليل لموعد شروق الشمس": "There is little left for the sunrise",
+        "تبقى حوالي 10 دقائق لموعد شروق الشمس": "There is about 10m left for the sunrise",
         "تم تفعيل تذكير شروق الشمس": "Sunrise reminder has been activated",
         "سيصلك اشعار لتذكيرك بموعد شروق الشمس": "You will receive a notification to remind you of the sunrise",
         "لن يصلك اشعار  شروق الشمس": "You will not receive a notification for the sunrise",
         "اذان الفجر": "Fajr Adhan",
-        "تبقى القليل لموعد اذان الفجر": "There is little left for the Fajr Adhan",
+        "تبقى حوالي 10 دقائق لموعد اذان الفجر": "There is about 10m left for the Fajr Adhan",
         "تم تفعيل تذكير اذان الفجر": "Fajr Adhan reminder has been activated",
         "سيصلك اشعار لتذكيرك باذان الفجر": "You will receive a notification to remind you of the Fajr Adhan",
         "لن يصلك اشعار اذان الفجر": "You will not receive a notification for the Fajr Adhan",

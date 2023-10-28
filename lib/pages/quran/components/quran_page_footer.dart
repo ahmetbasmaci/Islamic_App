@@ -8,7 +8,7 @@ import 'package:zad_almumin/constents/my_sizes.dart';
 import 'package:zad_almumin/pages/quran/models/quran_data.dart';
 import 'package:zad_almumin/pages/quran/models/surah.dart';
 import 'package:zad_almumin/pages/readers_quran_download/readers_quran_download_page.dart';
-import '../../../services/audio_ctr.dart';
+import 'package:zad_almumin/services/audio_service/audio_service.dart';
 import '../../../constents/my_colors.dart';
 import '../../../constents/my_icons.dart';
 import '../../../constents/my_texts.dart';
@@ -27,7 +27,6 @@ class QuranPageFooter extends StatelessWidget {
 
   final double _downPartHeight = Get.size.height * .12;
   final double _loadingRowHeight = Get.size.height * .04;
-  final AudioCtr _audioCtr = Get.find<AudioCtr>();
   final HttpCtr _httpCtr = Get.find<HttpCtr>();
   int animationDurationMilliseconds = 600;
   final QuranData _quranData = Get.find<QuranData>();
@@ -87,7 +86,7 @@ class QuranPageFooter extends StatelessWidget {
                               onPressed: () {
                                 _httpCtr.isStopDownload.value = true;
                                 _httpCtr.isLoading.value = false;
-                                _audioCtr.stopAudio();
+                                AudioService.stopAudio();
                               },
                               child: MyIcons.close(color: MyColors.quranPrimary),
                             ),
@@ -220,7 +219,6 @@ class QuranPageFooter extends StatelessWidget {
                                   transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 200));
                               return;
                             }
-
                             _quranCtr.changeShowQuranStyle();
                           },
                         ),
@@ -266,8 +264,8 @@ class QuranPageFooter extends StatelessWidget {
               Divider(),
               selectAyahsLimits(),
               Divider(),
-              selectRepeet(),
-              Divider(),
+              // selectRepeet(),
+              // Divider(),
             ],
           ),
         ),
@@ -326,6 +324,7 @@ class QuranPageFooter extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(height: MySiezes.betweanCardItems),
         startEndAyahsSelections(true),
         SizedBox(height: MySiezes.betweanCardItems),
         startEndAyahsSelections(false),
@@ -337,7 +336,8 @@ class QuranPageFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MyTexts.quranSecondTitle(title: isStartAyah ? 'من الآية:'.tr : 'الى الآية:'.tr),
+        MyTexts.main(title: isStartAyah ? 'من الآية:'.tr : 'الى الآية:'.tr),
+        SizedBox(width: MySiezes.betweanCardItems),
         SizedBox(
           width: Get.size.width * .5,
           height: Get.size.height * .04,
@@ -378,7 +378,7 @@ class QuranPageFooter extends StatelessWidget {
                             ),
                           );
                         } else
-                          return MyIndicator();
+                          return MyIndicator(size: 0);
                       },
                     ),
                   ),
@@ -433,39 +433,42 @@ class QuranPageFooter extends StatelessWidget {
           () => Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              MyTexts.quranSecondTitle(
-                title: 'المقطع :  '.tr,
-              ),
-              MyTexts.main(
-                title: _quranCtr.selectedPage.repeetAllCount.value.toString(),
-                fontWeight: FontWeight.bold,
-                color: Colors.transparent.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
-              ),
-              IconButton(
-                onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
-                    ? null
-                    : () => _quranCtr.selectedPage.repeetAllCount.value++,
-                icon: MyIcons.plus(
-                  color: MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
-                ),
-              ),
-              IconButton(
-                onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
-                    ? null
-                    : () {
-                        if (_quranCtr.selectedPage.repeetAllCount.value != 1)
-                          _quranCtr.selectedPage.repeetAllCount.value--;
-                      },
-                icon: MyIcons.minus(
-                  color: MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAll.value ? .5 : 1),
+              AnimatedOpacity(
+                opacity: _quranCtr.selectedPage.isUnlimitRepeatAll.value ? 0.5 : 1,
+                duration: Duration(milliseconds: 200),
+                child: Row(
+                  children: <Widget>[
+                    MyTexts.main(title: 'المقطع :  '.tr),
+                    MyTexts.main(
+                      title: _quranCtr.selectedPage.repeetAllCount.value.toString(),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    IconButton(
+                      onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
+                          ? null
+                          : () => _quranCtr.selectedPage.repeetAllCount.value++,
+                      icon: MyIcons.plus(),
+                    ),
+                    IconButton(
+                      onPressed: _quranCtr.selectedPage.isUnlimitRepeatAll.value
+                          ? null
+                          : () {
+                              if (_quranCtr.selectedPage.repeetAllCount.value != 1)
+                                _quranCtr.selectedPage.repeetAllCount.value--;
+                            },
+                      icon: MyIcons.minus(),
+                    ),
+                  ],
                 ),
               ),
               Checkbox(
-                fillColor: MaterialStateProperty.all(MyColors.whiteBlack),
+                fillColor: MaterialStateProperty.all<Color>(MyColors.quranBackGround),
+                checkColor: MyColors.primary,
+                overlayColor: MaterialStateProperty.all(MyColors.black.withOpacity(.1)),
                 value: _quranCtr.selectedPage.isUnlimitRepeatAll.value,
                 onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAll.value = value ?? false),
               ),
-              MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
+              MyTexts.main(title: 'لا محدود'.tr),
             ],
           ),
         ),
@@ -473,36 +476,46 @@ class QuranPageFooter extends StatelessWidget {
           () => Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              MyTexts.quranSecondTitle(title: 'الآية   :  '.tr),
-              Obx(
-                () => MyTexts.main(
-                  title: _quranCtr.selectedPage.repeetAyahCount.value.toString(),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.transparent.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1),
+              AnimatedOpacity(
+                opacity: _quranCtr.selectedPage.isUnlimitRepeatAyah.value ? 0.5 : 1,
+                duration: Duration(milliseconds: 200),
+                child: Row(
+                  children: <Widget>[
+                    MyTexts.main(title: 'الآية   :  '.tr),
+                    Obx(
+                      () => MyTexts.main(
+                        title: _quranCtr.selectedPage.repeetAyahCount.value.toString(),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: _quranCtr.selectedPage.isUnlimitRepeatAyah.value
+                          ? null
+                          : () => _quranCtr.selectedPage.repeetAyahCount.value++,
+                      icon: MyIcons.plus(),
+                    ),
+                    IconButton(
+                      onPressed: _quranCtr.selectedPage.isUnlimitRepeatAyah.value
+                          ? null
+                          : () {
+                              if (_quranCtr.selectedPage.repeetAyahCount.value != 1)
+                                _quranCtr.selectedPage.repeetAyahCount.value--;
+                            },
+                      icon: MyIcons.minus(),
+                    ),
+                  ],
                 ),
-              ),
-              IconButton(
-                onPressed: () => _quranCtr.selectedPage.repeetAyahCount.value++,
-                icon: MyIcons.plus(
-                    color:
-                        MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
-              ),
-              IconButton(
-                onPressed: () {
-                  if (_quranCtr.selectedPage.repeetAyahCount.value != 1) _quranCtr.selectedPage.repeetAyahCount.value--;
-                },
-                icon: MyIcons.minus(
-                    color:
-                        MyColors.quranPrimary.withOpacity(_quranCtr.selectedPage.isUnlimitRepeatAyah.value ? .5 : 1)),
               ),
               Obx(
                 () => Checkbox(
-                  fillColor: MaterialStateProperty.all(MyColors.whiteBlack),
+                  fillColor: MaterialStateProperty.all<Color>(MyColors.quranBackGround),
+                  checkColor: MyColors.primary,
+                  overlayColor: MaterialStateProperty.all(MyColors.black.withOpacity(.1)),
                   value: _quranCtr.selectedPage.isUnlimitRepeatAyah.value,
                   onChanged: ((value) => _quranCtr.selectedPage.isUnlimitRepeatAyah.value = value ?? false),
                 ),
               ),
-              MyTexts.quranSecondTitle(title: 'لا محدود'.tr),
+              MyTexts.main(title: 'لا محدود'.tr),
             ],
           ),
         )
@@ -532,9 +545,9 @@ class QuranPageFooter extends StatelessWidget {
           child: MaterialButton(
             onPressed: () {
               if (isStartAyah)
-                _quranCtr.selectedPage.startAyahNum.value = i;
+                _quranCtr.selectedPage.startAyahNum.value = i - 1;
               else
-                _quranCtr.selectedPage.endAyahNum.value = i;
+                _quranCtr.selectedPage.endAyahNum.value = i - 1;
 
               if (_quranCtr.selectedPage.startAyahNum.value > _quranCtr.selectedPage.endAyahNum.value)
                 _quranCtr.selectedPage.endAyahNum.value = _quranCtr.selectedPage.totalAyahsNum.value;

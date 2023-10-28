@@ -255,35 +255,97 @@ class AlarmsCtr extends GetxController {
   int distanceBetweenAlarmAndAzan = 10;
   AlarmsCtr() {
 //!------------- azkar ----------------------------
-    setPropToStorage(prop: azkarProp);
+    setPropToStorage(azkarProp);
 //!------------- quran ----------------------------
-    setPropToStorage(prop: kahfSureProp);
-    setPropToStorage(prop: quranPageEveryDayProp);
+    setPropToStorage(kahfSureProp);
+    setPropToStorage(quranPageEveryDayProp);
 //!------------- fast ----------------------------
-    setPropToStorage(prop: mondayFastProp);
-    setPropToStorage(prop: thursdayFastProp);
-    setPropToStorage(prop: whitedayFastProp);
+    setPropToStorage(mondayFastProp);
+    setPropToStorage(thursdayFastProp);
+    setPropToStorage(whitedayFastProp);
 //!------------- azkar ----------------------------
-    setPropToStorage(prop: morningAzkarProp);
-    setPropToStorage(prop: nightAzkarProp);
+    setPropToStorage(morningAzkarProp);
+    setPropToStorage(nightAzkarProp);
 //!------------- hadith ----------------------------
-    setPropToStorage(prop: hadithEveryDayProp);
+    setPropToStorage(hadithEveryDayProp);
 //!------------- phalastine ----------------------------
-    changeState(alarmProp: phalastineProp, newValue: true, showSnackBar: false);
-    setPropToStorage(prop: phalastineProp);
+    setPropToStorage(phalastineProp);
 //!------------- prayers ----------------------------
-    setPropToStorage(prop: fajrPrayProp);
-    setPropToStorage(prop: duhrPrayProp);
-    setPropToStorage(prop: asrPrayProp);
-    setPropToStorage(prop: maghribPrayProp);
-    setPropToStorage(prop: ishaPrayProp);
+    setPropToStorage(fajrPrayProp);
+    setPropToStorage(duhrPrayProp);
+    setPropToStorage(asrPrayProp);
+    setPropToStorage(maghribPrayProp);
+    setPropToStorage(ishaPrayProp);
   }
 
-  setPropToStorage({required AlarmProp prop}) {
-    getStorage.read(prop.storageKey) != null
-        ? prop.fromJson(jsonDecode(getStorage.read(prop.storageKey)))
-        : prop = prop;
+  void resetNullAndEnabledAlarms() {
+    if (azkarProp.isActive.value) {
+      changeState(alarmProp: azkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: azkarProp, newValue: true, showSnackBar: false);
+    }
+    if (kahfSureProp.isActive.value) {
+      changeState(alarmProp: kahfSureProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: kahfSureProp, newValue: true, showSnackBar: false);
+    }
+    if (quranPageEveryDayProp.isActive.value) {
+      changeState(alarmProp: quranPageEveryDayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: quranPageEveryDayProp, newValue: true, showSnackBar: false);
+    }
+    if (mondayFastProp.isActive.value) {
+      changeState(alarmProp: mondayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: mondayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (thursdayFastProp.isActive.value) {
+      changeState(alarmProp: thursdayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: thursdayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (whitedayFastProp.isActive.value) {
+      changeState(alarmProp: whitedayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: whitedayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (morningAzkarProp.isActive.value) {
+      changeState(alarmProp: morningAzkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: morningAzkarProp, newValue: true, showSnackBar: false);
+    }
+    if (nightAzkarProp.isActive.value) {
+      changeState(alarmProp: nightAzkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: nightAzkarProp, newValue: true, showSnackBar: false);
+    }
+    if (hadithEveryDayProp.isActive.value) {
+      changeState(alarmProp: hadithEveryDayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: hadithEveryDayProp, newValue: true, showSnackBar: false);
+    }
+    if (phalastineProp.isActive.value) {
+      changeState(alarmProp: phalastineProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: phalastineProp, newValue: true, showSnackBar: false);
+    }
+    if (fajrPrayProp.isActive.value) {
+      changeState(alarmProp: fajrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: fajrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (duhrPrayProp.isActive.value) {
+      changeState(alarmProp: duhrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: duhrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (asrPrayProp.isActive.value) {
+      changeState(alarmProp: asrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: asrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (maghribPrayProp.isActive.value) {
+      changeState(alarmProp: maghribPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: maghribPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (ishaPrayProp.isActive.value) {
+      changeState(alarmProp: ishaPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: ishaPrayProp, newValue: true, showSnackBar: false);
+    }
   }
+
+  void setPropToStorage(AlarmProp prop) {
+    !isAlarmDontHaveStoredValue(prop) ? prop.fromJson(jsonDecode(getStorage.read(prop.storageKey))) : prop = prop;
+  }
+
+  bool isAlarmDontHaveStoredValue(AlarmProp prop) => getStorage.read(prop.storageKey) == null;
 
   changeState({required AlarmProp alarmProp, required bool newValue, bool showSnackBar = true}) async {
     bool isUpdating = false;

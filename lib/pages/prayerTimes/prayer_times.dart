@@ -74,11 +74,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                             ? AnimatedOpacity(
                                 duration: Duration(milliseconds: 3000),
                                 opacity: prayerTimeCtr.isLoading.value ? 1 : 0,
-                                child: MyIndicator(
-                                  color: MyColors.white,
-                                  backgroundColor: Colors.black,
-                                ),
-                              )
+                                child: MyCircularProgressIndicator(color: MyColors.white))
                             : Container(),
                       ],
                     ),
@@ -159,7 +155,7 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: prayerTimeCtr.isLoading.value
-                    ? MyIndicator()
+                    ? MyCircularProgressIndicator(color: MyColors.white)
                     : MyTexts.main(title: time, fontWeight: FontWeight.bold),
               ),
             ],
