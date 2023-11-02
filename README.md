@@ -7,7 +7,7 @@
 </br>4- Important daily supplications, such as morning and evening supplications.
 </br>5- Continuous reminders of Hadiths and supplications.
 </br>6- Reminders for fasting on Mondays and Thursdays.
-</br>7- Reviewing the first verses of each page of the Quran in the form of questions.
+</br>7- Review the first verses of each page of the Quran in the form of questions.
 </br>8- Prayer times based on the user's geographical location.
 </br>9- The beautiful names of Allah with explanations.
 </br>10- The ability to search for words in the Quran.
@@ -37,9 +37,3 @@
   <img src="https://user-images.githubusercontent.com/96287253/236660527-56a0ef23-f852-4a3f-abbe-9989dde928a8.png" width="240" >
   <img src="https://github.com/ahmetbasmaci/zad_almumin-Mobil_App/assets/96287253/b849ff9a-8142-4d4d-b229-2d9a7bfdb82a" width="240" >
 </div>
-
-
-
-
-
-
