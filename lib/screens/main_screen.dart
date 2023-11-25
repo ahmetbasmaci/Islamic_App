@@ -26,12 +26,12 @@ class MainScreen extends GetView<ThemeCtr> {
           AnimationService.animationListItemDownToUp(index: 1, child: ZikrCard().quranCard()),
           AnimationService.animationListItemDownToUp(index: 2, child: ZikrCard().hadithCard()),
           AnimationService.animationListItemDownToUp(
+            index: 3,
             child: azkarBlocks(
               outsideTitle: 'مختلف الأذكار'.tr,
               azkars: BlockData.list,
               zikrType: ZikrType.azkar,
             ),
-            index: 3,
           ),
           AnimationService.animationListItemDownToUp(
             index: 4,

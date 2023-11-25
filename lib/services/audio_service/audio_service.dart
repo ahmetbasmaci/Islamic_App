@@ -1,11 +1,9 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/moduls/enums.dart';
 import 'package:zad_almumin/pages/quran/controllers/quran/quran_page_ctr.dart';
 import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/audio_service/audio_helper_widgets.dart';
@@ -123,4 +121,6 @@ class AudioService {
     }
     return false;
   }
+
+
 }

@@ -32,8 +32,6 @@ class PrayerTimeCtr extends GetxController {
     isLocationPermessionDenieted.value = GetStorage().read<bool>("isLocationPermessionDenieted") ?? false;
   }
   Future<Position?> _determinePosition() async {
-    if (isLocationPermessionDenieted.value) return null;
-
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -93,7 +91,10 @@ class PrayerTimeCtr extends GetxController {
                   .tr,
           okText: "حسنا".tr,
           noText: "رفض".tr,
-          onOk: () async => permission = await Geolocator.requestPermission(),
+          onOk: () async {
+            permission = await Geolocator.requestPermission();
+            Get.back();
+          },
           onNo: () {
             updateLocationPermitionState(true);
             Get.back();
@@ -116,7 +117,14 @@ class PrayerTimeCtr extends GetxController {
     GetStorage().write('isLocationPermessionDenieted', newValue);
   }
 
-  updatePrayerTimes({DateTime? newTime}) async {
+  Future<void> updatePrayerTimesOnLoad() async {
+    if (isLocationPermessionDenieted.value) {
+      return;
+    }
+    await updatePrayerTimes();
+  }
+
+  Future<void> updatePrayerTimes({DateTime? newTime}) async {
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
     await _getCurrentPosition();
