@@ -185,8 +185,12 @@ class QuranSearchDelegate extends SearchDelegate {
                 itemCount: matchedAyahs.length,
                 itemBuilder: (context, index) => suggestedAyahItem(ayah: matchedAyahs[index]),
               );
-            } else {
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
+            } else {
+              return Center(
+                child: Text('لا يوجد نتائج'.tr),
+              );
             }
           },
         ),

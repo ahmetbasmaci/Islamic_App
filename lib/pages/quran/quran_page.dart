@@ -44,6 +44,22 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    String normilisedAyahText =
+        // 'ٱعْلَمُوٓا۟ أَنَّمَا ٱلْحَيَوٰةُ ٱلدُّنْيَا لَعِبٌۭ وَلَهْوٌۭ وَزِينَةٌۭ وَتَفَاخُرٌۢ بَيْنَكُمْ وَتَكَاثُرٌۭ فِى ٱلْأَمْوَٰلِ وَٱلْأَوْلَٰدِ ۖ كَمَثَلِ غَيْثٍ أَعْجَبَ ٱلْكُفَّارَ نَبَاتُهُۥ ثُمَّ يَهِيجُ فَتَرَىٰهُ مُصْفَرًّۭا ثُمَّ يَكُونُ حُطَٰمًۭا ۖ وَفِى ٱلْءَاخِرَةِ عَذَابٌۭ شَدِيدٌۭ وَمَغْفِرَةٌۭ مِّنَ ٱللَّهِ وَرِضْوَٰنٌۭ ۚ وَمَا ٱلْحَيَوٰةُ ٱلدُّنْيَآ إِلَّا مَتَٰعُ ٱلْغُرُورِ';
+        'إِنَّ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ وَالْقَانِتِينَ وَالْقَانِتَاتِ';
+    normilisedAyahText = HelperMethods.normalise(normilisedAyahText);
+    print('----$normilisedAyahText');
+
+    // normilisedAyahText = normilisedAyahText.replaceAll(
+    //     RegExp('/^[+]*[(]{0,1}[\u0030-\u0039\u0660-\u0669]{1,3}[)]{0,1}[-s./\u0030-\u0039\u0660-\u0669]*/g'), '');
+    // print('----$normilisedAyahText');
+
+    String normalized = HelperMethods.normalise('ان المسلمين');
+
+    if (normilisedAyahText.contains(normalized)) {
+      print('ssssssssssssssssssssa');
+    }
+
     // _quranCtr.updateCurrentPageCtr();
     return WillPopScope(
       key: UniqueKey(),

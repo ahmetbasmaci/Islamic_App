@@ -180,12 +180,14 @@ class QuranPageCtr extends GetxController {
     if (_debounceTimer?.isActive ?? false) {
       _debounceTimer!.cancel();
     }
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+    _debounceTimer = Timer(const Duration(milliseconds: 50), () {
       for (var i = 0; i < _quranData.getSurahsCount(); i++) {
         Surah surah = _quranData.getSurahByNumber(i + 1);
-        for (int i = 0; i < surah.ayahs.length; i++) {
-          Ayah ayah = surah.ayahs[i];
-          if (HelperMethods.normalise(ayah.text.toString()).contains(query)) {
+        for (int j = 0; j < surah.ayahs.length; j++) {
+          Ayah ayah = surah.ayahs[j];
+          String normilisedAyahText = HelperMethods.normalise(ayah.text.toString());
+          String normalizeQuery = HelperMethods.normalise(query);
+          if (normilisedAyahText.contains(normalizeQuery)) {
             matchedAyahs.add(ayah);
             _streamController.add(matchedAyahs);
           }

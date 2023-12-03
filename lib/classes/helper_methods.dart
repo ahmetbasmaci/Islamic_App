@@ -92,9 +92,10 @@ class HelperMethods {
         .replaceAll('\u0650', '') //ARABIC KASRA
         .replaceAll('\u0651', '') //ARABIC SHADDA
         .replaceAll('\u0652', '') //ARABIC SUKUN
-        .replaceAll('\u0653', '') //ARABIC MADDAH ABOVE
+
         .replaceAll('\u0654', '') //ARABIC HAMZA ABOVE
         .replaceAll('\u0655', '') //ARABIC HAMZA BELOW
+
         .replaceAll('\u0656', '') //ARABIC SUBSCRIPT ALEF
         .replaceAll('\u0657', '') //ARABIC INVERTED DAMMA
         .replaceAll('\u0658', '') //ARABIC MARK NOON GHUNNA
@@ -103,9 +104,13 @@ class HelperMethods {
         .replaceAll('\u065B', '') //ARABIC VOWEL SIGN INVERTED SMALL V ABOVE
         .replaceAll('\u065C', '') //ARABIC VOWEL SIGN DOT BELOW
         .replaceAll('\u065D', '') //ARABIC REVERSED DAMMA
+
         .replaceAll('\u065E', '') //ARABIC FATHA WITH TWO DOTS
         .replaceAll('\u065F', '') //ARABIC WAVY HAMZA BELOW
         .replaceAll('\u0670', '') //ARABIC LETTER SUPERSCRIPT ALEF
+
+        .replaceAll('\u064A\u0653', 'يا') //ARABIC MADDAH ABOVE
+        .replaceAll('\u0653', '') //ARABIC MADDAH ABOVE
 
         //Replace Waw Hamza Above by Waw
         .replaceAll('\u0624', '\u0648')
@@ -115,14 +120,16 @@ class HelperMethods {
 
         //Replace Ya
         // and Ya Hamza Above by Alif Maksura
-        .replaceAll('\u064A', '\u0649')
-        .replaceAll('\u0626', '\u0649')
+        // .replaceAll('\u064A', '\u0649')
+        // .replaceAll('\u0626', '\u0649')
+        .replaceAll('\u0626', '\u064A')
 
         // Replace Alifs with Hamza Above/Below
         // and with Madda Above by Alif
         .replaceAll('\u0622', '\u0627')
         .replaceAll('\u0623', '\u0627')
-        .replaceAll('\u0625', '\u0627');
+        .replaceAll('\u0625', '\u0627')
+        .replaceAll(' ', '');
   }
 
   /// Convert a number to arabic number
