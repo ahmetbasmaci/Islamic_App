@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/moduls/enums.dart';
 import '../../components/my_drawer.dart';
 import 'favorite_body.dart';
@@ -31,37 +31,42 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(
-          title: 'المفضلة',
-          actions: [
-            MyIcons.menu(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<ZikrType>(
-                    iconEnabledColor: MyColors.primary(),
-                    value: favoriteCtr.selectedZikrType.value,
-                    items: [
-                      DropdownMenuItem(value: ZikrType.all, child: MyTexts.dropDownMenuItem(title: 'الكل')),
-                      DropdownMenuItem(
-                          value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله')),
-                      DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الاذكار')),
-                      DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القران')),
-                      DropdownMenuItem(value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث')),
-                    ],
-                    onChanged: (newSelectedType) {
-                      getStorage.write('selectedZikrType', newSelectedType!.index);
-                      setState(() => favoriteCtr.selectedZikrType.value = newSelectedType);
-                    }),
-              ),
+      appBar: MyAppBar(
+        title: 'المفضلة'.tr,
+        actions: [
+          MyIcons.menu(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<ZikrType>(
+                  iconEnabledColor: MyColors.primary,
+                  value: favoriteCtr.selectedZikrType.value,
+                  items: [
+                    DropdownMenuItem(
+                      value: ZikrType.all,
+                      child: MyTexts.dropDownMenuItem(title: 'الكل'.tr),
+                    ),
+                    DropdownMenuItem(
+                        value: ZikrType.allahNames, child: MyTexts.dropDownMenuItem(title: 'أسماء الله'.tr)),
+                    DropdownMenuItem(value: ZikrType.azkar, child: MyTexts.dropDownMenuItem(title: 'الأذكار'.tr)),
+                    DropdownMenuItem(value: ZikrType.quran, child: MyTexts.dropDownMenuItem(title: 'القرآن الكريم'.tr)),
+                    DropdownMenuItem(
+                        value: ZikrType.hadith, child: MyTexts.dropDownMenuItem(title: 'الحديث الشريف'.tr)),
+                  ],
+                  onChanged: (newSelectedType) {
+                    getStorage.write('selectedZikrType', newSelectedType!.index);
+                    setState(() => favoriteCtr.selectedZikrType.value = newSelectedType);
+                  }),
             ),
-            IconButton(
-              icon: MyIcons.search(),
-              onPressed: () => showSearch(context: context, delegate: FavoriteSearchDelegate()),
-            ),
-          ],
-        ),
-        drawer: MyDrawer(),
-        body: FavoriteBody());
+          ),
+          IconButton(
+            icon: MyIcons.search(),
+            onPressed: () => showSearch(context: context, delegate: FavoriteSearchDelegate()),
+          ),
+        ],
+      ),
+      drawer: MyDrawer(),
+      body: FavoriteBody(),
+    );
   }
 }

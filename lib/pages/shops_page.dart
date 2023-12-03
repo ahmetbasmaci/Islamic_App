@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:zad_almumin/components/my_app_bar.dart';
-import 'package:zad_almumin/components/my_circular_progress_indecator.dart';
+import 'package:zad_almumin/components/my_indicator.dart';
 import 'package:zad_almumin/components/my_drawer.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
-import '../constents/colors.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
+import '../constents/my_colors.dart';
 import '../components/my_switch.dart';
 
 class ShopProps {
@@ -113,7 +113,7 @@ class _ShopsPageState extends State<ShopsPage> {
           // ),
           Divider(),
           isloading
-              ? MyCircularProgressIndecator()
+              ? MyIndicator()
               : ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -126,7 +126,7 @@ class _ShopsPageState extends State<ShopsPage> {
                           color: shopsList[index].isSelected ? Color.fromARGB(70, 145, 145, 145) : null,
                           border: Border(
                               bottom: BorderSide(
-                            color: shopsList[index].isSelected ? MyColors.primaryDark : Colors.grey,
+                            color: shopsList[index].isSelected ? MyColors.primary : Colors.grey,
                           )),
                         ),
                         padding: EdgeInsets.symmetric(horizontal: MySiezes.cardPadding),
@@ -217,7 +217,7 @@ class _ShopsPageState extends State<ShopsPage> {
               Get.back();
               setState(() {});
             },
-            color: MyColors.primary(),
+            color: MyColors.primary,
             child: Text("تأكيد", style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -225,10 +225,10 @@ class _ShopsPageState extends State<ShopsPage> {
           alertAlignment: Alignment.center,
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
-          backgroundColor: MyColors.background(),
-          titleStyle: Theme.of(context).textTheme.headline1!,
+          backgroundColor: MyColors.background,
+          titleStyle: Theme.of(context).textTheme.bodySmall!,
           descStyle: TextStyle(
-            color: MyColors.whiteBlack(),
+            color: MyColors.whiteBlack,
             fontSize: 14,
           ),
         )).show();
@@ -275,13 +275,13 @@ class _ShopsPageState extends State<ShopsPage> {
             buttons: [
               DialogButton(
                 onPressed: () => Get.back(),
-                color: MyColors.primary(),
+                color: MyColors.primary,
                 child: MyTexts.content(title: 'تم'),
               )
             ],
             style: AlertStyle(
-              backgroundColor: MyColors.background(),
-              titleStyle: Theme.of(context).textTheme.headline1!,
+              backgroundColor: MyColors.background,
+              titleStyle: Theme.of(context).textTheme.bodySmall!,
             )).show();
       }
     }
@@ -348,7 +348,7 @@ class _ShopsPageState extends State<ShopsPage> {
                 maxLength: 18,
                 textAlign: TextAlign.right,
                 controller: _shopCtr,
-                style: TextStyle(color: MyColors.whiteBlack()),
+                style: TextStyle(color: MyColors.whiteBlack),
                 decoration: InputDecoration(
                     border: UnderlineInputBorder(), hintText: 'اسم السوق : ', hintStyle: TextStyle(fontSize: 14)),
               ),
@@ -368,7 +368,7 @@ class _ShopsPageState extends State<ShopsPage> {
                     child: MyTexts.content(title: 'اجلب موقعك الحالي'),
                   ),
                   isLoading
-                      ? MyCircularProgressIndecator()
+                      ? MyIndicator()
                       : isLocationReady
                           ? MyIcons.done()
                           : MyIcons.error,
@@ -383,7 +383,7 @@ class _ShopsPageState extends State<ShopsPage> {
             color: Colors.transparent,
             child: Text("الغاء",
                 style: TextStyle(
-                  color: MyColors.primary(),
+                  color: MyColors.primary,
                 )),
           ),
           DialogButton(
@@ -391,8 +391,8 @@ class _ShopsPageState extends State<ShopsPage> {
               // check the shop name is not empty
               if (_shopCtr.text.isEmpty) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من ادخال اسم السوق !!!',
-                    backgroundColor: MyColors.background(),
-                    colorText: MyColors.whiteBlack(),
+                    backgroundColor: MyColors.background,
+                    colorText: MyColors.whiteBlack,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -400,8 +400,8 @@ class _ShopsPageState extends State<ShopsPage> {
               //sheck if shop name math with other shops
               if (shopsList.any((element) => element.shopName == _shopCtr.text)) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'اسم السوق موجود بالفعل !!!',
-                    backgroundColor: MyColors.background(),
-                    colorText: MyColors.whiteBlack(),
+                    backgroundColor: MyColors.background,
+                    colorText: MyColors.whiteBlack,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -409,8 +409,8 @@ class _ShopsPageState extends State<ShopsPage> {
               //check if all required data is ready
               if (!isLocationReady) {
                 Get.snackbar('حدث خطأ اثناء جلب البيانات', 'تاكد من جلب موقعك الحالي !!!',
-                    backgroundColor: MyColors.background(),
-                    colorText: MyColors.whiteBlack(),
+                    backgroundColor: MyColors.background,
+                    colorText: MyColors.whiteBlack,
                     icon: MyIcons.error,
                     snackPosition: SnackPosition.BOTTOM);
                 return;
@@ -418,7 +418,7 @@ class _ShopsPageState extends State<ShopsPage> {
 
               _addLocation();
             },
-            color: MyColors.primary(),
+            color: MyColors.primary,
             child: Text("تأكيد", style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -426,10 +426,10 @@ class _ShopsPageState extends State<ShopsPage> {
           alertAlignment: Alignment.center,
           alertElevation: 0,
           titleTextAlign: TextAlign.right,
-          backgroundColor: MyColors.background(),
-          titleStyle: Theme.of(context).textTheme.headline1!,
+          backgroundColor: MyColors.background,
+          titleStyle: Theme.of(context).textTheme.bodySmall!,
           descStyle: TextStyle(
-            color: MyColors.whiteBlack(),
+            color: MyColors.whiteBlack,
             fontSize: 14,
           ),
         )).show();

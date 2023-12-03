@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -9,8 +8,8 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:zad_almumin/pages/azkar_page.dart';
-import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/azkar/azkar_page.dart';
+import 'package:zad_almumin/pages/home/home_page.dart';
 import 'package:zad_almumin/pages/prayerTimes/prayer_times.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
 import 'package:zad_almumin/pages/settings/settings_ctr.dart';
@@ -128,6 +127,20 @@ class NotificationService {
   }
 
 //! -----------------------------  default alarms ----------------------------- //
+  static void setNotification(AlarmProp alarmProp) {
+    if (alarmProp.alarmPeriod == ALarmPeriod.once)
+      NotificationService.setOnceNotification(alarmProp: alarmProp);
+    else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
+      //  NotificationService.setOnceNotification(alarmProp: alarmProp);
+      NotificationService.setRepeatNotification(alarmProp: alarmProp);
+    } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
+      NotificationService.setDailyNotification(alarmProp: alarmProp);
+    } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
+      NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
+    else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)
+      NotificationService.setWhiteDaysFastNotification(alarmProp: alarmProp);
+  }
+
   static Future showNotificationNow(
       {int id = 999, required String title, required String body, required String payload}) async {
     await Future.delayed(Duration(seconds: 0));
@@ -140,18 +153,18 @@ class NotificationService {
   static Future setOnceNotification({required AlarmProp alarmProp}) async {
     await Future.delayed(Duration(seconds: 0));
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
     else if (alarmProp.notificationType == NotificationType.azkar)
-      alarmProp.notificationBody = await JsonService.getRandomZikr();
+      alarmProp.notificationBody = JsonService.getRandomZikr();
 
     await _flutterLocalNotificationsPlugin.show(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
     );
@@ -160,54 +173,61 @@ class NotificationService {
   static Future setRepeatNotification({required AlarmProp alarmProp}) async {
     //get random content
     if (alarmProp.notificationType == NotificationType.hadith)
-      alarmProp.notificationBody = (await JsonService.getHadithData()).content;
+      alarmProp.notificationBody = (await JsonService.getRandomHadith()).content;
     else if (alarmProp.notificationType == NotificationType.azkar)
-      alarmProp.notificationBody = await JsonService.getRandomZikr();
+      alarmProp.notificationBody = JsonService.getRandomZikr();
 
     //set random duration by selected repeat type
     Duration duration = Duration(seconds: 0);
     if (alarmProp.zikrRepeat == ZikrRepeat.high)
+    //  duration = Duration(seconds: 2);
+    if (alarmProp.notificationType == NotificationType.phalastine)
+      duration = Duration(minutes: Random().nextInt(30) + 10); //10-40
+    else
       duration = Duration(minutes: Random().nextInt(40) + 40); //40-80
     else if (alarmProp.zikrRepeat == ZikrRepeat.high)
       duration = Duration(minutes: Random().nextInt(70) + 80); //80-150
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+    else if (alarmProp.zikrRepeat == ZikrRepeat.medium)
       duration = Duration(minutes: Random().nextInt(150) + 150); //150-300
-    else if (alarmProp.zikrRepeat == ZikrRepeat.high)
+    else if (alarmProp.zikrRepeat == ZikrRepeat.low)
       duration = Duration(minutes: Random().nextInt(200) + 600); //300-500
+    else if (alarmProp.zikrRepeat == ZikrRepeat.rare)
+      duration = Duration(minutes: Random().nextInt(600) + 800); //300-500
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
-      tz.TZDateTime.now(tz.local).add(duration),
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
+      _selectTimeByDuration(duration: duration),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
-    await Future.delayed(duration * 2);
 
-    if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
+    // await Future.delayed(duration * 2);
+
+    // if (alarmProp.isActive.value) setRepeatNotification(alarmProp: alarmProp);
   }
 
 //! -----------------------------  daily alarm ----------------------------- //
   static Future setDailyNotification({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectHourAndMinute(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
+        bigTitle: alarmProp.notificationTitle.tr,
         bigBody: alarmProp.notificationType == NotificationType.hadith
-            ? (await JsonService.getHadithData()).content
-            : alarmProp.notificationBody,
+            ? (await JsonService.getRandomHadith()).content
+            : alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -220,13 +240,13 @@ class NotificationService {
   static Future setWeecklyNotifivation({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectDateTime(dateTime: alarmProp.day, hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -239,13 +259,13 @@ class NotificationService {
   static Future setWhiteDaysFastNotification({required AlarmProp alarmProp}) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarmProp.id,
-      alarmProp.notificationTitle,
-      alarmProp.notificationBody,
+      alarmProp.notificationTitle.tr,
+      alarmProp.notificationBody.tr,
       _selectHicriDateTime(hour: alarmProp.time.value.hour, minute: alarmProp.time.value.minute),
       _getNotificationDetails(
         notificationSound: alarmProp.notificationSound,
-        bigTitle: alarmProp.notificationTitle,
-        bigBody: alarmProp.notificationBody,
+        bigTitle: alarmProp.notificationTitle.tr,
+        bigBody: alarmProp.notificationBody.tr,
       ),
       payload: alarmProp.notificationType.name,
       androidAllowWhileIdle: true,
@@ -285,5 +305,10 @@ class NotificationService {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
     return scheduledDate;
+  }
+
+  static tz.TZDateTime _selectTimeByDuration({required Duration duration}) {
+    final tz.TZDateTime time = tz.TZDateTime.now(tz.local).add(duration);
+    return time;
   }
 }

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zad_almumin/pages/quran/models/ayah.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-
-import '../../../constents/colors.dart';
-import '../../../constents/sizes.dart';
-import '../../../constents/texts.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_sizes.dart';
+import '../../../constents/my_texts.dart';
 import '../../../moduls/enums.dart';
-import '../classes/ayah_prop.dart';
 import '../controller/ayahs_questions_ctr.dart';
 
 class QuestionCard extends GetView<ThemeCtr> {
-  QuestionCard({super.key, required this.selectedAyah});
+  QuestionCard({super.key, required this.ayah});
   AyahsQuestionsCtr ctr = Get.find<AyahsQuestionsCtr>();
-  late AyahProp selectedAyah;
+  Ayah ayah;
   @override
   Widget build(BuildContext context) {
     context.theme;
@@ -20,14 +19,14 @@ class QuestionCard extends GetView<ThemeCtr> {
       padding: EdgeInsets.all(MySiezes.cardPadding * 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.zikrCard(),
+        color: MyColors.zikrCard,
         border: Border.all(color: Colors.black, width: 1),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(.6), blurRadius: 5, offset: Offset(0, 5)),
         ],
       ),
-      child: MyTexts.quran(
-        title: ctr.questionType.value == QuestionType.ayahInJuzAndPage ? selectedAyah.ayah : selectedAyah.surah,
+      child: MyTexts.main(
+        title: ctr.questionType.value == QuestionType.ayahInJuzAndPage ? ayah.text : ayah.surahName,
       ),
     );
   }

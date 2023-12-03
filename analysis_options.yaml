@@ -6,7 +6,13 @@ linter:
     prefer_const_constructors: false
     prefer_const_literals_to_create_immutables: false
     curly_braces_in_flow_control_structures: false
-    must_be_immutable: true
     library_private_types_in_public_api: false
     use_key_in_widget_constructors: false 
+    avoid_print: false
+
+analyzer:
+  errors:
+    must_be_immutable: ignore
+    prefer_const_constructors_in_immutables: ignore
+
 

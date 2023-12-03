@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:get/get.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 
 import 'favorite_body.dart';
 
 class FavoriteSearchDelegate extends SearchDelegate {
   @override
-  String get searchFieldLabel => 'بحث';
+  String get searchFieldLabel => 'بحث'.tr;
 
   @override
   ThemeData appBarTheme(BuildContext context) => Theme.of(context).copyWith(
-        scaffoldBackgroundColor: MyColors.background(),
-        iconTheme: IconThemeData(color: MyColors.primary()),
-        appBarTheme: AppBarTheme(color: MyColors.background(), iconTheme: IconThemeData(color: MyColors.primary())),
-        textTheme: TextTheme(headline6: TextStyle(color: MyColors.primary())),
-        textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.primary()),
+        scaffoldBackgroundColor: MyColors.background,
+        iconTheme: IconThemeData(color: MyColors.primary),
+        appBarTheme: AppBarTheme(color: MyColors.background, iconTheme: IconThemeData(color: MyColors.primary)),
+        textTheme: TextTheme(labelLarge: TextStyle(color: MyColors.primary)),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: MyColors.primary),
         inputDecorationTheme: InputDecorationTheme(focusedBorder: InputBorder.none, border: InputBorder.none),
       );
 

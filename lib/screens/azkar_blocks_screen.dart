@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:zad_almumin/constents/colors.dart';
+import 'package:zad_almumin/components/my_app_bar.dart';
+import 'package:zad_almumin/components/my_drawer.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
 import 'package:zad_almumin/moduls/enums.dart';
-import 'package:zad_almumin/constents/icons.dart';
-import 'package:zad_almumin/constents/sizes.dart';
-import 'package:zad_almumin/constents/texts.dart';
+import 'package:zad_almumin/constents/my_icons.dart';
+import 'package:zad_almumin/constents/my_sizes.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
 import 'package:zad_almumin/classes/block_data.dart';
 import 'package:zad_almumin/services/animation_service.dart';
-import '../pages/azkar_page.dart';
+import '../pages/azkar/azkar_page.dart';
 
 class AzkarBlockScreen extends StatefulWidget {
   const AzkarBlockScreen({Key? key}) : super(key: key);
@@ -28,53 +30,58 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: MyTexts.outsideHeader(title: 'مختلف الاذكار'),
-          ),
-          ListView.builder(
-            itemCount: BlockData.list.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return AnimationService.animationListItemDownToUp(
-                index: index,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-                    color: MyColors.primary(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.6),
-                        blurRadius: 5,
-                        offset: Offset(-2, 0),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
-                  child: ListTile(
-                    title: MyTexts.blockTitle(title: BlockData.list[index].title),
-                    leading: Image.asset(BlockData.list[index].imageSource),
-                    trailing: MyIcons.leftArrow(color: MyColors.white),
-                    onTap: () {
-                      Get.to(
-                        AzkarPage(
-                          zikrIndexInJson: index,
-                          zikrType: ZikrType.azkar,
+      child: Scaffold(
+        appBar: MyAppBar(title: 'أذكار المسلم'.tr),
+        drawer: MyDrawer(),
+        body: ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          children: [
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: MyTexts.outsideHeader(title: 'مختلف الأذكار'.tr),
+            // ),
+            ListView.builder(
+              itemCount: BlockData.list.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return AnimationService.animationListItemDownToUp(
+                  index: index,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+                      color: MyColors.zikrCard,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.6),
+                          blurRadius: 5,
+                          offset: Offset(-2, 0),
                         ),
-                        transition: Transition.size,
-                        duration: Duration(milliseconds: 500),
-                      );
-                    },
+                      ],
+                    ),
+                    margin:
+                        EdgeInsets.only(bottom: index != BlockData.list.length - 1 ? MySiezes.betweanAzkarBlock : 0),
+                    child: ListTile(
+                      title: MyTexts.blockTitle(title: BlockData.list[index].title.tr, color: MyColors.primary),
+                      leading: Image.asset(BlockData.list[index].imageSource),
+                      trailing: MyIcons.leftArrow(color: MyColors.primary),
+                      onTap: () {
+                        Get.to(
+                          AzkarPage(
+                            zikrIndexInJson: index,
+                            zikrType: ZikrType.azkar,
+                          ),
+                          transition: Transition.size,
+                          duration: Duration(milliseconds: 500),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -85,7 +92,7 @@ class _AzkarBlockScreenState extends State<AzkarBlockScreen> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-            color: MyColors.primary(),
+            color: MyColors.primary,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(.6),

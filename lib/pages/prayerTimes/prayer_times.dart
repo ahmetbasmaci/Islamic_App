@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:zad_almumin/pages/prayerTimes/controllers/prayer_time_ctr.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_time_left.dart';
 import 'package:zad_almumin/pages/prayerTimes/pray_times_info.dart';
-import 'package:zad_almumin/services/theme_service.dart';
 import '../../components/my_app_bar.dart';
-import '../../components/my_circular_progress_indecator.dart';
+import '../../components/my_indicator.dart';
 import '../../components/my_drawer.dart';
-import '../../constents/colors.dart';
-import '../../constents/sizes.dart';
-import '../../constents/texts.dart';
-
+import '../../constents/my_colors.dart';
+import '../../constents/my_sizes.dart';
+import '../../constents/my_texts.dart';
 import '../../moduls/enums.dart';
 
 class PrayerTimes extends StatefulWidget {
@@ -25,10 +23,20 @@ class PrayerTimes extends StatefulWidget {
 class _PrayerTimesState extends State<PrayerTimes> {
   PrayerTimeCtr prayerTimeCtr = Get.find<PrayerTimeCtr>();
   int hDay = HijriCalendar.fromDate(DateTime.now()).hDay;
+
+  @override
+  void initState() {
+    super.initState();
+    //prayerTimeCtr.updatePrayerTimes();
+    if (prayerTimeCtr.checkIfPrayerTimesNotSeted) {
+      Fluttertoast.showToast(msg: 'اذا لم تجد الوقت الصحيح اضغط على تحديث'.tr);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: ''),
+      appBar: MyAppBar(title: 'اوقات الصلاة'.tr),
       drawer: MyDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,17 +50,37 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 children: [
                   PrayTmeNextPrayInfo(),
                   SizedBox(height: MySiezes.betweanAzkarBlock),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await prayerTimeCtr.updatePrayerTimes();
-                      if (mounted) setState(() {});
-                    },
-                    child: Text('تحديث'),
-                  ),
                 ],
               ),
               nextPrevDaysArrows(),
               PrayTimesInfo(),
+              MaterialButton(
+                color: MyColors.primary,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                onPressed: () async {
+                  prayerTimeCtr.updateLocationPermitionState(false);
+                  await prayerTimeCtr.updatePrayerTimes();
+                  if (mounted) setState(() {});
+                },
+                child: Obx(() {
+                  return SizedBox(
+                    width: Get.width * 0.25,
+                    child: Row(
+                      mainAxisAlignment:
+                          prayerTimeCtr.isLoading.value ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
+                      children: [
+                        MyTexts.main(title: 'تحديث'.tr, color: MyColors.white, fontWeight: FontWeight.bold),
+                        prayerTimeCtr.isLoading.value
+                            ? AnimatedOpacity(
+                                duration: Duration(milliseconds: 3000),
+                                opacity: prayerTimeCtr.isLoading.value ? 1 : 0,
+                                child: MyCircularProgressIndicator(color: MyColors.white))
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ],
           ),
         ),
@@ -87,22 +115,22 @@ class _PrayerTimesState extends State<PrayerTimes> {
     String title = '';
     String time = '';
     if (prayerTimeType == PrayerTimeType.fajr) {
-      title = 'الفجر';
+      title = 'الفجر'.tr;
       time = '${prayerTimeCtr.fajrTime.value.hour}:${prayerTimeCtr.fajrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.sun) {
-      title = 'شروق الشمس';
+      title = 'شروق الشمس'.tr;
       time = '${prayerTimeCtr.sunTime.value.hour}:${prayerTimeCtr.sunTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.duhr) {
-      title = 'الظهر';
+      title = 'الظهر'.tr;
       time = '${prayerTimeCtr.duhrTime.value.hour}:${prayerTimeCtr.duhrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.asr) {
-      title = 'العصر';
+      title = 'العصر'.tr;
       time = '${prayerTimeCtr.asrTime.value.hour}:${prayerTimeCtr.asrTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.maghrib) {
-      title = 'المغرب';
+      title = 'المغرب'.tr;
       time = '${prayerTimeCtr.maghribTime.value.hour}:${prayerTimeCtr.maghribTime.value.minute}';
     } else if (prayerTimeType == PrayerTimeType.isha) {
-      title = 'العشاء';
+      title = 'العشاء'.tr;
       time = '${prayerTimeCtr.ishaTime.value.hour}:${prayerTimeCtr.ishaTime.value.minute}';
     }
 
@@ -115,9 +143,9 @@ class _PrayerTimesState extends State<PrayerTimes> {
                   !prayerTimeCtr.isLoading.value && // check if loading when getting data
                   prayerTimeCtr.curerntDate.value.day == DateTime.now().day //check if today
               ? BoxDecoration(
-                  color: MyColors.zikrCard(),
+                  color: MyColors.zikrCard,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: MyColors.shadow(), blurRadius: 10, offset: Offset(0, 3))],
+                  boxShadow: [BoxShadow(color: MyColors.shadow, blurRadius: 10, offset: Offset(0, 3))],
                 )
               : BoxDecoration(),
           child: Column(
@@ -127,8 +155,8 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 duration: Duration(milliseconds: 200),
                 transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                 child: prayerTimeCtr.isLoading.value
-                    ? MyCircularProgressIndecator()
-                    : MyTexts.normal(title: time, fontWeight: FontWeight.bold),
+                    ? MyCircularProgressIndicator(color: MyColors.white)
+                    : MyTexts.main(title: time, fontWeight: FontWeight.bold),
               ),
             ],
           ),

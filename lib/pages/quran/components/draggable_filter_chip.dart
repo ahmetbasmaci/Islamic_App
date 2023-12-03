@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constents/colors.dart';
-import '../classes/filter_chip_prop.dart';
-import '../controllers/quran_page_ctr.dart';
+import 'package:zad_almumin/constents/my_texts.dart';
+import '../../../constents/my_colors.dart';
+import '../models/filter_chip_prop.dart';
+import '../controllers/quran/quran_page_ctr.dart';
 
 class DraggableFilterChip extends StatelessWidget {
   DraggableFilterChip({super.key});
@@ -87,25 +88,31 @@ class DraggableFilterChip extends StatelessWidget {
   Widget item(FilterChipProp filterChipProp) {
     Widget filterChip = Obx(
       () => FilterChip(
-        label: Text(filterChipProp.text),
+        label: MyTexts.main(
+            title: filterChipProp.text.tr,
+            color: filterChipProp.isSelected.value ? MyColors.white : MyColors.whiteBlack),
         selected: filterChipProp.isSelected.value,
+        selectedColor: MyColors.quranPrimary,
+        checkmarkColor: MyColors.white,
         onSelected: (value) {
           filterChipProp.isSelected.value = value;
           quranCtr.updateSearchFilterList();
         },
-        selectedColor: MyColors.quranSecond(),
       ),
     );
     Widget childDragging = FilterChip(
-      label: Text('...'),
+      label: MyTexts.main(title: '           '),
       selected: false,
       onSelected: (value) {},
-      selectedColor: MyColors.quranSecond(),
+      selectedColor: MyColors.quranPrimary,
     );
     return Draggable<FilterChipProp>(
       data: filterChipProp,
       childWhenDragging: childDragging,
-      feedback: Material(child: filterChip),
+      feedback: Material(
+        color: Colors.transparent,
+        child: filterChip,
+      ),
       child: filterChip,
     );
   }

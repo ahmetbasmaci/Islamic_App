@@ -1,62 +1,68 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/classes/helper_methods.dart';
+import 'package:zad_almumin/localization/my_local_ctr.dart';
 import 'package:zad_almumin/pages/alarms/alarms_page.dart';
+import 'package:zad_almumin/pages/ayahsTest/ayahs_questions.dart';
 import 'package:zad_almumin/pages/quran/quran_page.dart';
-import 'package:zad_almumin/services/app_local.dart';
+import 'package:zad_almumin/pages/quran/tafseer_page.dart';
+import 'package:zad_almumin/pages/review_page.dart';
+import 'package:zad_almumin/pages/user_reviews_page.dart';
+import 'package:zad_almumin/localization/my_local.dart';
 import 'package:zad_almumin/services/theme_service.dart';
-import 'package:zad_almumin/pages/azkar_page.dart';
-import 'package:zad_almumin/pages/home_page.dart';
+import 'package:zad_almumin/pages/azkar/azkar_page.dart';
+import 'package:zad_almumin/pages/home/home_page.dart';
 import 'package:zad_almumin/pages/settings/settings_page.dart';
 import 'package:zad_almumin/splash_screen.dart';
-import 'classes/controllers.dart';
-import 'constents/constents.dart';
+import 'package:zad_almumin/onboarding_screen.dart';
+import 'classes/controllers_binding.dart';
+import 'constents/app_settings.dart';
 import 'pages/favorite/favorite_page.dart';
-
+import 'pages/prayerTimes/prayer_times.dart';
 void main() async {
   await GetStorage.init();
-
+  await AppSettings.setMechineCode();
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(MyLocalCtr());
   Get.put(ThemeCtr());
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // SqlDb().deleteDB();
-
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
-      navigatorKey: Constants.navigatorKey,
-      localizationsDelegates: [
-        AppLocale.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [const Locale('ar')],
-      localeResolutionCallback: (locales, supportedLocales) {
-        return supportedLocales.first;
-      },
-      locale: Locale('ar'),
-      // getPages: [
-      //   GetPage(name: '/${HomePage.id}', page: () => HomePage()),
-      // ],
+      navigatorKey: AppSettings.navigatorKey,
+      builder: BotToastInit(), //1. call BotToastInit
+      navigatorObservers: [BotToastNavigatorObserver()], //2. registered route observer
+      locale: Get.find<MyLocalCtr>().currentLocal,
+      translations: MyLocal(),
       routes: {
+        OnboardingScreen.id: (context) => OnboardingScreen(),
         SplashPage.id: (context) => SplashPage(),
-        '/${HomePage.id}': (context) => HomePage(),
+        HomePage.id: (context) => HomePage(), //'/${HomePage.id}'
         SettingsPage.id: (context) => SettingsPage(),
         AlarmPage.id: (context) => AlarmPage(),
         FavoritePage.id: (context) => FavoritePage(),
         AzkarPage.id: (context) => AzkarPage(),
         QuranPage.id: (context) => QuranPage(),
+        AyahsQuestions.id: (context) => AyahsQuestions(),
+        ReviewPage.id: (context) => ReviewPage(),
+        UserReviews.id: (context) => UserReviews(),
+        PrayerTimes.id: (context) => PrayerTimes(),
+        TafseersPage.id: (context) => TafseersPage(),
       },
-      initialRoute: SplashPage.id,
+      //home: OnboardingScreen(),
+      initialRoute: HelperMethods.isFirstTime ? SplashPage.id : HelperMethods.getNewOpendPageId(),
+      //initialRoute: HelperMethods.isInDebugMode ? HelperMethods.getNewOpendPageId() : SplashPage.id,
       debugShowCheckedModeBanner: false,
       theme: Get.find<ThemeCtr>().lightThemeMode.value,
       darkTheme: Get.find<ThemeCtr>().darkThemeMode.value,

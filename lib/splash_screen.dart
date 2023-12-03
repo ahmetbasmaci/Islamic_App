@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:zad_almumin/constents/colors.dart';
-import 'package:zad_almumin/constents/constents.dart';
+import 'package:zad_almumin/constents/assets_manager.dart';
+import 'package:zad_almumin/constents/my_colors.dart';
+import 'package:zad_almumin/onboarding_screen.dart';
 
 class SplashPage extends StatefulWidget {
   static const id = 'SplashPage';
@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            Get.off(Constants.getNewOpendPage());
+            Get.offAll(OnboardingScreen());
             // Timer(Duration(milliseconds: 300), () => scaleController.reset());
           }
         },
@@ -58,73 +58,75 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: Get.height * 0.1),
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      'زاد المؤمن',
-                      speed: Duration(milliseconds: 200),
-                      textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                    ),
-                  ],
-                  isRepeatingAnimation: false,
-                  repeatForever: false,
-                  displayFullTextOnTap: false,
-                ),
-              ),
-            ],
-          ),
-          Center(
-            child: AnimatedOpacity(
-              curve: Curves.fastLinearToSlowEaseIn,
-              duration: Duration(seconds: 1),
-              opacity: _opacity,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: MyColors.background(),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: MyColors.primary(),
-                      blurRadius: 10,
-                      spreadRadius: 10,
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(50),
-                child: AnimatedContainer(
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  duration: Duration(seconds: 1),
-                  height: _value ? Get.height * 0.05 : Get.height * 0.15,
-                  width: _value ? Get.height * 0.05 : Get.height * 0.15,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/app_logo.png'),
-                      fit: BoxFit.fill,
-                    ),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: Get.height * 0.1),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TyperAnimatedText(
+                        'زاد المؤمن'.tr,
+                        speed: Duration(milliseconds: 200),
+                        textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                      ),
+                    ],
+                    isRepeatingAnimation: false,
+                    repeatForever: false,
+                    displayFullTextOnTap: false,
                   ),
-                  child: Center(
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration:
-                          BoxDecoration(color: Theme.of(context).primaryColor.withOpacity(0), shape: BoxShape.circle),
-                      child: AnimatedBuilder(
-                        animation: scaleAnimation,
-                        builder: (c, child) => Transform.scale(
-                          scale: scaleAnimation.value,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).primaryColor,
+                ),
+              ],
+            ),
+            Center(
+              child: AnimatedOpacity(
+                curve: Curves.fastLinearToSlowEaseIn,
+                duration: Duration(seconds: 1),
+                opacity: _opacity,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: MyColors.background,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: MyColors.primary,
+                        blurRadius: 10,
+                        spreadRadius: 10,
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.all(50),
+                  child: AnimatedContainer(
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    duration: Duration(seconds: 1),
+                    height: _value ? Get.height * 0.05 : Get.height * 0.15,
+                    width: _value ? Get.height * 0.05 : Get.height * 0.15,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: AssetImage(ImagesManager.appLogo),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration:
+                            BoxDecoration(color: Theme.of(context).primaryColor.withOpacity(0), shape: BoxShape.circle),
+                        child: AnimatedBuilder(
+                          animation: scaleAnimation,
+                          builder: (c, child) => Transform.scale(
+                            scale: scaleAnimation.value,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
                         ),
@@ -134,8 +136,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -232,7 +234,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen> with Ticker
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Image.asset('assets/images/app_logo.png')),
+                  child: Image.asset(ImagesManager.appLogo)),
             ),
           ),
         ],

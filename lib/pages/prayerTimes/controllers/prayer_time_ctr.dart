@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/constents/texts.dart';
-import '../../../constents/constents.dart';
+import 'package:zad_almumin/pages/quran/components/alert_dialog_ok_no.dart';
+import '../../../constents/app_settings.dart';
 import '../../../moduls/enums.dart';
 import '../../alarms/controllers/alarms_ctr.dart';
 
@@ -20,14 +20,16 @@ class PrayerTimeCtr extends GetxController {
   Rx<Time> maghribTime = Time().obs;
   Rx<Time> ishaTime = Time().obs;
   RxBool isLoading = false.obs;
-  RxString nextPrayName = 'موعد الصلاة القادمة'.obs;
+  RxString nextPrayName = 'موعد الصلاة القادمة'.tr.obs;
   RxString timeLeftToNextPrayTime = '00:00:00'.obs;
   Rx<Time> nextPrayTime = Time().obs;
   Time currentTime = Time(DateTime.now().hour, DateTime.now().minute);
   Rx<DateTime> curerntDate = DateTime.now().obs;
+  Rx<bool> isLocationPermessionDenieted = false.obs;
   Position? _currentPosition;
+  bool get checkIfPrayerTimesNotSeted => fajrTime.value.hour == 0;
   PrayerTimeCtr() {
-    updatePrayerTimes();
+    isLocationPermessionDenieted.value = GetStorage().read<bool>("isLocationPermessionDenieted") ?? false;
   }
   Future<Position?> _determinePosition() async {
     bool serviceEnabled;
@@ -37,55 +39,68 @@ class PrayerTimeCtr extends GetxController {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       await Future.delayed(Duration(seconds: 5));
-      await Get.dialog(AlertDialog(
-        title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
-        content: MyTexts.settingsContent(
-            title:
-                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Get.back();
-              await Geolocator.openLocationSettings();
-              serviceEnabled = await Geolocator.isLocationServiceEnabled();
-            },
-            child: MyTexts.normal(title: "حسنا"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: MyTexts.normal(title: "رفض"),
-          ),
-        ],
-      ));
+      await Get.dialog(
+        AlertDialogOkNo(
+          title: "تشغيل خدمات الموقع الجغرافي".tr,
+          content:
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"
+                  .tr,
+          okText: "حسنا".tr,
+          noText: "رفض".tr,
+          onOk: () async {
+            Get.back();
+            await Geolocator.openLocationSettings();
+            serviceEnabled = await Geolocator.isLocationServiceEnabled();
+          },
+          onNo: () => Get.back(),
+        ),
+
+        //   AlertDialog(
+        //   title: MyTexts.settingsTitle(title: "تشغيل خدمات الموقع الجغرافي"),
+        //   content: MyTexts.settingsContent(
+        //       title:
+        //           "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
+        //   actions: [
+        //     TextButton(
+        //       onPressed: () async {
+        //         Get.back();
+        //         await Geolocator.openLocationSettings();
+        //         serviceEnabled = await Geolocator.isLocationServiceEnabled();
+        //       },
+        //       child: MyTexts.normal(title: "حسنا"),
+        //     ),
+        //     TextButton(
+        //       onPressed: () {
+        //         Get.back();
+        //       },
+        //       child: MyTexts.normal(title: "رفض"),
+        //     ),
+        //   ],
+        // )
+      );
     }
     if (!serviceEnabled) return null;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      await Future.delayed(Duration(seconds: 5));
-      await Get.dialog(AlertDialog(
-        title: MyTexts.settingsTitle(title: "طلب الاذن بالوصول للموقع الحالي"),
-        content: MyTexts.settingsContent(
-            title:
-                "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Get.back();
-              //Geolocator.openLocationSettings();
-              permission = await Geolocator.requestPermission();
-            },
-            child: MyTexts.normal(title: "حسنا"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: MyTexts.normal(title: "رفض"),
-          ),
-        ],
-      ));
+      // await Future.delayed(Duration(seconds: 5));
+      await Get.dialog(
+        AlertDialogOkNo(
+          title: "طلب الاذن بالوصول للموقع الحالي".tr,
+          content:
+              "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام"
+                  .tr,
+          okText: "حسنا".tr,
+          noText: "رفض".tr,
+          onOk: () async {
+            permission = await Geolocator.requestPermission();
+            Get.back();
+          },
+          onNo: () {
+            updateLocationPermitionState(true);
+            Get.back();
+          },
+        ),
+      );
 
       if (permission == LocationPermission.denied) return null; // Future.error('Location permissions are denied');
     }
@@ -97,11 +112,26 @@ class PrayerTimeCtr extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 
-  updatePrayerTimes({DateTime? newTime}) async {
+  void updateLocationPermitionState(bool newValue) {
+    isLocationPermessionDenieted.value = newValue;
+    GetStorage().write('isLocationPermessionDenieted', newValue);
+  }
+
+  Future<void> updatePrayerTimesOnLoad() async {
+    if (isLocationPermessionDenieted.value) {
+      return;
+    }
+    await updatePrayerTimes();
+  }
+
+  Future<void> updatePrayerTimes({DateTime? newTime}) async {
     curerntDate.value = newTime ?? DateTime.now();
     isLoading.value = true;
     await _getCurrentPosition();
-    if (_currentPosition == null) return;
+    if (_currentPosition == null) {
+      isLoading.value = false;
+      return;
+    }
     await _getPrayTimes();
     if (newTime == null) updatePrayerAlarms(); //just in current day
 
@@ -117,7 +147,7 @@ class PrayerTimeCtr extends GetxController {
     String api = _getApi();
     var result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.none) {
-      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت");
+      Fluttertoast.showToast(msg: "لا يوجد اتصال بالانترنت".tr);
       return;
     } else {
       try {
@@ -156,7 +186,7 @@ class PrayerTimeCtr extends GetxController {
     );
   }
 
-  bool compareTimes(Time time1, Time time2) {
+  bool compareTimes(Time time1, Time time2, {bool isFajr = false}) {
     DateTime t1 = DateTime(
       DateTime.now().year,
       DateTime.now().month,
@@ -168,13 +198,13 @@ class PrayerTimeCtr extends GetxController {
     DateTime t2 = DateTime(
       DateTime.now().year,
       DateTime.now().month,
-      DateTime.now().day,
+      DateTime.now().day + (isFajr ? 1 : 0),
       time2.hour,
       time2.minute,
-      time1.second,
+      time2.second,
     );
 
-    Duration fiffrenc = t1.difference(t2);
+    Duration fiffrenc = t2.difference(t1);
     if (fiffrenc.inSeconds > 0)
       return true;
     else
@@ -183,29 +213,37 @@ class PrayerTimeCtr extends GetxController {
 
   updateCurrentTime() async {
     await Future.delayed(Duration(seconds: 1));
-    Time leftTime = differenceTimes(
-      DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
-        nextPrayTime.value.hour,
-        nextPrayTime.value.minute,
-        nextPrayTime.value.second,
-      ),
-      DateTime.now(),
-    );
-
-    String houreTimeLeftTxt = Constants.formatInt2.format(leftTime.hour);
-    String minuteTimeLeftTxt = Constants.formatInt2.format(leftTime.minute);
-    String secondTimeLeftTxt = Constants.formatInt2.format(leftTime.second);
+    var alarmCtr = Get.find<AlarmsCtr>();
+    DateTime time1 = nextPrayType.value == PrayerTimeType.fajr
+        ? DateTime.now()
+        : DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
+            nextPrayTime.value.hour,
+            nextPrayTime.value.minute,
+            nextPrayTime.value.second,
+          );
+    DateTime time2 = nextPrayType.value != PrayerTimeType.fajr
+        ? DateTime.now()
+        : DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            nextPrayType.value == PrayerTimeType.fajr ? DateTime.now().add(Duration(days: 1)).day : DateTime.now().day,
+            nextPrayTime.value.hour,
+            nextPrayTime.value.minute,
+            nextPrayTime.value.second,
+          );
+    Time leftTime = differenceTimes(time1, time2);
+    String houreTimeLeftTxt = AppSettings.formatInt2.format(leftTime.hour);
+    String minuteTimeLeftTxt = AppSettings.formatInt2.format(leftTime.minute);
+    String secondTimeLeftTxt = AppSettings.formatInt2.format(leftTime.second);
 
     timeLeftToNextPrayTime.value = '$houreTimeLeftTxt:$minuteTimeLeftTxt:$secondTimeLeftTxt';
-    if (leftTime.hour == 0 && leftTime.minute == 0 && leftTime.second == 0) checkAndSetNextPrayTime();
 
-    if (leftTime.hour == 0 &&
-        leftTime.minute == Get.find<AlarmsCtr>().distanceBetweenAlarmAndAzan &&
-        leftTime.second == 0) {
+    if (leftTime.hour == 0 && leftTime.minute == alarmCtr.distanceBetweenAlarmAndAzan && leftTime.second == 0) {
       Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
+      checkAndSetNextPrayTime();
     }
 
     updateCurrentTime();
@@ -223,17 +261,17 @@ class PrayerTimeCtr extends GetxController {
   }
 
   void checkAndSetNextPrayTime() {
-    if (compareTimes(currentTime, ishaTime.value))
+    if (compareTimes(currentTime, fajrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.fajr);
-    else if (compareTimes(currentTime, maghribTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.isha);
-    else if (compareTimes(currentTime, asrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
-    else if (compareTimes(currentTime, duhrTime.value))
-      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
     else if (compareTimes(currentTime, sunTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, duhrTime.value))
       setNextPrayTime(prayTimeType: PrayerTimeType.duhr);
-    else if (compareTimes(currentTime, fajrTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.sun);
+    else if (compareTimes(currentTime, asrTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.asr);
+    else if (compareTimes(currentTime, maghribTime.value))
+      setNextPrayTime(prayTimeType: PrayerTimeType.maghrib);
+    else if (compareTimes(currentTime, ishaTime.value)) setNextPrayTime(prayTimeType: PrayerTimeType.isha);
   }
 
   setNextPrayTime({required PrayerTimeType prayTimeType}) {

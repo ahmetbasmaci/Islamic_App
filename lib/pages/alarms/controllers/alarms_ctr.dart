@@ -3,27 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import '../../../constents/colors.dart';
-import '../../../constents/constents.dart';
-import '../../../constents/icons.dart';
+import '../../../constents/my_colors.dart';
+import '../../../constents/my_icons.dart';
 import '../../../moduls/enums.dart';
-import '../../../services/json_service.dart';
 import '../../../services/notification_api.dart';
 import '../classes/alarm_prop.dart';
 
 class AlarmsCtr extends GetxController {
   final getStorage = GetStorage();
+  //!------------- phalastine ----------------------------
+  AlarmProp phalastineProp = AlarmProp(
+    id: 8,
+    time: Time(13, 0).obs,
+    storageKey: 'phalastineProp',
+    notificationTitle: '😔دعاء لأهلنا في فلسطين😔',
+    notificationBody:
+        'أللهم فرّج همَّهم وانصرهم يا عزيز يا اللّه🤲🏻 .لا تنسى إخوانك في فلسطين من الدعاء فمن لم يهتم لأمر المسلمين ليس منهم',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير الدعاء لأهلنا في  فلسطين',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالدعاء لأهلنا في فلسطين',
+    snackBarDesabledTitle: 'تم تعطيل الاشعار ',
+    snackBarDesabeldBody: 'لن يصلك اشعار تذكير بالدعاء',
+    alarmPeriod: ALarmPeriod.repeat,
+    notificationType: NotificationType.phalastine,
+    notificationSound: NotificationSound.random,
+    zikrRepeat: ZikrRepeat.high,
+  );
 //!------------- hadith ----------------------------
   AlarmProp hadithEveryDayProp = AlarmProp(
     id: 8,
     time: Time(13, 0).obs,
     storageKey: 'hadithEveryDay',
-    notificationTitle: 'كل يوم حديث عن رسول الله',
+    notificationTitle: 'حديث رسول الله ﷺ',
     notificationBody: '',
     snackBarEnabeldTitle: 'تم تفعيل تذكير حديث عن رسول الله',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة حديث عن رسول الله',
+    snackBarEnabeldBody: 'سيصلك اشعار بحديث عن رسول الله',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
-    snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
+    snackBarDesabeldBody: 'لن يصلك اشعار حديث عن رسول الله',
     alarmPeriod: ALarmPeriod.repeat,
     notificationType: NotificationType.hadith,
     notificationSound: NotificationSound.hadith,
@@ -34,7 +49,7 @@ class AlarmsCtr extends GetxController {
     id: 4,
     time: Time(9, 50).obs,
     storageKey: 'kahfSure',
-    notificationTitle: 'لا تنسا قراءة سورة الكهف ',
+    notificationTitle: 'لا تنسى قراءة سورة الكهف ',
     notificationBody:
         ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((مَن قَرَأَ سورةَ الكَهفِ يومَ الجُمُعةِ أضاءَ له من النورِ ما بَينَ الجُمُعتينِ  ))',
     snackBarEnabeldTitle: 'تم تفعيل تذكير قراءة سورة الكهف',
@@ -50,11 +65,11 @@ class AlarmsCtr extends GetxController {
     id: 5,
     time: Time(12, 0).obs,
     storageKey: 'quranPageEveryDay',
-    notificationTitle: 'لا تنسا قراءة وردك اليومي من القران ',
+    notificationTitle: 'لا تنسى قراءة وردك اليومي من القرآن ',
     notificationBody:
         ' قَالَ رَسُولُ اللَّهِ ﷺ:  ((اقْرَءُوا الْقُرْآنَ فَإِنَّهُ يَأْتِي يَوْمَ الْقِيَامَةِ شَفِيعًا لأَصْحَابِهِ))',
     snackBarEnabeldTitle: 'تم تفعيل تذكير قراءة الورد اليومي للقران',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة وردك اليومي من القران الكريم',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة وردك اليومي من القرآن الكريم',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار قراءة الورد اليومي للقران',
     alarmPeriod: ALarmPeriod.daily,
@@ -66,10 +81,10 @@ class AlarmsCtr extends GetxController {
     id: 1,
     time: Time(20, 0).obs,
     storageKey: 'mondayFast',
-    notificationTitle: 'لا تنسا صيام غدا الاثنين ',
+    notificationTitle: 'لا تنسى صيام غدا الاثنين ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
-    snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الاثنين',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الاثنين ',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم يوم الاحد',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الاثنين',
     alarmPeriod: ALarmPeriod.weekly,
@@ -81,10 +96,10 @@ class AlarmsCtr extends GetxController {
     id: 2,
     time: Time(20, 0).obs,
     storageKey: 'thursdayFast',
-    notificationTitle: 'لا تنسا صيام غدا الخميس ',
+    notificationTitle: 'لا تنسى صيام غدا الخميس ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم يومي الاثنين والخميس من كل اسبوع',
     snackBarEnabeldTitle: 'تم تفعيل تذكير صيام يوم الخميس',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم يوم الاربعاء',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار صيام يوم الخميس',
     alarmPeriod: ALarmPeriod.weekly,
@@ -96,7 +111,7 @@ class AlarmsCtr extends GetxController {
     id: 3,
     time: Time(20, 0).obs,
     storageKey: 'whiteDaysFast',
-    notificationTitle: 'لا تنسا صيام غدا فهو من الايام البيض ',
+    notificationTitle: 'لا تنسى صيام غدا فهو من الايام البيض ',
     notificationBody: 'كان صلى الله عليه وسلم يصوم ثلاثة ايام من كل شهر هجري',
     snackBarEnabeldTitle: 'تم تفعيل تذكير صيام الايام البيض',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بالصوم',
@@ -114,7 +129,7 @@ class AlarmsCtr extends GetxController {
     notificationTitle: 'اذكر الله',
     notificationBody: '',
     snackBarEnabeldTitle: 'تم تفعيل الذكر العشوائي',
-    snackBarEnabeldBody: 'سيصلك اشعار باذكار مختلفة',
+    snackBarEnabeldBody: 'سيصلك اشعار بأذكار مختلفة',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
     snackBarDesabeldBody: 'لن يصلك اشعار الذكر العشوائي',
     alarmPeriod: ALarmPeriod.repeat,
@@ -126,12 +141,12 @@ class AlarmsCtr extends GetxController {
     id: 6,
     time: Time(7, 0).obs,
     storageKey: 'morningAzkar',
-    notificationTitle: 'لا تنسا قراءة اذكار الصباح ',
-    notificationBody: 'لاذكار الصباح فضل عظيم لا تفوته',
-    snackBarEnabeldTitle: 'تم تفعيل تذكير اذكار الصباح',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة اذكار الصباح',
+    notificationTitle: 'لا تنسى قراءة أذكار الصباح ',
+    notificationBody: 'لأذكار الصباح فضل عظيم لا تفوته',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير أذكار الصباح',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة أذكار الصباح',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
-    snackBarDesabeldBody: 'لن يصلك اشعار اذكار الصباج',
+    snackBarDesabeldBody: 'لن يصلك اشعار أذكار الصباح',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.moorningAzkar,
     notificationSound: NotificationSound.random,
@@ -140,12 +155,12 @@ class AlarmsCtr extends GetxController {
     id: 7,
     time: Time(17, 0).obs,
     storageKey: 'nightAzkar',
-    notificationTitle: 'لا تنسا قراءة اذكار المساء ',
-    notificationBody: 'لاذكار المساء فضل عظيم لا تفوته',
-    snackBarEnabeldTitle: 'تم تفعيل تذكير اذكار المساء',
-    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة اذكار المساء',
+    notificationTitle: 'لا تنسى قراءة أذكار المساء ',
+    notificationBody: 'لأذكار المساء فضل عظيم لا تفوته',
+    snackBarEnabeldTitle: 'تم تفعيل تذكير أذكار المساء',
+    snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بقراءة أذكار المساء',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
-    snackBarDesabeldBody: 'لن يصلك اشعار اذكار المساء',
+    snackBarDesabeldBody: 'لن يصلك اشعار أذكار المساء',
     alarmPeriod: ALarmPeriod.daily,
     notificationType: NotificationType.nightAzkar,
     notificationSound: NotificationSound.random,
@@ -157,7 +172,7 @@ class AlarmsCtr extends GetxController {
     time: Time(0, 0).obs,
     storageKey: 'fajrPrayProp',
     notificationTitle: 'اذان الفجر',
-    notificationBody: 'تبفى القليل لموعد اذان الفجر',
+    notificationBody: 'تبقى القليل لموعد اذان الفجر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الفجر',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان الفجر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -171,7 +186,7 @@ class AlarmsCtr extends GetxController {
     time: Time(0, 0).obs,
     storageKey: 'sunPrayProp',
     notificationTitle: 'شروق الشمس',
-    notificationBody: 'تبفى القليل لموعد شروق الشمس',
+    notificationBody: 'تبقى القليل لموعد شروق الشمس',
     snackBarEnabeldTitle: 'تم تفعيل تذكير شروق الشمس',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك بموعد شروق الشمس',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -185,7 +200,7 @@ class AlarmsCtr extends GetxController {
     time: Time(0, 0).obs,
     storageKey: 'duhrPrayProp',
     notificationTitle: 'اذان الظهر',
-    notificationBody: 'تبفى القليل لموعد اذان الظهر',
+    notificationBody: 'تبقى القليل لموعد اذان الظهر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان الظهر',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان الظهر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -199,7 +214,7 @@ class AlarmsCtr extends GetxController {
     time: Time(0, 0).obs,
     storageKey: 'asrPrayProp',
     notificationTitle: 'اذان العصر',
-    notificationBody: 'تبفى القليل لموعد اذان العصر',
+    notificationBody: 'تبقى القليل لموعد اذان العصر',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العصر',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان العصر',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -212,8 +227,8 @@ class AlarmsCtr extends GetxController {
     id: 12,
     time: Time(0, 0).obs,
     storageKey: 'maghribPrayProp',
-    notificationTitle: 'اذان المغرب',
-    notificationBody: 'تبفى القليل لموعد اذان المغرب',
+    notificationTitle: 'اذان  لمغرب',
+    notificationBody: 'تبقى القليل لموعد اذان المغرب',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان المغرب',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان المغرب',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -227,7 +242,7 @@ class AlarmsCtr extends GetxController {
     time: Time(0, 0).obs,
     storageKey: 'ishaPrayProp',
     notificationTitle: 'اذان العشاء',
-    notificationBody: 'تبفى القليل لموعد اذان العشاء',
+    notificationBody: 'تبقى القليل لموعد اذان العشاء',
     snackBarEnabeldTitle: 'تم تفعيل تذكير اذان العشاء',
     snackBarEnabeldBody: 'سيصلك اشعار لتذكيرك باذان العشاء',
     snackBarDesabledTitle: 'تم تعطيل الاشعار ',
@@ -240,32 +255,97 @@ class AlarmsCtr extends GetxController {
   int distanceBetweenAlarmAndAzan = 10;
   AlarmsCtr() {
 //!------------- azkar ----------------------------
-    setPropToStorage(prop: azkarProp);
+    setPropToStorage(azkarProp);
 //!------------- quran ----------------------------
-    setPropToStorage(prop: kahfSureProp);
-    setPropToStorage(prop: quranPageEveryDayProp);
+    setPropToStorage(kahfSureProp);
+    setPropToStorage(quranPageEveryDayProp);
 //!------------- fast ----------------------------
-    setPropToStorage(prop: mondayFastProp);
-    setPropToStorage(prop: thursdayFastProp);
-    setPropToStorage(prop: whitedayFastProp);
+    setPropToStorage(mondayFastProp);
+    setPropToStorage(thursdayFastProp);
+    setPropToStorage(whitedayFastProp);
 //!------------- azkar ----------------------------
-    setPropToStorage(prop: morningAzkarProp);
-    setPropToStorage(prop: nightAzkarProp);
+    setPropToStorage(morningAzkarProp);
+    setPropToStorage(nightAzkarProp);
 //!------------- hadith ----------------------------
-    setPropToStorage(prop: hadithEveryDayProp);
+    setPropToStorage(hadithEveryDayProp);
+//!------------- phalastine ----------------------------
+    setPropToStorage(phalastineProp);
 //!------------- prayers ----------------------------
-    setPropToStorage(prop: fajrPrayProp);
-    setPropToStorage(prop: duhrPrayProp);
-    setPropToStorage(prop: asrPrayProp);
-    setPropToStorage(prop: maghribPrayProp);
-    setPropToStorage(prop: ishaPrayProp);
+    setPropToStorage(fajrPrayProp);
+    setPropToStorage(duhrPrayProp);
+    setPropToStorage(asrPrayProp);
+    setPropToStorage(maghribPrayProp);
+    setPropToStorage(ishaPrayProp);
   }
 
-  setPropToStorage({required AlarmProp prop}) {
-    getStorage.read(prop.storageKey) != null
-        ? prop.fromJson(jsonDecode(getStorage.read(prop.storageKey)))
-        : prop = prop;
+  void resetNullAndEnabledAlarms() {
+    if (azkarProp.isActive.value) {
+      changeState(alarmProp: azkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: azkarProp, newValue: true, showSnackBar: false);
+    }
+    if (kahfSureProp.isActive.value) {
+      changeState(alarmProp: kahfSureProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: kahfSureProp, newValue: true, showSnackBar: false);
+    }
+    if (quranPageEveryDayProp.isActive.value) {
+      changeState(alarmProp: quranPageEveryDayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: quranPageEveryDayProp, newValue: true, showSnackBar: false);
+    }
+    if (mondayFastProp.isActive.value) {
+      changeState(alarmProp: mondayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: mondayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (thursdayFastProp.isActive.value) {
+      changeState(alarmProp: thursdayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: thursdayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (whitedayFastProp.isActive.value) {
+      changeState(alarmProp: whitedayFastProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: whitedayFastProp, newValue: true, showSnackBar: false);
+    }
+    if (morningAzkarProp.isActive.value) {
+      changeState(alarmProp: morningAzkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: morningAzkarProp, newValue: true, showSnackBar: false);
+    }
+    if (nightAzkarProp.isActive.value) {
+      changeState(alarmProp: nightAzkarProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: nightAzkarProp, newValue: true, showSnackBar: false);
+    }
+    if (hadithEveryDayProp.isActive.value) {
+      changeState(alarmProp: hadithEveryDayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: hadithEveryDayProp, newValue: true, showSnackBar: false);
+    }
+    if (phalastineProp.isActive.value) {
+      changeState(alarmProp: phalastineProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: phalastineProp, newValue: true, showSnackBar: false);
+    }
+    if (fajrPrayProp.isActive.value) {
+      changeState(alarmProp: fajrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: fajrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (duhrPrayProp.isActive.value) {
+      changeState(alarmProp: duhrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: duhrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (asrPrayProp.isActive.value) {
+      changeState(alarmProp: asrPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: asrPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (maghribPrayProp.isActive.value) {
+      changeState(alarmProp: maghribPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: maghribPrayProp, newValue: true, showSnackBar: false);
+    }
+    if (ishaPrayProp.isActive.value) {
+      changeState(alarmProp: ishaPrayProp, newValue: false, showSnackBar: false);
+      changeState(alarmProp: ishaPrayProp, newValue: true, showSnackBar: false);
+    }
   }
+
+  void setPropToStorage(AlarmProp prop) {
+    !isAlarmDontHaveStoredValue(prop) ? prop.fromJson(jsonDecode(getStorage.read(prop.storageKey))) : prop = prop;
+  }
+
+  bool isAlarmDontHaveStoredValue(AlarmProp prop) => getStorage.read(prop.storageKey) == null;
 
   changeState({required AlarmProp alarmProp, required bool newValue, bool showSnackBar = true}) async {
     bool isUpdating = false;
@@ -274,30 +354,23 @@ class AlarmsCtr extends GetxController {
     alarmProp.isActive.value = newValue;
     getStorage.write(alarmProp.storageKey, jsonEncode(alarmProp.toJson()));
     if (newValue) {
-      if (alarmProp.alarmPeriod == ALarmPeriod.once)
-        NotificationService.setOnceNotification(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.repeat) {
-        // NotificationService.setOnceNotification(alarmProp: alarmProp);
-        NotificationService.setRepeatNotification(alarmProp: alarmProp);
-      } else if (alarmProp.alarmPeriod == ALarmPeriod.daily) {
-        NotificationService.setDailyNotification(alarmProp: alarmProp);
-      } else if (alarmProp.alarmPeriod == ALarmPeriod.weekly)
-        NotificationService.setWeecklyNotifivation(alarmProp: alarmProp);
-      else if (alarmProp.alarmPeriod == ALarmPeriod.monthly)
-        NotificationService.setWhiteDaysFastNotification(alarmProp: alarmProp);
+      // NotificationService.showNotificationNow(
+      //     title: alarmProp.notificationTitle, body: alarmProp.notificationBody, payload: 'payload');
+      NotificationService.setNotification(alarmProp);
+
       if (showSnackBar)
         _showSnackBar(
           icon: MyIcons.done(),
-          title: isUpdating ? 'تم تحديث وقت الاشعار' : alarmProp.snackBarEnabeldTitle,
-          message: alarmProp.snackBarEnabeldBody,
+          title: isUpdating ? 'تم تحديث وقت الاشعار'.tr : alarmProp.snackBarEnabeldTitle.tr,
+          message: alarmProp.snackBarEnabeldBody.tr,
         );
     } else {
       NotificationService.cancelNotification(id: alarmProp.id);
       if (showSnackBar)
         _showSnackBar(
           icon: MyIcons.error,
-          title: alarmProp.snackBarDesabledTitle,
-          message: alarmProp.snackBarDesabeldBody,
+          title: alarmProp.snackBarDesabledTitle.tr,
+          message: alarmProp.snackBarDesabeldBody.tr,
         );
     }
   }
@@ -359,16 +432,16 @@ class AlarmsCtr extends GetxController {
       message,
       icon: icon,
       snackPosition: SnackPosition.BOTTOM,
-      colorText: MyColors.whiteBlack(),
-      backgroundColor: MyColors.background(),
-      boxShadows: [BoxShadow(color: MyColors.primary().withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
+      colorText: MyColors.whiteBlack,
+      backgroundColor: MyColors.background,
+      boxShadows: [BoxShadow(color: MyColors.primary.withOpacity(.5), blurRadius: 30, spreadRadius: 2)],
       titleText: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack()),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: MyColors.whiteBlack),
       ),
       messageText: Text(
         message,
-        style: TextStyle(fontSize: 16, color: MyColors.whiteBlack()),
+        style: TextStyle(fontSize: 16, color: MyColors.whiteBlack),
       ),
     );
   }
