@@ -61,13 +61,13 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
     }
 
     // _quranCtr.updateCurrentPageCtr();
-    return WillPopScope(
+    return PopScope(
       key: UniqueKey(),
-      onWillPop: () async {
+      onPopInvoked: (didPop) async {
         //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
         _quranCtr.changeOnShownState(true);
         Get.offAll(HomePage());
-        return false;
+        // return false;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
