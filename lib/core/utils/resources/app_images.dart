@@ -1,0 +1,35 @@
+class AppImages {
+  static String get path => '';
+  static String get appLogo => 'assets/images/app_logo.png';
+  static String get dua => 'assets/images/azkar.png';
+  static String get azkar => 'assets/images/azkarAlarm.png';
+  static String get bismillah => 'assets/images/bismillah.png';
+  static String get cosrumerSurvices_3d => 'assets/images/cosrumerSurvices_3d.png';
+  static String get developer_3d => 'assets/images/developer_3d.png';
+  static String get dua_3d => 'assets/images/dua_3d.png';
+  static String get ezan_3d => 'assets/images/ezan_3d.png';
+  static String get fast => 'assets/images/fastingAlarm.png';
+  static String get eating => 'assets/images/food.png';
+  static String get hadithAlarm => 'assets/images/hadithAlarm.png';
+  static String get home => 'assets/images/home.png';
+  static String get islam => 'assets/images/islam.png';
+  static String get kaba => 'assets/images/kaba.png';
+  static String get location_3d => 'assets/images/location_3d.png';
+  static String get man_3d => 'assets/images/man_3d.png';
+  static String get morning => 'assets/images/morning.png';
+  static String get mosque => 'assets/images/mosque.png';
+  static String get evening => 'assets/images/night.png';
+  static String get pray_3d => 'assets/images/pray_3d.png';
+  static String get pray => 'assets/images/prayAlarm.png';
+  static String get question_3d => 'assets/images/question_3d.png';
+  static String get quran_3d => 'assets/images/quran_3d.png';
+  static String get quran => 'assets/images/quran.png';
+  static String get quran2_3d => 'assets/images/quran2_3d.png';
+  static String get quranAlarm => 'assets/images/quranAlarm.png';
+  static String get sleep => 'assets/images/sleep.png';
+  static String get travel => 'assets/images/suitcases.png';
+  static String get surahHeader => 'assets/images/surah_header.png';
+  static String get toilet => 'assets/images/toilet.png';
+  static String get wakeUp => 'assets/images/wakeup.png';
+  static String get phalastine => 'assets/images/phalastine.png';
+}

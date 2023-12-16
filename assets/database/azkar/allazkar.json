@@ -2,7 +2,7 @@
     "allAzkar": [
         {
             "title": "أذكار الصباح",
-            "imageName": "morning",
+            "zikrCategory": "morning",
             "content": "تعرف على أذكار الصباح",
             "azkarList": [
                 {
@@ -226,7 +226,7 @@
         },
         {
             "title": "أذكار المساء",
-            "imageName": "night",
+            "zikrCategory": "evening",
             "content": "تعرف على أذكار المساء",
             "azkarList": [
                 {
@@ -443,7 +443,7 @@
         },
         {
             "title": "أذكار الاستيقاظ من النوم",
-            "imageName": "wakeUp",
+            "zikrCategory": "wakeUp",
             "content": " تعرف على أذكار الاستيقاظ من النوم",
             "azkarList": [
                 {
@@ -478,7 +478,7 @@
         },
         {
             "title": "أذكار النوم",
-            "imageName": "sleep",
+            "zikrCategory": "sleep",
             "content": "تعرف على أذكار النوم",
             "azkarList": [
                 {
@@ -576,7 +576,7 @@
         },
         {
             "title": "أذكار السفر",
-            "imageName": "suitcases",
+            "zikrCategory": "travel",
             "content": "تعرف على أذكار السفر",
             "azkarList": [
                 {
@@ -604,7 +604,7 @@
         },
         {
             "title": "أذكار الطعام",
-            "imageName": "food",
+            "zikrCategory": "eating",
             "content": "تعرف على أذكار الطعام",
             "azkarList": [
                 {
@@ -658,7 +658,7 @@
         },
         {
             "title": "أذكار المسجد",
-            "imageName": "mosque",
+            "zikrCategory": "mosque",
             "content": "تعرف على أذكار المسجد",
             "azkarList": [
                 {
@@ -686,7 +686,7 @@
         },
         {
             "title": "أذكار المنزل",
-            "imageName": "house",
+            "zikrCategory": "home",
             "content": "تعرف على أذكار المنزل",
             "azkarList": [
                 {
@@ -720,7 +720,7 @@
         },
         {
             "title": "أذكار الخلاء",
-            "imageName": "toilet",
+            "zikrCategory": "toilet",
             "content": "تعرف على أذكار الخلاء",
             "azkarList": [
                 {
@@ -741,7 +741,7 @@
         },
         {
             "title": "أذكار الحج",
-            "imageName": "kaaba",
+            "zikrCategory": "haj",
             "content": "تعرف على أذكار الحج",
             "azkarList": [
                 {
