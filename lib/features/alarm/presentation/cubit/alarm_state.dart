@@ -10,10 +10,17 @@ abstract class AlarmState extends Equatable {
 class AlarmInitial extends AlarmState {}
 
 class AlarmUpdatedState extends AlarmState {
-  final bool isActive;
-
-  AlarmUpdatedState(this.isActive);
+  final AlarmModel alarmModel;
+  List<dynamic> modelProps = [];
+  AlarmUpdatedState(this.alarmModel)
+      : modelProps = [
+          alarmModel.alarmType,
+          alarmModel.isActive,
+          alarmModel.title,
+          alarmModel is PeriodicAlarmModel ? alarmModel.time : null,
+          alarmModel is RepeatedAlarmModel ? alarmModel.repeatAlarmType : null,
+        ];
 
   @override
-  List<Object> get props => [isActive];
+  List<Object> get props => [modelProps];
 }

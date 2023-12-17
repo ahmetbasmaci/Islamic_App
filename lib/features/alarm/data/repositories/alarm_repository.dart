@@ -1,8 +1,7 @@
-
-
 import '../../../../core/utils/params/params.dart';
 import '../datasources/alarm_get_datapart_data_source.dart';
 
+import '../models/alarm_model.dart';
 import '../models/alarm_part_model.dart';
 
 import '../../../../core/utils/enums/enums.dart';
@@ -16,20 +15,25 @@ class AlarmRepository implements IAlarmRepository {
   @override
   AlarmPartModel getAlarmPartData(GetAlarmDataPartParams params) {
     switch (params.aLarmType) {
-      case ALarmType.dua:
+      case ALarmPart.dua:
         return alarmGetDatapartDataSource.getDuaAlarmPartData;
-      case ALarmType.hadith:
+      case ALarmPart.hadith:
         return alarmGetDatapartDataSource.getHadithAlarmPartData;
-      case ALarmType.dailyAzkar:
+      case ALarmPart.dailyAzkar:
         return alarmGetDatapartDataSource.getDailyAzkarAlarmPartData;
-      case ALarmType.quran:
+      case ALarmPart.quran:
         return alarmGetDatapartDataSource.getQuranAlarmPartData;
-      case ALarmType.fast:
+      case ALarmPart.fast:
         return alarmGetDatapartDataSource.getFastAlarmPartData;
-      case ALarmType.pray:
+      case ALarmPart.pray:
         return alarmGetDatapartDataSource.getPrayAlarmPartData;
       default:
         throw UnimplementedError();
     }
+  }
+
+  @override
+  void updateAlarmModel(AlarmModel alarmModel) {
+    alarmGetDatapartDataSource.updateAlarmModel(alarmModel);
   }
 }

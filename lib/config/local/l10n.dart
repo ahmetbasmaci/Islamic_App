@@ -770,6 +770,76 @@ class AppStrings {
     );
   }
 
+  /// `Alarm Deactivated`
+  String get alarmDeactivated {
+    return Intl.message(
+      'Alarm Deactivated',
+      name: 'alarmDeactivated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alarm Activated`
+  String get alarmActivated {
+    return Intl.message(
+      'Alarm Activated',
+      name: 'alarmActivated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High`
+  String get high {
+    return Intl.message(
+      'High',
+      name: 'high',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medium`
+  String get medium {
+    return Intl.message(
+      'Medium',
+      name: 'medium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Low`
+  String get low {
+    return Intl.message(
+      'Low',
+      name: 'low',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rare`
+  String get rare {
+    return Intl.message(
+      'Rare',
+      name: 'rare',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `None`
+  String get none {
+    return Intl.message(
+      'None',
+      name: 'none',
+      desc: '',
+      args: [],
+    );
+  }
+
   // skipped getter for the '' key
 }
 

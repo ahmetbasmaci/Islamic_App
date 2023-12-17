@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alarm": MessageLookupByLibrary.simpleMessage("Alarm"),
+        "alarmActivated":
+            MessageLookupByLibrary.simpleMessage("Alarm Activated"),
+        "alarmDeactivated":
+            MessageLookupByLibrary.simpleMessage("Alarm Deactivated"),
         "allahNamesZikr":
             MessageLookupByLibrary.simpleMessage("Allah Names Azkars"),
         "appDeveloper": MessageLookupByLibrary.simpleMessage("App Developer"),
@@ -65,18 +69,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Praved Muhammed (PBUH) Said"),
         "hadithTitleAlarm": MessageLookupByLibrary.simpleMessage("Hadith"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("Haj Azkars"),
+        "high": MessageLookupByLibrary.simpleMessage("High"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeZikr": MessageLookupByLibrary.simpleMessage("Home Azkars"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Dark"),
+        "low": MessageLookupByLibrary.simpleMessage("Low"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("Main"),
+        "medium": MessageLookupByLibrary.simpleMessage("Medium"),
         "mondayFasting": MessageLookupByLibrary.simpleMessage("Monday Fasting"),
         "morningZikr": MessageLookupByLibrary.simpleMessage("Morning Azkars"),
         "mosqueZikr": MessageLookupByLibrary.simpleMessage("Mosque Azkars"),
         "muslimZikrs": MessageLookupByLibrary.simpleMessage("Muslim Zikrs"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "none": MessageLookupByLibrary.simpleMessage("None"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("Pray Times"),
         "prayTimesDesc":
             MessageLookupByLibrary.simpleMessage("You can know the pray times"),
@@ -101,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quranTitle":
             MessageLookupByLibrary.simpleMessage("Bismillah Alrahman Alraheem"),
         "quranTitleAlarm": MessageLookupByLibrary.simpleMessage("Quran"),
+        "rare": MessageLookupByLibrary.simpleMessage("Rare"),
         "readKahfSura": MessageLookupByLibrary.simpleMessage("Read Kahf Sura"),
         "readQueanPageEveryday":
             MessageLookupByLibrary.simpleMessage("Read Quean Page Everyday"),

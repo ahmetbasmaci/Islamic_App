@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alarm": MessageLookupByLibrary.simpleMessage("المنبهات"),
+        "alarmActivated":
+            MessageLookupByLibrary.simpleMessage("تم تفعيل المنبه"),
+        "alarmDeactivated":
+            MessageLookupByLibrary.simpleMessage("تم إيقاف المنبه"),
         "allahNamesZikr":
             MessageLookupByLibrary.simpleMessage("أذكار أسماء الله الحسنى"),
         "appDeveloper": MessageLookupByLibrary.simpleMessage("مطور التطبيق"),
@@ -66,18 +70,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "hadithTitleAlarm":
             MessageLookupByLibrary.simpleMessage("الحديث الشريف"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("أذكار الحج والعمرة"),
+        "high": MessageLookupByLibrary.simpleMessage("عالي"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "homeZikr": MessageLookupByLibrary.simpleMessage("أذكار المنزل"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("صلاة العشاء"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "light": MessageLookupByLibrary.simpleMessage("فاتح"),
+        "low": MessageLookupByLibrary.simpleMessage("منخفض"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("صلاة المغرب"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+        "medium": MessageLookupByLibrary.simpleMessage("متوسط"),
         "mondayFasting": MessageLookupByLibrary.simpleMessage("صيام الاثنين "),
         "morningZikr": MessageLookupByLibrary.simpleMessage("أذكار الصباح"),
         "mosqueZikr": MessageLookupByLibrary.simpleMessage("أذكارالمسجد"),
         "muslimZikrs": MessageLookupByLibrary.simpleMessage("أذكار المسلم"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
+        "none": MessageLookupByLibrary.simpleMessage("لا شيء"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
         "prayTimesDesc": MessageLookupByLibrary.simpleMessage(
             "يمكنك معرفة اوقات الصلاة والاذان عبر مشاركة موقعك الجغرافي مع التطبيق"),
@@ -102,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بسم الله الرحمن الرحيم"),
         "quranTitleAlarm":
             MessageLookupByLibrary.simpleMessage("القرآن الكريم"),
+        "rare": MessageLookupByLibrary.simpleMessage("نادر"),
         "readKahfSura":
             MessageLookupByLibrary.simpleMessage("قراءة سورة الكهف"),
         "readQueanPageEveryday": MessageLookupByLibrary.simpleMessage(

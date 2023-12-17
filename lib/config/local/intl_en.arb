@@ -26,8 +26,6 @@
     "categoryBookname":  "Category Bookname: ",
     "chapterName": "Chapter Name: ",
     "hadithId": "Hadith ID: ",
-    
-
     "quranTitle": "Bismillah Alrahman Alraheem", 
     "hadithTitle": "Praved Muhammed (PBUH) Said",
     "hadithBigTitle": "Praved Muhammed (PBUH) Hadith",
@@ -73,7 +71,13 @@
     "asrPray":  "Asr Pray",
     "maghripPray": "Maghrip Pray",
     "ishaPray": "Isha Pray",
-
+    "alarmDeactivated": "Alarm Deactivated",
+    "alarmActivated": "Alarm Activated",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "rare": "Rare",
+    "none": "None",
 
 
     "": ""

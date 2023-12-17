@@ -3,7 +3,7 @@ import 'alarm_model.dart';
 
 class AlarmPartModel {
   final String title;
-  final ALarmType aLarmType;
+  final ALarmPart aLarmType;
   final String imagePath;
   final List<AlarmModel> alarmModels;
 
@@ -13,4 +13,5 @@ class AlarmPartModel {
     required this.imagePath,
     required this.alarmModels,
   });
+
 }

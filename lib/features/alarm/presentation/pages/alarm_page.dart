@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import '../../../../config/local/l10n.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../cubit/alarm_cubit.dart';
@@ -16,40 +17,35 @@ class AlarmPage extends StatelessWidget {
       title: AppStrings.of(context).alarm,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: BlocBuilder<AlarmCubit, AlarmState>(
+        child: BlocConsumer<AlarmCubit, AlarmState>(
+          listener: (context, state) {
+            if (state is AlarmUpdatedState) {
+              ToatsHelper.show(state.alarmModel.isActive
+                  ? AppStrings.of(context).alarmActivated
+                  : AppStrings.of(context).alarmDeactivated);
+            }
+          },
           builder: (context, state) {
             return Column(
               children: [
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.dua),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.dua),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.hadith),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.hadith),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.dailyAzkar),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.dailyAzkar),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.quran),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.quran),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.fast),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.fast),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmType.pray),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.pray),
                 ),
-                // alarmBlockTitle(title: 'تذكير بالدعاء'.tr),
-                // duaAlarms(),
-                // alarmBlockTitle(title: 'تذكير الاحاديث'.tr),
-                // hadithsAlarms(),
-                // alarmBlockTitle(title: 'الأذكار اليومية'.tr),
-                // azkarAlamrs(),
-                // alarmBlockTitle(title: 'قراءة القرآن'.tr),
-                // quranAlarms(),
-                // alarmBlockTitle(title: 'اوقات الصيام'.tr),
-                // fastAlarms(),
-                // alarmBlockTitle(title: 'اوقات الاذان'.tr),
-                // prayTimesAlarms(),
               ],
             );
           },

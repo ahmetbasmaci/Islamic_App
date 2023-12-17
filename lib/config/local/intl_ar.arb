@@ -26,7 +26,6 @@
     "categoryBookname":   "أسم الفئة",
     "chapterName": "أسم الباب",
     "hadithId":  "رقم الحديث",
-
     "quranTitle": "بسم الله الرحمن الرحيم",
     "hadithTitle": "قال رسول الله صلى الله عليه وسلم",
     "hadithBigTitle": "بلغو عني ولو آية",
@@ -72,7 +71,12 @@
     "asrPray":  "صلاة العصر",
     "maghripPray": "صلاة المغرب",
     "ishaPray": "صلاة العشاء",
-    
-
+    "alarmDeactivated":  "تم إيقاف المنبه",
+    "alarmActivated":  "تم تفعيل المنبه",
+    "high": "عالي",
+    "medium": "متوسط",
+    "low": "منخفض",
+    "rare": "نادر",
+    "none": "لا شيء",
     "": ""
 }

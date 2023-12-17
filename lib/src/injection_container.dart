@@ -1,24 +1,11 @@
 import 'package:get_it/get_it.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
-import '../features/alarm/data/datasources/alarm_get_datapart_data_source.dart';
-import '../features/alarm/domain/repositories/i_alarm_repository.dart';
-import '../features/alarm/domain/usecases/get_alarm_part_data_use_case.dart';
-import '../features/alarm/presentation/cubit/alarm_cubit.dart';
-import '../features/home/presentation/cubit/cubit_quran/cubit_quran_audio_button/home_quran_audio_button_cubit.dart';
-import '../features/home/presentation/cubit/home_cubit.dart';
-import '../features/locale/cubit/locale_cubit.dart';
-import '../features/theme/cubit/theme_cubit.dart';
-import '../features/alarm/data/repositories/alarm_repository.dart';
+import '../features/alarm/alarm.dart';
 import '../features/azkar/azkar.dart';
-import '../features/home/data/datasources/home_card_get_random_hadith_data_source/home_card_get_random_hadith_data_source.dart';
-import '../features/home/data/datasources/home_card_play_single_audio_data_source.dart';
-import '../features/home/data/repositories/home_repository.dart';
-import '../features/home/domain/repositories/i_home_repository.dart';
-import '../features/home/domain/usecases/home_card_get_random_hadith_use_case.dart';
-import '../features/home/domain/usecases/home_card_play_pause_single_audio_use_case.dart';
-import '../features/home/presentation/cubit/cubit_hadith/home_hadith_card_cubit.dart';
-import '../features/home/presentation/cubit/cubit_quran/home_quran_card_cubit.dart';
+import '../features/home/home.dart';
+import '../features/locale/locale.dart';
+import '../features/theme/theme.dart';
 
 final sl = GetIt.instance;
 
@@ -99,7 +86,9 @@ Future _initAzkar() async {
 
 Future _initAlarm() async {
 //!DataSource
-  sl.registerLazySingleton<IAlarmGetDatapartDataSource>(() => AlarmGetDatapartDataSource());
+  sl.registerLazySingleton<IAlarmGetDatapartDataSource>(() => AlarmGetDatapartDataSource(
+        localStorage: sl(),
+      ));
 
   //!Repository
   sl.registerLazySingleton<IAlarmRepository>(
@@ -108,10 +97,12 @@ Future _initAlarm() async {
 
   //!usecase
   sl.registerLazySingleton(() => GetAlarmPartDataUseCase(alarmrepository: sl()));
+  sl.registerLazySingleton(() => UpdateAlarmModelUseCase(alarmrepository: sl()));
 
   //!Cubit
 
   sl.registerFactory(() => AlarmCubit(
         getAlarmPartDataUseCase: sl(),
+        triggerAlarmActivatingUseCase: sl(),
       ));
 }

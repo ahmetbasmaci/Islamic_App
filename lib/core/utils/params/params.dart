@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../features/alarm/data/models/alarm_model.dart';
 import '../enums/enums.dart';
 
 class NoParams extends Equatable {
@@ -15,9 +16,17 @@ class GetZikrCardDataParams extends Equatable {
 }
 
 class GetAlarmDataPartParams extends Equatable {
-  ALarmType aLarmType;
+  ALarmPart aLarmType;
 
   GetAlarmDataPartParams({required this.aLarmType});
   @override
   List<Object?> get props => [aLarmType];
+}
+
+class UpdateAlarmModelParams extends Equatable {
+  AlarmModel alarmModel;
+
+  UpdateAlarmModelParams({required this.alarmModel});
+  @override
+  List<Object?> get props => [alarmModel];
 }

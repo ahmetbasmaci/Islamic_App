@@ -16,11 +16,28 @@ enum ALarmPeriod { daily, weekly, monthly, once, repeat }
 
 enum RepeatAlarmType { high, medium, low, rare, none }
 
-enum ALarmType {
+enum ALarmPart {
   dua,
   hadith,
   dailyAzkar,
   quran,
   fast,
   pray,
+}
+
+enum AlarmType {
+  duaPhalastine,
+  hadith,
+  diferentAzkar,
+  morningAzkar,
+  eveningAzkar,
+  quranPageEveryDay,
+  quranKahfSure,
+  mondayFasting,
+  thursdayFasting,
+  fajrAdhan,
+  duhrAdhan,
+  asrAdhan,
+  maghribAdhan,
+  ishaAdhan,
 }
