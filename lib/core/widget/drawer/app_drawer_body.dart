@@ -36,7 +36,7 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).prayTimes,
               icon: AppIcons.prayersTime,
-              route: Routes.home, //TODO
+              route: Routes.prayTimes,
             ),
             AppDrawerItem(
               context: context,
@@ -50,7 +50,7 @@ class AppDrawerBody extends StatelessWidget {
               icon: AppIcons.azkar,
               route: Routes.allAzkars,
             ),
-            Divider(height: 50, thickness: 2),
+            const Divider(height: 50, thickness: 2),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).favorite,

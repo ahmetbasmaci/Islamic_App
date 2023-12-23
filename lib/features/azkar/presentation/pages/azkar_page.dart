@@ -30,7 +30,7 @@ class AzkarPage extends StatelessWidget {
         }
       },
       builder: ((context, state) {
-        if (state is AzkarpageLoadingState) return AppCircularProgressIndicator();
+        if (state is AzkarpageLoadingState) return const AppCircularProgressIndicator();
 
         var zikrDataList = state is AzkarpageLoadedState ? state.zikrDataList : [];
         var allahNamesDataList = state is AzkarpageLoadedState ? state.allahNamesDataList : [];
@@ -48,7 +48,7 @@ class AzkarPage extends StatelessWidget {
         controller: context.read<AzkarCubit>().scrollController,
         shrinkWrap: true,
         itemCount: currentListLength,
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         itemBuilder: (context, index) {
           return AppCardContentZikr(
             zikrModel: zikrCategoryModel.category != ZikrCategories.allahNames ? zikrDataList[index] : null,

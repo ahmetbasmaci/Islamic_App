@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../features/alarm/data/models/alarm_model.dart';
 import '../enums/enums.dart';
 
@@ -16,17 +17,26 @@ class GetZikrCardDataParams extends Equatable {
 }
 
 class GetAlarmDataPartParams extends Equatable {
-  ALarmPart aLarmType;
+  final AlarmPart aLarmType;
 
-  GetAlarmDataPartParams({required this.aLarmType});
+  const GetAlarmDataPartParams({required this.aLarmType});
   @override
   List<Object?> get props => [aLarmType];
 }
 
 class UpdateAlarmModelParams extends Equatable {
-  AlarmModel alarmModel;
+  final AlarmModel alarmModel;
 
-  UpdateAlarmModelParams({required this.alarmModel});
+  const UpdateAlarmModelParams({required this.alarmModel});
   @override
   List<Object?> get props => [alarmModel];
+}
+
+class GetPrayTimeParams extends Equatable {
+  final Position position;
+  final DateTime date;
+
+  const GetPrayTimeParams({required this.position, required this.date});
+  @override
+  List<Object?> get props => [position, date];
 }

@@ -1,25 +1,38 @@
 import 'package:get_it/get_it.dart';
+import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_connection.dart';
+import 'package:zad_almumin/core/packages/location_detector/i_location_detector.dart';
+import 'package:zad_almumin/core/utils/api/api_consumer.dart';
+import 'package:zad_almumin/core/utils/api/http_consumer.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
+import '../core/packages/location_detector/location_detector.dart';
 import '../features/alarm/alarm.dart';
 import '../features/azkar/azkar.dart';
 import '../features/home/home.dart';
 import '../features/locale/locale.dart';
+import '../features/pray_times/pray_times.dart';
 import '../features/theme/theme.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-//!External
-
-  sl.registerLazySingleton<ILocalStorage>(() => LocalStorage());
-  sl.registerLazySingleton(() => AudioPlayer());
+  await _initExternal();
 
   await _initTheme();
   await _initLcoale();
   await _initHome();
   await _initAzkar();
   await _initAlarm();
+  await _initPrayTimes();
+}
+
+Future _initExternal() async {
+  //!External
+  sl.registerLazySingleton(() => AudioPlayer());
+  sl.registerLazySingleton<ILocalStorage>(() => LocalStorage());
+  sl.registerLazySingleton<ApiConsumer>(() => HttpConsumer());
+  sl.registerLazySingleton<IAppInternetConnection>(() => AppInternetConnection());
+  sl.registerLazySingleton<ILocationDetector>(() => LocationDetector());
 }
 
 Future _initTheme() async {
@@ -104,5 +117,29 @@ Future _initAlarm() async {
   sl.registerFactory(() => AlarmCubit(
         getAlarmPartDataUseCase: sl(),
         triggerAlarmActivatingUseCase: sl(),
+      ));
+}
+
+Future _initPrayTimes() async {
+//!DataSource
+  sl.registerLazySingleton<IGetPrayTimeDataSource>(() => GetPrayTimeDataSource(
+        apiConsumer: sl(),
+        appInternetConnection: sl(),
+      ));
+
+  //!Repository
+  sl.registerLazySingleton<IPrayTimesRepository>(
+    () => PrayTimesRepository(getPrayTimeDataSource: sl()),
+  );
+
+  //!usecase
+  sl.registerLazySingleton(() => GetPrayTimeUseCase(
+        prayTimesRepository: sl(),
+      ));
+
+  //!Cubit
+  sl.registerFactory(() => PrayTimesCubit(
+        getPrayTimeseCase: sl(),
+        locationDetector: sl(),
       ));
 }

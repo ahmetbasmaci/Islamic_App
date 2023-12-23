@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allah Names Azkars"),
         "appDeveloper": MessageLookupByLibrary.simpleMessage("App Developer"),
         "appName": MessageLookupByLibrary.simpleMessage("Zad-Almumin"),
+        "asr": MessageLookupByLibrary.simpleMessage("Asr"),
         "asrPray": MessageLookupByLibrary.simpleMessage("Asr Pray"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Azhan Time"),
@@ -50,12 +51,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "duaForPhalastinePeople":
             MessageLookupByLibrary.simpleMessage("Dua For Phalastine People"),
         "duaTitleAlarm": MessageLookupByLibrary.simpleMessage("Dua"),
+        "duhr": MessageLookupByLibrary.simpleMessage("Duhr"),
         "duhrPray": MessageLookupByLibrary.simpleMessage("Duhr Pray"),
         "eatingZikr": MessageLookupByLibrary.simpleMessage("Eating Azkars"),
         "eveningZikr": MessageLookupByLibrary.simpleMessage("Evening Azkars"),
+        "fajr": MessageLookupByLibrary.simpleMessage("Fajr"),
         "fajrPray": MessageLookupByLibrary.simpleMessage("Fajr Pray"),
         "fastTitleAlarm": MessageLookupByLibrary.simpleMessage("Fast"),
         "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
+        "gregorianDate": MessageLookupByLibrary.simpleMessage("Gregorian Date"),
         "hadithAndFastReminderDesc": MessageLookupByLibrary.simpleMessage(
             "You can read Hadith and Fast Reminder"),
         "hadithAndFastReminderTitle":
@@ -70,12 +74,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "hadithTitleAlarm": MessageLookupByLibrary.simpleMessage("Hadith"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("Haj Azkars"),
         "high": MessageLookupByLibrary.simpleMessage("High"),
+        "hijriDate": MessageLookupByLibrary.simpleMessage("Hijri Date"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeZikr": MessageLookupByLibrary.simpleMessage("Home Azkars"),
+        "isha": MessageLookupByLibrary.simpleMessage("Isha"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Dark"),
         "low": MessageLookupByLibrary.simpleMessage("Low"),
+        "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("Main"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
@@ -116,11 +123,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("Sleep Azkars"),
+        "sun": MessageLookupByLibrary.simpleMessage("Sun"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thursdayFasting":
             MessageLookupByLibrary.simpleMessage("Thursday Fasting"),
         "toiletZikr": MessageLookupByLibrary.simpleMessage("Toilet Azkars"),
         "travelZikr": MessageLookupByLibrary.simpleMessage("Travel Azkars"),
+        "updatePrayTimes":
+            MessageLookupByLibrary.simpleMessage("Update Pray Times"),
         "wakeUpZikr": MessageLookupByLibrary.simpleMessage("Wake Up Azkars"),
         "welcomeToApp":
             MessageLookupByLibrary.simpleMessage("Welcome to Zad Almumin"),

@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أذكار أسماء الله الحسنى"),
         "appDeveloper": MessageLookupByLibrary.simpleMessage("مطور التطبيق"),
         "appName": MessageLookupByLibrary.simpleMessage("زاد المؤمن"),
+        "asr": MessageLookupByLibrary.simpleMessage("العصر"),
         "asrPray": MessageLookupByLibrary.simpleMessage("صلاة العصر"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
@@ -50,12 +51,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "duaForPhalastinePeople":
             MessageLookupByLibrary.simpleMessage("دعاء لأهل فلسطين"),
         "duaTitleAlarm": MessageLookupByLibrary.simpleMessage("الدعاء"),
+        "duhr": MessageLookupByLibrary.simpleMessage("الظهر"),
         "duhrPray": MessageLookupByLibrary.simpleMessage("صلاة الظهر"),
         "eatingZikr": MessageLookupByLibrary.simpleMessage("أذكار الطعام"),
         "eveningZikr": MessageLookupByLibrary.simpleMessage("أذكار المساء"),
+        "fajr": MessageLookupByLibrary.simpleMessage("الفجر"),
         "fajrPray": MessageLookupByLibrary.simpleMessage("صلاة الفجر"),
         "fastTitleAlarm": MessageLookupByLibrary.simpleMessage("الصيام"),
         "favorite": MessageLookupByLibrary.simpleMessage("المفضلة"),
+        "gregorianDate":
+            MessageLookupByLibrary.simpleMessage("التاريخ الميلادي"),
         "hadithAndFastReminderDesc": MessageLookupByLibrary.simpleMessage(
             "يتيح لك التطبيق تذكيرك بالاحاديث والصيام والصلاة والاستغفار والاذكار والقرآن الكريم"),
         "hadithAndFastReminderTitle":
@@ -71,12 +76,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الحديث الشريف"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("أذكار الحج والعمرة"),
         "high": MessageLookupByLibrary.simpleMessage("عالي"),
+        "hijriDate": MessageLookupByLibrary.simpleMessage("التاريخ الهجري"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "homeZikr": MessageLookupByLibrary.simpleMessage("أذكار المنزل"),
+        "isha": MessageLookupByLibrary.simpleMessage("العشاء"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("صلاة العشاء"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "light": MessageLookupByLibrary.simpleMessage("فاتح"),
         "low": MessageLookupByLibrary.simpleMessage("منخفض"),
+        "maghrib": MessageLookupByLibrary.simpleMessage("المغرب"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("صلاة المغرب"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "medium": MessageLookupByLibrary.simpleMessage("متوسط"),
@@ -118,10 +126,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("أذكار النوم"),
+        "sun": MessageLookupByLibrary.simpleMessage("الشمس"),
         "theme": MessageLookupByLibrary.simpleMessage("الثيم"),
         "thursdayFasting": MessageLookupByLibrary.simpleMessage("صيام الخميس"),
         "toiletZikr": MessageLookupByLibrary.simpleMessage("أذكار الخلاء"),
         "travelZikr": MessageLookupByLibrary.simpleMessage("أذكار السفر"),
+        "updatePrayTimes":
+            MessageLookupByLibrary.simpleMessage("تحديث أوقات الصلاة"),
         "wakeUpZikr": MessageLookupByLibrary.simpleMessage("أذكار الاستيقاظ"),
         "welcomeToApp":
             MessageLookupByLibrary.simpleMessage("اهلا بك في تطبيق زاد المؤمن"),

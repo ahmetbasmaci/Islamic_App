@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import '../../../../config/local/l10n.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../cubit/alarm_cubit.dart';
@@ -16,35 +15,28 @@ class AlarmPage extends StatelessWidget {
     return AppScaffold(
       title: AppStrings.of(context).alarm,
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: BlocConsumer<AlarmCubit, AlarmState>(
-          listener: (context, state) {
-            if (state is AlarmUpdatedState) {
-              ToatsHelper.show(state.alarmModel.isActive
-                  ? AppStrings.of(context).alarmActivated
-                  : AppStrings.of(context).alarmDeactivated);
-            }
-          },
+        physics: const BouncingScrollPhysics(),
+        child: BlocBuilder<AlarmCubit, AlarmState>(
           builder: (context, state) {
             return Column(
               children: [
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.dua),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.dua),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.hadith),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.hadith),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.dailyAzkar),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.dailyAzkar),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.quran),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.quran),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.fast),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.fast),
                 ),
                 AlarmCategoryPart(
-                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(ALarmPart.pray),
+                  alarmPartModel: context.read<AlarmCubit>().getAlarmPart(AlarmPart.pray),
                 ),
               ],
             );

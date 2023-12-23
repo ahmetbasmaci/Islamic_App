@@ -6,7 +6,7 @@ import '../../../core/utils/storage_keys.dart';
 part 'locale_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {
-  LocaleCubit({required this.localStorage}) : super(LocaleState('en'));
+  LocaleCubit({required this.localStorage}) : super(const LocaleState('en'));
 
   ILocalStorage localStorage;
   void getSavedLocale() {

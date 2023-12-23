@@ -15,7 +15,7 @@ class ShareButton extends StatelessWidget {
       onPressed: () {
         // Share.share(content);
       },
-      icon: AnimatedSwitcher(duration: Duration(milliseconds: 300), child: AppIcons.share),
+      icon: AnimatedSwitcher(duration: const Duration(milliseconds: 300), child: AppIcons.share),
     );
   }
 }

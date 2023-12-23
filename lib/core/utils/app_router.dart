@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zad_almumin/features/pray_times/presentation/pages/pray_times_page.dart';
 import '../helpers/pages_helper.dart';
 import '../../features/alarm/presentation/cubit/alarm_cubit.dart';
 import '../../features/alarm/presentation/pages/alarm_page.dart';
@@ -27,6 +28,7 @@ enum Routes {
   azkar("/azkar"),
   allAzkars("/allAzkars"),
   alarm("/alarm"),
+  prayTimes("/prayTimes"),
   ;
 
   const Routes(this.path);
@@ -51,20 +53,20 @@ GoRouter appRouter = GoRouter(
     GoRoute(
       path: Routes.onboarding.path,
       name: Routes.onboarding.name,
-      builder: (context, state) => Onboardingpage(),
+      builder: (context, state) => const Onboardingpage(),
     ),
     GoRoute(
       path: Routes.home.path,
       name: Routes.home.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<HomeCubit>(),
-        child: HomePage(),
+        child: const HomePage(),
       ),
     ),
     GoRoute(
       path: Routes.settings.path,
       name: Routes.settings.name,
-      builder: (context, state) => SettingsPage(),
+      builder: (context, state) => const SettingsPage(),
     ),
     GoRoute(
       path: Routes.azkar.path,
@@ -79,7 +81,7 @@ GoRouter appRouter = GoRouter(
       name: Routes.allAzkars.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<AzkarCubit>(),
-        child: AllAzkarsPage(),
+        child: const AllAzkarsPage(),
       ),
     ),
     GoRoute(
@@ -87,8 +89,13 @@ GoRouter appRouter = GoRouter(
       name: Routes.alarm.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<AlarmCubit>(),
-        child: AlarmPage(),
+        child: const AlarmPage(),
       ),
+    ),
+    GoRoute(
+      path: Routes.prayTimes.path,
+      name: Routes.prayTimes.name,
+      builder: (context, state) => const PrayTimesPage(),
     ),
   ],
 );

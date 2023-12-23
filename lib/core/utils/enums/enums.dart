@@ -12,11 +12,11 @@ enum ZikrCategories {
   allahNames,
 }
 
-enum ALarmPeriod { daily, weekly, monthly, once, repeat }
+enum AlarmPeriod { daily, weekly, monthly, once, repeat }
 
 enum RepeatAlarmType { high, medium, low, rare, none }
 
-enum ALarmPart {
+enum AlarmPart {
   dua,
   hadith,
   dailyAzkar,
@@ -41,3 +41,7 @@ enum AlarmType {
   maghribAdhan,
   ishaAdhan,
 }
+
+enum PrayTimeType { fajr, sun, duhr, asr, maghrib, isha,none }
+
+enum AppConnectivityResult { bluetooth, wifi, ethernet, mobile, none, vpn, other }

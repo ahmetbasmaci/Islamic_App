@@ -15,7 +15,7 @@ class HomePageBody extends StatelessWidget {
     return SizedBox(
       height: context.height,
       width: context.width,
-      child: AnimationLimiter(
+      child: const AnimationLimiter(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           child: Column(

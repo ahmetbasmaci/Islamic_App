@@ -5,7 +5,6 @@ import '../../../core/utils/app_router.dart';
 import '../widget/splah_image_widget.dart';
 import '../widget/splah_text_widget.dart';
 
-
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -30,7 +29,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void _setAnimationController() {
     scaleController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
@@ -41,7 +40,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 
   void _updateVlauesTime() {
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         opacity = 1.0;
         value = false;
@@ -50,7 +49,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 
   void _updateAnimationTimer() {
-    Timer(Duration(milliseconds: 3000), () {
+    Timer(const Duration(milliseconds: 3000), () {
       setState(() {
         scaleController.forward();
       });
@@ -69,7 +68,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       child: Scaffold(
         body: Stack(
           children: [
-            SplahTextWidget(),
+            const SplahTextWidget(),
             SplahImageWidget(
               opacity: opacity,
               value: value,

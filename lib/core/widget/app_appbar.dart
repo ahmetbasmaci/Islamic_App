@@ -22,7 +22,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool centerTitle = false;
   @override
   Size get preferredSize {
-    return Size.fromHeight(kToolbarHeight);
+    return const Size.fromHeight(kToolbarHeight);
   }
 
   @override
@@ -33,7 +33,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: centerTitle,
       leading: _getLeading(context),
       actions: _getActions(context),
-      
+
       // bottom: bottom,
     );
   }

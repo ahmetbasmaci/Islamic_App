@@ -17,7 +17,7 @@ class _CopyButtonState extends State<CopyButton> {
     return IconButton(
       highlightColor: Colors.transparent,
       icon: AnimatedSwitcher(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: isCopyed ? AppIcons.copyFilled : AppIcons.copy,
       ),
       onPressed: () => copyPressed(),
@@ -27,7 +27,7 @@ class _CopyButtonState extends State<CopyButton> {
   Future<void> copyPressed() async {
     ClipboardHelper.copyText(widget.content);
     setState(() => isCopyed = true);
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     setState(() => isCopyed = false);
   }
 }

@@ -15,17 +15,17 @@ class AlarmRepository implements IAlarmRepository {
   @override
   AlarmPartModel getAlarmPartData(GetAlarmDataPartParams params) {
     switch (params.aLarmType) {
-      case ALarmPart.dua:
+      case AlarmPart.dua:
         return alarmGetDatapartDataSource.getDuaAlarmPartData;
-      case ALarmPart.hadith:
+      case AlarmPart.hadith:
         return alarmGetDatapartDataSource.getHadithAlarmPartData;
-      case ALarmPart.dailyAzkar:
+      case AlarmPart.dailyAzkar:
         return alarmGetDatapartDataSource.getDailyAzkarAlarmPartData;
-      case ALarmPart.quran:
+      case AlarmPart.quran:
         return alarmGetDatapartDataSource.getQuranAlarmPartData;
-      case ALarmPart.fast:
+      case AlarmPart.fast:
         return alarmGetDatapartDataSource.getFastAlarmPartData;
-      case ALarmPart.pray:
+      case AlarmPart.pray:
         return alarmGetDatapartDataSource.getPrayAlarmPartData;
       default:
         throw UnimplementedError();

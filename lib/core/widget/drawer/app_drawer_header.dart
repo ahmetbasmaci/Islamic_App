@@ -18,7 +18,7 @@ class AppDrawerHeader extends StatelessWidget {
         style: AppStyles.title(context).copyWith(color: context.backgroundColor),
       ),
       accountEmail: Container(),
-      otherAccountsPicturesSize: Size.square(60),
+      otherAccountsPicturesSize: const Size.square(60),
       otherAccountsPictures: [_changeThemeIconButton(context)],
     );
   }

@@ -19,7 +19,7 @@ class _AnimatedButtonTappingState extends State<AnimatedButtonTapping> with Sing
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       lowerBound: 0.0,
       upperBound: 0.1,
     )..addListener(() {

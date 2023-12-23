@@ -13,7 +13,7 @@ class AppCardDecoration extends BoxDecoration {
   Color get color => color_ ?? Colors.transparent;
   @override
   List<BoxShadow> get boxShadow => [
-        boxShadow_ ?? BoxShadow(),
+        boxShadow_ ?? const BoxShadow(),
         BoxShadow(
           color: Colors.black.withOpacity(0.1),
           blurRadius: 10,

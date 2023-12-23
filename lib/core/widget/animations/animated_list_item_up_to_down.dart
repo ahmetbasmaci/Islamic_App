@@ -19,13 +19,13 @@ class AnimatedListItemUpToDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimationConfiguration.staggeredList(
       position: index,
-      delay: staggerDuration ?? Duration(milliseconds: 100),
+      delay: staggerDuration ?? const Duration(milliseconds: 100),
       child: SlideAnimation(
-        duration: slideDuration ?? Duration(milliseconds: 1500),
+        duration: slideDuration ?? const Duration(milliseconds: 1500),
         curve: Curves.fastLinearToSlowEaseIn,
         verticalOffset: -250,
         child: ScaleAnimation(
-          duration: scaleDuration ?? Duration(milliseconds: 1500),
+          duration: scaleDuration ?? const Duration(milliseconds: 1500),
           curve: Curves.fastLinearToSlowEaseIn,
           child: child,
         ),

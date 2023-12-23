@@ -18,8 +18,8 @@ class _SettingsPageState extends State<SettingsPage> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppAppBar(title: AppStrings.of(context).settings, showDrawerBtn: false),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 30.0),
+      body: const Padding(
+        padding: EdgeInsets.only(top: 30.0),
         child: SingleChildScrollView(
           child: Column(
             children: [

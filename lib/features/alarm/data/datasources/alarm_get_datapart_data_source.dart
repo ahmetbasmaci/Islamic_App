@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/packages/local_storage/local_storage.dart';
 import 'package:zad_almumin/core/utils/storage_keys.dart';
@@ -6,6 +5,7 @@ import '../../../../config/local/l10n.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
+import '../../../pray_times/data/models/time.dart';
 import '../models/alarm_model.dart';
 import '../models/alarm_part_model.dart';
 
@@ -27,7 +27,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
     _allAlarmParts = [
       AlarmPartModel(
         title: AppStrings.of(Constants.context).duaTitleAlarm,
-        aLarmType: ALarmPart.dua,
+        aLarmType: AlarmPart.dua,
         imagePath: AppImages.phalastine,
         alarmModels: [
           RepeatedAlarmModel(
@@ -44,7 +44,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
       ),
       AlarmPartModel(
         title: AppStrings.of(Constants.context).hadithTitleAlarm,
-        aLarmType: ALarmPart.hadith,
+        aLarmType: AlarmPart.hadith,
         imagePath: AppImages.hadithAlarm,
         alarmModels: [
           RepeatedAlarmModel(
@@ -61,7 +61,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
       ),
       AlarmPartModel(
         title: AppStrings.of(Constants.context).dailyAzkarTitleAlarm,
-        aLarmType: ALarmPart.dailyAzkar,
+        aLarmType: AlarmPart.dailyAzkar,
         imagePath: AppImages.azkar,
         alarmModels: [
           RepeatedAlarmModel(
@@ -76,112 +76,103 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).morningZikr,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.morningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.morningAzkar,
-            time: alarmActiveMap[AlarmType.morningAzkar.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 7, minute: 0),
+            time: alarmActiveMap[AlarmType.morningAzkar.name]?['time']?.toString().toTime ?? Time(hour: 7, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).eveningZikr,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.eveningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.eveningAzkar,
-            time: alarmActiveMap[AlarmType.eveningAzkar.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 18, minute: 0),
+            time: alarmActiveMap[AlarmType.eveningAzkar.name]?['time']?.toString().toTime ?? Time(hour: 18, minute: 0),
           ),
         ],
       ),
       AlarmPartModel(
         title: AppStrings.of(Constants.context).quranTitleAlarm,
-        aLarmType: ALarmPart.quran,
+        aLarmType: AlarmPart.quran,
         imagePath: AppImages.quran,
         alarmModels: [
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).readQueanPageEveryday,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranPageEveryDay,
-            time: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 12, minute: 0),
+            time: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['time']?.toString().toTime ??
+                Time(hour: 12, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).readKahfSura,
-            alarmPeriod: ALarmPeriod.weekly,
+            alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.quranKahfSure.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranKahfSure,
-            time: alarmActiveMap[AlarmType.quranKahfSure.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 9, minute: 0),
+            time: alarmActiveMap[AlarmType.quranKahfSure.name]?['time']?.toString().toTime ?? Time(hour: 9, minute: 0),
           ),
         ],
       ),
       AlarmPartModel(
         title: AppStrings.of(Constants.context).fastTitleAlarm,
-        aLarmType: ALarmPart.fast,
+        aLarmType: AlarmPart.fast,
         imagePath: AppImages.fast,
         alarmModels: [
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).mondayFasting,
-            alarmPeriod: ALarmPeriod.weekly,
+            alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.mondayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.mondayFasting,
-            time: alarmActiveMap[AlarmType.mondayFasting.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 20, minute: 0),
+            time: alarmActiveMap[AlarmType.mondayFasting.name]?['time']?.toString().toTime ?? Time(hour: 20, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).thursdayFasting,
-            alarmPeriod: ALarmPeriod.weekly,
+            alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.thursdayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.thursdayFasting,
-            time: alarmActiveMap[AlarmType.thursdayFasting.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 20, minute: 0),
+            time:
+                alarmActiveMap[AlarmType.thursdayFasting.name]?['time']?.toString().toTime ?? Time(hour: 20, minute: 0),
           ),
         ],
       ),
       AlarmPartModel(
         title: AppStrings.of(Constants.context).azhanTimeTitleAlarm,
-        aLarmType: ALarmPart.pray,
+        aLarmType: AlarmPart.pray,
         imagePath: AppImages.pray,
         alarmModels: [
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).fajrPray,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.fajrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.fajrAdhan,
-            time: alarmActiveMap[AlarmType.fajrAdhan.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.fajrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).duhrPray,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.duhrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.duhrAdhan,
-            time: alarmActiveMap[AlarmType.duhrAdhan.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.duhrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).asrPray,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.asrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.asrAdhan,
-            time: alarmActiveMap[AlarmType.asrAdhan.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.asrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).maghripPray,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.maghribAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.maghribAdhan,
-            time: alarmActiveMap[AlarmType.maghribAdhan.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.maghribAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).ishaPray,
-            alarmPeriod: ALarmPeriod.daily,
+            alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.ishaAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.ishaAdhan,
-            time: alarmActiveMap[AlarmType.ishaAdhan.name]?['time']?.toString().toTimeOfDay ??
-                TimeOfDay(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.ishaAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
           ),
         ],
       ),
@@ -190,22 +181,22 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
   late List<AlarmPartModel> _allAlarmParts;
 
   @override
-  AlarmPartModel get getDuaAlarmPartData => _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.dua);
+  AlarmPartModel get getDuaAlarmPartData => _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.dua);
   @override
   AlarmPartModel get getHadithAlarmPartData =>
-      _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.hadith);
+      _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.hadith);
   @override
   AlarmPartModel get getDailyAzkarAlarmPartData =>
-      _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.dailyAzkar);
+      _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.dailyAzkar);
   @override
   AlarmPartModel get getQuranAlarmPartData =>
-      _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.quran);
+      _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.quran);
   @override
   AlarmPartModel get getFastAlarmPartData =>
-      _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.fast);
+      _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.fast);
   @override
   AlarmPartModel get getPrayAlarmPartData =>
-      _allAlarmParts.firstWhere((element) => element.aLarmType == ALarmPart.pray);
+      _allAlarmParts.firstWhere((element) => element.aLarmType == AlarmPart.pray);
 
   @override
   void updateAlarmModel(AlarmModel newAlarmModel) {

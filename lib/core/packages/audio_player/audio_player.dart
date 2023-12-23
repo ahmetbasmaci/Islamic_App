@@ -9,8 +9,8 @@ class AudioPlayer {
   AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
 
   bool isPlaying = false;
-  Duration duration = Duration();
-  Duration position = Duration();
+  Duration duration = const Duration();
+  Duration position = const Duration();
   double slider = (0.0);
   double sliderVolume = 0.0;
   int currentAyahRepeatCount = 0;
@@ -118,8 +118,8 @@ class AudioPlayer {
     currentAyahRepeatCount = 0;
     sliderVolume = 0;
     slider = 0;
-    position = Duration();
-    duration = Duration();
+    position = const Duration();
+    duration = const Duration();
   }
 
   void updateOnEndEvent() {
@@ -212,7 +212,7 @@ class AudioPlayer {
   }
 
   void _resetPosition() {
-    position = Duration();
+    position = const Duration();
   }
 
   String _getFullPath(String path) => "file://$path";

@@ -10,3 +10,7 @@ class AudioFailure extends Failure {
 class JsonFailure extends Failure {
   JsonFailure(super.message);
 }
+
+class ServerFailure extends Failure {
+  ServerFailure(super.message);
+}

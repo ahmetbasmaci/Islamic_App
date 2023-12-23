@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../core/utils/app_router.dart';
+import '../features/pray_times/pray_times.dart';
 import '../features/theme/cubit/theme_cubit.dart';
 import 'injection_container.dart' as di;
 import '../config/local/l10n.dart';
@@ -16,6 +17,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => di.sl<ThemeCubit>()..getSavedTheme()),
         BlocProvider(create: (context) => di.sl<LocaleCubit>()..getSavedLocale()),
+        BlocProvider(create: (context) => di.sl<PrayTimesCubit>()..updatePrayerTimes()),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(
@@ -30,7 +32,7 @@ class App extends StatelessWidget {
       routerConfig: appRouter,
       localizationsDelegates: [
         AppStrings.delegate,
-        AppLocalizationDelegate(),
+        const AppLocalizationDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

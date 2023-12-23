@@ -8,8 +8,8 @@ class TransitionFromTop50 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      tween: transformTween ?? Tween(begin: Offset(0, -100), end: Offset(0, 0)),
-      duration: duration ?? Duration(milliseconds: 300),
+      tween: transformTween ?? Tween(begin: const Offset(0, -100), end: const Offset(0, 0)),
+      duration: duration ?? const Duration(milliseconds: 300),
       builder: (context, Offset tween, child) => Transform.translate(offset: tween, child: child),
       child: child,
     );

@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/utils/enums/enums.dart';
 import '../../../../core/extentions/extentions.dart';
 import '../../../../core/utils/resources/resources.dart';
 import '../../../../core/widget/space/space.dart';
+import '../../../pray_times/data/models/time.dart';
 import '../cubit/alarm_cubit.dart';
 
 import '../../data/models/alarm_model.dart';
@@ -32,7 +33,7 @@ class AlarmCategoryPart extends StatelessWidget {
             ],
           ),
         ),
-        VerticalSpace(AppSizes.spaceBetweanParts),
+        const VerticalSpace(AppSizes.spaceBetweanParts),
       ],
     );
   }
@@ -65,7 +66,7 @@ class AlarmCategoryPart extends StatelessWidget {
 
   Widget _alarmSettingsButton(BuildContext context, AlarmModel alarmModel) {
     if (alarmModel is PeriodicAlarmModel) {
-      if (alarmModel.alarmType.isAdhanType) return SizedBox(width: 0, height: 0);
+      if (alarmModel.alarmType.isAdhanType) return const SizedBox(width: 0, height: 0);
       return _updateAlarmTime(alarmModel, context);
     } else {
       return _updateAlarmRepeated(context, alarmModel as RepeatedAlarmModel);
@@ -82,7 +83,10 @@ class AlarmCategoryPart extends StatelessWidget {
           builder: (BuildContext context, Widget? child) => child!,
         );
         if (newTime == null) return;
-        context.read<AlarmCubit>().updateAlarmTime(alarmModel, newTime);
+        context.read<AlarmCubit>().updateAlarmTime(
+              alarmModel,
+              Time(hour: newTime.hour, minute: newTime.minute),
+            );
         // onChanged(true);
       },
     );

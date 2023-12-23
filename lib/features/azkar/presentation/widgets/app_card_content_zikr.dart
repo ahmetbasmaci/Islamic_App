@@ -43,7 +43,7 @@ class AppCardContentZikr extends StatelessWidget {
     if (zikrModel!.haveList) {
       return ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: zikrModel!.list.length,
           itemBuilder: (context, index2) {
             if (index2 > 0) {
@@ -113,7 +113,7 @@ class AppCardContentZikr extends StatelessWidget {
     return count > 0 || count == -1
         ? null
         : BoxShadow(
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
             color: context.primaryColor.withOpacity(1),
             blurRadius: 5,
             spreadRadius: 2,
@@ -158,10 +158,10 @@ class AppCardContentZikr extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: context.backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(100)),
+        borderRadius: const BorderRadius.all(Radius.circular(100)),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 5),
+            offset: const Offset(0, 5),
             color: context.primaryColor.withOpacity(.2),
             blurRadius: 5,
           ),

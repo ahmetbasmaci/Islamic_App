@@ -7,7 +7,7 @@ class AnimatedSwicherTransition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: duration ?? Duration(milliseconds: 300),
+      duration: duration ?? const Duration(milliseconds: 300),
       transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
     );
   }

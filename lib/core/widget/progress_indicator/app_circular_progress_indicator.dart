@@ -5,6 +5,12 @@ class AppCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: CircularProgressIndicator());
+    return const Center(
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 1000),
+        opacity: 1,
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }

@@ -5,16 +5,20 @@ class AppThemes {
   static List<ThemeData> themes = [_light, _dark].toList();
 
   static const Color _lightPrimaryColor = Color.fromARGB(255, 27, 96, 30);
+  static const Color _lightErrorColor = Color.fromARGB(255, 145, 58, 3);
   static const Color _darkPrimaryColor = Color.fromARGB(255, 37, 74, 38);
   static final ThemeData _light = ThemeData(
-    colorScheme: ColorScheme.light(primary: _lightPrimaryColor),
+    colorScheme: const ColorScheme.light(
+      primary: _lightPrimaryColor,
+      error: _lightErrorColor,
+    ),
     iconTheme: _appIconThemeData(_lightPrimaryColor),
     iconButtonTheme: _appIconButtonThemeData(_lightPrimaryColor),
     textTheme: _appTextTheme,
   );
 
   static final ThemeData _dark = ThemeData(
-    colorScheme: ColorScheme.dark(primary: _darkPrimaryColor),
+    colorScheme: const ColorScheme.dark(primary: _darkPrimaryColor),
     iconTheme: _appIconThemeData(_darkPrimaryColor),
     iconButtonTheme: _appIconButtonThemeData(_darkPrimaryColor),
     textTheme: _appTextTheme,

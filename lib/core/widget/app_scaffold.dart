@@ -28,7 +28,6 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppAppBar(
         title: title,
         leading: leading,
@@ -37,9 +36,9 @@ class AppScaffold extends StatelessWidget {
         showDrawerBtn: showDrawerBtn,
         centerTitle: centerTitle,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Padding(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         child: body,
       ),
       floatingActionButton: floatingActionButton,

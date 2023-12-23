@@ -8,7 +8,7 @@ class TransitionFadeOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
-      duration: duration ?? Duration(milliseconds: 150),
+      duration: duration ?? const Duration(milliseconds: 150),
       builder: (context, double tween, child) => Transform.scale(scale: tween, child: child),
       child: child,
     );

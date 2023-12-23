@@ -11,7 +11,7 @@ class FavoriteButton extends StatelessWidget {
       highlightColor: Colors.transparent,
       onPressed: () {},
       icon: AnimatedSwitcher(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: isFavorite ? AppIcons.favoriteFilled : AppIcons.favorite,
       ),
     );

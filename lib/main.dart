@@ -11,5 +11,5 @@ void main() async {
   await di.init();
   Bloc.observer = AppBlocObserver();
   // await Firebase.initializeApp();
-  runApp(App());
+  runApp(const App());
 }

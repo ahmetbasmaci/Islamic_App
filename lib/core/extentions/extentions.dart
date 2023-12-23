@@ -3,6 +3,7 @@ import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
 
 import '../../features/alarm/data/models/alarm_model.dart';
+import '../../features/pray_times/data/models/time.dart';
 import '../utils/enums/enums.dart';
 
 extension ContextExtentions on BuildContext {
@@ -25,12 +26,12 @@ extension IntExtentions on int {
 
 extension StringExtentions on String {
   bool get isBasmalah => contains('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ');
-  TimeOfDay get toTimeOfDay {
+  Time get toTime {
     try {
       final time = split(':');
-      return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+      return Time(hour: int.parse(time[0]), minute: int.parse(time[1]));
     } catch (e) {
-      return TimeOfDay(hour: 0, minute: 0);
+      return Time(hour: 0, minute: 0);
     }
   }
 }
@@ -39,7 +40,7 @@ extension AlarmModelExtension on AlarmModel {
   bool get isPeriodicAlarm => this is PeriodicAlarmModel;
 }
 
-extension TimeOfDayExtension on TimeOfDay {
+extension TimeExtension on Time {
   String get formated => '${hour.formated2}:${minute.formated2}';
 }
 
@@ -68,5 +69,32 @@ extension RepeatAlarmTypeExtentions on RepeatAlarmType {
       default:
         return '';
     }
+  }
+}
+
+extension PrayTimeTypeExtentions on PrayTimeType {
+  String get translatedName {
+    switch (this) {
+      case PrayTimeType.fajr:
+        return AppStrings.of(Constants.context).fajr;
+      case PrayTimeType.sun:
+        return AppStrings.of(Constants.context).sun;
+      case PrayTimeType.duhr:
+        return AppStrings.of(Constants.context).duhr;
+      case PrayTimeType.asr:
+        return AppStrings.of(Constants.context).asr;
+      case PrayTimeType.maghrib:
+        return AppStrings.of(Constants.context).maghrib;
+      case PrayTimeType.isha:
+        return AppStrings.of(Constants.context).isha;
+      case PrayTimeType.none:
+        return AppStrings.of(Constants.context).none;
+    }
+  }
+}
+
+extension TimeExtentions on Time {
+  String get timeToString {
+    return '${hour.formated2}:${minute.formated2}';
   }
 }

@@ -16,14 +16,15 @@ class AppCardCenterPartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: isLoading
-          ? AppLinearProgressIndicator()
+          ? const AppLinearProgressIndicator()
           : Text.rich(
               TextSpan(
                 children: [
                   TextSpan(text: content),
                   TextSpan(
                     text: '\n\n$description',
-                    style: TextStyle(fontWeight: FontWeight.bold),                  ),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
               textAlign: TextAlign.center,

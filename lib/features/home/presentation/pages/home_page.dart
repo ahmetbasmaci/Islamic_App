@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           body: RefreshIndicator(
             color: context.primaryColor,
             onRefresh: () => _refereshIndecatorEvent(),
-            child: HomePageBody(),
+            child: const HomePageBody(),
           ),
         ),
       ),
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
 //Get.offAll(QuranPage(), duration: Duration(milliseconds: 200), transition: Transition.zoom)
   }
   Future<void> _refereshIndecatorEvent() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     NavigatorHelper.pushReplacementNamed(Routes.home);
   }
 }

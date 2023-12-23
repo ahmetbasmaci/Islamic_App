@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 
 import '../../../../core/utils/enums/enums.dart';
+import '../../../pray_times/data/models/time.dart';
 
 abstract class AlarmModel {
   final String title;
@@ -26,8 +26,8 @@ class RepeatedAlarmModel extends AlarmModel {
 }
 
 class PeriodicAlarmModel extends AlarmModel {
-  ALarmPeriod alarmPeriod;
-  TimeOfDay time;
+  AlarmPeriod alarmPeriod;
+  Time time;
   PeriodicAlarmModel({
     required super.title,
     required super.isActive,

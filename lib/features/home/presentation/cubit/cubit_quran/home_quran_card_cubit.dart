@@ -10,7 +10,7 @@ class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {
   Future<void> getRandomAyah() async {
     //TODO implement real code
     emit(HomeQuranCardLoadingState());
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     emit(
       HomeQuranCardLoadedState(
@@ -27,7 +27,7 @@ class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {
   Future<void> getNextAyah(int surahNumber, int ayahNumber) async {
     //TODO implement real code
     emit(HomeQuranCardLoadingState());
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     emit(
       HomeQuranCardLoadedState(
@@ -39,5 +39,5 @@ class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {
         ),
       ),
     );
-  }  
+  }
 }

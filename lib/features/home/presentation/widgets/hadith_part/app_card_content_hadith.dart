@@ -65,7 +65,7 @@ class AppCardContentHadith extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(
+        const Divider(
           height: 50,
           indent: 50,
           endIndent: 50,

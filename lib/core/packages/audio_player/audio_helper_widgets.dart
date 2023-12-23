@@ -28,6 +28,6 @@ class AudioHelperWidgets {
   }
 
   static NotificationSettings multibleAudioNotificationSettings() {
-    return NotificationSettings();
+    return const NotificationSettings();
   }
 }

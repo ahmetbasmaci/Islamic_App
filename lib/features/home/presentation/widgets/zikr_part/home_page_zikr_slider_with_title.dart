@@ -28,8 +28,8 @@ class HomePageZikrSliderWithTitle extends StatelessWidget {
       child: ListView.builder(
         // shrinkWrap: true,
         physics: zikrCategoryModels.length > 2
-            ? BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())
-            : NeverScrollableScrollPhysics(),
+            ? const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())
+            : const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: zikrCategoryModels.length,
         itemBuilder: (context, index) {

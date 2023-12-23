@@ -8,6 +8,7 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   assets_audio_player: ^3.1.1
+  connectivity_plus: ^5.0.2
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
   equatable: ^2.0.5
@@ -23,9 +24,11 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   flutter_toastr: ^1.0.3
   fluttertoast: ^8.2.4
+  geolocator: ^10.1.0
   get_it: ^7.6.4
   get_storage: ^2.1.1
   go_router: ^12.1.3
+  http: ^1.1.2
   intl: ^0.18.1
   intl_utils: ^2.8.6
   intro_slider: ^4.2.1

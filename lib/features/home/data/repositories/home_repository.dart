@@ -20,7 +20,7 @@ class HomeRepository implements IHomeRepository {
   Future<Either<Failure, Unit>> playPauseSingleAudio() async {
     try {
       await homeCardPlayPauseSingleAudioDataSource.playPauseSingleAudio();
-      return Right(unit);
+      return const Right(unit);
     } on AudioException catch (e) {
       debugPrint(e.toString());
       return Left(AudioFailure(e.message));

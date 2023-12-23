@@ -20,14 +20,14 @@ class AnimatedListItemDownToUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimationConfiguration.staggeredList(
       position: index,
-      delay: staggerDuration ?? Duration(milliseconds: 100),
+      delay: staggerDuration ?? const Duration(milliseconds: 100),
       child: SlideAnimation(
-        duration: slideDuration ?? Duration(milliseconds: 1500),
+        duration: slideDuration ?? const Duration(milliseconds: 1500),
         curve: Curves.fastLinearToSlowEaseIn,
         horizontalOffset: 30,
         verticalOffset: 300.0,
         child: FlipAnimation(
-          duration: flipDuration ?? Duration(milliseconds: 1500),
+          duration: flipDuration ?? const Duration(milliseconds: 1500),
           curve: Curves.fastLinearToSlowEaseIn,
           flipAxis: FlipAxis.y,
           child: child,

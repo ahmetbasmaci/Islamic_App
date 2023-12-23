@@ -5,6 +5,6 @@ class AppLinearProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: LinearProgressIndicator());
+    return const Center(child: LinearProgressIndicator());
   }
 }

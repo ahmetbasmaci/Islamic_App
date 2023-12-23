@@ -840,6 +840,96 @@ class AppStrings {
     );
   }
 
+  /// `Fajr`
+  String get fajr {
+    return Intl.message(
+      'Fajr',
+      name: 'fajr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sun`
+  String get sun {
+    return Intl.message(
+      'Sun',
+      name: 'sun',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duhr`
+  String get duhr {
+    return Intl.message(
+      'Duhr',
+      name: 'duhr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asr`
+  String get asr {
+    return Intl.message(
+      'Asr',
+      name: 'asr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maghrib`
+  String get maghrib {
+    return Intl.message(
+      'Maghrib',
+      name: 'maghrib',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Isha`
+  String get isha {
+    return Intl.message(
+      'Isha',
+      name: 'isha',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Pray Times`
+  String get updatePrayTimes {
+    return Intl.message(
+      'Update Pray Times',
+      name: 'updatePrayTimes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gregorian Date`
+  String get gregorianDate {
+    return Intl.message(
+      'Gregorian Date',
+      name: 'gregorianDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hijri Date`
+  String get hijriDate {
+    return Intl.message(
+      'Hijri Date',
+      name: 'hijriDate',
+      desc: '',
+      args: [],
+    );
+  }
+
   // skipped getter for the '' key
 }
 

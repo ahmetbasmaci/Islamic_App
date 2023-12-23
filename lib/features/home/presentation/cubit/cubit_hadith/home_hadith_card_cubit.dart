@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../../core/usecase/params/params.dart';
+import '../../../../../core/utils/params/params.dart';
 import '../../../data/models/hadith_card_model.dart';
 import '../../../domain/usecases/home_card_get_random_hadith_use_case.dart';
 
