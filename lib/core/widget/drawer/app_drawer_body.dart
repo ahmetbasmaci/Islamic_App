@@ -24,13 +24,13 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).quran,
               icon: AppIcons.quran,
-              route: Routes.home, //TODO
+              route: Routes.quran,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).alarm,
               icon: AppIcons.alarmOn,
-              route: Routes.alarm, //TODO
+              route: Routes.alarm,
             ),
             AppDrawerItem(
               context: context,

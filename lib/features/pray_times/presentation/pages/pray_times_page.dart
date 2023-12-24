@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/config/local/l10n.dart';
-import 'package:zad_almumin/core/extentions/extentions.dart';
+import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import 'package:zad_almumin/core/utils/resources/app_sizes.dart';
 import 'package:zad_almumin/core/widget/space/vertical_space.dart';
 import 'package:zad_almumin/features/pray_times/presentation/cubit/pray_times_cubit.dart';
@@ -20,22 +20,17 @@ class PrayTimesPage extends StatelessWidget {
       title: AppStrings.of(context).prayTimes,
       body: SafeArea(
         child: BlocConsumer<PrayTimesCubit, PrayTimesState>(
-          listener: (context, state) {
-            if (state.errorMessage.isNotEmpty) {
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   SnackBar(
-              //     content: Text(state.errorMessage),
-              //     backgroundColor: context.theme.colorScheme.error,
-              //   ),
-              // );
-            }
-          },
-          builder: (context, state) {
-            return body(context, state);
-          },
+          listener: _blocListener,
+          builder: (context, state) => body(context, state),
         ),
       ),
     );
+  }
+
+  void _blocListener(context, state) {
+    if (state.errorMessage.isNotEmpty) {
+      ToatsHelper.showError(state.errorMessage);
+    }
   }
 
   Widget body(BuildContext context, PrayTimesState state) {
@@ -46,15 +41,8 @@ class PrayTimesPage extends StatelessWidget {
         PrayTimeLeftCard(),
         const VerticalSpace(AppSizes.spaceBetweanParts),
         const NextPrevDaysArrows(),
-        ListView(
-          shrinkWrap: true,
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          // mainAxisSize: MainAxisSize.max,
-          children: [
-            PrayTimesInfo(),
-            const PrayTimeUpdateButton(),
-          ],
-        ),
+        PrayTimesInfo(),
+        const PrayTimeUpdateButton(),
       ],
     );
   }

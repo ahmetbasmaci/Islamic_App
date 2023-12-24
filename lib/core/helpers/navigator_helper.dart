@@ -10,9 +10,6 @@ class NavigatorHelper {
     Map<String, String>? arguments,
     Object? extra,
   }) async {
-    // if (Constants.scaffoldKey.currentState!.isDrawerOpen) {
-    //   Constants.scaffoldKey.currentState!.closeDrawer();
-    // }
     await Constants.context.pushNamed(
       route.name,
       pathParameters: arguments ?? {},

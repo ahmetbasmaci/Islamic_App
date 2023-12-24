@@ -10,15 +10,23 @@ class NextPrevDaysArrows extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          onPressed: () async => await context.read<PrayTimesCubit>().updateNextdayPrayerTimes(),
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        IconButton(
-          onPressed: () async => await context.read<PrayTimesCubit>().updatePreviosdayPrayerTimes(),
-          icon: const Icon(Icons.arrow_forward_ios),
-        ),
+        _previosDayButton(context),
+        _nextDayButton(context),
       ],
+    );
+  }
+
+  IconButton _nextDayButton(BuildContext context) {
+    return IconButton(
+      onPressed: () async => await context.read<PrayTimesCubit>().updatePreviosdayPrayerTimes(),
+      icon: const Icon(Icons.arrow_forward_ios),
+    );
+  }
+
+  IconButton _previosDayButton(BuildContext context) {
+    return IconButton(
+      onPressed: () async => await context.read<PrayTimesCubit>().updateNextdayPrayerTimes(),
+      icon: const Icon(Icons.arrow_back_ios),
     );
   }
 }

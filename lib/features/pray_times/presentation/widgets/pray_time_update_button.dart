@@ -9,9 +9,7 @@ class PrayTimeUpdateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () async {
-        context.read<PrayTimesCubit>().updateTodayPrayerTimes();
-      },
+      onPressed: () async => context.read<PrayTimesCubit>().updateTodayPrayerTimes(),
       child: Text(AppStrings.of(context).updatePrayTimes),
     );
   }

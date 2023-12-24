@@ -27,7 +27,7 @@ class PrayTimesState extends Equatable {
     return PrayTimesState(
       currentDayPrayDetailesModel: currentDayPrayDetailesModel ?? this.currentDayPrayDetailesModel,
       timeLeftToNextPrayTime: timeLeftToNextPrayTime ?? this.timeLeftToNextPrayTime,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: errorMessage ?? '',
       isLoading: isLoading ?? this.isLoading,
     );
   }

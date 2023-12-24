@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zad_almumin/features/pray_times/presentation/pages/pray_times_page.dart';
+import 'package:zad_almumin/features/quran/presentation/pages/quran_page.dart';
 import '../helpers/pages_helper.dart';
 import '../../features/alarm/presentation/cubit/alarm_cubit.dart';
 import '../../features/alarm/presentation/pages/alarm_page.dart';
@@ -29,6 +30,7 @@ enum Routes {
   allAzkars("/allAzkars"),
   alarm("/alarm"),
   prayTimes("/prayTimes"),
+  quran("/quran"),
   ;
 
   const Routes(this.path);
@@ -96,6 +98,11 @@ GoRouter appRouter = GoRouter(
       path: Routes.prayTimes.path,
       name: Routes.prayTimes.name,
       builder: (context, state) => const PrayTimesPage(),
+    ),
+    GoRoute(
+      path: Routes.quran.path,
+      name: Routes.quran.name,
+      builder: (context, state) => QuranPage(),
     ),
   ],
 );

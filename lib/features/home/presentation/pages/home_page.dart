@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _quranIconClick() {
-//TODO
-//Get.offAll(QuranPage(), duration: Duration(milliseconds: 200), transition: Transition.zoom)
+    NavigatorHelper.pushReplacementNamed(Routes.quran);
   }
+
   Future<void> _refereshIndecatorEvent() async {
     await Future.delayed(const Duration(seconds: 1));
     NavigatorHelper.pushReplacementNamed(Routes.home);
