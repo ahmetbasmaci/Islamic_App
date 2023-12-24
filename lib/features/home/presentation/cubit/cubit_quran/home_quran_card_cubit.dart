@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/quran_card_model.dart';
+import '../../../data/models/quran/quran_card_model.dart';
 
 part 'home_quran_card_state.dart';
 

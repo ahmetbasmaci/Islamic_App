@@ -1,7 +1,7 @@
 class HadithCardModel {
   HadithCardModel({
     required this.hadithBookName,
-    required this.categoryBookname,
+    required this.chapterBookname,
     required this.chapterName,
     required this.hadithText,
     required this.hadithSanad,
@@ -9,11 +9,10 @@ class HadithCardModel {
     this.isFavorite = false,
   });
   final String hadithBookName;
-  final String categoryBookname;
+  final String chapterBookname;
   final String chapterName;
   final String hadithText;
   final String hadithSanad;
   final int hadithId;
   final bool isFavorite;
-
 }

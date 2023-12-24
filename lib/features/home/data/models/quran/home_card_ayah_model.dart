@@ -1,4 +1,4 @@
-import '../../../../core/extentions/extentions.dart';
+import '../../../../../core/extentions/extentions.dart';
 
 class HomeCardAyahModel {
   HomeCardAyahModel({
@@ -20,8 +20,6 @@ class HomeCardAyahModel {
   int ayahNumber;
   int page;
   String text;
-  String get formatedAyahNumber => ayahNumber.formated3;
-  String get formatedSurahNumber => surahNumber.formated3;
 
   factory HomeCardAyahModel.fromJson(Map<String, dynamic> json) {
     return HomeCardAyahModel(

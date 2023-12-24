@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
-import '../widget/dialogs/alert_dialog_ok_no.dart';
+import '../../widget/dialogs/alert_dialog_ok_no.dart';
 
 class DialogsHelper {
   static Future<bool> showEnableLocationServiceDialog() async {
@@ -47,4 +47,8 @@ class DialogsHelper {
     );
     return okHitted;
   }
+
+
+  
 }
+

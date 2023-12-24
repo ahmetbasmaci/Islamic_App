@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../data/models/hadith_card_model.dart';
+import '../../data/models/hadith/hadith_card_model.dart';
 
 import '../../../../core/error/failure/failure.dart';
 

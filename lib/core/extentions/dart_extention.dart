@@ -22,6 +22,17 @@ extension ContextExtentions on BuildContext {
 extension IntExtentions on int {
   String get formated3 => toString().padLeft(3, '0');
   String get formated2 => toString().padLeft(2, '0');
+  String get arabicNumber => toString()
+      .replaceAll('0', '٠')
+      .replaceAll('1', '١')
+      .replaceAll('2', '٢')
+      .replaceAll('3', '٣')
+      .replaceAll('4', '٤')
+      .replaceAll('5', '٥')
+      .replaceAll('6', '٦')
+      .replaceAll('7', '٧')
+      .replaceAll('8', '٨')
+      .replaceAll('9', '٩');
 }
 
 extension StringExtentions on String {

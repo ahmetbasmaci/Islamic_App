@@ -8,6 +8,7 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   assets_audio_player: ^3.1.1
+  bot_toast: ^4.1.3
   connectivity_plus: ^5.0.2
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
@@ -34,6 +35,7 @@ dependencies:
   intro_slider: ^4.2.1
   path_provider: ^2.1.1
   rename: ^3.0.1
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -41,7 +43,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path: "assets/images/app_logo.png"
+  image_path: "assets/images/icons/app_logo.png"
   android: true
   ios: true
 
@@ -50,12 +52,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/images/icons/
     - assets/images/quran pages/
     - assets/database/azkar/
     - assets/database/hadith/
     - assets/database/quran/
     - assets/database/tafseer/
-    - assets/images/
 
   fonts:
     - family: uthmanic

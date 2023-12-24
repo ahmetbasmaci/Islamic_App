@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:zad_almumin/features/quran/presentation/cubit/quran_cubit.dart';
 import '../core/utils/app_router.dart';
 import '../features/pray_times/pray_times.dart';
 import '../features/theme/cubit/theme_cubit.dart';
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<ThemeCubit>()..getSavedTheme()),
         BlocProvider(create: (context) => di.sl<LocaleCubit>()..getSavedLocale()),
         BlocProvider(create: (context) => di.sl<PrayTimesCubit>()..updateTodayPrayerTimes()),
+        BlocProvider(create: (context) => di.sl<QuranCubit>()),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(

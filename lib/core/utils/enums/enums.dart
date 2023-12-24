@@ -40,3 +40,28 @@ enum PrayTimeType { fajr, sun, duhr, asr, maghrib, isha, none }
 enum AppConnectivityResult { bluetooth, wifi, ethernet, mobile, none, vpn, other }
 
 enum WeekDays { saturday, sunday, monday, tuesday, wednesday, thursday, friday, none }
+
+enum QuranReaders {
+  yaserAldosary,
+  yaserAlsalamah,
+  ibrahimAldosary,
+  aymanSwaid,
+  alhasri,
+  almenshawi,
+  abdulBased,
+  alafasi,
+  abdullahBasfar,
+  abuBakrAlshatiri,
+  ahmedAlajamy,
+  haniRifai,
+  abdullaahAwwaad,
+  ahmedNeana,
+  warshAbdulBasit,
+  akramAlALqimy,
+  faresAbbad,
+  maherAlmuaqly,
+  nabilRifa3i,
+  naserAlqatami,
+  saoodAlShuraym,
+  mahmoudAliAlBanna,
+}

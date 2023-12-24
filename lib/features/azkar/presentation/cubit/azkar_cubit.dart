@@ -74,7 +74,7 @@ class AzkarCubit extends Cubit<AzkarState> {
     ZikrCategoryModel(
       title: AppStrings.of(Constants.context).allahNamesZikr,
       category: ZikrCategories.allahNames,
-      imagePath: AppImages.quran2_3d,
+      imagePath: AppImages.quran,
     ),
   ];
 

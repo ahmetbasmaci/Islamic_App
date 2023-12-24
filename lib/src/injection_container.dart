@@ -3,6 +3,7 @@ import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_c
 import 'package:zad_almumin/core/packages/location_detector/i_location_detector.dart';
 import 'package:zad_almumin/core/utils/api/api_consumer.dart';
 import 'package:zad_almumin/core/utils/api/http_consumer.dart';
+import 'package:zad_almumin/features/quran/presentation/cubit/quran_cubit.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
 import '../core/packages/location_detector/location_detector.dart';
@@ -24,6 +25,7 @@ Future<void> init() async {
   await _initAzkar();
   await _initAlarm();
   await _initPrayTimes();
+  await _initQuran();
 }
 
 Future _initExternal() async {
@@ -142,4 +144,15 @@ Future _initPrayTimes() async {
         getPrayTimeseCase: sl(),
         locationDetector: sl(),
       ));
+}
+
+Future _initQuran() async {
+//!DataSource
+
+  //!Repository
+
+  //!usecase
+
+  //!Cubit
+  sl.registerFactory(() => QuranCubit());
 }

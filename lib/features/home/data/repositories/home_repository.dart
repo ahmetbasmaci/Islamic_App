@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../core/error/failure/failure.dart';
-import '../datasources/home_card_get_random_hadith_data_source/home_card_get_random_hadith_data_source.dart';
-import '../models/hadith_card_model.dart';
+import '../datasources/home_card_get_random_hadith_data_source.dart';
+import '../models/hadith/hadith_card_model.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../domain/repositories/i_home_repository.dart';
 import '../datasources/home_card_play_single_audio_data_source.dart';

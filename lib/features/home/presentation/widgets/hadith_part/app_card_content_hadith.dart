@@ -5,7 +5,7 @@ import '../../../../../core/widget/app_card_widgets/app_card_center_part_widget.
 import '../../../../../core/widget/app_card_widgets/app_card_content.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_with_title.dart';
 import '../../../../../core/utils/resources/app_styles.dart';
-import '../../../data/models/hadith_card_model.dart';
+import '../../../data/models/hadith/hadith_card_model.dart';
 import '../../../../../config/local/l10n.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_content_footer_part_buttons.dart';
 import '../../../../../core/widget/space/horizontal_space.dart';
@@ -71,7 +71,7 @@ class AppCardContentHadith extends StatelessWidget {
           endIndent: 50,
         ),
         _hadothPropItem(context, AppStrings.of(context).hadithBookName, hadithCardModel.hadithBookName),
-        _hadothPropItem(context, AppStrings.of(context).categoryBookname, hadithCardModel.categoryBookname),
+        _hadothPropItem(context, AppStrings.of(context).categoryBookname, hadithCardModel.chapterBookname),
         _hadothPropItem(context, AppStrings.of(context).chapterName, hadithCardModel.chapterName),
         _hadothPropItem(context, AppStrings.of(context).hadithId, hadithCardModel.hadithId.toString()),
       ],
