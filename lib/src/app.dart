@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => di.sl<ThemeCubit>()..getSavedTheme()),
         BlocProvider(create: (context) => di.sl<LocaleCubit>()..getSavedLocale()),
-        BlocProvider(create: (context) => di.sl<PrayTimesCubit>()..updatePrayerTimes()),
+        BlocProvider(create: (context) => di.sl<PrayTimesCubit>()..updateTodayPrayerTimes()),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(

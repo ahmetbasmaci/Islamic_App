@@ -7,6 +7,7 @@ class PraiesInDayModel {
   final String asrTime;
   final String maghribTime;
   final String ishaTime;
+  final String dayName;
 
   PraiesInDayModel({
     required this.gregorianDate,
@@ -17,10 +18,11 @@ class PraiesInDayModel {
     required this.asrTime,
     required this.maghribTime,
     required this.ishaTime,
+    required this.dayName,
   });
 
   factory PraiesInDayModel.fromJson(Map<String, dynamic> json) {
-    var dayData = json['data'][0];
+    var dayData = json['data'];
     var dayDataDate = dayData['date'];
     var dayDataTimings = dayData['timings'];
     return PraiesInDayModel(
@@ -32,6 +34,7 @@ class PraiesInDayModel {
       asrTime: dayDataTimings['Asr'],
       maghribTime: dayDataTimings['Maghrib'],
       ishaTime: dayDataTimings['Isha'],
+      dayName: dayDataDate['gregorian']['weekday']['en'],
     );
   }
 }

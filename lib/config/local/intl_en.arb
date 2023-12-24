@@ -81,12 +81,19 @@
     "fajr": "Fajr",
     "sun": "Sun",
     "duhr": "Duhr",
-    "asr" : "Asr",
-    "maghrib" : "Maghrib",
-    "isha" : "Isha",
+    "asr": "Asr",
+    "maghrib": "Maghrib",
+    "isha": "Isha",
     "updatePrayTimes": "Update Pray Times",
     "gregorianDate": "Gregorian Date",
     "hijriDate": "Hijri Date",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
     
     "": ""
 }

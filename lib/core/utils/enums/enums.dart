@@ -16,14 +16,7 @@ enum AlarmPeriod { daily, weekly, monthly, once, repeat }
 
 enum RepeatAlarmType { high, medium, low, rare, none }
 
-enum AlarmPart {
-  dua,
-  hadith,
-  dailyAzkar,
-  quran,
-  fast,
-  pray,
-}
+enum AlarmPart { dua, hadith, dailyAzkar, quran, fast, pray }
 
 enum AlarmType {
   duaPhalastine,
@@ -42,6 +35,8 @@ enum AlarmType {
   ishaAdhan,
 }
 
-enum PrayTimeType { fajr, sun, duhr, asr, maghrib, isha,none }
+enum PrayTimeType { fajr, sun, duhr, asr, maghrib, isha, none }
 
 enum AppConnectivityResult { bluetooth, wifi, ethernet, mobile, none, vpn, other }
+
+enum WeekDays { saturday, sunday, monday, tuesday, wednesday, thursday, friday, none }

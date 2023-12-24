@@ -28,6 +28,7 @@ class PrayTimesInfo extends StatelessWidget {
                   Text(context.read<PrayTimesCubit>().state.currentDayPrayDetailesModel.gregorianDate),
                 ],
               ),
+              Text(context.read<PrayTimesCubit>().state.currentDayPrayDetailesModel.dayName.translatedName),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[

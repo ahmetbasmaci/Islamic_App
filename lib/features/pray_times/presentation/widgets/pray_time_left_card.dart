@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/features/pray_times/pray_times.dart';
 
 import '../../../../core/utils/resources/resources.dart';
+import '../../../../core/widget/progress_indicator/app_circular_progress_indicator.dart';
 
 class PrayTimeLeftCard extends StatelessWidget {
   PrayTimeLeftCard({super.key});
@@ -36,10 +37,12 @@ class PrayTimeLeftCard extends StatelessWidget {
             context.read<PrayTimesCubit>().nextPrayModel.prayTimeType.translatedName,
             style: AppStyles.title2(context),
           ),
-          Text(
-            context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
-            style: AppStyles.title(context),
-          ),
+          context.read<PrayTimesCubit>().state.isLoading
+              ? const AppCircularProgressIndicator()
+              : Text(
+                  context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
+                  style: AppStyles.title(context),
+                ),
         ],
       ),
     );

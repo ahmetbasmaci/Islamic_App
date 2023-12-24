@@ -79,14 +79,16 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.morningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.morningAzkar,
-            time: alarmActiveMap[AlarmType.morningAzkar.name]?['time']?.toString().toTime ?? Time(hour: 7, minute: 0),
+            time: alarmActiveMap[AlarmType.morningAzkar.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 7, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).eveningZikr,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.eveningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.eveningAzkar,
-            time: alarmActiveMap[AlarmType.eveningAzkar.name]?['time']?.toString().toTime ?? Time(hour: 18, minute: 0),
+            time: alarmActiveMap[AlarmType.eveningAzkar.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 18, minute: 0),
           ),
         ],
       ),
@@ -100,7 +102,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranPageEveryDay,
-            time: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['time']?.toString().toTime ??
+            time: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['time']?.toString().apiTimeStringToTimeModel ??
                 Time(hour: 12, minute: 0),
           ),
           PeriodicAlarmModel(
@@ -108,7 +110,8 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.quranKahfSure.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranKahfSure,
-            time: alarmActiveMap[AlarmType.quranKahfSure.name]?['time']?.toString().toTime ?? Time(hour: 9, minute: 0),
+            time: alarmActiveMap[AlarmType.quranKahfSure.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 9, minute: 0),
           ),
         ],
       ),
@@ -122,15 +125,16 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.mondayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.mondayFasting,
-            time: alarmActiveMap[AlarmType.mondayFasting.name]?['time']?.toString().toTime ?? Time(hour: 20, minute: 0),
+            time: alarmActiveMap[AlarmType.mondayFasting.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 20, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).thursdayFasting,
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.thursdayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.thursdayFasting,
-            time:
-                alarmActiveMap[AlarmType.thursdayFasting.name]?['time']?.toString().toTime ?? Time(hour: 20, minute: 0),
+            time: alarmActiveMap[AlarmType.thursdayFasting.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 20, minute: 0),
           ),
         ],
       ),
@@ -144,35 +148,40 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.fajrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.fajrAdhan,
-            time: alarmActiveMap[AlarmType.fajrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.fajrAdhan.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).duhrPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.duhrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.duhrAdhan,
-            time: alarmActiveMap[AlarmType.duhrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.duhrAdhan.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).asrPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.asrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.asrAdhan,
-            time: alarmActiveMap[AlarmType.asrAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.asrAdhan.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).maghripPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.maghribAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.maghribAdhan,
-            time: alarmActiveMap[AlarmType.maghribAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.maghribAdhan.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
             title: AppStrings.of(Constants.context).ishaPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.ishaAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.ishaAdhan,
-            time: alarmActiveMap[AlarmType.ishaAdhan.name]?['time']?.toString().toTime ?? Time(hour: 0, minute: 0),
+            time: alarmActiveMap[AlarmType.ishaAdhan.name]?['time']?.toString().apiTimeStringToTimeModel ??
+                Time(hour: 0, minute: 0),
           ),
         ],
       ),

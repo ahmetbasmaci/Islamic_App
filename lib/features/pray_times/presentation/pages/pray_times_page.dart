@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/resources/app_sizes.dart';
 import 'package:zad_almumin/core/widget/space/vertical_space.dart';
@@ -16,17 +17,17 @@ class PrayTimesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: 'أوقات الصلاة',
+      title: AppStrings.of(context).prayTimes,
       body: SafeArea(
         child: BlocConsumer<PrayTimesCubit, PrayTimesState>(
           listener: (context, state) {
-            if (state.isLoading) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errorMessage),
-                  backgroundColor: context.theme.colorScheme.error,
-                ),
-              );
+            if (state.errorMessage.isNotEmpty) {
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(state.errorMessage),
+              //     backgroundColor: context.theme.colorScheme.error,
+              //   ),
+              // );
             }
           },
           builder: (context, state) {

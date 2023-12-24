@@ -20,7 +20,7 @@ class GetPrayTimeDataSource implements IGetPrayTimeDataSource {
     if (connectivityResult == AppConnectivityResult.none) {
       throw ServerException('No Internet Connection');
     }
-    String apiUrl = AdhanApi.calender(position: position, date: date);
+    String apiUrl = AdhanApi.timings(position: position, date: date);
     var json = await apiConsumer.get(apiUrl);
     PraiesInDayModel praiesInDayModel = PraiesInDayModel.fromJson(json);
     return praiesInDayModel;

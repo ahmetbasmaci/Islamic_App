@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/features/pray_times/pray_times.dart';
 
 class NextPrevDaysArrows extends StatelessWidget {
   const NextPrevDaysArrows({super.key});
@@ -9,18 +11,11 @@ class NextPrevDaysArrows extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          onPressed: () async {
-            // await prayerTimeCtr.updatePrayerTimes(newTime: prayerTimeCtr.curerntDate.value.add(Duration(days: 1)));
-
-            // setState(() {});
-          },
+          onPressed: () async => await context.read<PrayTimesCubit>().updateNextdayPrayerTimes(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
         IconButton(
-          onPressed: () async {
-            // await prayerTimeCtr.updatePrayerTimes(newTime: prayerTimeCtr.curerntDate.value.subtract(Duration(days: 1)));
-            // setState(() {});
-          },
+          onPressed: () async => await context.read<PrayTimesCubit>().updatePreviosdayPrayerTimes(),
           icon: const Icon(Icons.arrow_forward_ios),
         ),
       ],

@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fajrPray": MessageLookupByLibrary.simpleMessage("Fajr Pray"),
         "fastTitleAlarm": MessageLookupByLibrary.simpleMessage("Fast"),
         "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
+        "friday": MessageLookupByLibrary.simpleMessage("Friday"),
         "gregorianDate": MessageLookupByLibrary.simpleMessage("Gregorian Date"),
         "hadithAndFastReminderDesc": MessageLookupByLibrary.simpleMessage(
             "You can read Hadith and Fast Reminder"),
@@ -86,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("Main"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
+        "monday": MessageLookupByLibrary.simpleMessage("Monday"),
         "mondayFasting": MessageLookupByLibrary.simpleMessage("Monday Fasting"),
         "morningZikr": MessageLookupByLibrary.simpleMessage("Morning Azkars"),
         "mosqueZikr": MessageLookupByLibrary.simpleMessage("Mosque Azkars"),
@@ -120,18 +122,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "readKahfSura": MessageLookupByLibrary.simpleMessage("Read Kahf Sura"),
         "readQueanPageEveryday":
             MessageLookupByLibrary.simpleMessage("Read Quean Page Everyday"),
+        "saturday": MessageLookupByLibrary.simpleMessage("Saturday"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("Sleep Azkars"),
         "sun": MessageLookupByLibrary.simpleMessage("Sun"),
+        "sunday": MessageLookupByLibrary.simpleMessage("Sunday"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "thursday": MessageLookupByLibrary.simpleMessage("Thursday"),
         "thursdayFasting":
             MessageLookupByLibrary.simpleMessage("Thursday Fasting"),
         "toiletZikr": MessageLookupByLibrary.simpleMessage("Toilet Azkars"),
         "travelZikr": MessageLookupByLibrary.simpleMessage("Travel Azkars"),
+        "tuesday": MessageLookupByLibrary.simpleMessage("Tuesday"),
         "updatePrayTimes":
             MessageLookupByLibrary.simpleMessage("Update Pray Times"),
         "wakeUpZikr": MessageLookupByLibrary.simpleMessage("Wake Up Azkars"),
+        "wednesday": MessageLookupByLibrary.simpleMessage("Wednesday"),
         "welcomeToApp":
             MessageLookupByLibrary.simpleMessage("Welcome to Zad Almumin"),
         "youCanListenAHoleQuran": MessageLookupByLibrary.simpleMessage(

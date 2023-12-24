@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
         child: AppScaffold(
           title: AppStrings.of(context).mainPageTitle,
           showSettingsBtn: true,
+          showDrawerBtn: true,
           actions: [
             IconButton(
               onPressed: () => _quranIconClick(),

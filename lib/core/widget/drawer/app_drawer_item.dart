@@ -33,7 +33,7 @@ class AppDrawerItem extends StatelessWidget {
         else
           await NavigatorHelper.pushReplacementNamed(route);
 
-        NavigatorHelper.pop();
+        //NavigatorHelper.pop();
       },
     );
   }

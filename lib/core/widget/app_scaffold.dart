@@ -12,7 +12,7 @@ class AppScaffold extends StatelessWidget {
     this.actions,
     this.floatingActionButton,
     this.showSettingsBtn = false,
-    this.showDrawerBtn = true,
+    this.showDrawerBtn = false,
     this.centerTitle = false,
     this.resizeToAvoidBottomInset = false,
   });

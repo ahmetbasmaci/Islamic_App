@@ -11,15 +11,15 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     // this.bottom,
     this.showSettingsBtn = false,
-    this.showDrawerBtn = true,
+    this.showDrawerBtn = false,
     this.centerTitle = false,
   });
   final String title;
   final Widget? leading;
   final List<Widget>? actions;
-  bool showSettingsBtn = false;
-  bool showDrawerBtn = true;
-  bool centerTitle = false;
+  bool showSettingsBtn;
+  bool showDrawerBtn;
+  bool centerTitle;
   @override
   Size get preferredSize {
     return const Size.fromHeight(kToolbarHeight);

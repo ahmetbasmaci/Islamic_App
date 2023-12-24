@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fajrPray": MessageLookupByLibrary.simpleMessage("صلاة الفجر"),
         "fastTitleAlarm": MessageLookupByLibrary.simpleMessage("الصيام"),
         "favorite": MessageLookupByLibrary.simpleMessage("المفضلة"),
+        "friday": MessageLookupByLibrary.simpleMessage("الجمعة"),
         "gregorianDate":
             MessageLookupByLibrary.simpleMessage("التاريخ الميلادي"),
         "hadithAndFastReminderDesc": MessageLookupByLibrary.simpleMessage(
@@ -88,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maghripPray": MessageLookupByLibrary.simpleMessage("صلاة المغرب"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "medium": MessageLookupByLibrary.simpleMessage("متوسط"),
+        "monday": MessageLookupByLibrary.simpleMessage("الاثنين"),
         "mondayFasting": MessageLookupByLibrary.simpleMessage("صيام الاثنين "),
         "morningZikr": MessageLookupByLibrary.simpleMessage("أذكار الصباح"),
         "mosqueZikr": MessageLookupByLibrary.simpleMessage("أذكارالمسجد"),
@@ -123,17 +125,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("قراءة سورة الكهف"),
         "readQueanPageEveryday": MessageLookupByLibrary.simpleMessage(
             "قراءة صفحة من القرآن الكريم يومياً"),
+        "saturday": MessageLookupByLibrary.simpleMessage("السبت"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("أذكار النوم"),
         "sun": MessageLookupByLibrary.simpleMessage("الشمس"),
+        "sunday": MessageLookupByLibrary.simpleMessage("الأحد"),
         "theme": MessageLookupByLibrary.simpleMessage("الثيم"),
+        "thursday": MessageLookupByLibrary.simpleMessage("الخميس"),
         "thursdayFasting": MessageLookupByLibrary.simpleMessage("صيام الخميس"),
         "toiletZikr": MessageLookupByLibrary.simpleMessage("أذكار الخلاء"),
         "travelZikr": MessageLookupByLibrary.simpleMessage("أذكار السفر"),
+        "tuesday": MessageLookupByLibrary.simpleMessage("الثلاثاء"),
         "updatePrayTimes":
             MessageLookupByLibrary.simpleMessage("تحديث أوقات الصلاة"),
         "wakeUpZikr": MessageLookupByLibrary.simpleMessage("أذكار الاستيقاظ"),
+        "wednesday": MessageLookupByLibrary.simpleMessage("الأربعاء"),
         "welcomeToApp":
             MessageLookupByLibrary.simpleMessage("اهلا بك في تطبيق زاد المؤمن"),
         "youCanListenAHoleQuran": MessageLookupByLibrary.simpleMessage(
