@@ -15,12 +15,12 @@ class AppDrawerItem extends StatelessWidget {
   final BuildContext context;
   final String title;
   final Widget icon;
-  final Routes route;
+  final AppRoutes route;
 
   @override
   Widget build(BuildContext context) {
     bool selected = context.currentRoute!.contains(route.name);
-    bool isHomePage = context.currentRoute!.contains(Routes.home.name);
+    bool isHomePage = context.currentRoute!.contains(AppRoutes.home.name);
     return ListTile(
       leading: icon,
       title: Text(title),

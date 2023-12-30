@@ -65,3 +65,5 @@ enum QuranReaders {
   saoodAlShuraym,
   mahmoudAliAlBanna,
 }
+
+enum DownloadState { notDownloaded, downloading, downloaded }

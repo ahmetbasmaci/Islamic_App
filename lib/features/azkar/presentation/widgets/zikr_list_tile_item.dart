@@ -28,7 +28,7 @@ class ZikrListTileItem extends StatelessWidget {
           trailing: AppIcons.rightArrow,
           onTap: () {
             NavigatorHelper.pushNamed(
-              Routes.azkar,
+              AppRoutes.azkar,
               extra: zikrCategoryModel,
             );
           },

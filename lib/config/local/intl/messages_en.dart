@@ -80,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "homeZikr": MessageLookupByLibrary.simpleMessage("Home Azkars"),
         "isha": MessageLookupByLibrary.simpleMessage("Isha"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
+        "juz": MessageLookupByLibrary.simpleMessage("Juz"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Dark"),
         "low": MessageLookupByLibrary.simpleMessage("Low"),

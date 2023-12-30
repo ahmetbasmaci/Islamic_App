@@ -39,7 +39,7 @@ class AppDrawerHeader extends StatelessWidget {
                 context.read<ThemeCubit>().updateTheme(newThemeBrightness);
                 NavigatorHelper.pop();
               },
-              icon: context.theme.colorScheme.brightness == Brightness.light ? AppIcons.darkMode : AppIcons.lightMode,
+              icon: AppIcons.animatedLightDark(context),
             );
           },
         ),

@@ -18,56 +18,56 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).home,
               icon: AppIcons.home,
-              route: Routes.home,
+              route: AppRoutes.home,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).quran,
               icon: AppIcons.quran,
-              route: Routes.quran,
+              route: AppRoutes.quran,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).alarm,
               icon: AppIcons.alarmOn,
-              route: Routes.alarm,
+              route: AppRoutes.alarm,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).prayTimes,
               icon: AppIcons.prayersTime,
-              route: Routes.prayTimes,
+              route: AppRoutes.prayTimes,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).quranRevidion,
               icon: AppIcons.ayahsTest,
-              route: Routes.home, //TODO
+              route: AppRoutes.home, //TODO
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).muslimZikrs,
               icon: AppIcons.azkar,
-              route: Routes.allAzkars,
+              route: AppRoutes.allAzkars,
             ),
             const Divider(height: 50, thickness: 2),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).favorite,
               icon: AppIcons.favoriteFilled,
-              route: Routes.home, //TODO
+              route: AppRoutes.home, //TODO
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).settings,
               icon: AppIcons.settings,
-              route: Routes.settings,
+              route: AppRoutes.settings,
             ),
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).appDeveloper,
               icon: AppIcons.review,
-              route: Routes.home, //TODO
+              route: AppRoutes.home, //TODO
             ),
           ],
         ),

@@ -16,7 +16,6 @@ class Hadith {
   });
 
   factory Hadith.fromJson(dynamic json) {
-    print('----$json');
     return Hadith(
       hadithId: int.parse(json['hadithId']),
       text: json['text'],

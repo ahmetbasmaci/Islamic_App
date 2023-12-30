@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import '../../../../core/error/failure/failure.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../azkar.dart';
@@ -17,7 +18,7 @@ class AzkarRepository implements IAzkarRepository {
       var result = await zikrCardGetZikrDataSource.getAllZikrModels(zikrCategory);
       return Right(result);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -28,7 +29,7 @@ class AzkarRepository implements IAzkarRepository {
       var result = await zikrCardGetAllahNamesDataSource.getAllahNamesModels();
       return Right(result);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }

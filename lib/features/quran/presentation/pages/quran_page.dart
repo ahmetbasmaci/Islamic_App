@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
+import 'package:zad_almumin/core/helpers/navigator_helper.dart';
+import 'package:zad_almumin/core/utils/app_router.dart';
 import '../../quran.dart';
 
 class QuranPage extends StatefulWidget {
@@ -23,12 +25,11 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
     // _quranCtr.quranPageSetState = (() => setState(() {}));
 
-    // _quranCtr.setCurrentPage(this);
+    context.read<QuranCubit>().setCurrentPage(this);
 
     // _quranCtr.changeOnShownState(false);
 
-    // _quranCtr.tabCtr.addListener(() => _quranCtr.updateCurrentPageCtr());
-
+    context.read<QuranCubit>().setTabCtrListener();
     // JsonService.loadQuranData();
   }
 
@@ -36,38 +37,30 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return BlocBuilder<QuranCubit, QuranState>(
       builder: (context, state) {
-        return PopScope(
-          key: UniqueKey(),
-          onPopInvoked: (didPop) async {
-            //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-            //_quranCtr.changeOnShownState(true);
-            // Get.offAll(HomePage());
-            // return false;
-          },
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            // key: AppSettings.scaffoldKey,
-            //  endDrawer: MyEndDrawer(),
-            body: Stack(
-              children: [
-                SafeArea(
-                  child: SizedBox(
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: DefaultTabController(
-                        length: 604,
-                        child: TabBarView(
-                          //controller: _quranCtr.tabCtr,
-                          children: quranBodys(),
-                        ),
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          // key: AppSettings.scaffoldKey,
+          //  endDrawer: MyEndDrawer(),
+          body: Stack(
+            children: [
+              SafeArea(
+                child: SizedBox(
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: DefaultTabController(
+                      length: 604,
+                      child: TabBarView(
+                        controller: context.read<QuranCubit>().tabCtr,
+                        children: quranBodys(),
                       ),
                     ),
                   ),
                 ),
-                // QuranPageUp(quranPageSetState: (() => setState(() {}))),
-                // QuranPageFooter(),
-              ],
-            ),
+              ),
+
+              QuranPageTop(),
+              // QuranPageFooter(),
+            ],
           ),
         );
       },
@@ -87,12 +80,12 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
         QuranBanner(
           isMarked: isMarked,
           child: InkWell(
-            onTap: () => () {}, // _quranCtr.pagePressed(),
+            onTap: () => context.read<QuranCubit>().pagePressed(),
             onLongPress: () => () {}, // _quranCtr.showMarkDialog(),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 600),
               color: context.backgroundColor,
-              child: context.read<QuranCubit>().showQuranImages
+              child: context.read<QuranCubit>().state.showQuranImages
                   ? QuranPageBodyImages(page: page)
                   : QuranPageBodyTexts(page: page),
             ),

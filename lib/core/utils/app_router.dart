@@ -15,7 +15,7 @@ import '../../features/splash/pages/splash_page.dart';
 import '../../src/injection_container.dart';
 import 'constants.dart';
 
-enum Routes {
+enum AppRoutes {
   root("/Splash"),
   splash("/Splash"),
 
@@ -33,7 +33,7 @@ enum Routes {
   quran("/quran"),
   ;
 
-  const Routes(this.path);
+  const AppRoutes(this.path);
   final String path;
 }
 
@@ -48,60 +48,60 @@ GoRouter appRouter = GoRouter(
     //   redirect: (_, __) => Routes.signIn.path,
     // ),
     GoRoute(
-      path: Routes.root.path,
-      name: Routes.root.name,
+      path: AppRoutes.root.path,
+      name: AppRoutes.root.name,
       builder: (context, state) => SplashPage(),
     ),
     GoRoute(
-      path: Routes.onboarding.path,
-      name: Routes.onboarding.name,
+      path: AppRoutes.onboarding.path,
+      name: AppRoutes.onboarding.name,
       builder: (context, state) => const Onboardingpage(),
     ),
     GoRoute(
-      path: Routes.home.path,
-      name: Routes.home.name,
+      path: AppRoutes.home.path,
+      name: AppRoutes.home.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<HomeCubit>(),
         child: const HomePage(),
       ),
     ),
     GoRoute(
-      path: Routes.settings.path,
-      name: Routes.settings.name,
+      path: AppRoutes.settings.path,
+      name: AppRoutes.settings.name,
       builder: (context, state) => const SettingsPage(),
     ),
     GoRoute(
-      path: Routes.azkar.path,
-      name: Routes.azkar.name,
+      path: AppRoutes.azkar.path,
+      name: AppRoutes.azkar.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<AzkarCubit>(),
         child: AzkarPage(zikrCategoryModel: state.extra as ZikrCategoryModel),
       ),
     ),
     GoRoute(
-      path: Routes.allAzkars.path,
-      name: Routes.allAzkars.name,
+      path: AppRoutes.allAzkars.path,
+      name: AppRoutes.allAzkars.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<AzkarCubit>(),
         child: const AllAzkarsPage(),
       ),
     ),
     GoRoute(
-      path: Routes.alarm.path,
-      name: Routes.alarm.name,
+      path: AppRoutes.alarm.path,
+      name: AppRoutes.alarm.name,
       builder: (context, state) => BlocProvider(
         create: (context) => sl<AlarmCubit>(),
         child: const AlarmPage(),
       ),
     ),
     GoRoute(
-      path: Routes.prayTimes.path,
-      name: Routes.prayTimes.name,
+      path: AppRoutes.prayTimes.path,
+      name: AppRoutes.prayTimes.name,
       builder: (context, state) => const PrayTimesPage(),
     ),
     GoRoute(
-      path: Routes.quran.path,
-      name: Routes.quran.name,
+      path: AppRoutes.quran.path,
+      name: AppRoutes.quran.name,
       builder: (context, state) => QuranPage(),
     ),
   ],

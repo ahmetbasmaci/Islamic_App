@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import '../../quran.dart';
@@ -9,12 +10,12 @@ import '../../quran.dart';
 class QuranPageBodyTexts extends StatelessWidget {
   QuranPageBodyTexts({super.key, this.page = 0});
   final int page;
-  late final QuranCubit quranCubit;
-  late final BuildContext context;
+  late QuranCubit quranCubit;
+  late BuildContext ctx;
   @override
   Widget build(BuildContext context) {
     quranCubit = context.read<QuranCubit>();
-    context = context;
+    ctx = context;
     return Container(
       padding: EdgeInsets.only(left: context.width * 0.04, right: context.width * 0.04, bottom: context.height * 0.01),
       constraints: BoxConstraints(minHeight: context.height),
@@ -32,19 +33,19 @@ class QuranPageBodyTexts extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: context.width * 0.02),
+        padding: EdgeInsets.symmetric(horizontal: ctx.width * 0.02),
         height: kToolbarHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${'الجُزْءُ'}   ${quranCubit.selectedPage.juz.arabicNumber}',
+              '${AppStrings.of(ctx).juz}   ${quranCubit.state.selectedPage.juz.arabicNumber}',
               // fontSize: 20,
               // fontWeight: FontWeight.bold,
               // color: MyColors.quranPrimary,
             ),
             Text(
-              quranCubit.selectedPage.surahName,
+              quranCubit.state.selectedPage.surahName,
               // fontSize: 20,
               // fontWeight: FontWeight.bold,
               // color: MyColors.quranPrimary,
@@ -58,7 +59,7 @@ class QuranPageBodyTexts extends StatelessWidget {
   Widget quranBodyPart() {
     List<Ayah> ayahs = quranCubit.getAyahsInCurrentPage();
 
-    return quranCubit.showTafseerPage ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
+    return quranCubit.state.showTafseerPage ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
   }
 
   Widget getQuranTafseePart(List<Ayah> ayahs) {
@@ -81,8 +82,8 @@ class QuranPageBodyTexts extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                            color: quranCubit.selectedAyah.ayahNumber == ayah.ayahNumber &&
-                                    quranCubit.selectedAyah.surahNumber == ayah.surahNumber
+                            color: quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
+                                    quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
                                 ? context.primaryColor.withOpacity(0.5)
                                 : ayah.isMarked
                                     ? context.theme.colorScheme.secondary.withOpacity(0.2)
@@ -119,7 +120,7 @@ class QuranPageBodyTexts extends StatelessWidget {
       textDirection: TextDirection.rtl,
       text: TextSpan(
         children: textSpanChildredn,
-        style: AppStyles.content(context).copyWith(fontSize: quranCubit.quranFontSize),
+        style: AppStyles.content(ctx).copyWith(fontSize: quranCubit.state.quranFontSize),
       ),
     );
   }
@@ -136,10 +137,10 @@ class QuranPageBodyTexts extends StatelessWidget {
                   children: [
                     Image.asset(
                       AppImages.surahHeader,
-                      height: quranCubit.quranFontSize * 1.6,
+                      height: quranCubit.state.quranFontSize * 1.6,
                       width: double.maxFinite,
                       fit: BoxFit.fill,
-                      color: context.primaryColor.withOpacity(0.5),
+                      color: ctx.primaryColor.withOpacity(0.5),
                     ),
                     Center(
                       heightFactor: .9,
@@ -174,13 +175,13 @@ class QuranPageBodyTexts extends StatelessWidget {
         wordSpacing: -1,
         // color: MyColors.whiteBlack,
         background: Paint()
-          ..color = quranCubit.showTafseerPage
+          ..color = quranCubit.state.showTafseerPage
               ? Colors.transparent
-              : quranCubit.selectedAyah.ayahNumber == ayah.ayahNumber &&
-                      quranCubit.selectedAyah.surahNumber == ayah.surahNumber
-                  ? context.primaryColor.withOpacity(0.2)
+              : quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
+                      quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
+                  ? ctx.primaryColor.withOpacity(0.2)
                   : ayah.isMarked
-                      ? context.theme.colorScheme.secondary.withOpacity(0.2)
+                      ? ctx.theme.colorScheme.secondary.withOpacity(0.2)
                       : Colors.transparent
           ..strokeJoin = StrokeJoin.round
           ..strokeCap = StrokeCap.round
@@ -194,10 +195,10 @@ class QuranPageBodyTexts extends StatelessWidget {
             wordSpacing: 0,
             fontWeight: FontWeight.bold,
             fontFamily: AppFonts.uthmanic2.name,
-            color: context.primaryColor,
+            color: ctx.primaryColor,
           ),
         ),
-        quranCubit.showTafseerPage
+        quranCubit.state.showTafseerPage
             ? WidgetSpan(
                 child: Container(
                   color: Colors.red,
@@ -243,7 +244,7 @@ class QuranPageBodyTexts extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: context.height * 0.03,
+        height: ctx.height * 0.03,
         child: Center(
           child: Text(
             page.arabicNumber,

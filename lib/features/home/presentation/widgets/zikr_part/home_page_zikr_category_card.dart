@@ -42,7 +42,7 @@ class HomePageZikrCategoryCard extends StatelessWidget {
         ),
         onTap: () {
           NavigatorHelper.pushNamed(
-            Routes.azkar,
+            AppRoutes.azkar,
             extra: zikrCategoryModel,
           );
         },

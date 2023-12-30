@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import '../../../../core/utils/enums/enums.dart';
 
-class SelectedPageInfo {
+class SelectedPageInfo extends Equatable {
   final int juz;
   final int pageNumber;
   final int surahNumber;
@@ -42,4 +44,50 @@ class SelectedPageInfo {
         repeetAyahCount = 1,
         isUnlimitRepeatAll = false,
         isUnlimitRepeatAyah = false;
+
+  SelectedPageInfo copyWith({
+    int? juz,
+    int? pageNumber,
+    int? surahNumber,
+    String? surahName,
+    int? startAyahNum,
+    int? endAyahNum,
+    int? totalAyahsNum,
+    QuranReaders? selectedQuranReader,
+    int? repeetAllCount,
+    int? repeetAyahCount,
+    bool? isUnlimitRepeatAll,
+    bool? isUnlimitRepeatAyah,
+  }) {
+    return SelectedPageInfo(
+      juz: juz ?? this.juz,
+      pageNumber: pageNumber ?? this.pageNumber,
+      surahNumber: surahNumber ?? this.surahNumber,
+      surahName: surahName ?? this.surahName,
+      startAyahNum: startAyahNum ?? this.startAyahNum,
+      endAyahNum: endAyahNum ?? this.endAyahNum,
+      totalAyahsNum: totalAyahsNum ?? this.totalAyahsNum,
+      selectedQuranReader: selectedQuranReader ?? this.selectedQuranReader,
+      repeetAllCount: repeetAllCount ?? this.repeetAllCount,
+      repeetAyahCount: repeetAyahCount ?? this.repeetAyahCount,
+      isUnlimitRepeatAll: isUnlimitRepeatAll ?? this.isUnlimitRepeatAll,
+      isUnlimitRepeatAyah: isUnlimitRepeatAyah ?? this.isUnlimitRepeatAyah,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        juz,
+        pageNumber,
+        surahNumber,
+        surahName,
+        startAyahNum,
+        endAyahNum,
+        totalAyahsNum,
+        selectedQuranReader,
+        repeetAllCount,
+        repeetAyahCount,
+        isUnlimitRepeatAll,
+        isUnlimitRepeatAyah,
+      ];
 }

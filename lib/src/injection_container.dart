@@ -12,6 +12,7 @@ import '../features/azkar/azkar.dart';
 import '../features/home/home.dart';
 import '../features/locale/locale.dart';
 import '../features/pray_times/pray_times.dart';
+import '../features/quran/quran.dart';
 import '../features/theme/theme.dart';
 
 final sl = GetIt.instance;
@@ -148,11 +149,21 @@ Future _initPrayTimes() async {
 
 Future _initQuran() async {
 //!DataSource
+  sl.registerLazySingleton<IQuranDataDataSource>(() => QuranDataDataSource(
+        localStorage: sl(),
+      ));
 
   //!Repository
+  sl.registerLazySingleton<IQuranDataRepository>(
+    () => QuranDataRepository(
+      quranDataDataSource: sl(),
+    ),
+  );
 
   //!usecase
 
   //!Cubit
-  sl.registerFactory(() => QuranCubit());
+  sl.registerFactory(() => QuranCubit(
+        quranDataRepository: sl(),
+      ));
 }

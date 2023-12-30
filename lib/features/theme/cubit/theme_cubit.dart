@@ -26,4 +26,12 @@ class ThemeCubit extends Cubit<ThemeState> {
 
     emit(ThemeState(themeData));
   }
+
+  void triggerTheme() {
+    if (state.theme.brightness == Brightness.dark) {
+      updateTheme(Brightness.light);
+    } else {
+      updateTheme(Brightness.dark);
+    }
+  }
 }

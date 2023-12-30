@@ -91,10 +91,10 @@ class _OnboardingpageState extends State<Onboardingpage> {
   }
 
   void _onDonePress(BuildContext context) {
-    NavigatorHelper.pushReplacementNamed(Routes.home);
+    NavigatorHelper.pushReplacementNamed(AppRoutes.home);
   }
 
   void _onSkipPress(BuildContext context) {
-    NavigatorHelper.pushReplacementNamed(Routes.home);
+    NavigatorHelper.pushReplacementNamed(AppRoutes.home);
   }
 }

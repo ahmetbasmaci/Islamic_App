@@ -17,7 +17,7 @@ class ThemeListTile extends StatelessWidget {
         return ListTile(
           title: Text(AppStrings.of(context).theme),
           subtitle: Text(AppStrings.of(context).changeTheme),
-          leading: context.theme.colorScheme.brightness == Brightness.light ? AppIcons.darkMode : AppIcons.lightMode,
+          leading: AppIcons.animatedLightDark(context),
           trailing: DropdownButton<Brightness>(
             value: state.theme.brightness,
             onChanged: (Brightness? newValue) {

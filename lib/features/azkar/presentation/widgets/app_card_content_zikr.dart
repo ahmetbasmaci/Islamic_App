@@ -92,7 +92,7 @@ class AppCardContentZikr extends StatelessWidget {
                     try {
                       setState(() {});
                     } catch (e) {
-                      print("ERROR IN ZIKR CARD: $e");
+                      debugPrint(e.toString());
                     }
                   }
                 : null,

@@ -4,4 +4,5 @@ class StorageKeys {
   static const isFirstTime = 'isFirstTime';
   static const lastOpendPagePath = 'lastOpendPagePath';
   static const allAlarmParts = 'allAlarmParts';
+  static const pageIndex = 'pageIndex';
 }

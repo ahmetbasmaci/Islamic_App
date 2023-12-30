@@ -39,7 +39,7 @@ class Ayah {
   bool isBasmalah = false;
   bool isMarked = false;
 
-  factory Ayah.fromJson(Map<String, dynamic> json) {
+  factory Ayah.fromJson(dynamic json) {
     return Ayah(
       ayahNumber: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
@@ -51,7 +51,7 @@ class Ayah {
       surahName: json['surah'] ?? '',
       surahNumber: 0,
       isBasmalah: json['text'].toString().isBasmalah,
-      isMarked: false,
+      isMarked:  json['markedAyah'],
     );
   }
 }

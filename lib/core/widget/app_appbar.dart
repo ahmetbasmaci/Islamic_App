@@ -68,7 +68,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   IconButton _settingsPageButton(BuildContext context) {
     return IconButton(
       icon: AppIcons.settings,
-      onPressed: () => NavigatorHelper.pushNamed(Routes.settings),
+      onPressed: () => NavigatorHelper.pushNamed(AppRoutes.settings),
     );
   }
 

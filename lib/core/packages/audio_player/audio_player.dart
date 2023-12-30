@@ -100,7 +100,7 @@ class AudioPlayer {
 
       _audioCtr.assetsAudioPlayer.playlistPlayAtIndex(quranPageCtr.selectedPage.startAyahNum.value - 1);
     } catch (e) {
-      print(e);
+      debugPrint(e.tostring());
     }
   }
 
@@ -149,13 +149,13 @@ class AudioPlayer {
     });
     AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
       //custom action
-      print("setupNotificationsOpenAction action");
+      debugPrint("setupNotificationsOpenAction action");
       return true; //true : handled, does not notify others listeners
       //false : enable others listeners to handle it
     });
     AssetsAudioPlayer.addNotificationOpenAction((notification) {
       //custom action
-      print("addNotificationOpenAction action");
+      debugPrint('addNotificationOpenAction action');
       return false; //true : handled, does not notify others listeners
       //false : enable others listeners to handle it
     });

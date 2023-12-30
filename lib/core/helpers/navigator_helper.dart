@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 
 class NavigatorHelper {
   static Future<void> pushNamed(
-    Routes route, {
+    AppRoutes route, {
     Map<String, String>? arguments,
     Object? extra,
   }) async {
@@ -18,7 +18,7 @@ class NavigatorHelper {
   }
 
   static Future<void> pushReplacementNamed(
-    Routes route, {
+    AppRoutes route, {
     Map<String, String>? arguments,
     Object? extra,
   }) async {

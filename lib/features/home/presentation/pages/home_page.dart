@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _quranIconClick() {
-    NavigatorHelper.pushReplacementNamed(Routes.quran);
+    NavigatorHelper.pushReplacementNamed(AppRoutes.quran);
   }
 
   Future<void> _refereshIndecatorEvent() async {
     await Future.delayed(const Duration(seconds: 1));
-    NavigatorHelper.pushReplacementNamed(Routes.home);
+    NavigatorHelper.pushReplacementNamed(AppRoutes.home);
   }
 }

@@ -9,9 +9,8 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
-
   void updateLastOpenedPageId() {
-    PagesHelper.setLastOpendPageId(Routes.home);
+    PagesHelper.setLastOpendPageId(AppRoutes.home);
   }
 
   void updatePrayerTimesOnLoad() {
