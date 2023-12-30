@@ -18,7 +18,7 @@ class AppCard extends StatelessWidget {
       margin: useMargin ? const EdgeInsets.all(10) : null,
       decoration: AppCardDecoration(
         boxShadow_: boxShadow,
-        color_: context.backgroundColor,
+        color_: context.themeColors.background,
       ),
       child: child,
     );

@@ -27,7 +27,7 @@ class PrayTimeLeftCard extends StatelessWidget {
 
   BoxDecoration _cardDecoration(BuildContext context) {
     return BoxDecoration(
-      color: context.backgroundColor,
+      color: context.themeColors.background,
       borderRadius: BorderRadius.circular(100),
       boxShadow: [
         BoxShadow(
@@ -36,7 +36,7 @@ class PrayTimeLeftCard extends StatelessWidget {
           offset: const Offset(0, -3),
         ),
         BoxShadow(
-          color: context.primaryColor,
+          color: context.themeColors.primary,
           blurRadius: 6,
           offset: const Offset(0, 6),
         ),

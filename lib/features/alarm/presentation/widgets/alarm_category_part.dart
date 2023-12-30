@@ -112,7 +112,7 @@ class AlarmCategoryPart extends StatelessWidget {
                     TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
-                        iconColor: isSelected ? context.primaryColor : null,
+                        iconColor: isSelected ? context.themeColors.primary : null,
                       ),
                       onPressed: null,
                       child: AppIcons.leftArrow,
@@ -120,7 +120,7 @@ class AlarmCategoryPart extends StatelessWidget {
                     Text(
                       e.translatedName,
                       style: AppStyles.title2(context).copyWith(
-                        color: isSelected ? context.primaryColor : null,
+                        color: isSelected ? context.themeColors.primary : null,
                       ),
                     ),
                   ],

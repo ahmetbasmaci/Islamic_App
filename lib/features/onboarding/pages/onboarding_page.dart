@@ -28,7 +28,7 @@ class _OnboardingpageState extends State<Onboardingpage> {
       body: Directionality(
         textDirection: TextDirection.ltr,
         child: IntroSlider(
-          backgroundColorAllTabs: context.backgroundColor,
+          backgroundColorAllTabs: context.themeColors.background,
           listContentConfig: pages,
           renderDoneBtn: _textButton(AppStrings.of(context).done),
           renderNextBtn: _textButton(AppStrings.of(context).next),
@@ -40,7 +40,7 @@ class _OnboardingpageState extends State<Onboardingpage> {
           isShowNextBtn: true,
           indicatorConfig: IndicatorConfig(
             colorIndicator: Colors.grey,
-            colorActiveIndicator: context.primaryColor,
+            colorActiveIndicator: context.themeColors.primary,
             sizeIndicator: 10.5,
             typeIndicatorAnimation: TypeIndicatorAnimation.sliding,
           ),

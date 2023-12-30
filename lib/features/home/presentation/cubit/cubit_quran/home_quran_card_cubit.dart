@@ -1,43 +1,38 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/quran/quran_card_model.dart';
+import '../../../../../core/utils/params/params.dart';
+import '../../../home.dart';
 
 part 'home_quran_card_state.dart';
 
 class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {
-  HomeQuranCardCubit() : super(HomeQuranCardInitialState());
+  final HomeCardGetRandomAyahUseCase homeCardGetRandomAyahUseCase;
+  final HomeCardGetNextAyahUseCase homeCardGetNextAyahUseCase;
+  HomeQuranCardCubit({required this.homeCardGetRandomAyahUseCase, required this.homeCardGetNextAyahUseCase})
+      : super(HomeQuranCardInitialState());
 
   Future<void> getRandomAyah() async {
-    //TODO implement real code
     emit(HomeQuranCardLoadingState());
-    await Future.delayed(const Duration(seconds: 1));
-
-    emit(
-      HomeQuranCardLoadedState(
-        quranCardModel: QuranCardModel(
-          content: 'Ayha content',
-          ayahNumber: 1,
-          surahNumber: 1,
-          isFavorite: false,
-        ),
-      ),
+    var result = await homeCardGetRandomAyahUseCase.call(NoParams());
+    result.fold(
+      (l) => emit(HomeQuranCardErrorState(message: l.message)),
+      (ayah) {
+        QuranCardModel quranCardModel = QuranCardModel.fromAyahModel(ayah);
+        emit(HomeQuranCardLoadedState(quranCardModel: quranCardModel));
+      },
     );
   }
 
   Future<void> getNextAyah(int surahNumber, int ayahNumber) async {
-    //TODO implement real code
     emit(HomeQuranCardLoadingState());
-    await Future.delayed(const Duration(seconds: 1));
-
-    emit(
-      HomeQuranCardLoadedState(
-        quranCardModel: QuranCardModel(
-          content: 'Ayha content',
-          ayahNumber: 1,
-          surahNumber: 1,
-          isFavorite: false,
-        ),
-      ),
+    var result =
+        await homeCardGetNextAyahUseCase.call(GetNextAyahParams(ayahNumber: ayahNumber + 1, surahNumber: surahNumber));
+    result.fold(
+      (l) => emit(HomeQuranCardErrorState(message: l.message)),
+      (ayah) {
+        QuranCardModel quranCardModel = QuranCardModel.fromAyahModel(ayah);
+        emit(HomeQuranCardLoadedState(quranCardModel: quranCardModel));
+      },
     );
   }
 }

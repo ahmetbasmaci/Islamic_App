@@ -15,7 +15,7 @@ class AppDrawerHeader extends StatelessWidget {
     return UserAccountsDrawerHeader(
       accountName: Text(
         AppStrings.of(context).programSections,
-        style: AppStyles.title(context).copyWith(color: context.backgroundColor),
+        style: AppStyles.title(context).copyWith(color: context.themeColors.background),
       ),
       accountEmail: Container(),
       otherAccountsPicturesSize: const Size.square(60),
@@ -29,7 +29,7 @@ class AppDrawerHeader extends StatelessWidget {
           ? EdgeInsets.only(left: context.width * 0.055)
           : EdgeInsets.only(right: context.width * 0.055),
       child: CircleAvatar(
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.themeColors.background,
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return IconButton(

@@ -41,6 +41,8 @@ class AppIcons {
   static Icon letter = const Icon(Icons.font_download_off_rounded);
   static Icon letterSize = const Icon(CupertinoIcons.textformat_size);
   static Icon tafseer = const Icon(Icons.my_library_books_rounded);
+  static Icon close = const Icon(Icons.close);
+  static Icon info = const Icon(Icons.info_outline);
 
   static Widget animatedQuranImages(bool isImages) {
     return AnimatedCrossFade(
@@ -56,6 +58,16 @@ class AppIcons {
       duration: const Duration(milliseconds: 200),
       firstChild: lightMode,
       secondChild: darkMode,
+      crossFadeState:
+          context.theme.brightness == Brightness.light ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+  }
+
+  static Widget animatedPlayPause(BuildContext context) {
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 200),
+      firstChild: audioPlay,
+      secondChild: audioPause,
       crossFadeState:
           context.theme.brightness == Brightness.light ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );

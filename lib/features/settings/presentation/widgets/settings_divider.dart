@@ -6,6 +6,6 @@ class SettingsDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(color: context.primaryColor);
+    return Divider(color: context.themeColors.primary);
   }
 }

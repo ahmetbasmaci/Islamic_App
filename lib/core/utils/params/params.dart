@@ -40,3 +40,12 @@ class GetPrayTimeParams extends Equatable {
   @override
   List<Object?> get props => [position, date];
 }
+class GetNextAyahParams extends Equatable {
+  final int ayahNumber;
+  final int surahNumber;
+
+  const GetNextAyahParams({required this.ayahNumber, required this.surahNumber});
+  @override
+  List<Object?> get props => [ayahNumber, surahNumber];
+  
+}

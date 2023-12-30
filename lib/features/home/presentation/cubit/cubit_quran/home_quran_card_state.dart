@@ -17,4 +17,10 @@ class HomeQuranCardLoadedState extends HomeQuranCardState {
   HomeQuranCardLoadedState({required this.quranCardModel});
 }
 
+class HomeQuranCardErrorState extends HomeQuranCardState {
+  String message;
+
+  HomeQuranCardErrorState({required this.message});
+}
+
 class HomeQuranCardAudioPlayingState extends HomeQuranCardState {}

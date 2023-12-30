@@ -5,6 +5,6 @@ class HorizontalSpace extends StatelessWidget {
   final double width;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: width);
+    return SizedBox(width: width);
   }
 }

@@ -5,13 +5,13 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
-import '../../quran.dart';
+import '../../../quran.dart';
 
 class QuranPageBodyTexts extends StatelessWidget {
   QuranPageBodyTexts({super.key, this.page = 0});
   final int page;
   late QuranCubit quranCubit;
-  late BuildContext ctx;
+  late BuildContext ctx; //TODO remove this
   @override
   Widget build(BuildContext context) {
     quranCubit = context.read<QuranCubit>();
@@ -21,15 +21,15 @@ class QuranPageBodyTexts extends StatelessWidget {
       constraints: BoxConstraints(minHeight: context.height),
       child: Column(
         children: [
-          quranUpPart(),
-          Expanded(child: quranBodyPart()),
-          footerPart(),
+          quranTextUpPart(),
+          Expanded(child: quranBodyPart(page)),
+          quranTextFooterPart(),
         ],
       ),
     );
   }
 
-  Widget quranUpPart() {
+  Widget quranTextUpPart() {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -39,13 +39,13 @@ class QuranPageBodyTexts extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${AppStrings.of(ctx).juz}   ${quranCubit.state.selectedPage.juz.arabicNumber}',
+              '${AppStrings.of(ctx).juz}   ${quranCubit.state.selectedPageInfo.juz.arabicNumber}',
               // fontSize: 20,
               // fontWeight: FontWeight.bold,
               // color: MyColors.quranPrimary,
             ),
             Text(
-              quranCubit.state.selectedPage.surahName,
+              quranCubit.state.selectedPageInfo.surahName,
               // fontSize: 20,
               // fontWeight: FontWeight.bold,
               // color: MyColors.quranPrimary,
@@ -56,8 +56,8 @@ class QuranPageBodyTexts extends StatelessWidget {
     );
   }
 
-  Widget quranBodyPart() {
-    List<Ayah> ayahs = quranCubit.getAyahsInCurrentPage();
+  Widget quranBodyPart(int page) {
+    List<Ayah> ayahs = quranCubit.getAyahsInPage(page);
 
     return quranCubit.state.showTafseerPage ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
   }
@@ -84,7 +84,7 @@ class QuranPageBodyTexts extends StatelessWidget {
                             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
                             color: quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
                                     quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
-                                ? context.primaryColor.withOpacity(0.5)
+                                ? context.themeColors.primary.withOpacity(0.5)
                                 : ayah.isMarked
                                     ? context.theme.colorScheme.secondary.withOpacity(0.2)
                                     : Colors.transparent,
@@ -137,17 +137,17 @@ class QuranPageBodyTexts extends StatelessWidget {
                   children: [
                     Image.asset(
                       AppImages.surahHeader,
-                      height: quranCubit.state.quranFontSize * 1.6,
+                      height: quranCubit.state.quranFontSize * 1.2,
                       width: double.maxFinite,
                       fit: BoxFit.fill,
-                      color: ctx.primaryColor.withOpacity(0.5),
+                      color: ctx.themeColors.primary.withOpacity(0.8),
                     ),
                     Center(
-                      heightFactor: .9,
+                      heightFactor: 1.5,
                       child: Text(
                         ayah.surahName,
-                        // textAlign: TextAlign.center,
-                        // fontSize: _quranCtr.quranFontSize.value * 1.05,
+                        textAlign: TextAlign.center,
+                        //fontSize: quranCubit.state.quranFontSize.value * 1.05,
                         // fontWeight: FontWeight.bold,
                         // color: MyColors.primary,
                       ),
@@ -159,8 +159,8 @@ class QuranPageBodyTexts extends StatelessWidget {
           ),
           Image.asset(
             AppImages.bismillah,
-            // height: _quranCtr.quranFontSize.value * 1.6,
-            // color: MyColors.whiteBlack,
+            height: quranCubit.state.quranFontSize * 2,
+            color: ctx.themeColors.onBackground,
           ),
         ],
       ),
@@ -171,15 +171,13 @@ class QuranPageBodyTexts extends StatelessWidget {
     return TextSpan(
       text: ayah.text,
       style: TextStyle(
-        fontWeight: ayah.isBasmalah ? FontWeight.bold : null,
         wordSpacing: -1,
-        // color: MyColors.whiteBlack,
         background: Paint()
           ..color = quranCubit.state.showTafseerPage
               ? Colors.transparent
               : quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
                       quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
-                  ? ctx.primaryColor.withOpacity(0.2)
+                  ? ctx.themeColors.primary.withOpacity(0.2)
                   : ayah.isMarked
                       ? ctx.theme.colorScheme.secondary.withOpacity(0.2)
                       : Colors.transparent
@@ -195,7 +193,7 @@ class QuranPageBodyTexts extends StatelessWidget {
             wordSpacing: 0,
             fontWeight: FontWeight.bold,
             fontFamily: AppFonts.uthmanic2.name,
-            color: ctx.primaryColor,
+            color: ctx.themeColors.primary,
           ),
         ),
         quranCubit.state.showTafseerPage
@@ -240,7 +238,7 @@ class QuranPageBodyTexts extends StatelessWidget {
   */
   }
 
-  Widget footerPart() {
+  Widget quranTextFooterPart() {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(

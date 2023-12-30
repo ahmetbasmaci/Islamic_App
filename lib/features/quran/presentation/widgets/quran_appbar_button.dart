@@ -8,12 +8,14 @@ class QuranAppbarButton extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuranCubit, QuranState>(builder: (context, state) {
-      return AnimatedOpacity(
-        opacity: context.read<QuranCubit>().state.topFooterPartIsVisable ? 1 : 0,
-        duration: const Duration(milliseconds: 100),
-        child: child,
-      );
-    });
+    return BlocBuilder<QuranCubit, QuranState>(
+      builder: (context, state) {
+        return AnimatedOpacity(
+          opacity: context.read<QuranCubit>().state.showTopFooterPart ? 1 : 0,
+          duration: const Duration(milliseconds: 100),
+          child: child,
+        );
+      },
+    );
   }
 }

@@ -1,26 +1,49 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/resources/app_fonts.dart';
+import 'theme_colors.dart';
 
 class AppThemes {
   static List<ThemeData> themes = [_light, _dark].toList();
+  static final ThemeColors lightColor = ThemeColors(
+    background: const Color(0xFFf5f5f5),
+    primary: const Color(0xFFee4e02),
+    secondary: const Color(0xFF02a3ee),
+    third: const Color(0xFFa3ee02),
+    succes: const Color(0xFF02ee4d),
+    error: const Color(0xFFee022d),
+    warning: const Color(0xFFeec302),
+  );
+  static final ThemeColors darkColor = ThemeColors(
+    background: const Color(0xFF262626),
+    primary: const Color(0xFFee4e02),
+    secondary: const Color(0xFF02a3ee),
+    third: const Color(0xFFa3ee02),
+    succes: const Color(0xFF02ee4d),
+    error: const Color(0xFFee022d),
+    warning: const Color(0xFFeec302),
+  );
 
-  static const Color _lightPrimaryColor = Color.fromARGB(255, 27, 96, 30);
-  static const Color _lightErrorColor = Color.fromARGB(255, 145, 58, 3);
-  static const Color _darkPrimaryColor = Color.fromARGB(255, 37, 74, 38);
   static final ThemeData _light = ThemeData(
-    colorScheme: const ColorScheme.light(
-      primary: _lightPrimaryColor,
-      error: _lightErrorColor,
+    colorScheme: ColorScheme.light(
+      primary: lightColor.primary,
+      error: lightColor.error,
+      secondary: lightColor.secondary,
+      background: lightColor.background,
     ),
-    iconTheme: _appIconThemeData(_lightPrimaryColor),
-    iconButtonTheme: _appIconButtonThemeData(_lightPrimaryColor),
+    iconTheme: _appIconThemeData(lightColor.primary),
+    iconButtonTheme: _appIconButtonThemeData(lightColor.primary),
     textTheme: _appTextTheme,
   );
 
   static final ThemeData _dark = ThemeData(
-    colorScheme: const ColorScheme.dark(primary: _darkPrimaryColor),
-    iconTheme: _appIconThemeData(_darkPrimaryColor),
-    iconButtonTheme: _appIconButtonThemeData(_darkPrimaryColor),
+    colorScheme: ColorScheme.dark(
+      primary: darkColor.primary,
+      error: darkColor.error,
+      secondary: darkColor.secondary,
+      background: darkColor.background,
+    ),
+    iconTheme: _appIconThemeData(darkColor.primary),
+    iconButtonTheme: _appIconButtonThemeData(darkColor.primary),
     textTheme: _appTextTheme,
   );
   static IconThemeData _appIconThemeData(Color primaryColor) {

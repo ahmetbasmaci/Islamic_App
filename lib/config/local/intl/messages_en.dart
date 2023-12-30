@@ -22,17 +22,34 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "FontType": MessageLookupByLibrary.simpleMessage("Font Type"),
+        "abdulBased": MessageLookupByLibrary.simpleMessage("AbdulBased"),
+        "abdullaahAwwaad":
+            MessageLookupByLibrary.simpleMessage("Abdullaah Awwaad"),
+        "abdullahBasfar":
+            MessageLookupByLibrary.simpleMessage("Abdullah Basfar"),
+        "abuBakrAlshatiri":
+            MessageLookupByLibrary.simpleMessage("Abu Bakr Alshatiri"),
+        "addBookMark": MessageLookupByLibrary.simpleMessage("Add Book Mark"),
+        "ahmedAlajamy": MessageLookupByLibrary.simpleMessage("Ahmed Alajamy"),
+        "ahmedNeana": MessageLookupByLibrary.simpleMessage("Ahmed Neana"),
+        "akramAlALqimy": MessageLookupByLibrary.simpleMessage("Akram AlALqimy"),
+        "alafasi": MessageLookupByLibrary.simpleMessage("Alafasi"),
         "alarm": MessageLookupByLibrary.simpleMessage("Alarm"),
         "alarmActivated":
             MessageLookupByLibrary.simpleMessage("Alarm Activated"),
         "alarmDeactivated":
             MessageLookupByLibrary.simpleMessage("Alarm Deactivated"),
+        "alhasri": MessageLookupByLibrary.simpleMessage("Alhasri"),
         "allahNamesZikr":
             MessageLookupByLibrary.simpleMessage("Allah Names Azkars"),
+        "almenshawi": MessageLookupByLibrary.simpleMessage("Almenshawi"),
         "appDeveloper": MessageLookupByLibrary.simpleMessage("App Developer"),
         "appName": MessageLookupByLibrary.simpleMessage("Zad-Almumin"),
         "asr": MessageLookupByLibrary.simpleMessage("Asr"),
         "asrPray": MessageLookupByLibrary.simpleMessage("Asr Pray"),
+        "ayahNumber": MessageLookupByLibrary.simpleMessage("Ayah Number"),
+        "aymanSwaid": MessageLookupByLibrary.simpleMessage("Ayman Swaid"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Azhan Time"),
         "categoryBookname":
@@ -57,8 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "eveningZikr": MessageLookupByLibrary.simpleMessage("Evening Azkars"),
         "fajr": MessageLookupByLibrary.simpleMessage("Fajr"),
         "fajrPray": MessageLookupByLibrary.simpleMessage("Fajr Pray"),
+        "faresAbbad": MessageLookupByLibrary.simpleMessage("Fares Abbad"),
         "fastTitleAlarm": MessageLookupByLibrary.simpleMessage("Fast"),
         "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
+        "fontSize": MessageLookupByLibrary.simpleMessage("Font Size"),
         "friday": MessageLookupByLibrary.simpleMessage("Friday"),
         "gregorianDate": MessageLookupByLibrary.simpleMessage("Gregorian Date"),
         "hadithAndFastReminderDesc": MessageLookupByLibrary.simpleMessage(
@@ -74,10 +93,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Praved Muhammed (PBUH) Said"),
         "hadithTitleAlarm": MessageLookupByLibrary.simpleMessage("Hadith"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("Haj Azkars"),
+        "haniRifai": MessageLookupByLibrary.simpleMessage("Hani Rifai"),
         "high": MessageLookupByLibrary.simpleMessage("High"),
         "hijriDate": MessageLookupByLibrary.simpleMessage("Hijri Date"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeZikr": MessageLookupByLibrary.simpleMessage("Home Azkars"),
+        "ibrahimAldosary":
+            MessageLookupByLibrary.simpleMessage("Ibrahim Aldosary"),
         "isha": MessageLookupByLibrary.simpleMessage("Isha"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
         "juz": MessageLookupByLibrary.simpleMessage("Juz"),
@@ -86,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "low": MessageLookupByLibrary.simpleMessage("Low"),
         "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
+        "maherAlmuaqly": MessageLookupByLibrary.simpleMessage("Maher Almuaqly"),
+        "mahmoudAliAlBanna":
+            MessageLookupByLibrary.simpleMessage("Mahmoud Ali AlBanna"),
         "mainPageTitle": MessageLookupByLibrary.simpleMessage("Main"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
         "monday": MessageLookupByLibrary.simpleMessage("Monday"),
@@ -93,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "morningZikr": MessageLookupByLibrary.simpleMessage("Morning Azkars"),
         "mosqueZikr": MessageLookupByLibrary.simpleMessage("Mosque Azkars"),
         "muslimZikrs": MessageLookupByLibrary.simpleMessage("Muslim Zikrs"),
+        "nabilRifa3i": MessageLookupByLibrary.simpleMessage("Nabil Rifa3i"),
+        "naserAlqatami": MessageLookupByLibrary.simpleMessage("Naser Alqatami"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "none": MessageLookupByLibrary.simpleMessage("None"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("Pray Times"),
@@ -123,12 +150,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "readKahfSura": MessageLookupByLibrary.simpleMessage("Read Kahf Sura"),
         "readQueanPageEveryday":
             MessageLookupByLibrary.simpleMessage("Read Quean Page Everyday"),
+        "s": MessageLookupByLibrary.simpleMessage("s"),
+        "saoodAlShuraym":
+            MessageLookupByLibrary.simpleMessage("Saood AlShuraym"),
         "saturday": MessageLookupByLibrary.simpleMessage("Saturday"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("Sleep Azkars"),
         "sun": MessageLookupByLibrary.simpleMessage("Sun"),
         "sunday": MessageLookupByLibrary.simpleMessage("Sunday"),
+        "surahName": MessageLookupByLibrary.simpleMessage("Surah Name"),
+        "tafsirs": MessageLookupByLibrary.simpleMessage("Tafsirs"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thursday": MessageLookupByLibrary.simpleMessage("Thursday"),
         "thursdayFasting":
@@ -139,9 +171,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "updatePrayTimes":
             MessageLookupByLibrary.simpleMessage("Update Pray Times"),
         "wakeUpZikr": MessageLookupByLibrary.simpleMessage("Wake Up Azkars"),
+        "warshAbdulBasit":
+            MessageLookupByLibrary.simpleMessage("Warsh AbdulBasit"),
         "wednesday": MessageLookupByLibrary.simpleMessage("Wednesday"),
         "welcomeToApp":
             MessageLookupByLibrary.simpleMessage("Welcome to Zad Almumin"),
+        "yaserAldosary": MessageLookupByLibrary.simpleMessage("Yaser Aldosary"),
+        "yaserAlsalamah":
+            MessageLookupByLibrary.simpleMessage("Yaser Alsalamah"),
         "youCanListenAHoleQuran": MessageLookupByLibrary.simpleMessage(
             "You can listen to the whole Quran"),
         "zikrAllAzkarsBigTitle":

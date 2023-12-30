@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/extentions/extentions.dart';
 import '../../../../core/helpers/navigator_helper.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/widget/app_scaffold.dart';
@@ -35,28 +34,34 @@ class _HomePageState extends State<HomePage> {
           title: AppStrings.of(context).mainPageTitle,
           showSettingsBtn: true,
           showDrawerBtn: true,
-          actions: [
-            IconButton(
-              onPressed: () => _quranIconClick(),
-              icon: AppIcons.quran,
-            )
-          ],
-          body: RefreshIndicator(
-            color: context.primaryColor,
-            onRefresh: () => _refereshIndecatorEvent(),
-            child: const HomePageBody(),
-          ),
+          actions: _actions,
+          body: const HomePageBody(),
+
+          // RefreshIndicator(
+          //   color: context.themeColors.primary,
+          //   onRefresh: () => _refereshIndecatorEvent(),
+          //   child: const HomePageBody(),
+          // ),
         ),
       ),
     );
+  }
+
+  List<Widget> get _actions {
+    return [
+      IconButton(
+        onPressed: () => _quranIconClick(),
+        icon: AppIcons.quran,
+      )
+    ];
   }
 
   void _quranIconClick() {
     NavigatorHelper.pushReplacementNamed(AppRoutes.quran);
   }
 
-  Future<void> _refereshIndecatorEvent() async {
-    await Future.delayed(const Duration(seconds: 1));
-    NavigatorHelper.pushReplacementNamed(AppRoutes.home);
-  }
+  // Future<void> _refereshIndecatorEvent() async {
+  //   await Future.delayed(const Duration(seconds: 1));
+  //   NavigatorHelper.pushReplacementNamed(AppRoutes.home);
+  // }
 }

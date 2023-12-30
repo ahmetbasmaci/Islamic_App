@@ -1011,6 +1011,296 @@ class AppStrings {
       args: [],
     );
   }
+
+  /// `Font Size`
+  String get fontSize {
+    return Intl.message(
+      'Font Size',
+      name: 'fontSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Font Type`
+  String get FontType {
+    return Intl.message(
+      'Font Type',
+      name: 'FontType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Book Mark`
+  String get addBookMark {
+    return Intl.message(
+      'Add Book Mark',
+      name: 'addBookMark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tafsirs`
+  String get tafsirs {
+    return Intl.message(
+      'Tafsirs',
+      name: 'tafsirs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Surah Name`
+  String get surahName {
+    return Intl.message(
+      'Surah Name',
+      name: 'surahName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ayah Number`
+  String get ayahNumber {
+    return Intl.message(
+      'Ayah Number',
+      name: 'ayahNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yaser Aldosary`
+  String get yaserAldosary {
+    return Intl.message(
+      'Yaser Aldosary',
+      name: 'yaserAldosary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yaser Alsalamah`
+  String get yaserAlsalamah {
+    return Intl.message(
+      'Yaser Alsalamah',
+      name: 'yaserAlsalamah',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ibrahim Aldosary`
+  String get ibrahimAldosary {
+    return Intl.message(
+      'Ibrahim Aldosary',
+      name: 'ibrahimAldosary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ayman Swaid`
+  String get aymanSwaid {
+    return Intl.message(
+      'Ayman Swaid',
+      name: 'aymanSwaid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alhasri`
+  String get alhasri {
+    return Intl.message(
+      'Alhasri',
+      name: 'alhasri',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Almenshawi`
+  String get almenshawi {
+    return Intl.message(
+      'Almenshawi',
+      name: 'almenshawi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AbdulBased`
+  String get abdulBased {
+    return Intl.message(
+      'AbdulBased',
+      name: 'abdulBased',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alafasi`
+  String get alafasi {
+    return Intl.message(
+      'Alafasi',
+      name: 'alafasi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abdullah Basfar`
+  String get abdullahBasfar {
+    return Intl.message(
+      'Abdullah Basfar',
+      name: 'abdullahBasfar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abu Bakr Alshatiri`
+  String get abuBakrAlshatiri {
+    return Intl.message(
+      'Abu Bakr Alshatiri',
+      name: 'abuBakrAlshatiri',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ahmed Alajamy`
+  String get ahmedAlajamy {
+    return Intl.message(
+      'Ahmed Alajamy',
+      name: 'ahmedAlajamy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hani Rifai`
+  String get haniRifai {
+    return Intl.message(
+      'Hani Rifai',
+      name: 'haniRifai',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abdullaah Awwaad`
+  String get abdullaahAwwaad {
+    return Intl.message(
+      'Abdullaah Awwaad',
+      name: 'abdullaahAwwaad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ahmed Neana`
+  String get ahmedNeana {
+    return Intl.message(
+      'Ahmed Neana',
+      name: 'ahmedNeana',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warsh AbdulBasit`
+  String get warshAbdulBasit {
+    return Intl.message(
+      'Warsh AbdulBasit',
+      name: 'warshAbdulBasit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Akram AlALqimy`
+  String get akramAlALqimy {
+    return Intl.message(
+      'Akram AlALqimy',
+      name: 'akramAlALqimy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fares Abbad`
+  String get faresAbbad {
+    return Intl.message(
+      'Fares Abbad',
+      name: 'faresAbbad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maher Almuaqly`
+  String get maherAlmuaqly {
+    return Intl.message(
+      'Maher Almuaqly',
+      name: 'maherAlmuaqly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nabil Rifa3i`
+  String get nabilRifa3i {
+    return Intl.message(
+      'Nabil Rifa3i',
+      name: 'nabilRifa3i',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Naser Alqatami`
+  String get naserAlqatami {
+    return Intl.message(
+      'Naser Alqatami',
+      name: 'naserAlqatami',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saood AlShuraym`
+  String get saoodAlShuraym {
+    return Intl.message(
+      'Saood AlShuraym',
+      name: 'saoodAlShuraym',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mahmoud Ali AlBanna`
+  String get mahmoudAliAlBanna {
+    return Intl.message(
+      'Mahmoud Ali AlBanna',
+      name: 'mahmoudAliAlBanna',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `s`
+  String get s {
+    return Intl.message(
+      's',
+      name: 's',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {

@@ -90,3 +90,54 @@ extension WeekDaysExtentions on WeekDays {
     }
   }
 }
+
+extension QuranReadersExtentions on QuranReaders {
+  String get translatedName {
+    switch (this) {
+      case QuranReaders.yaserAldosary:
+        return AppStrings.of(Constants.context).yaserAldosary;
+      case QuranReaders.yaserAlsalamah:
+        return AppStrings.of(Constants.context).yaserAlsalamah;
+      case QuranReaders.ibrahimAldosary:
+        return AppStrings.of(Constants.context).ibrahimAldosary;
+      case QuranReaders.aymanSwaid:
+        return AppStrings.of(Constants.context).aymanSwaid;
+      case QuranReaders.alhasri:
+        return AppStrings.of(Constants.context).alhasri;
+      case QuranReaders.almenshawi:
+        return AppStrings.of(Constants.context).almenshawi;
+      case QuranReaders.abdulBased:
+        return AppStrings.of(Constants.context).abdulBased;
+      case QuranReaders.alafasi:
+        return AppStrings.of(Constants.context).alafasi;
+      case QuranReaders.abdullahBasfar:
+        return AppStrings.of(Constants.context).abdullahBasfar;
+      case QuranReaders.abuBakrAlshatiri:
+        return AppStrings.of(Constants.context).abuBakrAlshatiri;
+      case QuranReaders.ahmedAlajamy:
+        return AppStrings.of(Constants.context).ahmedAlajamy;
+      case QuranReaders.haniRifai:
+        return AppStrings.of(Constants.context).haniRifai;
+      case QuranReaders.abdullaahAwwaad:
+        return AppStrings.of(Constants.context).abdullaahAwwaad;
+      case QuranReaders.ahmedNeana:
+        return AppStrings.of(Constants.context).ahmedNeana;
+      case QuranReaders.warshAbdulBasit:
+        return AppStrings.of(Constants.context).warshAbdulBasit;
+      case QuranReaders.akramAlALqimy:
+        return AppStrings.of(Constants.context).akramAlALqimy;
+      case QuranReaders.faresAbbad:
+        return AppStrings.of(Constants.context).faresAbbad;
+      case QuranReaders.maherAlmuaqly:
+        return AppStrings.of(Constants.context).maherAlmuaqly;
+      case QuranReaders.nabilRifa3i:
+        return AppStrings.of(Constants.context).nabilRifa3i;
+      case QuranReaders.naserAlqatami:
+        return AppStrings.of(Constants.context).naserAlqatami;
+      case QuranReaders.saoodAlShuraym:
+        return AppStrings.of(Constants.context).saoodAlShuraym;
+      case QuranReaders.mahmoudAliAlBanna:
+        return AppStrings.of(Constants.context).mahmoudAliAlBanna;
+    }
+  }
+}

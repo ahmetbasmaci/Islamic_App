@@ -5,41 +5,31 @@ import '../../../../../core/utils/resources/resources.dart';
 import '../../../quran.dart';
 
 class QuranPageTop extends StatelessWidget {
-  QuranPageTop({super.key});
+  const QuranPageTop({super.key});
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        height: context.read<QuranCubit>().state.topFooterPartIsVisable ? kToolbarHeight : 0,
-        width: context.width,
-        decoration: _decoration(context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const QuranTopMenuButton(),
-            const QuranTopHomeButton(),
-            const QuranTopSwichQuranViewButton(),
-            Expanded(flex: 2, child: Container()),
-            const QuranTopSearchButton(),
-            const QuranTopEndDrawerButton(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  BoxDecoration _decoration(BuildContext context) {
-    return BoxDecoration(
-      color: context.backgroundColor,
-      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(AppSizes.cardRadius)),
-      boxShadow: [
-        BoxShadow(
-          color: context.primaryColor.withOpacity(.6),
-          blurRadius: 10,
-          offset: const Offset(0, 3),
-        )
-      ],
+    return BlocBuilder<QuranCubit, QuranState>(
+      builder: (context, state) {
+        return SafeArea(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            height: context.read<QuranCubit>().state.showTopFooterPart ? kToolbarHeight : 0,
+            width: context.width,
+            decoration: AppDecorations.quranTopCard(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const QuranTopMenuButton(),
+                const QuranTopHomeButton(),
+                const QuranTopSwichQuranViewButton(),
+                Expanded(flex: 2, child: Container()),
+                const QuranTopSearchButton(),
+                const QuranTopEndDrawerButton(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

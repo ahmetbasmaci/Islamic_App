@@ -6,18 +6,22 @@ class QuranState extends Equatable {
   final bool showQuranImages;
   final bool showTafseerPage;
   final double quranFontSize;
-  final SelectedPageInfo selectedPage;
-  final bool topFooterPartIsVisable;
+  final SelectedPageInfo selectedPageInfo;
+  final bool showTopFooterPart;
   final bool showInKahf;
+  final bool isLoading;
+  final double downloadProgress;
   const QuranState({
     required this.selectedAyah,
     required this.message,
     required this.showQuranImages,
     required this.showTafseerPage,
     required this.quranFontSize,
-    required this.selectedPage,
-    required this.topFooterPartIsVisable,
+    required this.selectedPageInfo,
+    required this.showTopFooterPart,
     required this.showInKahf,
+    required this.isLoading,
+    required this.downloadProgress,
   });
 
   factory QuranState.initial() {
@@ -27,9 +31,11 @@ class QuranState extends Equatable {
       showQuranImages: true,
       showTafseerPage: false,
       quranFontSize: 20,
-      selectedPage: SelectedPageInfo.empty(),
-      topFooterPartIsVisable: false,
+      selectedPageInfo: SelectedPageInfo.empty(),
+      showTopFooterPart: false,
       showInKahf: false,
+      isLoading: false,
+      downloadProgress: 0,
     );
   }
 
@@ -39,9 +45,11 @@ class QuranState extends Equatable {
     bool? showQuranImages,
     bool? showTafseerPage,
     double? quranFontSize,
-    SelectedPageInfo? selectedPage,
-    bool? topFooterPartIsVisable,
+    SelectedPageInfo? selectedPageInfo,
+    bool? showTopFooterPart,
     bool? showInKahf,
+    bool? isLoading,
+    double? downloadProgress,
   }) {
     return QuranState(
       selectedAyah: selectedAyah ?? this.selectedAyah,
@@ -49,9 +57,11 @@ class QuranState extends Equatable {
       showQuranImages: showQuranImages ?? this.showQuranImages,
       showTafseerPage: showTafseerPage ?? this.showTafseerPage,
       quranFontSize: quranFontSize ?? this.quranFontSize,
-      selectedPage: selectedPage ?? this.selectedPage,
-      topFooterPartIsVisable: topFooterPartIsVisable ?? this.topFooterPartIsVisable,
+      selectedPageInfo: selectedPageInfo ?? this.selectedPageInfo,
+      showTopFooterPart: showTopFooterPart ?? this.showTopFooterPart,
       showInKahf: showInKahf ?? this.showInKahf,
+      isLoading: isLoading ?? this.isLoading,
+      downloadProgress: downloadProgress ?? this.downloadProgress,
     );
   }
 
@@ -62,8 +72,10 @@ class QuranState extends Equatable {
         showQuranImages,
         showTafseerPage,
         quranFontSize,
-        selectedPage,
-        topFooterPartIsVisable,
+        selectedPageInfo,
+        showTopFooterPart,
         showInKahf,
+        isLoading,
+        downloadProgress,
       ];
 }

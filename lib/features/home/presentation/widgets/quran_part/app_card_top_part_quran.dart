@@ -45,8 +45,8 @@ class AppCardTopPartQuran extends StatelessWidget {
           width: context.width * .8,
           child: LinearProgressIndicator(
             value: .5, // audioCtr.slider.value,
-            valueColor: AlwaysStoppedAnimation<Color>(context.primaryColor),
-            backgroundColor: context.backgroundColor,
+            valueColor: AlwaysStoppedAnimation<Color>(context.themeColors.primary),
+            backgroundColor: context.themeColors.background,
           ),
         ),
       ],

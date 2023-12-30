@@ -3,7 +3,6 @@ import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_c
 import 'package:zad_almumin/core/packages/location_detector/i_location_detector.dart';
 import 'package:zad_almumin/core/utils/api/api_consumer.dart';
 import 'package:zad_almumin/core/utils/api/http_consumer.dart';
-import 'package:zad_almumin/features/quran/presentation/cubit/quran_cubit.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
 import '../core/packages/location_detector/location_detector.dart';
@@ -22,11 +21,11 @@ Future<void> init() async {
 
   await _initTheme();
   await _initLcoale();
-  await _initHome();
+  await _initQuran();
   await _initAzkar();
   await _initAlarm();
   await _initPrayTimes();
-  await _initQuran();
+  await _initHome();
 }
 
 Future _initExternal() async {
@@ -65,13 +64,18 @@ Future _initHome() async {
   //!usecase
   sl.registerLazySingleton(() => HomeCardPlayPauseSingleAudioUseCase(repository: sl()));
   sl.registerLazySingleton(() => HomeCardGetRandomHadithUseCase(repository: sl()));
+  sl.registerLazySingleton(() => HomeCardGetRandomAyahUseCase(quranDataRepository: sl()));
+  sl.registerLazySingleton(() => HomeCardGetNextAyahUseCase(quranDataRepository: sl()));
 
   //!Cubit
   sl.registerFactory(() => HomeCubit());
   sl.registerFactory(() => HomeHadithCardCubit(
         homeCardGetRandomHadithUseCase: sl(),
       ));
-  sl.registerFactory(() => HomeQuranCardCubit());
+  sl.registerFactory(() => HomeQuranCardCubit(
+        homeCardGetRandomAyahUseCase: sl(),
+        homeCardGetNextAyahUseCase: sl(),
+      ));
   sl.registerFactory(() => HomeQuranAudioButtonCubit(playPauseSingleAudioUseCase: sl()));
 }
 
@@ -149,9 +153,9 @@ Future _initPrayTimes() async {
 
 Future _initQuran() async {
 //!DataSource
-  sl.registerLazySingleton<IQuranDataDataSource>(() => QuranDataDataSource(
-        localStorage: sl(),
-      ));
+  QuranDataDataSource quranDataDataSource = QuranDataDataSource(localStorage: sl());
+  await quranDataDataSource.loadSurahs();
+  sl.registerLazySingleton<IQuranDataDataSource>(() => quranDataDataSource);
 
   //!Repository
   sl.registerLazySingleton<IQuranDataRepository>(

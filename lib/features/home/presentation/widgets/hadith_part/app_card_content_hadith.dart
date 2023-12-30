@@ -70,15 +70,15 @@ class AppCardContentHadith extends StatelessWidget {
           indent: 50,
           endIndent: 50,
         ),
-        _hadothPropItem(context, AppStrings.of(context).hadithBookName, hadithCardModel.hadithBookName),
-        _hadothPropItem(context, AppStrings.of(context).categoryBookname, hadithCardModel.chapterBookname),
-        _hadothPropItem(context, AppStrings.of(context).chapterName, hadithCardModel.chapterName),
-        _hadothPropItem(context, AppStrings.of(context).hadithId, hadithCardModel.hadithId.toString()),
+        _hadithPropItem(context, AppStrings.of(context).hadithBookName, hadithCardModel.hadithBookName),
+        _hadithPropItem(context, AppStrings.of(context).categoryBookname, hadithCardModel.chapterBookname),
+        _hadithPropItem(context, AppStrings.of(context).chapterName, hadithCardModel.chapterName),
+        _hadithPropItem(context, AppStrings.of(context).hadithId, hadithCardModel.hadithId.toString()),
       ],
     );
   }
 
-  Widget _hadothPropItem(BuildContext context, String title, String value) {
+  Widget _hadithPropItem(BuildContext context, String title, String value) {
     return Wrap(
       children: <Widget>[
         Text(title, style: AppStyles.title2(context)),

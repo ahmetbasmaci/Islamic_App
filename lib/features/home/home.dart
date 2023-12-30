@@ -8,6 +8,8 @@ export 'data/models/quran/home_card_ayah_model.dart';
 export 'data/models/quran/quran_card_model.dart';
 export 'data/repositories/home_repository.dart';
 export 'domain/repositories/i_home_repository.dart';
+export 'domain/usecases/home_card_get_next_ayah_use_case.dart';
+export 'domain/usecases/home_card_get_random_ayah_use_case.dart';
 export 'domain/usecases/home_card_get_random_hadith_use_case.dart';
 export 'domain/usecases/home_card_play_pause_single_audio_use_case.dart';
 export 'presentation/cubit/cubit_hadith/home_hadith_card_cubit.dart';

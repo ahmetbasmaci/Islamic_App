@@ -29,7 +29,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   final ILocalStorage _localStorage;
 
   QuranDataDataSource({required ILocalStorage localStorage}) : _localStorage = localStorage {
-    _loadSurahs();
+    // _loadSurahs();
   }
   List<Surah> _surahs = [];
   @override
@@ -55,7 +55,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   Surah getSurahByName(String surahName) {
     Surah surah = _surahs.firstWhere(
-      (element) => element.name.normalised == surahName.normalised,
+      (element) => element.name.withOutTashkil == surahName.withOutTashkil,
       orElse: () => Surah.empty(),
     );
     return surah;
@@ -63,6 +63,9 @@ class QuranDataDataSource implements IQuranDataDataSource {
 
   @override
   Surah getSurahByNumber(int surahNumber) {
+    // while (_surahs.isEmpty) {
+
+    // }
     Surah surah = _surahs.firstWhere(
       (element) => element.number == surahNumber,
       orElse: () => Surah.empty(),
@@ -94,7 +97,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   List<Surah> getMatchedSurah(String surahName) {
     List<Surah> matchedSurah = _surahs
         .where(
-          (element) => element.name.normalised.contains(surahName.normalised),
+          (element) => element.name.withOutTashkil.contains(surahName.withOutTashkil),
         )
         .toList();
     return matchedSurah;
@@ -112,14 +115,14 @@ class QuranDataDataSource implements IQuranDataDataSource {
 
   @override
   Ayah getRandomAyah() {
-    int randomSure = Random().nextInt(114) + 1;
-    return getRandomAyahBySureNumber(randomSure);
+    int randomSureNumber = Random().nextInt(114) + 1;
+    return getRandomAyahBySureNumber(randomSureNumber);
   }
 
   @override
   Ayah getRandomAyahBySureNumber(int sureNumber) {
     List<Ayah> ayahs = getSurahByNumber(sureNumber).ayahs;
-    int randomAyah = Random().nextInt(ayahs.length) + 1;
+    int randomAyah = Random().nextInt(ayahs.length);
     return ayahs.elementAt(randomAyah);
   }
 
@@ -132,7 +135,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   int getPageInJuz(int page) => page % 20;
 
-  void _loadSurahs() async {
+  Future<void> loadSurahs() async {
     List<dynamic> data = await JsonService.readJson(AppJsonPaths.allQuranPath);
     if (data.isEmpty) return;
     _surahs = data.map((e) => Surah.fromjson(e)).toList();

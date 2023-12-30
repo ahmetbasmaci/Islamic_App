@@ -114,7 +114,7 @@ class AppCardContentZikr extends StatelessWidget {
         ? null
         : BoxShadow(
             offset: const Offset(0, 0),
-            color: context.primaryColor.withOpacity(1),
+            color: context.themeColors.primary.withOpacity(1),
             blurRadius: 5,
             spreadRadius: 2,
             blurStyle: BlurStyle.outer,
@@ -125,7 +125,7 @@ class AppCardContentZikr extends StatelessWidget {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2(context).copyWith(color: context.primaryColor),
+        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
       ),
     );
   }
@@ -157,12 +157,12 @@ class AppCardContentZikr extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: context.backgroundColor,
+        color: context.themeColors.background,
         borderRadius: const BorderRadius.all(Radius.circular(100)),
         boxShadow: [
           BoxShadow(
             offset: const Offset(0, 5),
-            color: context.primaryColor.withOpacity(.2),
+            color: context.themeColors.primary.withOpacity(.2),
             blurRadius: 5,
           ),
         ],

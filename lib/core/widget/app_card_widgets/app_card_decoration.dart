@@ -7,9 +7,9 @@ import '../../utils/resources/app_sizes.dart';
 class AppCardDecoration extends BoxDecoration {
   const AppCardDecoration({this.color_, this.boxShadow_});
   AppCardDecoration.withPrimery()
-      : color_ = Constants.context.backgroundColor,
+      : color_ = Constants.context.themeColors.background,
         boxShadow_ = BoxShadow(
-          color: Constants.context.primaryColor.withOpacity(0.8),
+          color: Constants.context.themeColors.primary.withOpacity(0.8),
           blurRadius: .8,
           spreadRadius: .2,
           offset: const Offset(0, 5),

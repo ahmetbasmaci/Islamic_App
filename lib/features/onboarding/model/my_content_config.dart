@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import '../../../core/extentions/extentions.dart';
+import '../../../core/utils/resources/resources.dart';
 
 class MyContentConfig extends ContentConfig {
   MyContentConfig({
@@ -14,7 +15,6 @@ class MyContentConfig extends ContentConfig {
           pathImage: pathImage,
           styleTitle:
               context.theme.textTheme.headlineSmall, //MyTexts.quranStyle(fontSize: 25, color: MyColors.whiteBlack),
-          styleDescription:
-              context.theme.textTheme.bodyMedium, //MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack),
+          styleDescription: AppStyles.content(context), //MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack),
         );
 }

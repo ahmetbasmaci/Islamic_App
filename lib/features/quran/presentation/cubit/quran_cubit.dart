@@ -14,15 +14,22 @@ class QuranCubit extends Cubit<QuranState> {
 
   List<MarkedPage> markedList = [];
 
-  ItemScrollController _itemScrollController = ItemScrollController();
-  ItemScrollController get itemScrollController {
-    _itemScrollController = ItemScrollController();
-    return _itemScrollController;
-  }
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  ItemScrollController get itemScrollController => _itemScrollController;
 
   List<Ayah> getAyahsInCurrentPage() {
     List<Ayah> allAyahsInPage = [];
-    var result = quranDataRepository.getAyahsInPage(state.selectedPage.pageNumber);
+    var result = quranDataRepository.getAyahsInPage(state.selectedPageInfo.pageNumber);
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (r) => allAyahsInPage = r,
+    );
+    return allAyahsInPage;
+  }
+
+  List<Ayah> getAyahsInPage(int page) {
+    List<Ayah> allAyahsInPage = [];
+    var result = quranDataRepository.getAyahsInPage(page);
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),
       (r) => allAyahsInPage = r,
@@ -54,7 +61,7 @@ class QuranCubit extends Cubit<QuranState> {
     tabCtr.addListener(() => updateCurrentPageCtr());
   }
 
-  void updateCurrentPageCtr() async {
+  void updateCurrentPageCtr() {
     //TODO GetStorage().write('pageIndex', tabCtr.index);
     quranDataRepository.saveCurrentPageIndex(tabCtr.index);
     var result = quranDataRepository.getAyahsInPage(tabCtr.index + 1);
@@ -63,7 +70,7 @@ class QuranCubit extends Cubit<QuranState> {
       (ayahsInPage) {
         if (ayahsInPage.isEmpty) return;
         Ayah ayah = ayahsInPage.first;
-        SelectedPageInfo newSelectedPage = state.selectedPage.copyWith(
+        SelectedPageInfo newSelectedPage = state.selectedPageInfo.copyWith(
           juz: ayah.juz,
           pageNumber: tabCtr.index + 1,
           surahNumber: ayah.surahNumber,
@@ -72,7 +79,7 @@ class QuranCubit extends Cubit<QuranState> {
           endAyahNum: ayahsInPage.last.ayahNumber,
           totalAyahsNum: ayahsInPage.length,
         );
-        emit(state.copyWith(selectedPage: newSelectedPage));
+        emit(state.copyWith(selectedPageInfo: newSelectedPage));
       },
     );
   }
@@ -91,8 +98,8 @@ class QuranCubit extends Cubit<QuranState> {
 
   void pagePressed() {
     print('alskdjasd');
-    bool isVisable = state.topFooterPartIsVisable;
-    emit(state.copyWith(topFooterPartIsVisable: !isVisable));
+    bool isVisable = state.showTopFooterPart;
+    emit(state.copyWith(showTopFooterPart: !isVisable));
   }
 
   void showMarkDialog() {

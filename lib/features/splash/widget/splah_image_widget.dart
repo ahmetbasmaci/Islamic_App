@@ -17,11 +17,11 @@ class SplahImageWidget extends StatelessWidget {
         opacity: opacity,
         child: Container(
           decoration: BoxDecoration(
-            color: context.backgroundColor,
+            color: context.themeColors.background,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: context.primaryColor.withOpacity(.5),
+                color: context.themeColors.primary.withOpacity(.5),
                 blurRadius: 10,
                 spreadRadius: 10,
               ),

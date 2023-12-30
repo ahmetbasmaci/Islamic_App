@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:zad_almumin/config/local/l10n.dart';
-import 'package:zad_almumin/core/utils/constants.dart';
 
-import '../../features/alarm/data/models/alarm_model.dart';
-import '../../features/pray_times/data/models/time.dart';
-import '../utils/enums/enums.dart';
+import '../../config/theme/app_themes.dart';
+import '../../config/theme/theme_colors.dart';
+import '../../features/pray_times/pray_times.dart';
 
 extension ContextExtentions on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
   ThemeData get theme => Theme.of(this);
-  Color get primaryColor => Theme.of(this).colorScheme.primary;
-  Color get backgroundColor => Theme.of(this).colorScheme.background;
+  ThemeColors get themeColors => ThemeColors(
+        background: Theme.of(this).colorScheme.background,
+        primary: Theme.of(this).colorScheme.primary,
+        secondary: Theme.of(this).colorScheme.secondary,
+        third: isDark ? AppThemes.darkColor.third : AppThemes.lightColor.third,
+        succes: isDark ? AppThemes.darkColor.succes : AppThemes.lightColor.succes,
+        error: Theme.of(this).colorScheme.error,
+        warning: isDark ? AppThemes.darkColor.warning : AppThemes.lightColor.warning,
+        onBackground: Theme.of(this).colorScheme.onBackground,
+      );
+  bool get isDark => Theme.of(this).brightness == Brightness.dark;
   String? get currentRoute => ModalRoute.of(this)?.settings.name;
   String get localeCode => Localizations.localeOf(this).languageCode;
   bool get isArabicLang => localeCode == 'ar';
@@ -46,7 +53,7 @@ extension StringExtentions on String {
     }
   }
 
-  String get normalised {
+  String get withOutTashkil {
     return replaceAll('ٱ', 'ا') //change alef
         .replaceAll('\u0610', '') //ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
         .replaceAll('\u0611', '') //ARABIC SIGN ALAYHE ASSALLAM

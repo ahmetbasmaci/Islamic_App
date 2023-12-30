@@ -14,7 +14,7 @@ class HomePageZikrCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 180,
-      decoration: AppCardDecoration(color_: context.backgroundColor),
+      decoration: AppCardDecoration(color_: context.themeColors.background),
       margin: const EdgeInsets.only(
         right: AppSizes.cardPadding,
         top: AppSizes.cardPadding,
