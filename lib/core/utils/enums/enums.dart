@@ -66,4 +66,6 @@ enum QuranReaders {
   mahmoudAliAlBanna,
 }
 
+enum SearchFilter { surahs, ayahs, pages }
+
 enum DownloadState { notDownloaded, downloading, downloaded }

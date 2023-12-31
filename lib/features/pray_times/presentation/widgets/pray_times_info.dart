@@ -5,14 +5,13 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/features/pray_times/presentation/cubit/pray_times_cubit.dart';
 import '../../../../core/utils/enums/enums.dart';
-import '../../../../core/widget/app_card_widgets/app_card_widgets.dart';
 
 class PrayTimesInfo extends StatelessWidget {
-  PrayTimesInfo({super.key});
+  const PrayTimesInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSizes.cardPadding),
+      padding: EdgeInsets.all(AppSizes.cardPadding),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(AppSizes.cardRadius)),
       child: Column(
         children: <Widget>[
@@ -56,7 +55,7 @@ class PrayTimesInfo extends StatelessWidget {
       width: context.width,
       child: GridView(
         physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 1.5,
           crossAxisSpacing: AppSizes.cardPadding,
@@ -80,14 +79,14 @@ class PrayTimesInfo extends StatelessWidget {
     String time = prayerTimeCubit.getPrayTimeByType(prayerTimeType);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppSizes.cardPadding),
+      margin: EdgeInsets.symmetric(horizontal: AppSizes.cardPadding),
       decoration: _prayCardDecoration(prayerTimeType, prayerTimeCubit, context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
             title,
-            style: AppStyles.content(context).copyWith(fontWeight: FontWeight.bold),
+            style: AppStyles.content.copyWith(fontWeight: FontWeight.bold),
           ),
           Text(time),
         ],
@@ -98,6 +97,6 @@ class PrayTimesInfo extends StatelessWidget {
   BoxDecoration _prayCardDecoration(PrayTimeType prayerTimeType, PrayTimesCubit prayerTimeCubit, BuildContext context) {
     bool isTodayPrayTime = prayerTimeCubit.currentPageDate.day == DateTime.now().day;
     bool isNextPrayTime = prayerTimeType == prayerTimeCubit.nextPrayModel.prayTimeType;
-    return isTodayPrayTime && isNextPrayTime ? AppCardDecoration.withPrimery() : const BoxDecoration();
+    return isTodayPrayTime && isNextPrayTime ? AppDecorations.cardWithPrimery(context) : const BoxDecoration();
   }
 }

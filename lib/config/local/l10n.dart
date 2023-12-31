@@ -1292,6 +1292,56 @@ class AppStrings {
     );
   }
 
+  /// `Surahs`
+  String get surahs {
+    return Intl.message(
+      'Surahs',
+      name: 'surahs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ayahs`
+  String get ayahs {
+    return Intl.message(
+      'Ayahs',
+      name: 'ayahs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pages`
+  String get pages {
+    return Intl.message(
+      'Pages',
+      name: 'pages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Page`
+  String get page {
+    return Intl.message(
+      'Page',
+      name: 'page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for Ayah or Sure or Page`
+  String get searchForAyahOrSureOrPage {
+    return Intl.message(
+      'Search for Ayah or Sure or Page',
+      name: 'searchForAyahOrSureOrPage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(

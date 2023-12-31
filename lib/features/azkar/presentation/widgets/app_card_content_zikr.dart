@@ -52,7 +52,7 @@ class AppCardContentZikr extends StatelessWidget {
             zikrModel!.content = zikrModel!.list[index2]['zekr'] ?? "";
             return _appCardContent(
               context: context,
-              useMargin: false,
+              useMargin: true,
               title: zikrModel!.title,
               content: '${zikrModel!.content}\n${zikrModel!.description}',
               description: zikrModel!.description,
@@ -85,18 +85,16 @@ class AppCardContentZikr extends StatelessWidget {
       child: StatefulBuilder(
         builder: (BuildContext context, setState) {
           return AppCardWithTappingAnimation(
-            onTap: count > 0 ? () {} : null,
-            onTapUp: count > 0
-                ? () async {
-                    count--;
-                    try {
-                      setState(() {});
-                    } catch (e) {
-                      debugPrint(e.toString());
-                    }
-                  }
-                : null,
-            boxShadow: _cardCountDecoration(context, count),
+            canTap: count > 0 || count == -1,
+            onTap: () {},
+            onTapUp: () async {
+              count--;
+              try {
+                setState(() {});
+              } catch (e) {
+                debugPrint(e.toString());
+              }
+            },
             useMargin: useMargin,
             child: AppCardContent(
               topPartWidget: _topPartWidget(context, title, count),
@@ -109,23 +107,11 @@ class AppCardContentZikr extends StatelessWidget {
     );
   }
 
-  BoxShadow? _cardCountDecoration(BuildContext context, int count) {
-    return count > 0 || count == -1
-        ? null
-        : BoxShadow(
-            offset: const Offset(0, 0),
-            color: context.themeColors.primary.withOpacity(1),
-            blurRadius: 5,
-            spreadRadius: 2,
-            blurStyle: BlurStyle.outer,
-          );
-  }
-
   Widget _topPartWidget(BuildContext context, String title, int count) {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
+        style: AppStyles.title2.copyWith(color: context.themeColors.primary),
       ),
     );
   }
@@ -143,7 +129,7 @@ class AppCardContentZikr extends StatelessWidget {
 
   Widget _footerPartWidget(BuildContext context, String title, String content, int count) {
     return Padding(
-      padding: const EdgeInsets.only(top: AppSizes.cardPadding * 2),
+      padding: EdgeInsets.only(top: AppSizes.cardPadding * 2),
       child: Column(
         children: [
           AppCardContentFooterPartButtons(isFavorite: false, content: content),
@@ -169,7 +155,7 @@ class AppCardContentZikr extends StatelessWidget {
       ),
       child: Text(
         count != 0 ? "$count" : AppStrings.of(context).done,
-        style: AppStyles.title2(context),
+        style: AppStyles.title2,
         textAlign: TextAlign.center,
       ),
     );

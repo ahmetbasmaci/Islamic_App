@@ -34,10 +34,11 @@ class QuranTopMenuButton extends StatelessWidget {
             child: BlocBuilder<QuranCubit, QuranState>(
               builder: (context, state) {
                 return Slider(
-                  max: (context.width * context.height * 0.00010),
-                  min: (context.width * context.height * 0.000040),
+                  max: (AppSizes.maxQuranFontSize),
+                  min: (AppSizes.minQuranFontSize),
                   activeColor: context.themeColors.primary,
                   thumbColor: context.themeColors.background,
+                  divisions: 5,
                   value: context.read<QuranCubit>().state.quranFontSize,
                   onChanged: (val) => context.read<QuranCubit>().updateQuranFontSize(val),
                 );
@@ -119,7 +120,7 @@ class QuranTopMenuButton extends StatelessWidget {
       changeThemeItem,
       tefsirPageItem,
     ];
-    if (!context.read<QuranCubit>().state.showQuranImages) {
+    if (!context.read<QuranCubit>().state.quranViewModeInImages) {
       itemsList.add(changeFontTypeItem);
       itemsList.add(changeFontSizeItem);
     }

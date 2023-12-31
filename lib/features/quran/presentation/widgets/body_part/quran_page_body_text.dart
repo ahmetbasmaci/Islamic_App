@@ -40,15 +40,11 @@ class QuranPageBodyTexts extends StatelessWidget {
           children: [
             Text(
               '${AppStrings.of(ctx).juz}   ${quranCubit.state.selectedPageInfo.juz.arabicNumber}',
-              // fontSize: 20,
-              // fontWeight: FontWeight.bold,
-              // color: MyColors.quranPrimary,
+              style: AppStyles.contentBold,
             ),
             Text(
               quranCubit.state.selectedPageInfo.surahName,
-              // fontSize: 20,
-              // fontWeight: FontWeight.bold,
-              // color: MyColors.quranPrimary,
+              style: AppStyles.contentBold,
             ),
           ],
         ),
@@ -79,7 +75,7 @@ class QuranPageBodyTexts extends StatelessWidget {
                     [
                       WidgetSpan(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
+                          padding:  EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
                             color: quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
@@ -120,7 +116,7 @@ class QuranPageBodyTexts extends StatelessWidget {
       textDirection: TextDirection.rtl,
       text: TextSpan(
         children: textSpanChildredn,
-        style: AppStyles.content(ctx).copyWith(fontSize: quranCubit.state.quranFontSize),
+        style: AppStyles.quran,
       ),
     );
   }

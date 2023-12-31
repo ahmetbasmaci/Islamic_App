@@ -9,7 +9,7 @@ class AppThemes {
     primary: const Color(0xFFee4e02),
     secondary: const Color(0xFF02a3ee),
     third: const Color(0xFFa3ee02),
-    succes: const Color(0xFF02ee4d),
+    succes: const Color.fromARGB(255, 0, 135, 43),
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
   );
@@ -59,10 +59,10 @@ class AppThemes {
   }
 
   static TextTheme get _appTextTheme {
-    String fontFamily = AppFonts.uthmanic.name;
+    String fontFamily = AppFonts.naskh.name;
     return TextTheme(
-      bodyMedium: TextStyle(fontFamily: fontFamily),
-      bodyLarge: TextStyle(fontFamily: fontFamily),
+      bodyMedium: TextStyle(fontFamily: fontFamily, fontSize: 17),
+      bodyLarge: TextStyle(fontFamily: fontFamily, fontSize: 19),
     );
   }
 }

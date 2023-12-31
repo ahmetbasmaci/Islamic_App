@@ -13,7 +13,7 @@ class AppCardTopPartHadith extends StatelessWidget {
       startWidget: _refereshBtn(context),
       centerWidget: Text(
         title,
-        style: AppStyles.title2(context),
+        style: AppStyles.title2,
       ),
     );
   }

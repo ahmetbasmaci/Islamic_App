@@ -10,9 +10,10 @@ class QuranTopSwichQuranViewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuranAppbarButton(
       child: IconButton(
-        onPressed: () => context.read<QuranCubit>().changeQuranImagesStyle(),
+        onPressed: () => context.read<QuranCubit>().changeQuranViewMode(),
         icon: BlocBuilder<QuranCubit, QuranState>(
-          builder: (context, state) => AppIcons.animatedQuranImages(context.read<QuranCubit>().state.showQuranImages),
+          builder: (context, state) =>
+              AppIcons.animatedQuranImages(context.read<QuranCubit>().state.quranViewModeInImages),
         ),
       ),
     );

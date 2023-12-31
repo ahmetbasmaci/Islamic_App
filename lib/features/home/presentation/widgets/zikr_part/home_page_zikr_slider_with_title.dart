@@ -11,7 +11,7 @@ class HomePageZikrSliderWithTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppSizes.screenPadding),
+      padding:  EdgeInsets.all(AppSizes.screenPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -43,5 +43,5 @@ class HomePageZikrSliderWithTitle extends StatelessWidget {
     );
   }
 
-  Text _title(BuildContext context) => Text(title, style: AppStyles.title(context));
+  Text _title(BuildContext context) => Text(title, style: AppStyles.title);
 }

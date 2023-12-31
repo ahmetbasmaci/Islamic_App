@@ -124,5 +124,10 @@
     "naserAlqatami" : "Naser Alqatami",
     "saoodAlShuraym" : "Saood AlShuraym",
     "mahmoudAliAlBanna" : "Mahmoud Ali AlBanna",
+    "surahs" : "Surahs",
+    "ayahs" : "Ayahs",
+    "pages" : "Pages",
+    "page" : "Page",
+    "searchForAyahOrSureOrPage" :  "Search for Ayah or Sure or Page",
     "s":"s"
 }

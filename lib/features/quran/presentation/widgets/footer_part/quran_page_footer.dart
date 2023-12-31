@@ -88,7 +88,7 @@
 //                           children: <Widget>[
 //                             Text(
 //                               item.translatedName,
-//                               style: AppStyles.content(context).copyWith(
+//                               style: AppStyles.content.copyWith(
 //                                   color: state.selectedPageInfo.selectedQuranReader == item
 //                                       ? context.themeColors.primary
 //                                       : context.themeColors.onBackground),
@@ -134,7 +134,7 @@
 //                         value: item.name,
 //                         child: Text(
 //                           item.name.toString().withOutTashkil,
-//                           style: AppStyles.content(context).copyWith(
+//                           style: AppStyles.content.copyWith(
 //                             color: state.selectedPageInfo.surahName == item.name
 //                                 ? context.themeColors.primary
 //                                 : context.themeColors.onBackground,

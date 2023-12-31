@@ -123,6 +123,11 @@
     "naserAlqatami" : "ناصر القطامي",
     "saoodAlShuraym" : "سعود الشريم",
     "mahmoudAliAlBanna" : "محمود علي البنا",
+    "surahs" : "السور",
+    "ayahs" : "الآيات",
+    "pages" : "الصفحات",
+    "page" : "الصفحة",
+    "searchForAyahOrSureOrPage" : "البحث عن سورة أو آية أو صفحة",
 
     "s":"s"
 }

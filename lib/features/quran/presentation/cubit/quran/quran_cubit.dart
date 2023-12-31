@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../../quran.dart';
+import 'package:zad_almumin/core/utils/resources/resources.dart';
+import 'package:zad_almumin/features/quran/quran.dart';
 part 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
@@ -16,6 +17,20 @@ class QuranCubit extends Cubit<QuranState> {
 
   final ItemScrollController _itemScrollController = ItemScrollController();
   ItemScrollController get itemScrollController => _itemScrollController;
+
+  void initPage(TickerProvider quranTicker, bool showInKahf) {
+    _initTabController(quranTicker);
+
+    _goToSavedPage(showInKahf);
+
+    _hideTopFooterParts();
+
+    _getSavedQuranViewMode();
+
+    _getSavedQuranFontSize();
+
+    _getSavedQuranTafsserMode();
+  }
 
   List<Ayah> getAyahsInCurrentPage() {
     List<Ayah> allAyahsInPage = [];
@@ -37,32 +52,36 @@ class QuranCubit extends Cubit<QuranState> {
     return allAyahsInPage;
   }
 
-  void setCurrentPage(TickerProvider quranTicker) {
+  void _initTabController(TickerProvider quranTicker) {
     tabCtr = TabController(length: 604, vsync: quranTicker);
+    _setTabCtrListener();
+  }
 
-    if (state.showInKahf) {
+  void _goToSavedPage(bool showInKahf) {
+    if (showInKahf) {
       //check if user open quran page from kahf notification
-      tabCtr.index = 294;
-      updateCurrentPageCtr();
+      goToPage(294);
     } else {
       //check last opend page
       var result = quranDataRepository.getSavedCurrentPageIndex;
       result.fold(
         (l) => emit(state.copyWith(message: l.message)),
         (pageIndex) {
-          tabCtr.index = pageIndex;
-          updateCurrentPageCtr();
+          goToPage(pageIndex);
         },
       );
     }
   }
 
-  void setTabCtrListener() {
-    tabCtr.addListener(() => updateCurrentPageCtr());
+  void goToPage(int page) {
+    tabCtr.index = page;
   }
 
-  void updateCurrentPageCtr() {
-    //TODO GetStorage().write('pageIndex', tabCtr.index);
+  void _setTabCtrListener() {
+    tabCtr.addListener(() => _updateCurrentPageInfo());
+  }
+
+  void _updateCurrentPageInfo() {
     quranDataRepository.saveCurrentPageIndex(tabCtr.index);
     var result = quranDataRepository.getAyahsInPage(tabCtr.index + 1);
     result.fold(
@@ -88,18 +107,54 @@ class QuranCubit extends Cubit<QuranState> {
     emit(state.copyWith(selectedAyah: ayah));
   }
 
-  void changeQuranImagesStyle() {
-    emit(state.copyWith(showQuranImages: !state.showQuranImages));
+  void changeQuranViewMode() {
+    quranDataRepository.saveQuranViewMode(!state.quranViewModeInImages);
+    emit(state.copyWith(
+      quranViewModeInImages: !state.quranViewModeInImages,
+    ));
   }
 
   void updateQuranFontSize(double fontSize) {
+    quranDataRepository.saveQuranFontSize(fontSize);
     emit(state.copyWith(quranFontSize: fontSize));
   }
 
   void pagePressed() {
-    print('alskdjasd');
     bool isVisable = state.showTopFooterPart;
-    emit(state.copyWith(showTopFooterPart: !isVisable));
+    emit(
+      state.copyWith(
+        showTopFooterPart: !isVisable,
+        selectedAyah: Ayah.empty(),
+      ),
+    );
+  }
+
+  void _hideTopFooterParts() {
+    if (state.showTopFooterPart) pagePressed();
+  }
+
+  void _getSavedQuranViewMode() {
+    var result = quranDataRepository.getSavedQuranViewMode;
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (savedMode) => emit(state.copyWith(quranViewModeInImages: savedMode)),
+    );
+  }
+ 
+  void _getSavedQuranFontSize() {
+    var result = quranDataRepository.getSavedQuranFontSize;
+    // result.fold(
+    //   (l) => emit(state.copyWith(message: l.message)),
+    //   (savedSize) => emit(state.copyWith(quranFontSize: savedSize)),
+    // );
+  }
+ 
+  void _getSavedQuranTafsserMode() {
+    var result = quranDataRepository.getSavedQuranTafsserMode;
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (savedTafseerMode) => emit(state.copyWith(showTafseerPage: savedTafseerMode)),
+    );
   }
 
   void showMarkDialog() {
@@ -234,6 +289,4 @@ class QuranCubit extends Cubit<QuranState> {
     );
     return pageInJuz;
   }
-
-  //
 }

@@ -74,7 +74,7 @@ class AppCardContentQuran extends StatelessWidget {
   Widget _ayahPropItem(BuildContext context, String title, String value) {
     return Wrap(
       children: <Widget>[
-        Text(title, style: AppStyles.title2(context)),
+        Text('$title:', style: AppStyles.contentBold),
         const HorizontalSpace(20),
         Text(value),
         //

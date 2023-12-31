@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/local/l10n.dart';
 import '../../../config/theme/app_themes.dart';
-import '../../../core/extentions/extentions.dart';
 import '../cubit/theme_cubit.dart';
 
 import '../../../core/utils/resources/app_icons.dart';

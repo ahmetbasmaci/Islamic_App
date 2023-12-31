@@ -35,23 +35,27 @@ class QuranPageBody extends StatelessWidget {
     for (var page = 1; page <= 604; page++) {
       isMarked = markedPages[page];
       quranPages.add(
-        QuranBanner(
-          isMarked: isMarked,
-          child: InkWell(
-            onTap: () => context.read<QuranCubit>().pagePressed(),
-            onLongPress: () => () {}, // _quranCtr.showMarkDialog(),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 600),
-              color: context.themeColors.background,
-              child: context.read<QuranCubit>().state.showQuranImages
-                  ? QuranPageBodyImages(page: page)
-                  : QuranPageBodyTexts(page: page),
-            ),
-          ),
-        ),
+        _quranPageWidget(isMarked, context, page),
       );
     }
     return quranPages;
+  }
+
+  QuranBanner _quranPageWidget(bool isMarked, BuildContext context, int page) {
+    return QuranBanner(
+      isMarked: isMarked,
+      child: InkWell(
+        onTap: () => context.read<QuranCubit>().pagePressed(),
+        onLongPress: () => () {}, // _quranCtr.showMarkDialog(),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 600),
+          color: context.themeColors.background,
+          child: context.read<QuranCubit>().state.quranViewModeInImages
+              ? QuranPageBodyImages(page: page)
+              : QuranPageBodyTexts(page: page),
+        ),
+      ),
+    );
   }
 
   List<bool> _getMarkedPages(BuildContext context) {

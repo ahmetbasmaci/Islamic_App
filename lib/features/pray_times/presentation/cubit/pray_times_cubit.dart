@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/number_symbols_data.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/core/utils/params/params.dart';

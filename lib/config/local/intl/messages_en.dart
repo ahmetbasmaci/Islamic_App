@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "asr": MessageLookupByLibrary.simpleMessage("Asr"),
         "asrPray": MessageLookupByLibrary.simpleMessage("Asr Pray"),
         "ayahNumber": MessageLookupByLibrary.simpleMessage("Ayah Number"),
+        "ayahs": MessageLookupByLibrary.simpleMessage("Ayahs"),
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("Ayman Swaid"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Azhan Time"),
@@ -122,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "naserAlqatami": MessageLookupByLibrary.simpleMessage("Naser Alqatami"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "none": MessageLookupByLibrary.simpleMessage("None"),
+        "page": MessageLookupByLibrary.simpleMessage("Page"),
+        "pages": MessageLookupByLibrary.simpleMessage("Pages"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("Pray Times"),
         "prayTimesDesc":
             MessageLookupByLibrary.simpleMessage("You can know the pray times"),
@@ -154,12 +157,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "saoodAlShuraym":
             MessageLookupByLibrary.simpleMessage("Saood AlShuraym"),
         "saturday": MessageLookupByLibrary.simpleMessage("Saturday"),
+        "searchForAyahOrSureOrPage": MessageLookupByLibrary.simpleMessage(
+            "Search for Ayah or Sure or Page"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("Sleep Azkars"),
         "sun": MessageLookupByLibrary.simpleMessage("Sun"),
         "sunday": MessageLookupByLibrary.simpleMessage("Sunday"),
         "surahName": MessageLookupByLibrary.simpleMessage("Surah Name"),
+        "surahs": MessageLookupByLibrary.simpleMessage("Surahs"),
         "tafsirs": MessageLookupByLibrary.simpleMessage("Tafsirs"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thursday": MessageLookupByLibrary.simpleMessage("Thursday"),

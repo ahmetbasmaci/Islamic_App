@@ -15,7 +15,7 @@ class AppDrawerHeader extends StatelessWidget {
     return UserAccountsDrawerHeader(
       accountName: Text(
         AppStrings.of(context).programSections,
-        style: AppStyles.title(context).copyWith(color: context.themeColors.background),
+        style: AppStyles.title.copyWith(color: context.themeColors.background),
       ),
       accountEmail: Container(),
       otherAccountsPicturesSize: const Size.square(60),

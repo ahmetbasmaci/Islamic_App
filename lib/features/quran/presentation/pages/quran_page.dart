@@ -3,31 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../quran.dart';
 
 class QuranPage extends StatefulWidget {
-  QuranPage({super.key, bool? showInKahf}) {
-    // Get.find<QuranPageCtr>().showInKahf = showInKahf ?? false;
-  }
+  const QuranPage({super.key, this.showInKahf = false});
+  final bool showInKahf;
   @override
   State<QuranPage> createState() => _QuranPageState();
 }
 
 class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
-  int animationDurationMilliseconds = 600;
-  // final QuranPageCtr _quranCtr = Get.find<QuranPageCtr>();
-
   @override
   void initState() {
     super.initState();
-
-    // HelperMethods.setNewOpendPageId(QuranPage.id);
-
-    // _quranCtr.quranPageSetState = (() => setState(() {}));
-
-    context.read<QuranCubit>().setCurrentPage(this);
-
-    // _quranCtr.changeOnShownState(false);
-
-    context.read<QuranCubit>().setTabCtrListener();
-    // JsonService.loadQuranData();
+    context.read<QuranCubit>().initPage(this, widget.showInKahf);
   }
 
   @override

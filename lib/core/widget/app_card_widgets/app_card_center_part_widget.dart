@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/utils/resources/resources.dart';
 import '../progress_indicator/app_linear_progress_indicator.dart';
 
 class AppCardCenterPartWidget extends StatelessWidget {
@@ -23,7 +24,7 @@ class AppCardCenterPartWidget extends StatelessWidget {
                   TextSpan(text: content),
                   TextSpan(
                     text: '\n\n$description',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: AppStyles.contentBold,
                   ),
                 ],
               ),

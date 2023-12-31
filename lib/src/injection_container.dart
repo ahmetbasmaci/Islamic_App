@@ -170,4 +170,7 @@ Future _initQuran() async {
   sl.registerFactory(() => QuranCubit(
         quranDataRepository: sl(),
       ));
+  sl.registerFactory(() => QuranSearchCubit(
+        quranDataRepository: sl(),
+      ));
 }

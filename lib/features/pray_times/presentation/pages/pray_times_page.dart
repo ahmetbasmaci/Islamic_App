@@ -38,10 +38,10 @@ class PrayTimesPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        PrayTimeLeftCard(),
-        const VerticalSpace(AppSizes.spaceBetweanParts),
+        const PrayTimeLeftCard(),
+        VerticalSpace(AppSizes.spaceBetweanParts),
         const NextPrevDaysArrows(),
-        PrayTimesInfo(),
+        const PrayTimesInfo(),
         const PrayTimeUpdateButton(),
       ],
     );

@@ -190,4 +190,125 @@ class QuranDataRepository implements IQuranDataRepository {
       return Left(JsonFailure(e.toString()));
     }
   }
+
+  @override
+  Either<Failure, List<dynamic>> get getSavedSearchFilterList {
+    try {
+      var result = _quranDataDataSource.getSavedSearchFilterList;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> savedSearchFilterList(List<Map> listMap) {
+    try {
+      _quranDataDataSource.savedSearchFilterList(listMap);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, List<int>> searchPages(int num) {
+    try {
+      var result = _quranDataDataSource.searchPages(num);
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, List<Surah>> searchSurahs(String query) {
+    try {
+      var result = _quranDataDataSource.searchSurahs(query);
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, List<Ayah>> searchAyahs(String query) {
+    try {
+      var result = _quranDataDataSource.searchAyahs(query);
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, bool> get getSavedQuranViewMode {
+    try {
+      var result = _quranDataDataSource.getSavedQuranViewMode;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> saveQuranViewMode(bool quranViewModeInImages) {
+    try {
+      _quranDataDataSource.saveQuranViewMode(quranViewModeInImages);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, double> get getSavedQuranFontSize {
+    try {
+      var result = _quranDataDataSource.getSavedQuranFontSize;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, bool> get getSavedQuranTafsserMode {
+    try {
+      var result = _quranDataDataSource.getSavedQuranTafsserMode;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> saveQuranFontSize(double fontSize) {
+    try {
+      _quranDataDataSource.saveQuranFontSize(fontSize);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> saveQuranTafsserMode(bool quranTafsserMode) {
+    try {
+      _quranDataDataSource.saveQuranTafsserMode(quranTafsserMode);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
 }

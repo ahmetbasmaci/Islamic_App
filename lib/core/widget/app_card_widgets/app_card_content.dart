@@ -14,14 +14,14 @@ class AppCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSizes.cardPadding),
+      padding:  EdgeInsets.all(AppSizes.cardPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           topPartWidget,
-          const VerticalSpace(AppSizes.cardPadding),
+           VerticalSpace(AppSizes.cardPadding),
           centerPartWidget,
-          const VerticalSpace(AppSizes.cardPadding),
+           VerticalSpace(AppSizes.cardPadding),
           footerPartWidget,
         ],
       ),

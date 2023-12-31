@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:zad_almumin/features/quran/presentation/cubit/quran_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/utils/app_router.dart';
 import '../features/pray_times/pray_times.dart';
+import '../features/quran/quran.dart';
 import '../features/theme/cubit/theme_cubit.dart';
 import 'injection_container.dart' as di;
 import '../config/local/l10n.dart';
@@ -30,20 +31,28 @@ class App extends StatelessWidget {
   }
 
   Widget _materialWidget(LocaleState lcoaleState, ThemeState themeState) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
-      localizationsDelegates: [
-        AppStrings.delegate,
-        const AppLocalizationDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppStrings.delegate.supportedLocales,
-      locale: Locale(lcoaleState.locale),
-      // key: Constants.scaffoldKey,
-      theme: themeState.theme,
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      // Use builder only if you need to use library outside ScreenUtilInit context
+      builder: (_, child) {
+        return MaterialApp.router(
+          routerConfig: appRouter,
+          localizationsDelegates: [
+            AppStrings.delegate,
+            const AppLocalizationDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppStrings.delegate.supportedLocales,
+          locale: Locale(lcoaleState.locale),
+          // key: Constants.scaffoldKey,
+          theme: themeState.theme,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

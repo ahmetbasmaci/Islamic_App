@@ -20,4 +20,15 @@ abstract class IQuranDataRepository {
   Either<Failure, int> getPageInJuz(int page);
   Either<Failure, void> saveCurrentPageIndex(int page);
   Either<Failure, int> get getSavedCurrentPageIndex;
+  Either<Failure, List<dynamic>> get getSavedSearchFilterList;
+  Either<Failure, void> savedSearchFilterList(List<Map> listMap);
+  Either<Failure, List<int>> searchPages(int num);
+  Either<Failure, List<Surah>> searchSurahs(String query);
+  Either<Failure, List<Ayah>> searchAyahs(String query);
+  Either<Failure, bool> get getSavedQuranViewMode;
+  Either<Failure, void> saveQuranViewMode(bool quranViewModeInImages);
+  Either<Failure, double> get getSavedQuranFontSize;
+  Either<Failure, void> saveQuranFontSize(double fontSize);
+  Either<Failure, bool> get getSavedQuranTafsserMode;
+  Either<Failure, void> saveQuranTafsserMode(bool quranTafsserMode);
 }

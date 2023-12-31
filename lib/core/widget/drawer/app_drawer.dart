@@ -13,9 +13,9 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: context.isArabicLang ? OvalLeftBorderClipper() : OvalRightBorderClipper(),
-      child: const Drawer(
+      child: Drawer(
         width: AppSizes.drawerWith,
-        child: Column(
+        child: const Column(
           children: [
             AppDrawerHeader(),
             AppDrawerBody(),

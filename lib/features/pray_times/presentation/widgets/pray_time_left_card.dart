@@ -7,11 +7,11 @@ import '../../../../core/utils/resources/resources.dart';
 import '../../../../core/widget/progress_indicator/app_circular_progress_indicator.dart';
 
 class PrayTimeLeftCard extends StatelessWidget {
-  PrayTimeLeftCard({super.key});
+  const PrayTimeLeftCard({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: AppSizes.spaceBetweanParts),
+      margin:  EdgeInsets.only(top: AppSizes.spaceBetweanParts),
       decoration: _cardDecoration(context),
       width: context.width * .55,
       height: context.height * .25,
@@ -49,14 +49,14 @@ class PrayTimeLeftCard extends StatelessWidget {
         ? const AppCircularProgressIndicator()
         : Text(
             context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
-            style: AppStyles.title(context),
+            style: AppStyles.title,
           );
   }
 
   Text _prayTimeNameTitle(BuildContext context) {
     return Text(
       context.read<PrayTimesCubit>().nextPrayModel.prayTimeType.translatedName,
-      style: AppStyles.title2(context),
+      style: AppStyles.title2,
     );
   }
 }

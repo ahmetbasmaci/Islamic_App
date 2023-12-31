@@ -18,7 +18,7 @@ class AlarmCategoryPart extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: Text(alarmPartModel.title, style: AppStyles.title2(context)),
+          leading: Text(alarmPartModel.title, style: AppStyles.title2),
         ),
         Card(
           child: Column(
@@ -33,7 +33,7 @@ class AlarmCategoryPart extends StatelessWidget {
             ],
           ),
         ),
-        const VerticalSpace(AppSizes.spaceBetweanParts),
+         VerticalSpace(AppSizes.spaceBetweanParts),
       ],
     );
   }
@@ -119,7 +119,7 @@ class AlarmCategoryPart extends StatelessWidget {
                     ),
                     Text(
                       e.translatedName,
-                      style: AppStyles.title2(context).copyWith(
+                      style: AppStyles.title2.copyWith(
                         color: isSelected ? context.themeColors.primary : null,
                       ),
                     ),

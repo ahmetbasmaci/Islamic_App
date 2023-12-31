@@ -22,7 +22,7 @@ class ZikrListTileItem extends StatelessWidget {
         child: ListTile(
           title: Text(
             zikrCategoryModel.title,
-            style: AppStyles.title2(context),
+            style: AppStyles.title2,
           ),
           leading: Image.asset(zikrCategoryModel.imagePath),
           trailing: AppIcons.rightArrow,

@@ -22,7 +22,7 @@ class AlertDialogOkNo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title, style: AppStyles.title2(context)),
+      title: Text(title, style: AppStyles.title2),
       content: Text(content),
       actions: [
         TextButton(
@@ -34,7 +34,7 @@ class AlertDialogOkNo extends StatelessWidget {
           ),
           child: Text(
             okText,
-            style: AppStyles.content(context).copyWith(
+            style: AppStyles.content.copyWith(
               color: context.theme.colorScheme.background,
             ),
           ),
@@ -43,7 +43,7 @@ class AlertDialogOkNo extends StatelessWidget {
           onPressed: () => onNo.call(),
           child: Text(
             noText,
-            style: AppStyles.content(context).copyWith(
+            style: AppStyles.content.copyWith(
               color: context.theme.colorScheme.error,
             ),
           ),

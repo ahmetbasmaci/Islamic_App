@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import '../../extentions/extentions.dart';
-import 'app_card_widgets.dart';
+import 'package:zad_almumin/core/utils/resources/resources.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({
     super.key,
     required this.useMargin,
     required this.child,
-    this.boxShadow,
+    this.decoration,
   });
   final bool useMargin;
   final Widget child;
-  final BoxShadow? boxShadow;
+  final Decoration? decoration;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: useMargin ? const EdgeInsets.all(10) : null,
-      decoration: AppCardDecoration(
-        boxShadow_: boxShadow,
-        color_: context.themeColors.background,
-      ),
+      decoration: decoration ?? AppDecorations.zikrCard(context),
       child: child,
     );
   }

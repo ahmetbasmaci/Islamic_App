@@ -23,6 +23,17 @@ abstract class IQuranDataDataSource {
   int getPageInJuz(int page);
   void saveCurrentPageIndex(int page);
   int get getSavedCurrentPageIndex;
+  List<dynamic> get getSavedSearchFilterList;
+  void savedSearchFilterList(List<Map> listMap);
+  List<int> searchPages(int num);
+  List<Surah> searchSurahs(String query);
+  List<Ayah> searchAyahs(String query);
+  bool get getSavedQuranViewMode;
+  void saveQuranViewMode(bool quranViewModeInImages);
+  double get getSavedQuranFontSize;
+  void saveQuranFontSize(double fontSize);
+  bool get getSavedQuranTafsserMode;
+  void saveQuranTafsserMode(bool quranTafsserMode);
 }
 
 class QuranDataDataSource implements IQuranDataDataSource {
@@ -147,5 +158,67 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   void saveCurrentPageIndex(int page) {
     _localStorage.write(StorageKeys.pageIndex, page);
+  }
+
+  @override
+  List<dynamic> get getSavedSearchFilterList => _localStorage.read(StorageKeys.searchFilterList) ?? [];
+
+  @override
+  void savedSearchFilterList(List<Map> listMap) {
+    _localStorage.write(StorageKeys.searchFilterList, listMap);
+  }
+
+  @override
+  List<int> searchPages(int num) {
+    List<int> pages = [];
+    for (var i = 1; i <= 604; i++) {
+      if (i.toString().contains(num.toString())) pages.add(i);
+    }
+    return pages;
+  }
+
+  @override
+  List<Surah> searchSurahs(String query) {
+    List<Surah> matchedSurahs = [];
+    for (var i = 0; i < alSurahs.length; i++) {
+      if (_surahs[i].name.withOutTashkil.contains(query.withOutTashkil)) matchedSurahs.add(_surahs[i]);
+    }
+    return matchedSurahs;
+  }
+
+  @override
+  List<Ayah> searchAyahs(String query) {
+    List<Ayah> matchedAyahs = [];
+    for (var i = 0; i < alSurahs.length; i++) {
+      for (var j = 0; j < alSurahs[i].ayahs.length; j++) {
+        if (alSurahs[i].ayahs[j].text.withOutTashkil.contains(query.withOutTashkil))
+          matchedAyahs.add(_surahs[i].ayahs[j]);
+      }
+    }
+    return matchedAyahs;
+  }
+
+  @override
+  bool get getSavedQuranViewMode => _localStorage.read<bool>(StorageKeys.quranViewModeInImages) ?? true;
+
+  @override
+  void saveQuranViewMode(bool quranViewModeInImages) {
+    _localStorage.write(StorageKeys.quranViewModeInImages, quranViewModeInImages);
+  }
+
+  @override
+  double get getSavedQuranFontSize => _localStorage.read<double>(StorageKeys.quranFontSize) ?? 20.0;
+
+  @override
+  bool get getSavedQuranTafsserMode => _localStorage.read<bool>(StorageKeys.quranTafsserMode) ?? false;
+
+  @override
+  void saveQuranFontSize(double fontSize) {
+    _localStorage.write(StorageKeys.quranFontSize, fontSize);
+  }
+
+  @override
+  void saveQuranTafsserMode(bool quranTafsserMode) {
+    _localStorage.write(StorageKeys.quranTafsserMode, quranTafsserMode);
   }
 }

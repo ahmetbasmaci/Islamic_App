@@ -141,3 +141,16 @@ extension QuranReadersExtentions on QuranReaders {
     }
   }
 }
+
+extension SearchFilterExtentions on SearchFilter {
+  String get translatedName {
+    switch (this) {
+      case SearchFilter.surahs:
+        return AppStrings.of(Constants.context).surahs;
+      case SearchFilter.ayahs:
+        return AppStrings.of(Constants.context).ayahs;
+      case SearchFilter.pages:
+        return AppStrings.of(Constants.context).pages;
+    }
+  }
+}

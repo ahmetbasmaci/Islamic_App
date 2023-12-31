@@ -14,7 +14,7 @@ class AppCardWithTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(AppSizes.cardPadding),
+      margin:  EdgeInsets.all(AppSizes.cardPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -31,7 +31,7 @@ class AppCardWithTitle extends StatelessWidget {
   Widget _buildTitle(BuildContext context) {
     return Text(
       outsideTitle,
-      style: AppStyles.title(context),
+      style: AppStyles.title,
     );
   }
 }

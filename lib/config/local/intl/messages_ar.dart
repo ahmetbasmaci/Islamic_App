@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "asr": MessageLookupByLibrary.simpleMessage("العصر"),
         "asrPray": MessageLookupByLibrary.simpleMessage("صلاة العصر"),
         "ayahNumber": MessageLookupByLibrary.simpleMessage("رقم الآية"),
+        "ayahs": MessageLookupByLibrary.simpleMessage("الآيات"),
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("أيمن سويد"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
@@ -124,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "naserAlqatami": MessageLookupByLibrary.simpleMessage("ناصر القطامي"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "none": MessageLookupByLibrary.simpleMessage("لا شيء"),
+        "page": MessageLookupByLibrary.simpleMessage("الصفحة"),
+        "pages": MessageLookupByLibrary.simpleMessage("الصفحات"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
         "prayTimesDesc": MessageLookupByLibrary.simpleMessage(
             "يمكنك معرفة اوقات الصلاة والاذان عبر مشاركة موقعك الجغرافي مع التطبيق"),
@@ -156,12 +159,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "s": MessageLookupByLibrary.simpleMessage("s"),
         "saoodAlShuraym": MessageLookupByLibrary.simpleMessage("سعود الشريم"),
         "saturday": MessageLookupByLibrary.simpleMessage("السبت"),
+        "searchForAyahOrSureOrPage": MessageLookupByLibrary.simpleMessage(
+            "البحث عن سورة أو آية أو صفحة"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("أذكار النوم"),
         "sun": MessageLookupByLibrary.simpleMessage("الشمس"),
         "sunday": MessageLookupByLibrary.simpleMessage("الأحد"),
         "surahName": MessageLookupByLibrary.simpleMessage("أسم السورة"),
+        "surahs": MessageLookupByLibrary.simpleMessage("السور"),
         "tafsirs": MessageLookupByLibrary.simpleMessage("التفاسير"),
         "theme": MessageLookupByLibrary.simpleMessage("الثيم"),
         "thursday": MessageLookupByLibrary.simpleMessage("الخميس"),
