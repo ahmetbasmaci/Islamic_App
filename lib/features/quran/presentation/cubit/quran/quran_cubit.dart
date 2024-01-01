@@ -20,6 +20,7 @@ class QuranCubit extends Cubit<QuranState> {
 
   void initPage(TickerProvider quranTicker, bool showInKahf) {
     _initTabController(quranTicker);
+    _setTabCtrListener();
 
     _goToSavedPage(showInKahf);
 
@@ -32,35 +33,15 @@ class QuranCubit extends Cubit<QuranState> {
     _getSavedQuranTafsserMode();
   }
 
-  List<Ayah> getAyahsInCurrentPage() {
-    List<Ayah> allAyahsInPage = [];
-    var result = quranDataRepository.getAyahsInPage(state.selectedPageInfo.pageNumber);
-    result.fold(
-      (l) => emit(state.copyWith(message: l.message)),
-      (r) => allAyahsInPage = r,
-    );
-    return allAyahsInPage;
-  }
-
-  List<Ayah> getAyahsInPage(int page) {
-    List<Ayah> allAyahsInPage = [];
-    var result = quranDataRepository.getAyahsInPage(page);
-    result.fold(
-      (l) => emit(state.copyWith(message: l.message)),
-      (r) => allAyahsInPage = r,
-    );
-    return allAyahsInPage;
-  }
-
   void _initTabController(TickerProvider quranTicker) {
     tabCtr = TabController(length: 604, vsync: quranTicker);
-    _setTabCtrListener();
   }
 
   void _goToSavedPage(bool showInKahf) {
     if (showInKahf) {
       //check if user open quran page from kahf notification
       goToPage(294);
+      _updateCurrentPageInfo();
     } else {
       //check last opend page
       var result = quranDataRepository.getSavedCurrentPageIndex;
@@ -68,6 +49,7 @@ class QuranCubit extends Cubit<QuranState> {
         (l) => emit(state.copyWith(message: l.message)),
         (pageIndex) {
           goToPage(pageIndex);
+          _updateCurrentPageInfo();
         },
       );
     }
@@ -89,18 +71,71 @@ class QuranCubit extends Cubit<QuranState> {
       (ayahsInPage) {
         if (ayahsInPage.isEmpty) return;
         Ayah ayah = ayahsInPage.first;
+
         SelectedPageInfo newSelectedPage = state.selectedPageInfo.copyWith(
           juz: ayah.juz,
           pageNumber: tabCtr.index + 1,
           surahNumber: ayah.surahNumber,
           surahName: ayah.surahName,
-          startAyahNum: ayah.ayahNumber,
-          endAyahNum: ayahsInPage.last.ayahNumber,
-          totalAyahsNum: ayahsInPage.length,
         );
+
         emit(state.copyWith(selectedPageInfo: newSelectedPage));
+        _updateSelectStartEndAyahs();
       },
     );
+  }
+
+  void _updateSelectStartEndAyahs() {
+    if (state.selectedPageInfo.surahNumber != state.resitationSettings.startAyah.surahNumber) {
+      List<Ayah> ayahs = getSurahByNumber(state.selectedPageInfo.surahNumber).ayahs;
+
+      emit(
+        state.copyWith(
+          resitationSettings: state.resitationSettings.copyWith(
+            startAyah: ayahs[1],
+            endAyah: ayahs.last,
+          ),
+        ),
+      );
+    } else if (state.resitationSettings.startAyah.number == 0) {
+      print(20);
+    }
+  }
+
+  void updateCurrentPageInfoBySurahName(String surahName) {
+    Surah surah = getSurahByName(surahName);
+    SelectedPageInfo newSelectedPage = SelectedPageInfo(
+      juz: surah.ayahs.first.juz,
+      pageNumber: surah.ayahs.first.page - 1,
+      surahNumber: surah.number,
+      surahName: surah.name,
+    );
+    goToPage(newSelectedPage.pageNumber);
+    emit(state.copyWith(selectedPageInfo: newSelectedPage));
+  }
+
+  Ayah getResitationSettingsAyah({required bool isStartAyah}) {
+    if (isStartAyah) {
+      // if (state.selectedPageInfo.surahNumber != state.resitationSettings.startAyah.surahNumber) {
+      //   emit(
+      //     state.copyWith(
+      //       resitationSettings: state.resitationSettings
+      //           .copyWith(startAyah: getSurahByNumber(state.selectedPageInfo.surahNumber).ayahs[1]),
+      //     ),
+      //   );
+      // }
+      return state.resitationSettings.startAyah;
+    } else {
+      // if (state.selectedPageInfo.surahNumber != state.resitationSettings.endAyah.surahNumber) {
+      //   emit(
+      //     state.copyWith(
+      //       resitationSettings: state.resitationSettings
+      //           .copyWith(endAyah: getSurahByNumber(state.selectedPageInfo.surahNumber).ayahs.last),
+      //     ),
+      //   );
+      // }
+      return state.resitationSettings.endAyah;
+    }
   }
 
   void updateSelectedAyah(Ayah ayah) {
@@ -140,15 +175,15 @@ class QuranCubit extends Cubit<QuranState> {
       (savedMode) => emit(state.copyWith(quranViewModeInImages: savedMode)),
     );
   }
- 
+
   void _getSavedQuranFontSize() {
     var result = quranDataRepository.getSavedQuranFontSize;
-    // result.fold(
-    //   (l) => emit(state.copyWith(message: l.message)),
-    //   (savedSize) => emit(state.copyWith(quranFontSize: savedSize)),
-    // );
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (savedSize) => emit(state.copyWith(quranFontSize: savedSize)),
+    );
   }
- 
+
   void _getSavedQuranTafsserMode() {
     var result = quranDataRepository.getSavedQuranTafsserMode;
     result.fold(
@@ -160,6 +195,59 @@ class QuranCubit extends Cubit<QuranState> {
   void showMarkDialog() {
     //TODo
   }
+
+  void updateResitationSettingsStartAyah(Ayah newStartAyah) {
+    emit(
+      state.copyWith(
+        resitationSettings: state.resitationSettings.copyWith(
+          startAyah: newStartAyah,
+          endAyah: newStartAyah.number > state.resitationSettings.endAyah.number
+              ? getSurahByNumber(newStartAyah.surahNumber).ayahs.last
+              : null,
+        ),
+      ),
+    );
+  }
+
+  void updateResitationSettingsEndAyah(Ayah ayah) {
+    emit(state.copyWith(
+      resitationSettings: state.resitationSettings.copyWith(endAyah: ayah),
+    ));
+  }
+
+  List<Ayah> getAyahsDialogList(bool isStartAyah) {
+    List<Ayah> ayahs = [];
+    int surahNumber = state.resitationSettings.startAyah.surahNumber;
+    ayahs.addAll(getSurahByNumber(surahNumber).ayahs);
+    ayahs.removeWhere((element) => element.isBasmalah);
+    if (!isStartAyah) {
+      if (state.resitationSettings.startAyah.number == 0) state.resitationSettings.startAyah.number = 1;
+      ayahs.removeRange(0, state.resitationSettings.startAyah.number - 1);
+    }
+
+    return ayahs;
+  }
+
+  List<Ayah> getAyahsInCurrentPage() {
+    List<Ayah> allAyahsInPage = [];
+    var result = quranDataRepository.getAyahsInPage(state.selectedPageInfo.pageNumber);
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (r) => allAyahsInPage = r,
+    );
+    return allAyahsInPage;
+  }
+
+  List<Ayah> getAyahsInPage(int page) {
+    List<Ayah> allAyahsInPage = [];
+    var result = quranDataRepository.getAyahsInPage(page);
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (r) => allAyahsInPage = r,
+    );
+    return allAyahsInPage;
+  }
+
   List<Surah> get alSurahs {
     List<Surah> surahs = [];
     var result = quranDataRepository.alSurahs;

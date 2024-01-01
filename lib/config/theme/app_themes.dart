@@ -33,6 +33,10 @@ class AppThemes {
     iconTheme: _appIconThemeData(lightColor.primary),
     iconButtonTheme: _appIconButtonThemeData(lightColor.primary),
     textTheme: _appTextTheme,
+    dialogTheme: DialogTheme(
+      backgroundColor: lightColor.background,
+      elevation: 0,
+    ),
   );
 
   static final ThemeData _dark = ThemeData(
@@ -45,6 +49,10 @@ class AppThemes {
     iconTheme: _appIconThemeData(darkColor.primary),
     iconButtonTheme: _appIconButtonThemeData(darkColor.primary),
     textTheme: _appTextTheme,
+    dialogTheme: DialogTheme(
+      backgroundColor: darkColor.background,
+      elevation: 0,
+    ),
   );
   static IconThemeData _appIconThemeData(Color primaryColor) {
     return IconThemeData(color: primaryColor);

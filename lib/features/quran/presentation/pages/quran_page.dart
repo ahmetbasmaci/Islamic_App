@@ -18,7 +18,10 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuranCubit, QuranState>(
+    return
+    
+    
+     BlocBuilder<QuranCubit, QuranState>(
       builder: (context, state) {
         return const Scaffold(
           resizeToAvoidBottomInset: false,
@@ -28,7 +31,7 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
             children: [
               QuranPageBody(),
               QuranPageTop(),
-              //QuranPageFooter(),
+              QuranPageFooter(),
             ],
           ),
         );

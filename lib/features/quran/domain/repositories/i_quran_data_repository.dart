@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure/failure.dart';
+import '../../../../core/utils/enums/enums.dart';
 import '../../quran.dart';
 
 abstract class IQuranDataRepository {
@@ -31,4 +32,6 @@ abstract class IQuranDataRepository {
   Either<Failure, void> saveQuranFontSize(double fontSize);
   Either<Failure, bool> get getSavedQuranTafsserMode;
   Either<Failure, void> saveQuranTafsserMode(bool quranTafsserMode);
+  Either<Failure, QuranReaders> get getSavedSelectedReader;
+  Either<Failure, void> savedSelectedReader(QuranReaders quranReader);
 }

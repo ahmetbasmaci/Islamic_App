@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 import 'package:zad_almumin/core/error/failure/failure.dart';
+import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/features/quran/data/datasources/quran_data_data_source.dart';
 
 import 'package:zad_almumin/features/quran/data/models/ayah.dart';
@@ -305,6 +306,28 @@ class QuranDataRepository implements IQuranDataRepository {
   Either<Failure, void> saveQuranTafsserMode(bool quranTafsserMode) {
     try {
       _quranDataDataSource.saveQuranTafsserMode(quranTafsserMode);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, QuranReaders> get getSavedSelectedReader {
+    try {
+      var result = _quranDataDataSource.getSavedSelectedReader;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> savedSelectedReader(QuranReaders quranReader) {
+    try {
+      _quranDataDataSource.savedSelectedReader(quranReader);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());

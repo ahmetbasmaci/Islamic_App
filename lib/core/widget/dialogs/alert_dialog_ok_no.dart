@@ -22,6 +22,7 @@ class AlertDialogOkNo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      contentPadding: EdgeInsets.all(AppSizes.screenPadding),
       title: Text(title, style: AppStyles.title2),
       content: Text(content),
       actions: [

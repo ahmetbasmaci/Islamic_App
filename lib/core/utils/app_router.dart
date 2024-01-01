@@ -1,14 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:zad_almumin/features/pray_times/presentation/pages/pray_times_page.dart';
-import 'package:zad_almumin/features/quran/presentation/pages/quran_page.dart';
+import '../../features/alarm/alarm.dart';
+import '../../features/home/home.dart';
+import '../../features/pray_times/pray_times.dart';
+import '../../features/quran/quran.dart';
+import '../../features/settings/settings.dart';
 import '../helpers/pages_helper.dart';
-import '../../features/alarm/presentation/cubit/alarm_cubit.dart';
-import '../../features/alarm/presentation/pages/alarm_page.dart';
-import '../../features/home/presentation/cubit/home_cubit.dart';
-import '../../features/home/presentation/pages/home_page.dart';
-import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/azkar/azkar.dart';
 import '../../features/onboarding/pages/onboarding_page.dart';
 import '../../features/splash/pages/splash_page.dart';
@@ -102,7 +100,7 @@ GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.quran.path,
       name: AppRoutes.quran.name,
-      builder: (context, state) => QuranPage(),
+      builder: (context, state) => const QuranPage(),
     ),
   ],
 );

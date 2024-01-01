@@ -9,4 +9,6 @@ class StorageKeys {
   static const quranViewModeInImages = 'quranViewModeInImages';
   static const quranFontSize = 'quranFontSize';
   static const quranTafsserMode = 'quranTafsserMode';
+  static const selectedQuranReader = 'selectedQuranReader';
+  static const selectedReader = 'selectedReader';
 }

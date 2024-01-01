@@ -11,7 +11,6 @@ class AppIcons {
   static Icon copy = const Icon(Icons.file_copy_outlined);
   static Icon copyFilled = const Icon(Icons.file_copy);
   static Icon share = const Icon(Icons.share_outlined);
-  static Icon ayahsTest = const Icon(Icons.menu_book_sharp);
   static Icon person = const Icon(Icons.person);
   static Icon shop = const Icon(Icons.shopify);
   static Icon backArrow = const Icon(Icons.arrow_forward);
@@ -19,7 +18,14 @@ class AppIcons {
   static Icon alarmOn = const Icon(Icons.alarm);
   static Icon alarmOff = const Icon(Icons.alarm_off_rounded);
   static Icon settings = const Icon(Icons.settings);
+
+  static Icon ayahsTest = const Icon(Icons.question_answer_outlined);
+  static Icon book = const Icon(Icons.book);
+  static Icon tafseer = const Icon(Icons.my_library_books_rounded);
   static Icon quran = const Icon(CupertinoIcons.book_solid);
+  static Icon quranText = const Icon(Icons.menu_book_sharp);
+  static Icon quranImages = const Icon(Icons.image);
+
   static Icon darkMode = const Icon(Icons.dark_mode);
   static Icon lightMode = const Icon(Icons.light_mode);
   static Icon language = const Icon(Icons.language);
@@ -34,22 +40,32 @@ class AppIcons {
   static Icon notification = const Icon(Icons.notifications);
   static Icon prayersTime = const Icon(CupertinoIcons.timer_fill);
   static Icon moreVert = const Icon(Icons.more_vert);
-  static Icon book = const Icon(Icons.book);
-  static Icon quranImages = const Icon(Icons.image);
-  static Icon quranText = const Icon(Icons.menu_book_rounded);
+
   static Icon addBookMark = const Icon(Icons.bookmark_add_sharp);
   static Icon letter = const Icon(Icons.font_download_off_rounded);
   static Icon letterSize = const Icon(CupertinoIcons.textformat_size);
-  static Icon tafseer = const Icon(Icons.my_library_books_rounded);
   static Icon close = const Icon(Icons.close);
   static Icon info = const Icon(Icons.info_outline);
+  static Icon stop = const Icon(Icons.stop);
+  static Icon plus = const Icon(Icons.add);
+  static Icon minus = const Icon(Icons.remove);
+  static Icon downArrow = const Icon(Icons.arrow_drop_down);
 
-  static Widget animatedQuranImages(bool isImages) {
+  static Widget animatedQuranImagesView(bool isImages) {
     return AnimatedCrossFade(
       duration: const Duration(milliseconds: 200),
       firstChild: quranImages,
       secondChild: quranText,
       crossFadeState: isImages ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+  }
+
+  static Widget animatedQuranTafseerView(bool isTafseer) {
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 200),
+      firstChild: tafseer,
+      secondChild: quran,
+      crossFadeState: isTafseer ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 

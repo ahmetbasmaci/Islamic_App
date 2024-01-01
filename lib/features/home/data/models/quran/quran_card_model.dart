@@ -21,7 +21,7 @@ class QuranCardModel {
       content: ayah.text,
       surahName: ayah.surahName,
       juz: ayah.juz,
-      ayahNumber: ayah.ayahNumber,
+      ayahNumber: ayah.number,
       surahNumber: ayah.surahNumber,
       isFavorite: false,
     );

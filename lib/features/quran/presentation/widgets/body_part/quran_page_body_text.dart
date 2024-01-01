@@ -75,10 +75,10 @@ class QuranPageBodyTexts extends StatelessWidget {
                     [
                       WidgetSpan(
                         child: Container(
-                          padding:  EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
+                          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                            color: quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
+                            color: quranCubit.state.selectedAyah.number == ayah.number &&
                                     quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
                                 ? context.themeColors.primary.withOpacity(0.5)
                                 : ayah.isMarked
@@ -171,7 +171,7 @@ class QuranPageBodyTexts extends StatelessWidget {
         background: Paint()
           ..color = quranCubit.state.showTafseerPage
               ? Colors.transparent
-              : quranCubit.state.selectedAyah.ayahNumber == ayah.ayahNumber &&
+              : quranCubit.state.selectedAyah.number == ayah.number &&
                       quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
                   ? ctx.themeColors.primary.withOpacity(0.2)
                   : ayah.isMarked
@@ -184,7 +184,7 @@ class QuranPageBodyTexts extends StatelessWidget {
       recognizer: LongPressGestureRecognizer()..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
       children: [
         TextSpan(
-          text: ' ${ayah.ayahNumber.arabicNumber} ',
+          text: ' ${ayah.number.arabicNumber} ',
           style: TextStyle(
             wordSpacing: 0,
             fontWeight: FontWeight.bold,

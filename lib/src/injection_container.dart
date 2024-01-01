@@ -167,10 +167,19 @@ Future _initQuran() async {
   //!usecase
 
   //!Cubit
-  sl.registerFactory(() => QuranCubit(
-        quranDataRepository: sl(),
-      ));
-  sl.registerFactory(() => QuranSearchCubit(
-        quranDataRepository: sl(),
-      ));
+  sl.registerFactory(
+    () => QuranCubit(
+      quranDataRepository: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => QuranSearchCubit(
+      quranDataRepository: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => QuranReaderCubit(
+      quranDataRepository: sl(),
+    ),
+  );
 }

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/extentions/extentions.dart';
 
 class AppLinearProgressIndicator extends StatelessWidget {
-  const AppLinearProgressIndicator({super.key});
+  final double? value;
+  const AppLinearProgressIndicator({super.key, this.value});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: LinearProgressIndicator());
+    return Center(
+      child: LinearProgressIndicator(
+        value: value,
+        backgroundColor: Colors.grey,
+        color: context.themeColors.primary,
+      ),
+    );
   }
 }

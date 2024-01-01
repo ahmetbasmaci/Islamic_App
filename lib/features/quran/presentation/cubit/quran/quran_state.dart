@@ -10,6 +10,7 @@ class QuranState extends Equatable {
   final bool showTopFooterPart;
   final bool isLoading;
   final double downloadProgress;
+  final ResitationSettings resitationSettings;
   const QuranState({
     required this.selectedAyah,
     required this.message,
@@ -20,6 +21,7 @@ class QuranState extends Equatable {
     required this.showTopFooterPart,
     required this.isLoading,
     required this.downloadProgress,
+    required this.resitationSettings,
   });
 
   factory QuranState.initial() {
@@ -29,10 +31,11 @@ class QuranState extends Equatable {
       quranViewModeInImages: true,
       showTafseerPage: false,
       quranFontSize: AppSizes.minQuranFontSize,
-      selectedPageInfo: SelectedPageInfo.empty(),
+      selectedPageInfo: const SelectedPageInfo.empty(),
       showTopFooterPart: false,
       isLoading: false,
       downloadProgress: 0,
+      resitationSettings: ResitationSettings.initial(),
     );
   }
 
@@ -47,6 +50,7 @@ class QuranState extends Equatable {
     bool? showInKahf,
     bool? isLoading,
     double? downloadProgress,
+    ResitationSettings? resitationSettings,
   }) {
     return QuranState(
       selectedAyah: selectedAyah ?? this.selectedAyah,
@@ -58,6 +62,7 @@ class QuranState extends Equatable {
       showTopFooterPart: showTopFooterPart ?? this.showTopFooterPart,
       isLoading: isLoading ?? this.isLoading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
+      resitationSettings: resitationSettings ?? this.resitationSettings,
     );
   }
 
@@ -72,5 +77,6 @@ class QuranState extends Equatable {
         showTopFooterPart,
         isLoading,
         downloadProgress,
+        resitationSettings,
       ];
 }

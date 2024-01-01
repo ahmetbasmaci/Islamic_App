@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
+import '../../utils/resources/resources.dart';
 import '../../widget/dialogs/alert_dialog_ok_no.dart';
 
 class DialogsHelper {
   static Future<bool> showEnableLocationServiceDialog() async {
     bool okHitted = false;
+    //TODO
     await showDialog(
       context: Constants.context,
       builder: (context) => AlertDialogOkNo(
@@ -28,6 +31,7 @@ class DialogsHelper {
 
   static Future<bool> showAllowAppToUseLocationDialog() async {
     bool okHitted = false;
+    //TODO
     await showDialog(
       context: Constants.context,
       builder: (context) => AlertDialogOkNo(
@@ -48,7 +52,30 @@ class DialogsHelper {
     return okHitted;
   }
 
-
-  
+  static Future<void> showCostumDialog({
+    required BuildContext context,
+    required Widget title,
+    required Widget child,
+    double? height,
+    double? width,
+  }) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(AppSizes.screenPadding),
+          title: title,
+          content: Container(
+            decoration: BoxDecoration(
+              // color: context.themeColors.background,
+              borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+            ),
+            height: height ?? context.height * .6,
+            width: context.width,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
 }
-

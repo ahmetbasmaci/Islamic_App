@@ -3,6 +3,7 @@ import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/packages/local_storage/local_storage.dart';
 import 'package:zad_almumin/core/utils/storage_keys.dart';
 import '../../../../core/services/json_service.dart';
+import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
 import '../../quran.dart';
 
@@ -34,6 +35,8 @@ abstract class IQuranDataDataSource {
   void saveQuranFontSize(double fontSize);
   bool get getSavedQuranTafsserMode;
   void saveQuranTafsserMode(bool quranTafsserMode);
+  QuranReaders get getSavedSelectedReader;
+  void savedSelectedReader(QuranReaders quranReader);
 }
 
 class QuranDataDataSource implements IQuranDataDataSource {
@@ -220,5 +223,16 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   void saveQuranTafsserMode(bool quranTafsserMode) {
     _localStorage.write(StorageKeys.quranTafsserMode, quranTafsserMode);
+  }
+
+  @override
+  QuranReaders get getSavedSelectedReader {
+    return QuranReaders.values[_localStorage.read<int>(StorageKeys.selectedReader) ?? 0];
+  }
+
+  @override
+  void savedSelectedReader(QuranReaders quranReader) {
+   
+    _localStorage.write(StorageKeys.selectedReader, quranReader.index);
   }
 }

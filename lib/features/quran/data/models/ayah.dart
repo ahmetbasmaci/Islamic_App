@@ -2,7 +2,7 @@ import 'package:zad_almumin/core/extentions/dart_extention.dart';
 
 class Ayah {
   Ayah({
-    required this.ayahNumber,
+    required this.number,
     required this.audioUrl,
     required this.text,
     required this.juz,
@@ -15,7 +15,7 @@ class Ayah {
     required this.isMarked,
   });
   Ayah.empty({
-    this.ayahNumber = 0,
+    this.number = 0,
     this.audioUrl = '',
     this.text = '',
     this.juz = 0,
@@ -27,7 +27,7 @@ class Ayah {
     this.isBasmalah = false,
     this.isMarked = false,
   });
-  int ayahNumber;
+  int number;
   String audioUrl;
   String text;
   int juz;
@@ -41,7 +41,7 @@ class Ayah {
 
   factory Ayah.fromJson(dynamic json) {
     return Ayah(
-      ayahNumber: json['numberInSurah'] ?? 0,
+      number: json['numberInSurah'] ?? 0,
       audioUrl: json['audio'] ?? '',
       text: json['text'].toString().isBasmalah ? '\n${json['text']}\n' : json['text'],
       juz: json['juz'],
@@ -51,7 +51,7 @@ class Ayah {
       surahName: json['surah'] ?? '',
       surahNumber: 0,
       isBasmalah: json['text'].toString().isBasmalah,
-      isMarked:  json['markedAyah'],
+      isMarked: json['markedAyah'],
     );
   }
 }
