@@ -3,13 +3,19 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'resources.dart';
 
 class AppDecorations {
-  static BoxDecoration  quranTopCard(BuildContext context) {
+  static BoxDecoration quranTopCard(BuildContext context) {
     return BoxDecoration(
       color: context.themeColors.background,
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(AppSizes.cardRadius)),
       boxShadow: [
         BoxShadow(
-          color: context.themeColors.primary.withOpacity(.6),
+          color: Colors.black.withOpacity(0.3),
+          blurRadius: 10,
+          spreadRadius: .5,
+          offset: const Offset(0, 3),
+        ),
+        BoxShadow(
+          color: context.themeColors.primary.withOpacity(.1),
           blurRadius: 10,
           offset: const Offset(0, 3),
         )
@@ -17,13 +23,19 @@ class AppDecorations {
     );
   }
 
-  static BoxDecoration  quranBottmCard(BuildContext context) {
+  static BoxDecoration quranBottmCard(BuildContext context) {
     return BoxDecoration(
       color: context.themeColors.background,
       borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.cardRadius)),
       boxShadow: [
         BoxShadow(
-          color: context.themeColors.primary.withOpacity(.6),
+          color: Colors.black.withOpacity(0.3),
+          blurRadius: 10,
+          spreadRadius: .5,
+          offset: const Offset(0, -3),
+        ),
+        BoxShadow(
+          color: context.themeColors.primary.withOpacity(.1),
           blurRadius: 10,
           offset: const Offset(0, -3),
         )
@@ -34,7 +46,7 @@ class AppDecorations {
   static BoxDecoration suggesstionCard(BuildContext context) {
     return BoxDecoration(
       color: context.themeColors.background,
-      borderRadius:BorderRadius.vertical(top: Radius.circular(AppSizes.cardRadius)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.cardRadius)),
       boxShadow: [
         BoxShadow(
           offset: const Offset(0, 0),
@@ -47,7 +59,7 @@ class AppDecorations {
     );
   }
 
-  static BoxDecoration  cardWithPrimery(BuildContext context) {
+  static BoxDecoration cardWithPrimery(BuildContext context) {
     return BoxDecoration(
       color: context.themeColors.background,
       borderRadius: BorderRadius.all(Radius.circular(AppSizes.cardRadius)),

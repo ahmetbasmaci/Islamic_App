@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("أيمن سويد"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
+        "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "categoryBookname": MessageLookupByLibrary.simpleMessage("أسم الفئة"),
         "changeLanguage":
             MessageLookupByLibrary.simpleMessage("تغيير لغة التطبيق"),
@@ -125,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "naserAlqatami": MessageLookupByLibrary.simpleMessage("ناصر القطامي"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "none": MessageLookupByLibrary.simpleMessage("لا شيء"),
+        "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "page": MessageLookupByLibrary.simpleMessage("الصفحة"),
         "pages": MessageLookupByLibrary.simpleMessage("الصفحات"),
         "prayTimes": MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),

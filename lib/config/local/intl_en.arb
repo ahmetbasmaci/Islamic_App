@@ -129,5 +129,7 @@
     "pages" : "Pages",
     "page" : "Page",
     "searchForAyahOrSureOrPage" :  "Search for Ayah or Sure or Page",
+    "ok" : "Ok",
+    "cancel" : "Cancel",
     "s":"s"
 }

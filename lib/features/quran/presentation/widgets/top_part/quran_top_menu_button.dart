@@ -81,7 +81,7 @@ class QuranTopMenuButton extends StatelessWidget {
     );
     PopupMenuItem addBookMarkItem = PopupMenuItem(
       value: null,
-      onTap: () => context.read<QuranCubit>().showMarkDialog(),
+      onTap: () => context.read<QuranCubit>().showAddQuranPageMarkDialog(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

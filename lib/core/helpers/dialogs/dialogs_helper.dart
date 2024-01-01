@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
+import '../../../features/quran/quran.dart';
 import '../../utils/resources/resources.dart';
 import '../../widget/dialogs/alert_dialog_ok_no.dart';
 
@@ -15,8 +16,6 @@ class DialogsHelper {
         title: "تشغيل خدمات الموقع الجغرافي",
         content:
             "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
-        okText: "حسنا",
-        noText: "رفض",
         onOk: () async {
           okHitted = true;
           NavigatorHelper.pop();
@@ -38,8 +37,6 @@ class DialogsHelper {
         title: "طلب الاذن بالوصول للموقع الحالي",
         content:
             "يجمع زاد المؤمن بيانات الموقع الجغرافي  لتحديد مواقيت الصلاة الخاصة بك حتى إذا كان التطبيق مغلقًا أو لم يكن قيد الاستخدام",
-        okText: "حسنا",
-        noText: "رفض",
         onOk: () async {
           okHitted = true;
           NavigatorHelper.pop();
@@ -77,5 +74,29 @@ class DialogsHelper {
         );
       },
     );
+  }
+
+  static Future<bool> showAddQuranPageMarkDialog(MarkedPage pageProp) async {
+    //TODO
+    bool okHitted = false;
+    String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
+    String content =
+        pageProp.isMarked ? 'هل تود ازالة علامة القراءة من هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
+
+    await showDialog(
+      context: Constants.context,
+      builder: (context) => AlertDialogOkNo(
+        title: title,
+        content: content,
+        onOk: () async {
+          okHitted = true;
+          NavigatorHelper.pop();
+        },
+        onNo: () {
+          NavigatorHelper.pop();
+        },
+      ),
+    );
+    return okHitted;
   }
 }

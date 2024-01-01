@@ -128,6 +128,8 @@
     "pages" : "الصفحات",
     "page" : "الصفحة",
     "searchForAyahOrSureOrPage" : "البحث عن سورة أو آية أو صفحة",
+    "ok" : "موافق",
+    "cancel" : "إلغاء",
 
     "s":"s"
 }

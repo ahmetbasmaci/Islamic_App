@@ -11,6 +11,7 @@ class QuranState extends Equatable {
   final bool isLoading;
   final double downloadProgress;
   final ResitationSettings resitationSettings;
+  final List<MarkedPage> markedList;
   const QuranState({
     required this.selectedAyah,
     required this.message,
@@ -22,6 +23,7 @@ class QuranState extends Equatable {
     required this.isLoading,
     required this.downloadProgress,
     required this.resitationSettings,
+    required this.markedList,
   });
 
   factory QuranState.initial() {
@@ -36,6 +38,7 @@ class QuranState extends Equatable {
       isLoading: false,
       downloadProgress: 0,
       resitationSettings: ResitationSettings.initial(),
+      markedList: [],
     );
   }
 
@@ -51,6 +54,7 @@ class QuranState extends Equatable {
     bool? isLoading,
     double? downloadProgress,
     ResitationSettings? resitationSettings,
+    List<MarkedPage>? markedList,
   }) {
     return QuranState(
       selectedAyah: selectedAyah ?? this.selectedAyah,
@@ -63,6 +67,7 @@ class QuranState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
       resitationSettings: resitationSettings ?? this.resitationSettings,
+      markedList: markedList ?? this.markedList,
     );
   }
 
@@ -78,5 +83,6 @@ class QuranState extends Equatable {
         isLoading,
         downloadProgress,
         resitationSettings,
+        markedList,
       ];
 }
