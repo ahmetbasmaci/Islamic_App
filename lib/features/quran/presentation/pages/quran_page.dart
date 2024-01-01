@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/utils/constants.dart';
 import '../../quran.dart';
 
 class QuranPage extends StatefulWidget {
@@ -18,16 +19,13 @@ class _QuranPageState extends State<QuranPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return
-    
-    
-     BlocBuilder<QuranCubit, QuranState>(
+    return BlocBuilder<QuranCubit, QuranState>(
       builder: (context, state) {
-        return const Scaffold(
+        return Scaffold(
           resizeToAvoidBottomInset: false,
-          // key: AppSettings.scaffoldKey,
-          //  endDrawer: MyEndDrawer(),
-          body: Stack(
+          key: Constants.scaffoldKey,
+          endDrawer: const QuranEndDrawer(),
+          body: const Stack(
             children: [
               QuranPageBody(),
               QuranPageTop(),

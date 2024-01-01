@@ -6,6 +6,7 @@ import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/features/quran/data/datasources/quran_data_data_source.dart';
 
 import 'package:zad_almumin/features/quran/data/models/ayah.dart';
+import 'package:zad_almumin/features/quran/data/models/marked_page.dart';
 
 import 'package:zad_almumin/features/quran/data/models/surah.dart';
 
@@ -328,6 +329,29 @@ class QuranDataRepository implements IQuranDataRepository {
   Either<Failure, void> savedSelectedReader(QuranReaders quranReader) {
     try {
       _quranDataDataSource.savedSelectedReader(quranReader);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, List<MarkedPage>> get getSavedMarkedPages
+  {
+    try {
+      var result = _quranDataDataSource.getSavedMarkedPages;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> savedMarkedPages(List<MarkedPage> markedPages) {
+    try {
+      _quranDataDataSource.savedMarkedPages(markedPages);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());

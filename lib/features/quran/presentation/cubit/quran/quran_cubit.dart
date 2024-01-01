@@ -98,29 +98,39 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   void showAddQuranPageMarkDialog() async {
-    MarkedPage pageProp = state.markedList.firstWhere(
-      (element) => element.pageNumber == state.selectedPageInfo.pageNumber,
-      orElse: () => MarkedPage(
-        pageNumber: state.selectedPageInfo.pageNumber,
-        juz: state.selectedPageInfo.juz,
-        surahName: state.selectedPageInfo.surahName,
-        isMarked: false,
-      ),
+    var result = quranDataRepository.getSavedMarkedPages;
+
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (markedList) async {
+        MarkedPage pageProp = markedList.firstWhere(
+          (element) => element.pageNumber == state.selectedPageInfo.pageNumber,
+          orElse: () => MarkedPage(
+            pageNumber: state.selectedPageInfo.pageNumber,
+            juz: state.selectedPageInfo.juz,
+            surahName: state.selectedPageInfo.surahName,
+            isMarked: false,
+          ),
+        );
+        bool resultOk = await DialogsHelper.showAddQuranPageMarkDialog(pageProp);
+        if (resultOk) {
+          if (pageProp.isMarked) {
+            markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
+            ToatsHelper.show('تم ازالة العلامة');
+          } else {
+            pageProp.isMarked = true;
+            markedList.add(pageProp);
+            ToatsHelper.show('تم اضافة العلامة');
+          }
+        }
+        var savingResult = quranDataRepository.savedMarkedPages(markedList);
+
+        savingResult.fold(
+          (l) => emit(state.copyWith(message: l.message)),
+          (r) => emit(state.copyWith(markedList: markedList)),
+        );
+      },
     );
-    List<MarkedPage> markedList = [];
-    markedList.addAll(state.markedList);
-    bool resultOk = await DialogsHelper.showAddQuranPageMarkDialog(pageProp);
-    if (resultOk) {
-      if (pageProp.isMarked) {
-        markedList.removeWhere((element) => element.pageNumber == pageProp.pageNumber);
-        ToatsHelper.show('تم ازالة العلامة');
-      } else {
-        pageProp.isMarked = true;
-        markedList.add(pageProp);
-        ToatsHelper.show('تم اضافة العلامة');
-      }
-    }
-    emit(state.copyWith(markedList: markedList));
   }
 
   void updateResitationSettingsStartAyah(Ayah newStartAyah) {

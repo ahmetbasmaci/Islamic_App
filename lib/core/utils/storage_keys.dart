@@ -11,4 +11,5 @@ class StorageKeys {
   static const quranTafsserMode = 'quranTafsserMode';
   static const selectedQuranReader = 'selectedQuranReader';
   static const selectedReader = 'selectedReader';
+  static const markedPages = 'markedPages';
 }

@@ -182,4 +182,9 @@ Future _initQuran() async {
       quranDataRepository: sl(),
     ),
   );
+  sl.registerFactory(
+    () => QuranEndDrawerCubit(
+      quranDataRepository: sl(),
+    ),
+  );
 }
