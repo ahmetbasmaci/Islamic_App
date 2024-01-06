@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
+import 'package:zad_almumin/core/helpers/dialogs/dialogs_helper.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import '../../../quran.dart';
 
@@ -11,35 +12,33 @@ class QuranPageBodyTexts extends StatelessWidget {
   QuranPageBodyTexts({super.key, this.page = 0});
   final int page;
   late QuranCubit quranCubit;
-  late BuildContext ctx; //TODO remove this
   @override
   Widget build(BuildContext context) {
     quranCubit = context.read<QuranCubit>();
-    ctx = context;
     return Container(
       padding: EdgeInsets.only(left: context.width * 0.04, right: context.width * 0.04, bottom: context.height * 0.01),
       constraints: BoxConstraints(minHeight: context.height),
       child: Column(
         children: [
-          quranTextUpPart(),
-          Expanded(child: quranBodyPart(page)),
-          quranTextFooterPart(),
+          quranTextUpPart(context),
+          Expanded(child: quranBodyPart(context, page)),
+          quranTextFooterPart(context),
         ],
       ),
     );
   }
 
-  Widget quranTextUpPart() {
+  Widget quranTextUpPart(BuildContext context) {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: ctx.width * 0.02),
+        padding: EdgeInsets.symmetric(horizontal: context.width * 0.02),
         height: kToolbarHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${AppStrings.of(ctx).juz}   ${quranCubit.state.selectedPageInfo.juz.arabicNumber}',
+              '${AppStrings.of(context).juz}   ${quranCubit.state.selectedPageInfo.juz.arabicNumber}',
               style: AppStyles.contentBold,
             ),
             Text(
@@ -52,10 +51,10 @@ class QuranPageBodyTexts extends StatelessWidget {
     );
   }
 
-  Widget quranBodyPart(int page) {
+  Widget quranBodyPart(BuildContext context, int page) {
     List<Ayah> ayahs = quranCubit.getAyahsInPage(page);
 
-    return quranCubit.state.showTafseerPage ? getQuranTafseePart(ayahs) : getQuranTextPart(ayahs);
+    return quranCubit.state.showTafseerPage ? getQuranTafseePart(ayahs) : getQuranTextPart(context, ayahs);
   }
 
   Widget getQuranTafseePart(List<Ayah> ayahs) {
@@ -67,7 +66,7 @@ class QuranPageBodyTexts extends StatelessWidget {
       itemBuilder: (context, index) {
         Ayah ayah = ayahs[index];
         return ayah.isBasmalah
-            ? myRichText([basmalahPart(ayah)])
+            ? myRichText([basmalahPart(context, ayah)])
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,7 +84,7 @@ class QuranPageBodyTexts extends StatelessWidget {
                                     ? context.theme.colorScheme.secondary.withOpacity(0.2)
                                     : Colors.transparent,
                           ),
-                          child: myRichText([ayahPart(ayah)]),
+                          child: myRichText([ayahPart(context, ayah)]),
                         ),
                       )
                     ],
@@ -97,13 +96,13 @@ class QuranPageBodyTexts extends StatelessWidget {
     );
   }
 
-  Widget getQuranTextPart(List<Ayah> ayahs) {
+  Widget getQuranTextPart(BuildContext context, List<Ayah> ayahs) {
     return ListView(
       controller: quranCubit.scrollController,
       children: [
         myRichText(
           [
-            ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(ayah) : ayahPart(ayah)),
+            ...ayahs.map((ayah) => ayah.isBasmalah ? basmalahPart(context, ayah) : ayahPart(context, ayah)),
           ],
         ),
       ],
@@ -121,7 +120,7 @@ class QuranPageBodyTexts extends StatelessWidget {
     );
   }
 
-  WidgetSpan basmalahPart(Ayah ayah) {
+  WidgetSpan basmalahPart(BuildContext context, Ayah ayah) {
     return WidgetSpan(
       child: Column(
         children: [
@@ -136,7 +135,7 @@ class QuranPageBodyTexts extends StatelessWidget {
                       height: quranCubit.state.quranFontSize * 1.2,
                       width: double.maxFinite,
                       fit: BoxFit.fill,
-                      color: ctx.themeColors.primary.withOpacity(0.8),
+                      color: context.themeColors.primary.withOpacity(0.8),
                     ),
                     Center(
                       heightFactor: 1.5,
@@ -156,14 +155,14 @@ class QuranPageBodyTexts extends StatelessWidget {
           Image.asset(
             AppImages.bismillah,
             height: quranCubit.state.quranFontSize * 2,
-            color: ctx.themeColors.onBackground,
+            color: context.themeColors.onBackground,
           ),
         ],
       ),
     );
   }
 
-  TextSpan ayahPart(Ayah ayah) {
+  TextSpan ayahPart(BuildContext context, Ayah ayah) {
     return TextSpan(
       text: ayah.text,
       style: TextStyle(
@@ -173,15 +172,16 @@ class QuranPageBodyTexts extends StatelessWidget {
               ? Colors.transparent
               : quranCubit.state.selectedAyah.number == ayah.number &&
                       quranCubit.state.selectedAyah.surahNumber == ayah.surahNumber
-                  ? ctx.themeColors.primary.withOpacity(0.2)
+                  ? context.themeColors.primary.withOpacity(0.2)
                   : ayah.isMarked
-                      ? ctx.theme.colorScheme.secondary.withOpacity(0.2)
+                      ? context.theme.colorScheme.secondary.withOpacity(0.2)
                       : Colors.transparent
           ..strokeJoin = StrokeJoin.round
           ..strokeCap = StrokeCap.round
           ..style = PaintingStyle.fill,
       ),
-      recognizer: LongPressGestureRecognizer()..onLongPressStart = (details) => onAyahLongPressStart(details, ayah),
+      recognizer: LongPressGestureRecognizer()
+        ..onLongPressStart = (details) => onAyahLongPressStart(context, details, ayah),
       children: [
         TextSpan(
           text: ' ${ayah.number.arabicNumber} ',
@@ -189,7 +189,7 @@ class QuranPageBodyTexts extends StatelessWidget {
             wordSpacing: 0,
             fontWeight: FontWeight.bold,
             fontFamily: AppFonts.uthmanic2.name,
-            color: ctx.themeColors.primary,
+            color: context.themeColors.primary,
           ),
         ),
         quranCubit.state.showTafseerPage
@@ -234,11 +234,11 @@ class QuranPageBodyTexts extends StatelessWidget {
   */
   }
 
-  Widget quranTextFooterPart() {
+  Widget quranTextFooterPart(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: ctx.height * 0.03,
+        height: context.height * 0.03,
         child: Center(
           child: Text(
             page.arabicNumber,
@@ -251,10 +251,9 @@ class QuranPageBodyTexts extends StatelessWidget {
     );
   }
 
-  void onAyahLongPressStart(LongPressStartDetails details, Ayah ayah) {
+  void onAyahLongPressStart(BuildContext context, LongPressStartDetails details, Ayah ayah) {
     quranCubit.updateSelectedAyah(ayah); //set selected ayah
 
-    //TODO
-    // BotToastDialog.showToastDialog(details: details, ayah: ayah);
+    DialogsHelper.showSelectAyahBotToatsDialog(context: context, details: details, ayah: ayah);
   }
 }

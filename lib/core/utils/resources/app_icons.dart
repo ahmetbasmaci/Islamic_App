@@ -50,6 +50,8 @@ class AppIcons {
   static Icon plus = const Icon(Icons.add);
   static Icon minus = const Icon(Icons.remove);
   static Icon downArrow = const Icon(Icons.arrow_drop_down);
+  static Icon bookmarkAdded = const Icon(Icons.bookmark_added);
+  static Icon bookmarkAdd = const Icon(Icons.bookmark_add_rounded);
 
   static Widget animatedQuranImagesView(bool isImages) {
     return AnimatedCrossFade(

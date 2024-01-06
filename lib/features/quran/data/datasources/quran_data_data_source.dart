@@ -39,6 +39,8 @@ abstract class IQuranDataDataSource {
   void savedSelectedReader(QuranReaders quranReader);
   List<MarkedPage> get getSavedMarkedPages;
   void savedMarkedPages(List<MarkedPage> markedPages);
+   List<Ayah> get getSavedMarkedAyahs;
+ void savedMarkedAyahs(List<Ayah> markedAyahs);
 }
 
 class QuranDataDataSource implements IQuranDataDataSource {
@@ -245,5 +247,16 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   void savedMarkedPages(List<MarkedPage> markedPages) {
     _localStorage.write(StorageKeys.markedPages, markedPages);
+  }
+  
+  @override
+  List<Ayah> get getSavedMarkedAyahs
+  {
+    return _localStorage.read<List<Ayah>>(StorageKeys.markedAyahs) ?? [];
+  }
+  
+  @override
+  void savedMarkedAyahs(List<Ayah> markedAyahs) {
+    _localStorage.write(StorageKeys.markedAyahs, markedAyahs);
   }
 }

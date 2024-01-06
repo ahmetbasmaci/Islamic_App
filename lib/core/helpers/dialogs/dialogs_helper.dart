@@ -1,9 +1,12 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
+import 'package:zad_almumin/core/widget/space/space.dart';
 import '../../../features/quran/quran.dart';
 import '../../utils/resources/resources.dart';
+import '../../widget/buttons/buttons.dart';
 import '../../widget/dialogs/alert_dialog_ok_no.dart';
 
 class DialogsHelper {
@@ -98,5 +101,60 @@ class DialogsHelper {
       ),
     );
     return okHitted;
+  }
+
+  static void showSelectAyahBotToatsDialog({
+    required BuildContext context,
+    required LongPressStartDetails details,
+    required Ayah ayah,
+  }) {
+    BotToast.showAttachedWidget(
+      target: details.globalPosition,
+      animationDuration: const Duration(microseconds: 700),
+      animationReverseDuration: const Duration(microseconds: 700),
+      attachedBuilder: (cancel) => Card(
+        color: context.themeColors.background,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AddBookMarkButton(isMarked: ayah.isMarked),
+              //        _quranCtr.addRemoveAyahMark(ayah);
+              // cancel();
+
+              HorizontalSpace(AppSizes.spaceBetweanWidgets),
+
+              CopyButton(content: ayah.text),
+
+              HorizontalSpace(AppSizes.spaceBetweanWidgets),
+
+              AudioPlayPauseButton(
+                isPlaying: false,
+                onPressed: () {
+                  // cancel();
+                  // List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);
+                  // _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
+                  // _quranCtr.selectedPage.endAyahNum.value = ayahsList.last.ayahNumber;
+                  // _quranCtr.selectedPage.surahName.value = ayah.surahName;
+                  // _quranCtr.selectedPage.surahNumber.value = ayah.surahNumber;
+                  // _quranCtr.selectedPage.totalAyahsNum.value = ayahsList.length;
+                  // _quranCtr.changeOnShownState(false);
+
+                  // if (_httpCtr.downloadComplated.value) {
+                  //   AudioService.playMultiAudio(ayahList: ayahsList);
+                  // }
+                },
+              ),
+
+              HorizontalSpace(AppSizes.spaceBetweanWidgets),
+
+              ShareButton(content: ayah.text),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

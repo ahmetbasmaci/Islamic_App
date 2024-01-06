@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -36,10 +37,14 @@ class App extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      // Use builder only if you need to use library outside ScreenUtilInit context
+      
+      // Use builder only if you need to use the library outside ScreenUtilInit context
       builder: (_, child) {
         return MaterialApp.router(
           routerConfig: appRouter,
+          builder: BotToastInit(), // Call BotToastInit
+        
+         
           localizationsDelegates: [
             AppStrings.delegate,
             const AppLocalizationDelegate(),
@@ -55,5 +60,31 @@ class App extends StatelessWidget {
         );
       },
     );
+
+    // ScreenUtilInit(
+    //   designSize: const Size(360, 690),
+    //   minTextAdapt: true,
+    //   splitScreenMode: true,
+    //   // Use builder only if you need to use library outside ScreenUtilInit context
+    //   builder: (_, child) {
+    //     return MaterialApp.router(
+    //       routerConfig: appRouter,
+    //       builder: BotToastInit(), //1. call BotToastInit
+    //        navigatorObservers: [BotToastNavigatorObserver()],
+    //       localizationsDelegates: [
+    //         AppStrings.delegate,
+    //         const AppLocalizationDelegate(),
+    //         GlobalMaterialLocalizations.delegate,
+    //         GlobalWidgetsLocalizations.delegate,
+    //         GlobalCupertinoLocalizations.delegate,
+    //       ],
+    //       supportedLocales: AppStrings.delegate.supportedLocales,
+    //       locale: Locale(lcoaleState.locale),
+    //       // key: Constants.scaffoldKey,
+    //       theme: themeState.theme,
+    //       debugShowCheckedModeBanner: false,
+    //     );
+    //   },
+    // );
   }
 }

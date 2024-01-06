@@ -36,4 +36,6 @@ abstract class IQuranDataRepository {
   Either<Failure, void> savedSelectedReader(QuranReaders quranReader);
   Either<Failure, List<MarkedPage>> get getSavedMarkedPages;
   Either<Failure, void> savedMarkedPages(List<MarkedPage> markedPages);
+  Either<Failure, List<Ayah>> get getSavedMarkedAyahs;
+  Either<Failure, void> savedMarkedAyahs(List<Ayah> markedAyahs);
 }

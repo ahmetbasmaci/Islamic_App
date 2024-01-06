@@ -12,4 +12,5 @@ class StorageKeys {
   static const selectedQuranReader = 'selectedQuranReader';
   static const selectedReader = 'selectedReader';
   static const markedPages = 'markedPages';
+  static const markedAyahs = 'markedAyahs';
 }

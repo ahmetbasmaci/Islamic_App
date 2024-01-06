@@ -337,8 +337,7 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, List<MarkedPage>> get getSavedMarkedPages
-  {
+  Either<Failure, List<MarkedPage>> get getSavedMarkedPages {
     try {
       var result = _quranDataDataSource.getSavedMarkedPages;
       return Right(result);
@@ -352,6 +351,28 @@ class QuranDataRepository implements IQuranDataRepository {
   Either<Failure, void> savedMarkedPages(List<MarkedPage> markedPages) {
     try {
       _quranDataDataSource.savedMarkedPages(markedPages);
+      return const Right(null);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, List<Ayah>> get getSavedMarkedAyahs {
+    try {
+      var result = _quranDataDataSource.getSavedMarkedAyahs;
+      return Right(result);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, void> savedMarkedAyahs(List<Ayah> markedAyahs) {
+    try {
+      _quranDataDataSource.savedMarkedAyahs(markedAyahs);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());

@@ -19,9 +19,17 @@ class QuranEndDrawerCubit extends Cubit<QuranEndDrawerState> {
   PageController pageController = PageController();
 
   List<Ayah> get getMarkedAyahs {
-    return [];
-    // var result = sl<QuranCubit>().state.markedList.sort((a, b) => a.pageNumber.compareTo(b.pageNumber));
-    // return result;
+    List<Ayah> markedAyahs = [];
+    var result = quranDataRepository.getSavedMarkedAyahs;
+
+    result.fold(
+      (l) => null,
+      (markedPagesResult) => markedAyahs = markedPagesResult,
+    );
+
+    markedAyahs.sort((a, b) => a.page.compareTo(b.page));
+
+    return markedAyahs;
   }
 
   List<MarkedPage> get getMarkedPages {
