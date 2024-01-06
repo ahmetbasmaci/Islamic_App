@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'api_consumer.dart';
 
 class HttpConsumer implements ApiConsumer {
+
   @override
   Future delete(String url, {Map<String, dynamic>? params}) async {
     final response = await http.delete(Uri.parse(url));

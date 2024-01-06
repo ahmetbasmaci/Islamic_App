@@ -3,6 +3,7 @@ import '../utils/app_router.dart';
 import '../utils/storage_keys.dart';
 
 class PagesHelper {
+  PagesHelper._();
   static final ILocalStorage _localStorage = LocalStorage();
 
   /// if it's the first time to open the app it will return splash page id else it will return the last opened page id

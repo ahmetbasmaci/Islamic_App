@@ -4,6 +4,7 @@ import 'toats_helper.dart';
 import '../utils/constants.dart';
 
 class ClipboardHelper {
+  ClipboardHelper._();
   static void copyText(String text) {
     Clipboard.setData(ClipboardData(text: text));
     ToatsHelper.show(AppStrings.of(Constants.context).copiedToClipboard);

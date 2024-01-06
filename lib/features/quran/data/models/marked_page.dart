@@ -1,5 +1,10 @@
 class MarkedPage {
-  MarkedPage({required this.pageNumber, required this.juz, required this.surahName, required this.isMarked});
+  MarkedPage({
+    required this.pageNumber,
+    required this.juz,
+    required this.surahName,
+    required this.isMarked,
+  });
   int pageNumber;
   int juz;
   String surahName;

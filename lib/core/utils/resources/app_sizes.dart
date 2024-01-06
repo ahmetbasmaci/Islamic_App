@@ -1,6 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSizes {
+  AppSizes._();
   static double get screenPadding => 16.0.sp;
   static double get cardRadius => 15.0.sp;
   static double get cardPadding => 10.0.sp;

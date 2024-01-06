@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import '../../helpers/dialogs/dialogs_helper.dart';
+import '../../helpers/dialogs_helper.dart';
 import 'i_location_detector.dart';
 
 class LocationDetector implements ILocationDetector {

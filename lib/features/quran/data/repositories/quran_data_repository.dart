@@ -1,16 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-
 import 'package:zad_almumin/core/error/failure/failure.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
-import 'package:zad_almumin/features/quran/data/datasources/quran_data_data_source.dart';
-
-import 'package:zad_almumin/features/quran/data/models/ayah.dart';
-import 'package:zad_almumin/features/quran/data/models/marked_page.dart';
-
-import 'package:zad_almumin/features/quran/data/models/surah.dart';
-
-import '../../domain/repositories/i_quran_data_repository.dart';
+import '../../quran.dart';
 
 class QuranDataRepository implements IQuranDataRepository {
   final IQuranDataDataSource _quranDataDataSource;
@@ -183,9 +175,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> saveCurrentPageIndex(int page) {
+  Future<Either<Failure, void>> saveCurrentPageIndex(int page) async {
     try {
-      _quranDataDataSource.saveCurrentPageIndex(page);
+      await _quranDataDataSource.saveCurrentPageIndex(page);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -205,9 +197,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> savedSearchFilterList(List<Map> listMap) {
+  Future<Either<Failure, void>> savedSearchFilterList(List<FilterChipModel> filterChipModels) async {
     try {
-      _quranDataDataSource.savedSearchFilterList(listMap);
+      await _quranDataDataSource.savedSearchFilterList(filterChipModels);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -260,9 +252,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> saveQuranViewMode(bool quranViewModeInImages) {
+  Future<Either<Failure, void>> saveQuranViewMode(bool quranViewModeInImages) async {
     try {
-      _quranDataDataSource.saveQuranViewMode(quranViewModeInImages);
+      await _quranDataDataSource.saveQuranViewMode(quranViewModeInImages);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -293,9 +285,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> saveQuranFontSize(double fontSize) {
+  Future<Either<Failure, void>> saveQuranFontSize(double fontSize) async {
     try {
-      _quranDataDataSource.saveQuranFontSize(fontSize);
+      await _quranDataDataSource.saveQuranFontSize(fontSize);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -304,9 +296,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> saveQuranTafsserMode(bool quranTafsserMode) {
+  Future<Either<Failure, void>> saveQuranTafsserMode(bool quranTafsserMode) async {
     try {
-      _quranDataDataSource.saveQuranTafsserMode(quranTafsserMode);
+      await _quranDataDataSource.saveQuranTafsserMode(quranTafsserMode);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -326,9 +318,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> savedSelectedReader(QuranReaders quranReader) {
+  Future<Either<Failure, void>> savedSelectedReader(QuranReaders quranReader) async {
     try {
-      _quranDataDataSource.savedSelectedReader(quranReader);
+      await _quranDataDataSource.savedSelectedReader(quranReader);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -348,9 +340,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> savedMarkedPages(List<MarkedPage> markedPages) {
+  Future<Either<Failure, void>> savedMarkedPages(List<MarkedPage> markedPages) async {
     try {
-      _quranDataDataSource.savedMarkedPages(markedPages);
+      await _quranDataDataSource.savedMarkedPages(markedPages);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());
@@ -370,9 +362,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, void> savedMarkedAyahs(List<Ayah> markedAyahs) {
+  Future<Either<Failure, void>> savedMarkedAyahs(List<Ayah> markedAyahs) async {
     try {
-      _quranDataDataSource.savedMarkedAyahs(markedAyahs);
+      await _quranDataDataSource.savedMarkedAyahs(markedAyahs);
       return const Right(null);
     } catch (e) {
       debugPrint(e.toString());

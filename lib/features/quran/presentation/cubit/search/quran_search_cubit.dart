@@ -28,8 +28,7 @@ class QuranSearchCubit extends Cubit<QuranSearchState> {
   }
 
   void saveSearchFilterList() {
-    List<Map> listMap = state.searchFilterList.map((e) => e.toJson()).toList();
-    quranDataRepository.savedSearchFilterList(listMap);
+    quranDataRepository.savedSearchFilterList(state.searchFilterList);
   }
 
   void updateSearchFilterList(int index, FilterChipModel oldFilterChip, FilterChipModel newFilterChip) {

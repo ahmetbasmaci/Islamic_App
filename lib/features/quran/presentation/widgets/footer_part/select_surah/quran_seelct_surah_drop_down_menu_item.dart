@@ -12,7 +12,7 @@ class QuranSeelctSurahDropDownMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      surah.name.toString().withOutTashkil,
+      surah.name.toString().removeTashkilAndSpace,
       style: context.read<QuranCubit>().state.selectedPageInfo.surahName == surah.name
           ? AppStyles.contentBold
           : AppStyles.content,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 
-import '../../../../../core/helpers/dialogs/dialogs_helper.dart';
+import '../../../../../core/helpers/dialogs_helper.dart';
 import '../../../quran.dart';
 
 class QuranFooterButtonsPart extends StatelessWidget {

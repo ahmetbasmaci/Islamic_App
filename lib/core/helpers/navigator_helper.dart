@@ -5,6 +5,7 @@ import '../utils/app_router.dart';
 import '../utils/constants.dart';
 
 class NavigatorHelper {
+  NavigatorHelper._();
   static Future<void> pushNamed(
     AppRoutes route, {
     Map<String, String>? arguments,

@@ -67,7 +67,7 @@ class QuranSearchAyahsSuggestionResult extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _titleRow(context, ayah.surahName.withOutTashkil, ayah.number.toString()),
+            _titleRow(context, ayah.surahName.removeTashkilAndSpace, ayah.number.toString()),
             _titleRow(context, AppStrings.of(context).page, ayah.page.toString()),
           ],
         ),

@@ -23,12 +23,14 @@ class Surah {
   final int number;
   final List<Ayah> ayahs;
   final DownloadState downloadState;
-  factory Surah.fromjson(dynamic json) {
+  factory Surah.fromJson(dynamic json) {
     List<Ayah> ayahs = [];
     for (var ayah in json['ayahs']) {
       Ayah newAyah = Ayah.fromJson(ayah);
-      newAyah.surahName = json['name'];
-      newAyah.surahNumber = json['number'];
+      newAyah = newAyah.copyWith(
+        surahName: json['name'],
+        surahNumber: json['number'],
+      );
       ayahs.add(newAyah);
     }
     return Surah(

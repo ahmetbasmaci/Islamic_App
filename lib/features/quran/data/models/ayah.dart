@@ -1,7 +1,19 @@
+import 'package:equatable/equatable.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 
-class Ayah {
-  Ayah({
+class Ayah extends Equatable {
+  final int number;
+  final String audioUrl;
+  final String text;
+  final int juz;
+  final int page;
+  final bool haveSajda;
+  final String audioPath;
+  final String surahName;
+  final int surahNumber;
+  final bool isBasmalah;
+  final bool isMarked;
+  const Ayah({
     required this.number,
     required this.audioUrl,
     required this.text,
@@ -14,30 +26,46 @@ class Ayah {
     required this.isBasmalah,
     required this.isMarked,
   });
-  Ayah.empty({
-    this.number = 0,
-    this.audioUrl = '',
-    this.text = '',
-    this.juz = 0,
-    this.page = 0,
-    this.haveSajda = false,
-    this.audioPath = '',
-    this.surahName = '',
-    this.surahNumber = 0,
-    this.isBasmalah = false,
-    this.isMarked = false,
-  });
-  int number;
-  String audioUrl;
-  String text;
-  int juz;
-  int page;
-  bool haveSajda;
-  String audioPath;
-  String surahName;
-  int surahNumber;
-  bool isBasmalah = false;
-  bool isMarked = false;
+  const Ayah.empty()
+      : number = 0,
+        audioUrl = '',
+        text = '',
+        juz = 0,
+        page = 0,
+        haveSajda = false,
+        audioPath = '',
+        surahName = '',
+        surahNumber = 0,
+        isBasmalah = false,
+        isMarked = false;
+
+  Ayah copyWith({
+    int? number,
+    String? audioUrl,
+    String? text,
+    int? juz,
+    int? page,
+    bool? haveSajda,
+    String? audioPath,
+    String? surahName,
+    int? surahNumber,
+    bool? isBasmalah,
+    bool? isMarked,
+  }) {
+    return Ayah(
+      number: number ?? this.number,
+      audioUrl: audioUrl ?? this.audioUrl,
+      text: text ?? this.text,
+      juz: juz ?? this.juz,
+      page: page ?? this.page,
+      haveSajda: haveSajda ?? this.haveSajda,
+      audioPath: audioPath ?? this.audioPath,
+      surahName: surahName ?? this.surahName,
+      surahNumber: surahNumber ?? this.surahNumber,
+      isBasmalah: isBasmalah ?? this.isBasmalah,
+      isMarked: isMarked ?? this.isMarked,
+    );
+  }
 
   factory Ayah.fromJson(dynamic json) {
     return Ayah(
@@ -46,12 +74,29 @@ class Ayah {
       text: json['text'].toString().isBasmalah ? '\n${json['text']}\n' : json['text'],
       juz: json['juz'],
       page: json['page'],
-      haveSajda: false, //json['sajda'] ?? false,
-      audioPath: '',
-      surahName: json['surah'] ?? '',
-      surahNumber: 0,
+      haveSajda: json['sajda'] ?? false,
+      audioPath: json['audioPath'] ?? '',
+      surahName: json['surahName'] ?? '',
+      surahNumber: int.tryParse(json['surahNumber'].toString()) ?? 0,
       isBasmalah: json['text'].toString().isBasmalah,
       isMarked: json['markedAyah'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'numberInSurah': number,
+        'audio': audioUrl,
+        'text': text,
+        'juz': juz,
+        'page': page,
+        'haveSajda': haveSajda,
+        'audioPath': audioPath,
+        'surahName': surahName,
+        'surahNumber': surahNumber,
+        'isBasmalah': isBasmalah,
+        'markedAyah': isMarked,
+      };
+
+  @override
+  List<Object?> get props => [text];
 }

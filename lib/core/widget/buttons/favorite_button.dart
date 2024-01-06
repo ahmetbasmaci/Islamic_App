@@ -8,7 +8,6 @@ class FavoriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      highlightColor: Colors.transparent,
       onPressed: () {},
       icon: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),

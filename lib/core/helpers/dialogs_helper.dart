@@ -4,12 +4,13 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
 import 'package:zad_almumin/core/widget/space/space.dart';
-import '../../../features/quran/quran.dart';
-import '../../utils/resources/resources.dart';
-import '../../widget/buttons/buttons.dart';
-import '../../widget/dialogs/alert_dialog_ok_no.dart';
+import '../../features/quran/quran.dart';
+import '../utils/resources/resources.dart';
+import '../widget/buttons/buttons.dart';
+import '../widget/dialogs/alert_dialog_ok_no.dart';
 
 class DialogsHelper {
+  DialogsHelper._();
   static Future<bool> showEnableLocationServiceDialog() async {
     bool okHitted = false;
     //TODO
@@ -113,23 +114,24 @@ class DialogsHelper {
       animationDuration: const Duration(microseconds: 700),
       animationReverseDuration: const Duration(microseconds: 700),
       attachedBuilder: (cancel) => Card(
-        color: context.themeColors.background,
+        color: Constants.context.themeColors.background,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              AddBookMarkButton(isMarked: ayah.isMarked),
-              //        _quranCtr.addRemoveAyahMark(ayah);
-              // cancel();
-
+              AddBookMarkButton(
+                isMarked: ayah.isMarked,
+                ayah: ayah,
+                onDone: () => cancel(),
+              ),
               HorizontalSpace(AppSizes.spaceBetweanWidgets),
-
-              CopyButton(content: ayah.text),
-
+              CopyButton(
+                content: ayah.text,
+                onDone: () => cancel(),
+              ),
               HorizontalSpace(AppSizes.spaceBetweanWidgets),
-
               AudioPlayPauseButton(
                 isPlaying: false,
                 onPressed: () {
@@ -146,11 +148,13 @@ class DialogsHelper {
                   //   AudioService.playMultiAudio(ayahList: ayahsList);
                   // }
                 },
+                onDone: () => cancel(),
               ),
-
               HorizontalSpace(AppSizes.spaceBetweanWidgets),
-
-              ShareButton(content: ayah.text),
+              ShareButton(
+                content: ayah.text,
+                onDone: () => cancel(),
+              ),
             ],
           ),
         ),

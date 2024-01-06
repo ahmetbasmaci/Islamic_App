@@ -16,7 +16,6 @@ class _CopyButtonState extends State<CopyButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      highlightColor: Colors.transparent,
       icon: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: isCopyed ? AppIcons.copyFilled : AppIcons.copy,

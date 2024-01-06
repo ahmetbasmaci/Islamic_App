@@ -5,6 +5,7 @@ import 'package:zad_almumin/features/quran/presentation/cubit/quran/quran_cubit.
 import '../../extentions/extentions.dart';
 
 class AppStyles {
+  AppStyles._();
   static TextStyle get title {
     return Constants.context.theme.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w800,

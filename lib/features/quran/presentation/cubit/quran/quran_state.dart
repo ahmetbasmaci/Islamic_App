@@ -11,7 +11,8 @@ class QuranState extends Equatable {
   final bool isLoading;
   final double downloadProgress;
   final ResitationSettings resitationSettings;
-  final List<MarkedPage> markedList;
+  final List<MarkedPage> markedPages;
+  final List<Ayah> markedAyahs;
   const QuranState({
     required this.selectedAyah,
     required this.message,
@@ -23,12 +24,13 @@ class QuranState extends Equatable {
     required this.isLoading,
     required this.downloadProgress,
     required this.resitationSettings,
-    required this.markedList,
+    required this.markedPages,
+    required this.markedAyahs,
   });
 
   factory QuranState.initial() {
     return QuranState(
-      selectedAyah: Ayah.empty(),
+      selectedAyah: const Ayah.empty(),
       message: '',
       quranViewModeInImages: true,
       showTafseerPage: false,
@@ -38,7 +40,8 @@ class QuranState extends Equatable {
       isLoading: false,
       downloadProgress: 0,
       resitationSettings: ResitationSettings.initial(),
-      markedList: [],
+      markedPages: [],
+      markedAyahs: [],
     );
   }
 
@@ -54,7 +57,8 @@ class QuranState extends Equatable {
     bool? isLoading,
     double? downloadProgress,
     ResitationSettings? resitationSettings,
-    List<MarkedPage>? markedList,
+    List<MarkedPage>? markedPages,
+    List<Ayah>? markedAyahs,
   }) {
     return QuranState(
       selectedAyah: selectedAyah ?? this.selectedAyah,
@@ -67,7 +71,8 @@ class QuranState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
       resitationSettings: resitationSettings ?? this.resitationSettings,
-      markedList: markedList ?? this.markedList,
+      markedPages: markedPages ?? this.markedPages,
+      markedAyahs: markedAyahs ?? this.markedAyahs,
     );
   }
 
@@ -83,6 +88,7 @@ class QuranState extends Equatable {
         isLoading,
         downloadProgress,
         resitationSettings,
-        markedList,
+        markedPages,
+        markedAyahs,
       ];
 }

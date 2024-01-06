@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 
 class AppIcons {
+  AppIcons._();
   static Icon menu = const Icon(Icons.menu);
   static Icon home = const Icon(Icons.home);
   static Icon search = const Icon(Icons.search);

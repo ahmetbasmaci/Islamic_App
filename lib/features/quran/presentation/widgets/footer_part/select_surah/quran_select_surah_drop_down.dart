@@ -23,7 +23,9 @@ class QuranSelectSurahDropDown extends StatelessWidget {
                 ),
               )
               .toList(),
-          value: context.read<QuranCubit>().state.selectedPageInfo.surahName,
+           value: context.read<QuranCubit>().state.selectedPageInfo.surahName.isEmpty
+              ? context.read<QuranCubit>().alSurahs[0].name
+              : context.read<QuranCubit>().state.selectedPageInfo.surahName,
           menuMaxHeight: context.height * .3,
           onChanged: (newVal) {
             context.read<QuranCubit>().updateCurrentPageInfoBySurahName(newVal!);

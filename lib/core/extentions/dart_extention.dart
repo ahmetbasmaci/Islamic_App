@@ -53,7 +53,7 @@ extension StringExtentions on String {
     }
   }
 
-  String get withOutTashkil {
+  String get removeTashkil {
     return replaceAll('ٱ', 'ا') //change alef
         .replaceAll('\u0610', '') //ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
         .replaceAll('\u0611', '') //ARABIC SIGN ALAYHE ASSALLAM
@@ -141,7 +141,14 @@ extension StringExtentions on String {
         // and with Madda Above by Alif
         .replaceAll('\u0622', '\u0627')
         .replaceAll('\u0623', '\u0627')
-        .replaceAll('\u0625', '\u0627')
-        .replaceAll(' ', '');
+        .replaceAll('\u0625', '\u0627');
+  }
+
+  String get removeTashkilAndSpace {
+    return removeTashkil.replaceAll(' ', '');
+  }
+
+  String get removeSurahString {
+    return replaceAll('سُورَةُ', '');
   }
 }

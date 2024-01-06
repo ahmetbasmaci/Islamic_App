@@ -3,6 +3,7 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'resources.dart';
 
 class AppDecorations {
+  AppDecorations._();
   static BoxDecoration quranTopCard(BuildContext context) {
     return BoxDecoration(
       color: context.themeColors.background,

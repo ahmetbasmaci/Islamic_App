@@ -46,7 +46,7 @@ class QuranPageBody extends StatelessWidget {
       isMarked: isMarked,
       child: InkWell(
         onTap: () => context.read<QuranCubit>().pagePressed(),
-        onLongPress: () =>  context.read<QuranCubit>().showAddQuranPageMarkDialog(),
+        onLongPress: () => context.read<QuranCubit>().showAddQuranPageMarkDialog(),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 600),
           color: context.themeColors.background,
@@ -60,7 +60,7 @@ class QuranPageBody extends StatelessWidget {
 
   List<bool> _getMarkedPages(BuildContext context) {
     List<bool> markedPages = List.generate(605, (index) => false);
-    for (var element in context.read<QuranCubit>().state.markedList) {
+    for (var element in context.read<QuranCubit>().state.markedPages) {
       if (element.isMarked) markedPages[element.pageNumber] = true;
     }
     return markedPages;

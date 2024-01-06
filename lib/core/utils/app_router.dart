@@ -14,6 +14,9 @@ import '../../features/splash/pages/splash_page.dart';
 import '../../src/injection_container.dart';
 import 'constants.dart';
 
+
+
+
 enum AppRoutes {
   root("/Splash"),
   splash("/Splash"),

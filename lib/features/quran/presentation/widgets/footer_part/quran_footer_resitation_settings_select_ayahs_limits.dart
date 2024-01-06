@@ -4,7 +4,7 @@ import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/core/widget/space/vertical_space.dart';
-import '../../../../../core/helpers/dialogs/dialogs_helper.dart';
+import '../../../../../core/helpers/dialogs_helper.dart';
 import '../../../quran.dart';
 
 class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {

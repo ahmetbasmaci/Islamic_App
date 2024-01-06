@@ -1,4 +1,5 @@
 class AppImages {
+  AppImages._();
   static String get path => '';
   static String get appLogo => 'assets/images/icons/app_logo.png';
   static String get dua => 'assets/images/icons/azkar.png';

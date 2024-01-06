@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/utils/constants.dart';
 
 class ToatsHelper {
+  ToatsHelper._();
   static void show(String msg) {
     Fluttertoast.cancel();
     Fluttertoast.showToast(msg: msg);

@@ -6,7 +6,6 @@ import '../../../quran.dart';
 
 class QuranTopEndDrawerButton extends StatelessWidget {
   const QuranTopEndDrawerButton({super.key});
-  //TODO imoplemnt endDrawer
   @override
   Widget build(BuildContext context) {
     return QuranAppbarButton(
@@ -16,5 +15,4 @@ class QuranTopEndDrawerButton extends StatelessWidget {
       ),
     );
   }
-  //=> AppSettings
 }
