@@ -9,6 +9,7 @@ class ThemeColors {
   final Color error;
   final Color warning;
   final Color onBackground;
+  final Brightness brightness;
 
   ThemeColors({
     required this.background,
@@ -18,6 +19,7 @@ class ThemeColors {
     required this.succes,
     required this.error,
     required this.warning,
+    required this.brightness,
     this.onBackground = Colors.transparent,
   });
 }

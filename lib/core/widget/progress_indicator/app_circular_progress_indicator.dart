@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/utils/resources/app_gifs.dart';
 
 class AppCircularProgressIndicator extends StatelessWidget {
   const AppCircularProgressIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: AnimatedOpacity(
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 1000),
         opacity: 1,
-        child: CircularProgressIndicator(),
+        child:  AppGifs.loading,
       ),
     );
   }

@@ -4,4 +4,5 @@ class AppJsonPaths {
   static const String allAzkarPath = 'assets/database/azkar/allazkar.json';
   static const String allhNamesAzkarPath = 'assets/database/azkar/allahNames.json';
   static const String allQuranPath = 'assets/database/quran/allQuran.json';
+  static const String tafseersPath = 'assets/database/tafseer/tafseers_manager.json';
 }

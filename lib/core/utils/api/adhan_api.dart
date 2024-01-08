@@ -2,6 +2,8 @@ import 'package:geolocator/geolocator.dart';
 
 class AdhanApi {
   AdhanApi._();
+
+  
   static const String _baseUrl = 'http://api.aladhan.com/v1/';
 
   static String timings({

@@ -26,6 +26,7 @@ class AlarmCubit extends Cubit<AlarmState> {
   AlarmPartModel? _quranAlarmPart;
   AlarmPartModel? _fastAlarmPart;
   AlarmPartModel? _prayAlarmPart;
+
   AlarmPartModel getAlarmPart(AlarmPart aLarmType) {
     if (aLarmType == AlarmPart.dua && _duaAlarmPart != null) return _duaAlarmPart!;
     if (aLarmType == AlarmPart.hadith && _duaAlarmPart != null) return _hadithAlarmPart!;
@@ -37,8 +38,12 @@ class AlarmCubit extends Cubit<AlarmState> {
     var result = _getAlarmPartDataUseCase.call(
       GetAlarmDataPartParams(aLarmType: aLarmType),
     );
+    AlarmPartModel alarmPartModel = result.fold(
+      (l) => AlarmPartModel.empty(),
+      (r) => r,
+    );
 
-    return result;
+    return alarmPartModel;
   }
 
   void updateAlarmModel(AlarmModel alarmModel) {

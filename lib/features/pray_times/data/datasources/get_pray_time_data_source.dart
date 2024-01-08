@@ -1,9 +1,8 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:zad_almumin/core/utils/api/api_consumer.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../../../core/packages/app_internet_connection/app_internet_connection.dart';
-import '../../../../core/utils/api/adhan_api.dart';
+import '../../../../core/utils/api/api.dart';
 import '../models/praies_in_day_model.dart';
 
 abstract class IGetPrayTimeDataSource {

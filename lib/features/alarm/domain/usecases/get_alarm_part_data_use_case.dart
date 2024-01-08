@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:zad_almumin/core/error/failure/failure.dart';
+
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/utils/params/params.dart';
 import '../../data/models/alarm_part_model.dart';
@@ -8,7 +11,7 @@ class GetAlarmPartDataUseCase extends IUseCase<AlarmPartModel, GetAlarmDataPartP
 
   GetAlarmPartDataUseCase({required this.alarmrepository});
   @override
-AlarmPartModel call(GetAlarmDataPartParams params) {
+  Either<Failure,AlarmPartModel> call(GetAlarmDataPartParams params) {
     return alarmrepository.getAlarmPartData(params);
   }
 }

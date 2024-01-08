@@ -13,4 +13,10 @@ class AlarmPartModel {
     required this.imagePath,
     required this.alarmModels,
   });
+
+  AlarmPartModel.empty()
+      : title = '',
+        aLarmType = AlarmPart.dua,
+        imagePath = '',
+        alarmModels = [];
 }

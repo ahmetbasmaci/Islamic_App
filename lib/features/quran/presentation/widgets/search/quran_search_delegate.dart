@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/features/quran/quran.dart';
 
-import '../../../../../core/utils/constants.dart';
+import '../../../../../core/utils/resources/app_constants.dart';
 
 class QuranSearchDelegate extends SearchDelegate {
   final QuranSearchCubit quranSearchCubit;
   QuranSearchDelegate({required this.quranSearchCubit});
   @override
-  String get searchFieldLabel => AppStrings.of(Constants.context).searchForAyahOrSureOrPage;
+  String get searchFieldLabel => AppStrings.of(AppConstants.context).searchForAyahOrSureOrPage;
 
   // @override
   // ThemeData appBarTheme(BuildContext context) => Get.find<ThemeCtr>().currentThemeMode.value.copyWith(

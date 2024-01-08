@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../config/theme/app_themes.dart';
 import '../../../core/packages/local_storage/local_storage.dart';
-import '../../../core/utils/storage_keys.dart';
+import '../../../core/utils/resources/app_storage_keys.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
@@ -12,7 +12,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   final ILocalStorage localStorage;
 
   void getSavedTheme() async {
-    String savedThemeName = localStorage.read<String>(StorageKeys.theme) ?? '';
+    String savedThemeName = localStorage.read<String>(AppStorageKeys.theme) ?? '';
 
     if (savedThemeName.isEmpty) return;
 
@@ -22,7 +22,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   void updateTheme(Brightness themeBrightness) async {
     ThemeData themeData = AppThemes.themes.firstWhere((element) => element.brightness == themeBrightness);
 
-    localStorage.write(StorageKeys.theme, themeBrightness.name);
+    localStorage.write(AppStorageKeys.theme, themeBrightness.name);
 
     emit(ThemeState(themeData));
   }

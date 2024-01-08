@@ -12,8 +12,8 @@ class Ayah extends Equatable {
   final String surahName;
   final int surahNumber;
   final bool isBasmalah;
-  final bool isMarked;
-  const Ayah({
+  bool isMarked;
+  Ayah({
     required this.number,
     required this.audioUrl,
     required this.text,
@@ -26,7 +26,7 @@ class Ayah extends Equatable {
     required this.isBasmalah,
     required this.isMarked,
   });
-  const Ayah.empty()
+  Ayah.empty()
       : number = 0,
         audioUrl = '',
         text = '',

@@ -1,5 +1,5 @@
-class StorageKeys {
-  StorageKeys._();
+class AppStorageKeys {
+  AppStorageKeys._();
   static const theme = 'theme';
   static const locale = 'locale';
   static const isFirstTime = 'isFirstTime';
@@ -14,4 +14,5 @@ class StorageKeys {
   static const selectedReader = 'selectedReader';
   static const markedPages = 'markedPages';
   static const markedAyahs = 'markedAyahs';
+  static const selectedTafseerId = 'selectedTafseerId';
 }

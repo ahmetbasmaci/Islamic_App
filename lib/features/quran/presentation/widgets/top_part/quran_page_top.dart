@@ -13,15 +13,15 @@ class QuranPageTop extends StatelessWidget {
         return SafeArea(
           child: _animatedParent(
             context: context,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const QuranTopMenuButton(),
-                const QuranTopHomeButton(),
-                const QuranTopSwichQuranViewButton(),
-                Expanded(flex: 2, child: Container()),
-                const QuranTopSearchButton(),
-                const QuranTopEndDrawerButton(),
+                QuranTopMenuButton(),
+                QuranTopHomeButton(),
+                QuranTopSwichQuranViewButton(),
+                Spacer(),
+                QuranTopSearchButton(),
+                QuranTopEndDrawerButton(),
               ],
             ),
           ),

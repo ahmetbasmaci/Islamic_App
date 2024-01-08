@@ -10,6 +10,9 @@ abstract class IZikrCardGetZikrDataSource {
 }
 
 class ZikrCardGetZikrDataSource implements IZikrCardGetZikrDataSource {
+  IJsonService jsonService;
+
+  ZikrCardGetZikrDataSource({required this.jsonService});
   List<dynamic> allAzkars = [];
   @override
   Future<List<ZikrCardModel>> getAllZikrModels(ZikrCategories zikrCategory) async {
@@ -20,7 +23,7 @@ class ZikrCardGetZikrDataSource implements IZikrCardGetZikrDataSource {
   }
 
   Future<void> _loadAllAzkars() async {
-    var data = await JsonService.readJson(AppJsonPaths.allAzkarPath);
+    var data = await jsonService.readJson(AppJsonPaths.allAzkarPath);
     allAzkars = data['allAzkar'];
   }
 

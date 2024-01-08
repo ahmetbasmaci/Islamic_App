@@ -1,8 +1,7 @@
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/packages/local_storage/local_storage.dart';
-import 'package:zad_almumin/core/utils/storage_keys.dart';
 import '../../../../config/local/l10n.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/resources/app_constants.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
 import '../../../pray_times/data/models/time.dart';
@@ -22,16 +21,16 @@ abstract class IAlarmGetDatapartDataSource {
 class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
   ILocalStorage localStorage;
   AlarmGetDatapartDataSource({required this.localStorage}) {
-    Map<String, dynamic> alarmActiveMap = localStorage.read(StorageKeys.allAlarmParts) ?? {};
+    Map<String, dynamic> alarmActiveMap = localStorage.read(AppStorageKeys.allAlarmParts) ?? {};
     //alarmActiveMap = {};
     _allAlarmParts = [
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).duaTitleAlarm,
+        title: AppStrings.of(AppConstants.context).duaTitleAlarm,
         aLarmType: AlarmPart.dua,
         imagePath: AppImages.phalastine,
         alarmModels: [
           RepeatedAlarmModel(
-            title: AppStrings.of(Constants.context).duaForPhalastinePeople,
+            title: AppStrings.of(AppConstants.context).duaForPhalastinePeople,
             repeatAlarmType: RepeatAlarmType.values.firstWhere(
               (element) =>
                   element.name ==
@@ -43,12 +42,12 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
         ],
       ),
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).hadithTitleAlarm,
+        title: AppStrings.of(AppConstants.context).hadithTitleAlarm,
         aLarmType: AlarmPart.hadith,
         imagePath: AppImages.hadithAlarm,
         alarmModels: [
           RepeatedAlarmModel(
-            title: AppStrings.of(Constants.context).provetMuhammedHadith,
+            title: AppStrings.of(AppConstants.context).provetMuhammedHadith,
             repeatAlarmType: RepeatAlarmType.values.firstWhere(
               (element) =>
                   element.name ==
@@ -60,12 +59,12 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
         ],
       ),
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).dailyAzkarTitleAlarm,
+        title: AppStrings.of(AppConstants.context).dailyAzkarTitleAlarm,
         aLarmType: AlarmPart.dailyAzkar,
         imagePath: AppImages.azkar,
         alarmModels: [
           RepeatedAlarmModel(
-            title: AppStrings.of(Constants.context).diferentAzkar,
+            title: AppStrings.of(AppConstants.context).diferentAzkar,
             repeatAlarmType: RepeatAlarmType.values.firstWhere(
               (element) =>
                   element.name ==
@@ -75,7 +74,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
             alarmType: AlarmType.diferentAzkar,
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).morningZikr,
+            title: AppStrings.of(AppConstants.context).morningZikr,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.morningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.morningAzkar,
@@ -83,7 +82,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 7, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).eveningZikr,
+            title: AppStrings.of(AppConstants.context).eveningZikr,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.eveningAzkar.name]?['isActive'] ?? true,
             alarmType: AlarmType.eveningAzkar,
@@ -93,12 +92,12 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
         ],
       ),
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).quranTitleAlarm,
+        title: AppStrings.of(AppConstants.context).quranTitleAlarm,
         aLarmType: AlarmPart.quran,
         imagePath: AppImages.quran,
         alarmModels: [
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).readQueanPageEveryday,
+            title: AppStrings.of(AppConstants.context).readQueanPageEveryday,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.quranPageEveryDay.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranPageEveryDay,
@@ -106,7 +105,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 12, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).readKahfSura,
+            title: AppStrings.of(AppConstants.context).readKahfSura,
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.quranKahfSure.name]?['isActive'] ?? true,
             alarmType: AlarmType.quranKahfSure,
@@ -116,12 +115,12 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
         ],
       ),
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).fastTitleAlarm,
+        title: AppStrings.of(AppConstants.context).fastTitleAlarm,
         aLarmType: AlarmPart.fast,
         imagePath: AppImages.fast,
         alarmModels: [
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).mondayFasting,
+            title: AppStrings.of(AppConstants.context).mondayFasting,
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.mondayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.mondayFasting,
@@ -129,7 +128,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 20, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).thursdayFasting,
+            title: AppStrings.of(AppConstants.context).thursdayFasting,
             alarmPeriod: AlarmPeriod.weekly,
             isActive: alarmActiveMap[AlarmType.thursdayFasting.name]?['isActive'] ?? true,
             alarmType: AlarmType.thursdayFasting,
@@ -139,12 +138,12 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
         ],
       ),
       AlarmPartModel(
-        title: AppStrings.of(Constants.context).azhanTimeTitleAlarm,
+        title: AppStrings.of(AppConstants.context).azhanTimeTitleAlarm,
         aLarmType: AlarmPart.pray,
         imagePath: AppImages.pray,
         alarmModels: [
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).fajrPray,
+            title: AppStrings.of(AppConstants.context).fajrPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.fajrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.fajrAdhan,
@@ -152,7 +151,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).duhrPray,
+            title: AppStrings.of(AppConstants.context).duhrPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.duhrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.duhrAdhan,
@@ -160,7 +159,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).asrPray,
+            title: AppStrings.of(AppConstants.context).asrPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.asrAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.asrAdhan,
@@ -168,7 +167,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).maghripPray,
+            title: AppStrings.of(AppConstants.context).maghripPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.maghribAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.maghribAdhan,
@@ -176,7 +175,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
                 Time(hour: 0, minute: 0),
           ),
           PeriodicAlarmModel(
-            title: AppStrings.of(Constants.context).ishaPray,
+            title: AppStrings.of(AppConstants.context).ishaPray,
             alarmPeriod: AlarmPeriod.daily,
             isActive: alarmActiveMap[AlarmType.ishaAdhan.name]?['isActive'] ?? true,
             alarmType: AlarmType.ishaAdhan,
@@ -226,7 +225,7 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
     for (var alarmPartModel in _allAlarmParts) {
       for (var alarmModel in alarmPartModel.alarmModels) {
         Map<String, dynamic> alarmModelsMap = {'isActive': alarmModel.isActive};
-
+//TODO
         if (alarmModel is PeriodicAlarmModel) {
           alarmModelsMap.addAll({
             'time': alarmModel.time.formated,
@@ -241,6 +240,6 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
       }
     }
 
-    localStorage.write(StorageKeys.allAlarmParts, allAlarmPartsMap);
+    localStorage.write(AppStorageKeys.allAlarmParts, allAlarmPartsMap);
   }
 }

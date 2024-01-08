@@ -8,6 +8,9 @@ abstract class IHomeCardGetRandomHadithDataSource {
 }
 
 class HomeCardGetRandomHadithDataSource implements IHomeCardGetRandomHadithDataSource {
+  IJsonService jsonService;
+
+  HomeCardGetRandomHadithDataSource({required this.jsonService});
   List<HadithData> allHadithData = [];
   @override
   Future<HadithCardModel> getRandomHadith() async {
@@ -37,7 +40,7 @@ class HomeCardGetRandomHadithDataSource implements IHomeCardGetRandomHadithDataS
   }
 
   _loadHadithData() async {
-    List<dynamic> data = await JsonService.readJson(AppJsonPaths.hadithBookPath);
+    List<dynamic> data = await jsonService.readJson(AppJsonPaths.hadithBookPath);
     if (data.isEmpty) return;
     allHadithData = data.map((e) => HadithData.fromJson(e)).toList();
   }

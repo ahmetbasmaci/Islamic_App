@@ -83,14 +83,14 @@ class QuranCubit extends Cubit<QuranState> {
     emit(
       state.copyWith(
         showTopFooterPart: !isVisable,
-        selectedAyah: const Ayah.empty(),
+        selectedAyah: Ayah.empty(),
       ),
     );
   }
 
   void hideSelectedAyah() {
     emit(
-      state.copyWith(selectedAyah: const Ayah.empty()),
+      state.copyWith(selectedAyah: Ayah.empty()),
     );
   }
 
@@ -128,15 +128,14 @@ class QuranCubit extends Cubit<QuranState> {
   void addBookMarkToAyah(Ayah ayah) async {
     var markedList = state.markedAyahs;
 
+    ayah.isMarked = !ayah.isMarked;
     if (markedList.contains(ayah)) {
       markedList.remove(ayah);
       ToatsHelper.show('تم ازالة العلامة');
     } else {
-      ayah = ayah.copyWith(isMarked: true);
       markedList.add(ayah);
       ToatsHelper.show('تم اضافة العلامة');
     }
-
     var savingResult = await quranDataRepository.savedMarkedAyahs(markedList);
 
     savingResult.fold(
@@ -239,6 +238,15 @@ class QuranCubit extends Cubit<QuranState> {
     if (state.showTopFooterPart) pagePressed();
   }
 
+  void changeShowTafseerPage() {
+    // List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
+    // if (allTafseer.isEmpty) {
+    //   Get.to(() => TafseersPage(), transition: Transition.cupertinoDialog, duration: const Duration(milliseconds: 200));
+    //   return;
+    // } else
+    //   emit(state.copyWith(showTafseerPage: !state.showTafseerPage));
+  }
+
   bool get _getSavedQuranViewMode {
     bool quranViewModeInImages = true;
     var result = quranDataRepository.getSavedQuranViewMode;
@@ -253,7 +261,7 @@ class QuranCubit extends Cubit<QuranState> {
     double quranFontSize = AppSizes.minQuranFontSize;
     var result = quranDataRepository.getSavedQuranFontSize;
     result.fold(
-      (l) => emit(state.copyWith(message: l.message)),
+      (l) => null,
       (savedSize) => quranFontSize = savedSize,
     );
     return quranFontSize;
@@ -389,7 +397,7 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   Ayah getAyah(int surahNumber, int ayahNumber) {
-    Ayah ayah = const Ayah.empty();
+    Ayah ayah = Ayah.empty();
     var result = quranDataRepository.getAyah(surahNumber, ayahNumber);
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),
@@ -399,7 +407,7 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   Ayah getRandomAyah() {
-    Ayah ayah = const Ayah.empty();
+    Ayah ayah = Ayah.empty();
     var result = quranDataRepository.getRandomAyah();
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),
@@ -409,7 +417,7 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   Ayah getRandomAyahBySureNumber(int sureNumber) {
-    Ayah ayah = const Ayah.empty();
+    Ayah ayah = Ayah.empty();
     var result = quranDataRepository.getRandomAyahBySureNumber(sureNumber);
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),

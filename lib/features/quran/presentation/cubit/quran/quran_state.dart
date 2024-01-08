@@ -30,7 +30,7 @@ class QuranState extends Equatable {
 
   factory QuranState.initial() {
     return QuranState(
-      selectedAyah: const Ayah.empty(),
+      selectedAyah: Ayah.empty(),
       message: '',
       quranViewModeInImages: true,
       showTafseerPage: false,

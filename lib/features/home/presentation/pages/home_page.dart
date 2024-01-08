@@ -7,7 +7,7 @@ import '../../../../core/widget/app_scaffold.dart';
 import '../cubit/home_cubit.dart';
 import '../widgets/home_page_body.dart';
 import '../../../../config/local/l10n.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/resources/app_constants.dart';
 import '../../../../core/utils/resources/resources.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: Constants.systemUiOverlayStyleDefault, //: AppSettings.systemUiOverlayStyleQuran,
+      value: AppConstants.systemUiOverlayStyleDefault, //: AppSettings.systemUiOverlayStyleQuran,
       child: SafeArea(
         bottom: false,
         child: AppScaffold(

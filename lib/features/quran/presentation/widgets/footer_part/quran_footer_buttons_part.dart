@@ -25,16 +25,7 @@ class QuranFooterButtonsPart extends StatelessWidget {
         _button(
           toolTipMessage: 'التنقل بين القران والتفسير',
           icon: AppIcons.animatedQuranTafseerView(context.read<QuranCubit>().state.showTafseerPage),
-          onPressed: () async {
-            //TODO
-            // List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
-            // if (allTafseer.isEmpty) {
-            //   Get.to(() => TafseersPage(),
-            //       transition: Transition.cupertinoDialog, duration: const Duration(milliseconds: 200));
-            //   return;
-            // }
-            // _quranCtr.changeShowQuranStyle();
-          },
+          onPressed: () => context.read<QuranCubit>().changeShowTafseerPage(),
         ),
       ],
     );

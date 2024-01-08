@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
-import 'package:zad_almumin/core/utils/constants.dart';
+import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 import 'package:zad_almumin/core/widget/space/space.dart';
 import '../../features/quran/quran.dart';
 import '../utils/resources/resources.dart';
@@ -15,7 +15,7 @@ class DialogsHelper {
     bool okHitted = false;
     //TODO
     await showDialog(
-      context: Constants.context,
+      context: AppConstants.context,
       builder: (context) => AlertDialogOkNo(
         title: "تشغيل خدمات الموقع الجغرافي",
         content:
@@ -36,7 +36,7 @@ class DialogsHelper {
     bool okHitted = false;
     //TODO
     await showDialog(
-      context: Constants.context,
+      context: AppConstants.context,
       builder: (context) => AlertDialogOkNo(
         title: "طلب الاذن بالوصول للموقع الحالي",
         content:
@@ -88,7 +88,7 @@ class DialogsHelper {
         pageProp.isMarked ? 'هل تود ازالة علامة القراءة من هذه الصفحة؟' : 'هل تود وضع علامة على هذه الصفحة؟';
 
     await showDialog(
-      context: Constants.context,
+      context: AppConstants.context,
       builder: (context) => AlertDialogOkNo(
         title: title,
         content: content,
@@ -114,7 +114,7 @@ class DialogsHelper {
       animationDuration: const Duration(microseconds: 700),
       animationReverseDuration: const Duration(microseconds: 700),
       attachedBuilder: (cancel) => Card(
-        color: Constants.context.themeColors.background,
+        color: AppConstants.context.themeColors.background,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -124,7 +124,10 @@ class DialogsHelper {
               AddBookMarkButton(
                 isMarked: ayah.isMarked,
                 ayah: ayah,
-                onDone: () => cancel(),
+                onDone: () {
+                  ayah.isMarked = !ayah.isMarked;
+                  cancel();
+                },
               ),
               HorizontalSpace(AppSizes.spaceBetweanWidgets),
               CopyButton(

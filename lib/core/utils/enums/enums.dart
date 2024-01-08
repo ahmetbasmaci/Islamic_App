@@ -69,3 +69,5 @@ enum QuranReaders {
 enum SearchFilter { surahs, ayahs, pages }
 
 enum DownloadState { notDownloaded, downloading, downloaded }
+
+enum FireBaseStorageFileName { tafseers }

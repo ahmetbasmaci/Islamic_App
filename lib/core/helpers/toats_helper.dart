@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
-import 'package:zad_almumin/core/utils/constants.dart';
+import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 
 class ToatsHelper {
   ToatsHelper._();
@@ -17,6 +17,10 @@ class ToatsHelper {
 
   static void showError(String msg) {
     Fluttertoast.cancel();
-    Fluttertoast.showToast(msg: msg, backgroundColor: Constants.context.theme.colorScheme.error);
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      backgroundColor: AppConstants.context.theme.colorScheme.error,
+    );
   }
 }

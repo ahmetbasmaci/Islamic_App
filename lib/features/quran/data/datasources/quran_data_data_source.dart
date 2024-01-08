@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/packages/local_storage/local_storage.dart';
-import 'package:zad_almumin/core/utils/storage_keys.dart';
+import 'package:zad_almumin/core/utils/resources/app_storage_keys.dart';
 import '../../../../core/services/json_service.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
@@ -44,9 +44,10 @@ abstract class IQuranDataDataSource {
 }
 
 class QuranDataDataSource implements IQuranDataDataSource {
-  final ILocalStorage _localStorage;
+  final ILocalStorage localStorage;
+  final IJsonService jsonService;
 
-  QuranDataDataSource({required ILocalStorage localStorage}) : _localStorage = localStorage {
+  QuranDataDataSource({required this.localStorage, required this.jsonService}) {
     // _loadSurahs();
   }
   List<Surah> _surahs = [];
@@ -154,26 +155,26 @@ class QuranDataDataSource implements IQuranDataDataSource {
   int getPageInJuz(int page) => page % 20;
 
   Future<void> loadSurahs() async {
-    List<dynamic> data = await JsonService.readJson(AppJsonPaths.allQuranPath);
+    List<dynamic> data = await jsonService.readJson(AppJsonPaths.allQuranPath);
     if (data.isEmpty) return;
     _surahs = data.map((e) => Surah.fromJson(e)).toList();
   }
 
   @override
-  int get getSavedCurrentPageIndex => _localStorage.read<int>(StorageKeys.pageIndex) ?? 0;
+  int get getSavedCurrentPageIndex => localStorage.read<int>(AppStorageKeys.pageIndex) ?? 0;
 
   @override
   Future<void> saveCurrentPageIndex(int page) async {
-    await _localStorage.write(StorageKeys.pageIndex, page);
+    await localStorage.write(AppStorageKeys.pageIndex, page);
   }
 
   @override
-  List<dynamic> get getSavedSearchFilterList => _localStorage.read(StorageKeys.searchFilterList) ?? [];
+  List<dynamic> get getSavedSearchFilterList => localStorage.read(AppStorageKeys.searchFilterList) ?? [];
 
   @override
   Future<void> savedSearchFilterList(List<FilterChipModel> filterChipModels) async {
     List<Map> listMap = filterChipModels.map((e) => e.toJson()).toList();
-    await _localStorage.write(StorageKeys.searchFilterList, listMap);
+    await localStorage.write(AppStorageKeys.searchFilterList, listMap);
   }
 
   @override
@@ -207,60 +208,61 @@ class QuranDataDataSource implements IQuranDataDataSource {
   }
 
   @override
-  bool get getSavedQuranViewMode => _localStorage.read<bool>(StorageKeys.quranViewModeInImages) ?? true;
+  bool get getSavedQuranViewMode => localStorage.read<bool>(AppStorageKeys.quranViewModeInImages) ?? true;
 
   @override
   Future<void> saveQuranViewMode(bool quranViewModeInImages) async {
-    await _localStorage.write(StorageKeys.quranViewModeInImages, quranViewModeInImages);
+    await localStorage.write(AppStorageKeys.quranViewModeInImages, quranViewModeInImages);
   }
 
   @override
-  double get getSavedQuranFontSize => _localStorage.read<double>(StorageKeys.quranFontSize) ?? 20.0;
+  double get getSavedQuranFontSize =>
+      localStorage.read<double>(AppStorageKeys.quranFontSize) ?? AppSizes.minQuranFontSize;
 
   @override
-  bool get getSavedQuranTafsserMode => _localStorage.read<bool>(StorageKeys.quranTafsserMode) ?? false;
+  bool get getSavedQuranTafsserMode => localStorage.read<bool>(AppStorageKeys.quranTafsserMode) ?? false;
 
   @override
   Future<void> saveQuranFontSize(double fontSize) async {
-    await _localStorage.write(StorageKeys.quranFontSize, fontSize);
+    await localStorage.write(AppStorageKeys.quranFontSize, fontSize);
   }
 
   @override
   Future<void> saveQuranTafsserMode(bool quranTafsserMode) async {
-    await _localStorage.write(StorageKeys.quranTafsserMode, quranTafsserMode);
+    await localStorage.write(AppStorageKeys.quranTafsserMode, quranTafsserMode);
   }
 
   @override
   QuranReaders get getSavedSelectedReader {
-    return QuranReaders.values[_localStorage.read<int>(StorageKeys.selectedReader) ?? 0];
+    return QuranReaders.values[localStorage.read<int>(AppStorageKeys.selectedReader) ?? 0];
   }
 
   @override
   Future<void> savedSelectedReader(QuranReaders quranReader) async {
-    await _localStorage.write(StorageKeys.selectedReader, quranReader.index);
+    await localStorage.write(AppStorageKeys.selectedReader, quranReader.index);
   }
 
   @override
   List<MarkedPage> get getSavedMarkedPages {
-    var listMap = _localStorage.read<List<dynamic>>(StorageKeys.markedPages) ?? [];
+    var listMap = localStorage.read<List<dynamic>>(AppStorageKeys.markedPages) ?? [];
     return listMap.map((e) => MarkedPage.fromJson(e)).toList();
   }
 
   @override
   Future<void> savedMarkedPages(List<MarkedPage> markedPages) async {
     var listMap = markedPages.map((e) => e.toJson()).toList();
-    await _localStorage.write(StorageKeys.markedPages, listMap);
+    await localStorage.write(AppStorageKeys.markedPages, listMap);
   }
 
   @override
   List<Ayah> get getSavedMarkedAyahs {
-    var listMap = _localStorage.read<List<dynamic>>(StorageKeys.markedAyahs) ?? [];
+    var listMap = localStorage.read<List<dynamic>>(AppStorageKeys.markedAyahs) ?? [];
     return listMap.map((e) => Ayah.fromJson(e)).toList();
   }
 
   @override
   Future<void> savedMarkedAyahs(List<Ayah> markedAyahs) async {
     var listMap = markedAyahs.map((e) => e.toJson()).toList();
-    await _localStorage.write(StorageKeys.markedAyahs, listMap);
+    await localStorage.write(AppStorageKeys.markedAyahs, listMap);
   }
 }

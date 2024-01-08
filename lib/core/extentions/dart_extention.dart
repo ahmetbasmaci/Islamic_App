@@ -9,6 +9,7 @@ extension ContextExtentions on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   ThemeData get theme => Theme.of(this);
   ThemeColors get themeColors => ThemeColors(
+        brightness: Theme.of(this).brightness,
         background: Theme.of(this).colorScheme.background,
         primary: Theme.of(this).colorScheme.primary,
         secondary: Theme.of(this).colorScheme.secondary,

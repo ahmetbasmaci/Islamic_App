@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
+import '../../../../../core/helpers/navigator_helper.dart';
+import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/utils/resources/resources.dart';
 import '../../../../theme/theme.dart';
 import '../../../quran.dart';
@@ -105,7 +107,7 @@ class QuranTopMenuButton extends StatelessWidget {
     );
     PopupMenuItem tefsirPageItem = PopupMenuItem(
       value: null,
-      onTap: () {}, //NavigatorHelper.pushNamed(AppRoutes.tafseer),
+      onTap: () => NavigatorHelper.pushNamed(AppRoutes.tafseer),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

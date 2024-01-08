@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../features/alarm/alarm.dart';
 import '../../features/home/home.dart';
 import '../../features/pray_times/pray_times.dart';
@@ -12,10 +13,7 @@ import '../../features/azkar/azkar.dart';
 import '../../features/onboarding/pages/onboarding_page.dart';
 import '../../features/splash/pages/splash_page.dart';
 import '../../src/injection_container.dart';
-import 'constants.dart';
-
-
-
+import 'resources/app_constants.dart';
 
 enum AppRoutes {
   root("/Splash"),
@@ -33,6 +31,7 @@ enum AppRoutes {
   alarm("/alarm"),
   prayTimes("/prayTimes"),
   quran("/quran"),
+  tafseer("/tafseer"),
   ;
 
   const AppRoutes(this.path);
@@ -41,7 +40,7 @@ enum AppRoutes {
 
 GoRouter appRouter = GoRouter(
   initialLocation: PagesHelper.getPagePath,
-  navigatorKey: Constants.navigatorKey,
+  navigatorKey: AppConstants.navigatorKey,
   observers: [
     BotToastNavigatorObserver(), // Add BotToastObserver here
   ],
@@ -108,6 +107,14 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.quran.path,
       name: AppRoutes.quran.name,
       builder: (context, state) => const QuranPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.tafseer.path,
+      name: AppRoutes.tafseer.name,
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<TafseerCubit>(),
+        child: const TafseeerPage(),
+      ),
     ),
   ],
 );

@@ -1,3 +1,7 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../core/error/failure/failure.dart';
 import '../../../../core/utils/params/params.dart';
 import '../datasources/alarm_get_datapart_data_source.dart';
 
@@ -13,27 +17,33 @@ class AlarmRepository implements IAlarmRepository {
   AlarmRepository({required this.alarmGetDatapartDataSource});
 
   @override
-  AlarmPartModel getAlarmPartData(GetAlarmDataPartParams params) {
+  Either<Failure, AlarmPartModel> getAlarmPartData(GetAlarmDataPartParams params) {
     switch (params.aLarmType) {
       case AlarmPart.dua:
-        return alarmGetDatapartDataSource.getDuaAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getDuaAlarmPartData);
       case AlarmPart.hadith:
-        return alarmGetDatapartDataSource.getHadithAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getDuaAlarmPartData);
       case AlarmPart.dailyAzkar:
-        return alarmGetDatapartDataSource.getDailyAzkarAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getDailyAzkarAlarmPartData);
       case AlarmPart.quran:
-        return alarmGetDatapartDataSource.getQuranAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getQuranAlarmPartData);
       case AlarmPart.fast:
-        return alarmGetDatapartDataSource.getFastAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getFastAlarmPartData);
       case AlarmPart.pray:
-        return alarmGetDatapartDataSource.getPrayAlarmPartData;
+        return Right(alarmGetDatapartDataSource.getPrayAlarmPartData);
       default:
         throw UnimplementedError();
     }
   }
 
   @override
-  void updateAlarmModel(AlarmModel alarmModel) {
-    alarmGetDatapartDataSource.updateAlarmModel(alarmModel);
+  Either<Failure, Unit> updateAlarmModel(AlarmModel alarmModel) {
+    try {
+      alarmGetDatapartDataSource.updateAlarmModel(alarmModel);
+      return const Right(unit);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
   }
 }

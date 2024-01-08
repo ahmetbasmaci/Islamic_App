@@ -7,6 +7,9 @@ abstract class IZikrCardGetAllahNamesDataSource {
 }
 
 class ZikrCardGetAllahNamesDataSource implements IZikrCardGetAllahNamesDataSource {
+  IJsonService jsonService;
+
+  ZikrCardGetAllahNamesDataSource({required this.jsonService});
   List<AllahNamesModel> result = [];
   @override
   Future<List<AllahNamesModel>> getAllahNamesModels() async {
@@ -16,7 +19,7 @@ class ZikrCardGetAllahNamesDataSource implements IZikrCardGetAllahNamesDataSourc
   }
 
   Future<void> _loadAllahNamesDataList() async {
-    var data = await JsonService.readJson(AppJsonPaths.allhNamesAzkarPath);
+    var data = await jsonService.readJson(AppJsonPaths.allhNamesAzkarPath);
     List<dynamic> mapList = data['list'];
 
     for (var model in mapList) {

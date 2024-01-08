@@ -18,12 +18,12 @@ class AppIcons {
   static Icon selectAll = const Icon(Icons.select_all);
   static Icon alarmOn = const Icon(Icons.alarm);
   static Icon alarmOff = const Icon(Icons.alarm_off_rounded);
-  static Icon settings = const Icon(Icons.settings);
+  static Icon settings = const Icon(Icons.settings_suggest_outlined);
 
   static Icon ayahsTest = const Icon(Icons.question_answer_outlined);
   static Icon book = const Icon(Icons.book);
   static Icon tafseer = const Icon(Icons.my_library_books_rounded);
-  static Icon quran = const Icon(CupertinoIcons.book_solid);
+  static Icon quran = const Icon(CupertinoIcons.book);
   static Icon quranText = const Icon(Icons.menu_book_sharp);
   static Icon quranImages = const Icon(Icons.image);
 
@@ -32,7 +32,7 @@ class AppIcons {
   static Icon language = const Icon(Icons.language);
   static Icon favoriteFilled = const Icon(Icons.favorite);
   static Icon favorite = const Icon(Icons.favorite_border);
-  static Icon audioPlay = const Icon(Icons.play_arrow_rounded);
+  static Icon audioPlay = const Icon(CupertinoIcons.play_arrow);
   static Icon audioPause = const Icon(Icons.pause_rounded);
   static Icon leftArrow = const Icon(Icons.arrow_back_ios_new);
   static Icon rightArrow = const Icon(Icons.arrow_forward_ios);
@@ -47,12 +47,15 @@ class AppIcons {
   static Icon letterSize = const Icon(CupertinoIcons.textformat_size);
   static Icon close = const Icon(Icons.close);
   static Icon info = const Icon(Icons.info_outline);
-  static Icon stop = const Icon(Icons.stop);
+  static Icon stop = const Icon(Icons.stop_outlined);
   static Icon plus = const Icon(Icons.add);
   static Icon minus = const Icon(Icons.remove);
   static Icon downArrow = const Icon(Icons.arrow_drop_down);
   static Icon bookmarkAdded = const Icon(Icons.bookmark_added);
-  static Icon bookmarkAdd = const Icon(Icons.bookmark_add_rounded);
+  static Icon bookmarkAdd = const Icon(Icons.bookmark_add_outlined);
+  static Icon downlaodDone = const Icon(Icons.download_done_rounded);
+  static Icon downlaod = const Icon(Icons.download_rounded);
+  static Icon warning = const Icon(Icons.warning);
 
   static Widget animatedQuranImagesView(bool isImages) {
     return AnimatedCrossFade(

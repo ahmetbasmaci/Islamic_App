@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_connection.dart';
 import 'package:zad_almumin/core/packages/location_detector/i_location_detector.dart';
-import 'package:zad_almumin/core/utils/api/api_consumer.dart';
-import 'package:zad_almumin/core/utils/api/http_consumer.dart';
+import 'package:zad_almumin/core/services/files_service.dart';
+import 'package:zad_almumin/core/services/json_service.dart';
+import 'package:zad_almumin/core/utils/api/api.dart';
+import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
 import '../core/packages/location_detector/location_detector.dart';
@@ -26,6 +28,7 @@ Future<void> init() async {
   await _initAlarm();
   await _initPrayTimes();
   await _initHome();
+  await _initTafseer();
 }
 
 Future _initExternal() async {
@@ -35,6 +38,9 @@ Future _initExternal() async {
   sl.registerLazySingleton<ApiConsumer>(() => HttpConsumer());
   sl.registerLazySingleton<IAppInternetConnection>(() => AppInternetConnection());
   sl.registerLazySingleton<ILocationDetector>(() => LocationDetector());
+  sl.registerLazySingleton<IJsonService>(() => JsonService());
+  sl.registerLazySingleton<IFilesService>(() => FilesService());
+  sl.registerLazySingleton<IFirebaseStorageConsumer>(() => FirebaseStorageConsumer());
 }
 
 Future _initTheme() async {
@@ -51,7 +57,9 @@ Future _initHome() async {
 //!DataSource
   sl.registerLazySingleton<IHomeCardPlayPauseSingleAudioDataSource>(
       () => HomeCardPlayPauseSingleAudioDataSource(audioService: sl()));
-  sl.registerLazySingleton<IHomeCardGetRandomHadithDataSource>(() => HomeCardGetRandomHadithDataSource());
+  sl.registerLazySingleton<IHomeCardGetRandomHadithDataSource>(() => HomeCardGetRandomHadithDataSource(
+        jsonService: sl(),
+      ));
 
   //!Repository
   sl.registerLazySingleton<IHomeRepository>(
@@ -81,8 +89,12 @@ Future _initHome() async {
 
 Future _initAzkar() async {
 //!DataSource
-  sl.registerLazySingleton<IZikrCardGetZikrDataSource>(() => ZikrCardGetZikrDataSource());
-  sl.registerLazySingleton<IZikrCardGetAllahNamesDataSource>(() => ZikrCardGetAllahNamesDataSource());
+  sl.registerLazySingleton<IZikrCardGetZikrDataSource>(() => ZikrCardGetZikrDataSource(
+        jsonService: sl(),
+      ));
+  sl.registerLazySingleton<IZikrCardGetAllahNamesDataSource>(() => ZikrCardGetAllahNamesDataSource(
+        jsonService: sl(),
+      ));
 
   //!Repository
   sl.registerLazySingleton<IAzkarRepository>(
@@ -153,7 +165,7 @@ Future _initPrayTimes() async {
 
 Future _initQuran() async {
 //!DataSource
-  QuranDataDataSource quranDataDataSource = QuranDataDataSource(localStorage: sl());
+  QuranDataDataSource quranDataDataSource = QuranDataDataSource(localStorage: sl(), jsonService: sl());
   await quranDataDataSource.loadSurahs();
   sl.registerLazySingleton<IQuranDataDataSource>(() => quranDataDataSource);
 
@@ -185,6 +197,51 @@ Future _initQuran() async {
   sl.registerFactory(
     () => QuranEndDrawerCubit(
       quranDataRepository: sl(),
+    ),
+  );
+}
+
+Future _initTafseer() async {
+//!DataSource
+  sl.registerLazySingleton<ITafseerManagertaSource>(() => TafseerManagerDataSource(
+        jsonService: sl(),
+        filesService: sl(),
+      ));
+  sl.registerLazySingleton<ITafseerDownloaderDataSource>(() => TafseerDownloaderDataSource(
+        firebaseStorageConsumer: sl(),
+        apiConsumer: sl(),
+      ));
+  sl.registerLazySingleton<ITafseerFileDataSource>(() => TafseerFileDataSource(
+        filesService: sl(),
+      ));
+
+  //!Repository
+  sl.registerLazySingleton<ITafseerManagerRepository>(
+    () => TafseerManagerRepository(
+      tafseerManagerDataSource: sl(),
+      tafseerDownloaderDataSource: sl(),
+      tafseerFileDataSource: sl(),
+      tafseerSelectedDataSource: sl(),
+    ),
+  );
+
+  //!usecase
+  sl.registerLazySingleton(() => TafseerGetManagerUseCase(tafseerRepository: sl()));
+  sl.registerLazySingleton(() => TafseerCheckIfDownloadedUseCase(tafseerRepository: sl()));
+  sl.registerLazySingleton(() => TafseerDownloadUseCase(tafseerRepository: sl()));
+  sl.registerLazySingleton(() => TafseerWriteDataIntoFileAsBytesSyncUseCase(tafseerRepository: sl()));
+
+  //!Cubit
+  sl.registerFactory(
+    () => TafseerCubit(
+      getTafseersUseCase: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => TafseerDownloadCubit(
+      checkTafseerIfDownloadedUseCase: sl(),
+      downloadTafseerUseCase: sl(),
+      tafseerWriteDataIntoFileAsBytesSyncUseCase: sl(),
     ),
   );
 }

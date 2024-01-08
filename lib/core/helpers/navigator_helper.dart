@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../utils/app_router.dart';
-import '../utils/constants.dart';
+import '../utils/resources/app_constants.dart';
 
 class NavigatorHelper {
   NavigatorHelper._();
@@ -11,7 +11,7 @@ class NavigatorHelper {
     Map<String, String>? arguments,
     Object? extra,
   }) async {
-    await Constants.context.pushNamed(
+    await AppConstants.context.pushNamed(
       route.name,
       pathParameters: arguments ?? {},
       extra: extra,
@@ -23,7 +23,7 @@ class NavigatorHelper {
     Map<String, String>? arguments,
     Object? extra,
   }) async {
-    Constants.context.goNamed(
+    AppConstants.context.goNamed(
       route.name,
       pathParameters: arguments ?? {},
       extra: extra,
@@ -33,7 +33,7 @@ class NavigatorHelper {
   static pop() {
     //this is to make sure that the context is not null
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Constants.context.pop();
+      AppConstants.context.pop();
     });
   }
 }

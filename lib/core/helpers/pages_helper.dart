@@ -1,6 +1,6 @@
 import '../packages/local_storage/local_storage.dart';
 import '../utils/app_router.dart';
-import '../utils/storage_keys.dart';
+import '../utils/resources/app_storage_keys.dart';
 
 class PagesHelper {
   PagesHelper._();
@@ -14,17 +14,17 @@ class PagesHelper {
   }
 
   /// set the last opened page id
-  static void setLastOpendPageId(AppRoutes route) => _localStorage.write(StorageKeys.lastOpendPagePath, route.path);
+  static void setLastOpendPageId(AppRoutes route) => _localStorage.write(AppStorageKeys.lastOpendPagePath, route.path);
 
   static bool get _isFirstTime {
-    bool isFirstTime = _localStorage.read<bool>(StorageKeys.isFirstTime) ?? true;
+    bool isFirstTime = _localStorage.read<bool>(AppStorageKeys.isFirstTime) ?? true;
 
     if (isFirstTime) {
-      _localStorage.write(StorageKeys.isFirstTime, false);
+      _localStorage.write(AppStorageKeys.isFirstTime, false);
     }
     return isFirstTime;
   }
 
   static String get _getNewOpendPageId =>
-      _localStorage.read<String>(StorageKeys.lastOpendPagePath) ?? AppRoutes.home.path;
+      _localStorage.read<String>(AppStorageKeys.lastOpendPagePath) ?? AppRoutes.home.path;
 }

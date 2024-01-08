@@ -37,14 +37,10 @@ class App extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      
-      // Use builder only if you need to use the library outside ScreenUtilInit context
       builder: (_, child) {
         return MaterialApp.router(
           routerConfig: appRouter,
           builder: BotToastInit(), // Call BotToastInit
-        
-         
           localizationsDelegates: [
             AppStrings.delegate,
             const AppLocalizationDelegate(),
@@ -54,7 +50,6 @@ class App extends StatelessWidget {
           ],
           supportedLocales: AppStrings.delegate.supportedLocales,
           locale: Locale(lcoaleState.locale),
-          // key: Constants.scaffoldKey,
           theme: themeState.theme,
           debugShowCheckedModeBanner: false,
         );

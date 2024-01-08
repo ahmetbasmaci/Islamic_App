@@ -40,6 +40,7 @@ class GetPrayTimeParams extends Equatable {
   @override
   List<Object?> get props => [position, date];
 }
+
 class GetNextAyahParams extends Equatable {
   final int ayahNumber;
   final int surahNumber;
@@ -47,5 +48,29 @@ class GetNextAyahParams extends Equatable {
   const GetNextAyahParams({required this.ayahNumber, required this.surahNumber});
   @override
   List<Object?> get props => [ayahNumber, surahNumber];
-  
+}
+
+class DownloadTafseerParams extends Equatable {
+  final int tafseerId;
+
+  const DownloadTafseerParams({required this.tafseerId});
+  @override
+  List<Object?> get props => [tafseerId];
+}
+
+class TafseerIdParams extends Equatable {
+  final int tafseerId;
+
+  const TafseerIdParams({required this.tafseerId});
+  @override
+  List<Object?> get props => [tafseerId];
+}
+
+class WriteDataIntoFileAsBytesSyncParams extends Equatable {
+  final int tafseerId;
+  final List<int> data;
+
+  const WriteDataIntoFileAsBytesSyncParams({required this.tafseerId, required this.data});
+  @override
+  List<Object?> get props => [tafseerId, data];
 }

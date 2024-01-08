@@ -4,7 +4,9 @@ import 'theme_colors.dart';
 
 class AppThemes {
   static List<ThemeData> themes = [_light, _dark].toList();
+
   static final ThemeColors lightColor = ThemeColors(
+    brightness: Brightness.light,
     background: const Color(0xFFf5f5f5),
     primary: const Color(0xFFee4e02),
     secondary: const Color(0xFF02a3ee),
@@ -13,7 +15,9 @@ class AppThemes {
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
   );
+
   static final ThemeColors darkColor = ThemeColors(
+    brightness: Brightness.dark,
     background: const Color(0xFF262626),
     primary: const Color(0xFFee4e02),
     secondary: const Color(0xFF02a3ee),
@@ -23,45 +27,41 @@ class AppThemes {
     warning: const Color(0xFFeec302),
   );
 
-  static final ThemeData _light = ThemeData(
-    colorScheme: ColorScheme.light(
-      primary: lightColor.primary,
-      error: lightColor.error,
-      secondary: lightColor.secondary,
-      background: lightColor.background,
-    ),
-    iconTheme: _appIconThemeData(lightColor.primary),
-    iconButtonTheme: _appIconButtonThemeData(lightColor.primary),
-    textTheme: _appTextTheme,
-    dialogTheme: DialogTheme(
-      backgroundColor: lightColor.background,
-      elevation: 0,
-    ),
-  );
+  static final ThemeData _light = _setTheme(lightColor);
 
-  static final ThemeData _dark = ThemeData(
-    colorScheme: ColorScheme.dark(
-      primary: darkColor.primary,
-      error: darkColor.error,
-      secondary: darkColor.secondary,
-      background: darkColor.background,
-    ),
-    iconTheme: _appIconThemeData(darkColor.primary),
-    iconButtonTheme: _appIconButtonThemeData(darkColor.primary),
-    textTheme: _appTextTheme,
-    dialogTheme: DialogTheme(
-      backgroundColor: darkColor.background,
-      elevation: 0,
-    ),
-  );
-  static IconThemeData _appIconThemeData(Color primaryColor) {
-    return IconThemeData(color: primaryColor);
+  static final ThemeData _dark = _setTheme(darkColor);
+
+  static ThemeData _setTheme(ThemeColors themeColors) {
+    return ThemeData(
+      colorScheme: themeColors.brightness == Brightness.dark
+          ? ColorScheme.dark(
+              primary: themeColors.primary,
+              error: themeColors.error,
+              secondary: themeColors.secondary,
+              background: themeColors.background,
+            )
+          : ColorScheme.light(
+              primary: themeColors.primary,
+              error: themeColors.error,
+              secondary: themeColors.secondary,
+              background: themeColors.background,
+            ),
+      iconTheme: _appIconThemeData(themeColors),
+      iconButtonTheme: _appIconButtonThemeData(themeColors),
+      textTheme: _appTextTheme,
+      dialogTheme: _appDialogTheme(themeColors),
+      listTileTheme: _appListTileThemeData(themeColors),
+    );
   }
 
-  static IconButtonThemeData _appIconButtonThemeData(Color primaryColor) {
+  static IconThemeData _appIconThemeData(ThemeColors themeColors) {
+    return IconThemeData(color: themeColors.primary);
+  }
+
+  static IconButtonThemeData _appIconButtonThemeData(ThemeColors themeColors) {
     return IconButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(primaryColor),
+        foregroundColor: MaterialStateProperty.all<Color>(themeColors.primary),
       ),
     );
   }
@@ -71,6 +71,20 @@ class AppThemes {
     return TextTheme(
       bodyMedium: TextStyle(fontFamily: fontFamily, fontSize: 17),
       bodyLarge: TextStyle(fontFamily: fontFamily, fontSize: 19),
+    );
+  }
+
+  static ListTileThemeData _appListTileThemeData(ThemeColors themeColors) {
+    return ListTileThemeData(
+      tileColor: themeColors.background,
+      selectedColor: themeColors.primary,
+    );
+  }
+
+  static DialogTheme _appDialogTheme(ThemeColors themeColors) {
+    return DialogTheme(
+      backgroundColor: themeColors.background,
+      elevation: 0,
     );
   }
 }

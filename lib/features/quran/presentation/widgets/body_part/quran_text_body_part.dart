@@ -14,6 +14,9 @@ class QuranTextBodyPart extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     List<Ayah> ayahs = context.read<QuranCubit>().getAyahsInPage(page);
+    for (var element in ayahs) {
+      element.isMarked = true;
+    }
     if (context.read<QuranCubit>().state.showTafseerPage) {
       return QuranTafseerPart(ayahs: ayahs);
     } else {
