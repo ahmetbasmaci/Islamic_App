@@ -65,7 +65,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.home.path,
       name: AppRoutes.home.name,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<HomeCubit>(),
+        create: (context) => GetItManager.instance.homeCubit,
         child: const HomePage(),
       ),
     ),
@@ -78,7 +78,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.azkar.path,
       name: AppRoutes.azkar.name,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<AzkarCubit>(),
+        create: (context) =>GetItManager.instance.azkarCubit,
         child: AzkarPage(zikrCategoryModel: state.extra as ZikrCategoryModel),
       ),
     ),
@@ -86,7 +86,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.allAzkars.path,
       name: AppRoutes.allAzkars.name,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<AzkarCubit>(),
+        create: (context) => GetItManager.instance.azkarCubit,
         child: const AllAzkarsPage(),
       ),
     ),
@@ -94,7 +94,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.alarm.path,
       name: AppRoutes.alarm.name,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<AlarmCubit>(),
+        create: (context) =>GetItManager.instance.alarmCubit,
         child: const AlarmPage(),
       ),
     ),
@@ -112,7 +112,7 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.tafseer.path,
       name: AppRoutes.tafseer.name,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<TafseerCubit>(),
+        create: (context) =>GetItManager.instance.tafseerCubit,
         child: const TafseeerPage(),
       ),
     ),

@@ -12,13 +12,12 @@ class QuranTopSearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuranAppbarButton(
       child: BlocProvider(
-        create: (context) => sl<QuranSearchCubit>(),
+        create: (context) => GetItManager.instance.quranSearchCubit,
         child: BlocBuilder<QuranSearchCubit, QuranSearchState>(
           builder: (context, state) {
-           
             return IconButton(
-              onPressed: () => showSearch(context: context, delegate: QuranSearchDelegate(
-               quranSearchCubit: context.read<QuranSearchCubit>())),
+              onPressed: () => showSearch(
+                  context: context, delegate: QuranSearchDelegate(quranSearchCubit: context.read<QuranSearchCubit>())),
               icon: AppIcons.search,
             );
           },

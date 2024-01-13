@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../features/alarm/data/models/alarm_model.dart';
+import '../../../features/tafseer/tafseer.dart';
 import '../enums/enums.dart';
 
 class NoParams extends Equatable {
@@ -65,7 +66,13 @@ class TafseerIdParams extends Equatable {
   @override
   List<Object?> get props => [tafseerId];
 }
+class TafseerIdModelParams extends Equatable {
+  final SelectedTafseerIdModel tafseerIdModel;
 
+  const TafseerIdModelParams({required this.tafseerIdModel});
+  @override
+  List<Object?> get props => [tafseerIdModel];
+}
 class WriteDataIntoFileAsBytesSyncParams extends Equatable {
   final int tafseerId;
   final List<int> data;

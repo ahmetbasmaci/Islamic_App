@@ -5,11 +5,12 @@ import 'package:get_storage/get_storage.dart';
 import 'src/app.dart';
 import 'src/bloc_observer.dart';
 import 'src/injection_container.dart' as di;
+import 'src/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await di.init();
+  await GetItManager.instance.init();
   Bloc.observer = AppBlocObserver();
   await Firebase.initializeApp();
   runApp(const App());

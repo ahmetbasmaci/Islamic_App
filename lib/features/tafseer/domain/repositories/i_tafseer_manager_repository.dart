@@ -9,5 +9,6 @@ abstract class ITafseerManagerRepository {
   Future<Either<Failure, StreamedResponse>> downloadTafseerStream(int tafseerId);
   Future<Either<Failure, bool>> checkTafseerIfDownloaded(int tafseerId);
   Either<Failure, Unit> writeDataIntoFileIntoFileAsBytesSync(int tafseerid, List<int> data);
-  Future<Either<Failure, Unit>> saveSelectedTafseer(int tafseerId);
+  Future<Either<Failure, Unit>> saveSelectedTafseer(SelectedTafseerIdModel tafseerIdModel);
+  Future<Either<Failure, SelectedTafseerIdModel>> get getSelectedTafseerId;
 }

@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:zad_almumin/core/error/failure/failure.dart';
 import '../../tafseer.dart';
-import '../datasources/tafseer_selected_data_source.dart';
 
 class TafseerManagerRepository implements ITafseerManagerRepository {
   final ITafseerManagertaSource tafseerManagerDataSource;
@@ -61,10 +60,21 @@ class TafseerManagerRepository implements ITafseerManagerRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> saveSelectedTafseer(int tafseerId) async {
+  Future<Either<Failure, Unit>> saveSelectedTafseer(SelectedTafseerIdModel tafseerIdModel) async {
     try {
-      tafseerSelectedDataSource.saveSelectedTafseer(tafseerId);
+      tafseerSelectedDataSource.saveSelectedTafseer(tafseerIdModel);
       return Future.value(const Right(unit));
+    } catch (e) {
+      debugPrint(e.toString());
+      return Future.value(Left(JsonFailure(e.toString())));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SelectedTafseerIdModel>> get getSelectedTafseerId async {
+    try {
+      var result = await tafseerSelectedDataSource.getSelectedTafseerId;
+      return Future.value(Right(result));
     } catch (e) {
       debugPrint(e.toString());
       return Future.value(Left(JsonFailure(e.toString())));

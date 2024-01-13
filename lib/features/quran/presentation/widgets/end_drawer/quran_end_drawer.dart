@@ -10,7 +10,7 @@ class QuranEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<QuranEndDrawerCubit>(),
+      create: (context) => GetItManager.instance.quranEndDrawerCubit,
       child: BlocBuilder<QuranEndDrawerCubit, QuranEndDrawerState>(
         builder: (context, state) {
           return SafeArea(

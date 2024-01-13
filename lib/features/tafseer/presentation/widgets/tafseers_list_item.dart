@@ -28,7 +28,7 @@ class TafseersListItem extends StatelessWidget {
 
   Widget _downloadButton(BuildContext context, TafseerManagerModel tafseerModel) {
     return BlocProvider(
-      create: (context) => sl<TafseerDownloadCubit>(),
+      create: (context) => GetItManager.instance.tafseerDownloadCubit,
       child: BlocConsumer<TafseerDownloadCubit, TafseerDownloadState>(
         listener: (context, state) {
           if (state is TafseerDownloadErrorState) {

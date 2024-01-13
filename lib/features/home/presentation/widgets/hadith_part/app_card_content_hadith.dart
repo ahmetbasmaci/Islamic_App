@@ -5,13 +5,13 @@ import '../../../../../core/widget/app_card_widgets/app_card_center_part_widget.
 import '../../../../../core/widget/app_card_widgets/app_card_content.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_with_title.dart';
 import '../../../../../core/utils/resources/app_styles.dart';
+import '../../../../../src/injection_container.dart';
 import '../../../data/models/hadith/hadith_card_model.dart';
 import '../../../../../config/local/l10n.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_content_footer_part_buttons.dart';
 import '../../../../../core/widget/space/horizontal_space.dart';
 import '../../cubit/cubit_hadith/home_hadith_card_cubit.dart';
 import 'app_card_top_part_hadith.dart';
-import '../../../../../src/injection_container.dart' as di;
 
 class AppCardContentHadith extends StatelessWidget {
   const AppCardContentHadith({super.key});
@@ -21,7 +21,7 @@ class AppCardContentHadith extends StatelessWidget {
     return AppCardWithTitle(
       outsideTitle: AppStrings.of(context).hadithBigTitle,
       child: BlocProvider(
-        create: (context) => di.sl<HomeHadithCardCubit>()..getRandomHadith(),
+        create: (context) => GetItManager.instance.homeHadithCardCubit..getRandomHadith(),
         child: BlocConsumer<HomeHadithCardCubit, HomeHadithCardState>(
           listener: (context, state) {
             if (state is HomeHadithCardFieldState) ToatsHelper.showError(state.message);

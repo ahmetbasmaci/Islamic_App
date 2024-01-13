@@ -18,7 +18,7 @@ class AppCardContentQuran extends StatelessWidget {
     return AppCardWithTitle(
       outsideTitle: AppStrings.of(context).quranBigTitle,
       child: BlocProvider(
-        create: (context) => sl<HomeQuranCardCubit>()..getRandomAyah(),
+        create: (context) => GetItManager.instance.homeQuranCardCubit..getRandomAyah(),
         child: BlocBuilder<HomeQuranCardCubit, HomeQuranCardState>(
           builder: (context, state) {
             return AppCardContent(

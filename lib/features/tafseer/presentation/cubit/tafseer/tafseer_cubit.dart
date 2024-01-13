@@ -11,18 +11,21 @@ part 'tafseer_state.dart';
 class TafseerCubit extends Cubit<TafseerState> {
   final TafseerGetManagerUseCase getTafseersUseCase;
   final TafseerSaveSelectedIdUseCase tafseerSaveSelectedIdUseCase;
+  final TafseerGetSelectedTafseerId tafseerGetSelectedTafseerId;
   TafseerCubit({
     required this.getTafseersUseCase,
     required this.tafseerSaveSelectedIdUseCase,
+    required this.tafseerGetSelectedTafseerId,
   }) : super(TafseerState.init()) {
     _loadTafseers();
+    getSelectedTafseerId();
   }
 
   int get selectedTafseerId {
     if (AppConstants.context.isArabicLang)
-      return state.selectedTafseerIdAr;
+      return state.selectedTafseerId.arabicId;
     else
-      return state.selectedTafseerIdEn;
+      return state.selectedTafseerId.englishId;
   }
 
   void _loadTafseers() async {
@@ -36,10 +39,20 @@ class TafseerCubit extends Cubit<TafseerState> {
 
   void selectTafseer(TafseerManagerModel tafseerModel) {
     if (AppConstants.context.isArabicLang)
-      emit(state.copyWith(selectedTafseerIdAr: tafseerModel.id));
+      emit(state.copyWith(selectedTafseerId: state.selectedTafseerId.copyWith(arabicId: tafseerModel.id)));
     else
-      emit(state.copyWith(selectedTafseerIdEn: tafseerModel.id));
+      emit(state.copyWith(selectedTafseerId: state.selectedTafseerId.copyWith(englishId: tafseerModel.id)));
 
-    tafseerSaveSelectedIdUseCase.call(TafseerIdParams(tafseerId: tafseerModel.id));
+    tafseerSaveSelectedIdUseCase.call(TafseerIdModelParams(tafseerIdModel: state.selectedTafseerId));
+  }
+
+  void getSelectedTafseerId() async {
+    var result = await tafseerGetSelectedTafseerId.call(NoParams());
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (savedSelectedTafseerId) {
+        emit(state.copyWith(selectedTafseerId: savedSelectedTafseerId));
+      },
+    );
   }
 }

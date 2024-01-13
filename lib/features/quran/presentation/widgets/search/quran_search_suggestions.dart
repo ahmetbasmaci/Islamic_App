@@ -13,7 +13,7 @@ class QuranSearchSuggestions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<QuranSearchCubit>(),
+      create: (context) => GetItManager.instance.quranSearchCubit,
       child: BlocBuilder<QuranSearchCubit, QuranSearchState>(
         builder: (context, state) {
           return _body(context);
@@ -24,15 +24,15 @@ class QuranSearchSuggestions extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPadding / 2),
       child: SingleChildScrollView(
         physics: query.isEmpty ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             VerticalSpace(AppSizes.spaceBetweanParts),
+            VerticalSpace(AppSizes.spaceBetweanParts),
             const DraggableFilterChips(),
-             VerticalSpace(AppSizes.spaceBetweanParts),
+            VerticalSpace(AppSizes.spaceBetweanParts),
             QuranSearchSuggestionResultOrder(query: query),
           ],
         ),

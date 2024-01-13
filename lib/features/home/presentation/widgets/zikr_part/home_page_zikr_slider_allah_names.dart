@@ -12,7 +12,7 @@ class HomePageZikrSliderAllahNames extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<AzkarCubit>(),
+      create: (context) => GetItManager.instance.azkarCubit,
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context2, state) {
           return HomePageZikrSliderWithTitle(
