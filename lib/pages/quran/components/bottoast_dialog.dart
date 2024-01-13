@@ -113,11 +113,7 @@ class BotToastDialog {
       width: MySiezes.icon * 2,
       decoration: BoxDecoration(color: MyColors.blackWhite, borderRadius: BorderRadius.all(Radius.circular(50))),
       child: IconButton(
-        icon: Icon(
-          Icons.share_outlined,
-          size: MySiezes.icon,
-          // color: MyColors.quranPrimary,
-        ),
+        icon: Icon(Icons.share_outlined),
         onPressed: () {
           Share.share(ayah.text, subject: ayah.surahName);
           cancel();
