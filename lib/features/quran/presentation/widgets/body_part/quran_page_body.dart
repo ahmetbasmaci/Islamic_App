@@ -11,15 +11,13 @@ class QuranPageBody extends StatelessWidget {
     return BlocBuilder<QuranCubit, QuranState>(
       builder: (context, snapshot) {
         return SafeArea(
-          child: SizedBox(
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: DefaultTabController(
-                length: 604,
-                child: TabBarView(
-                  controller: context.read<QuranCubit>().tabCtr,
-                  children: quranBodys(context),
-                ),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: DefaultTabController(
+              length: 604,
+              child: TabBarView(
+                controller: context.read<QuranCubit>().tabCtr,
+                children: quranBodys(context),
               ),
             ),
           ),

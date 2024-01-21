@@ -7,7 +7,7 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../../../core/utils/params/params.dart';
 
 class TafseerDownloadUseCase extends IUseCaseAsync<StreamedResponse, DownloadTafseerParams> {
-  ITafseerManagerRepository tafseerRepository;
+  ITafseerRepository tafseerRepository;
 
   TafseerDownloadUseCase({required this.tafseerRepository});
 

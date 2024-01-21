@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zad_almumin/features/tafseer/presentation/cubit/tafseer/tafseer_cubit.dart';
 import '../config/local/l10n.dart';
 import '../core/utils/app_router.dart';
 import '../features/theme/theme.dart';
@@ -21,10 +22,13 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.prayTimesCubit..updateTodayPrayerTimes()),
         BlocProvider(create: (context) => GetItManager.instance.quranCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranReaderCubit),
+        BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) => _materialWidget(lcoaleState, themeState),
+          builder: (context, themeState) => BlocBuilder<TafseerCubit, TafseerState>(
+            builder: (context, tafseerState) => _materialWidget(lcoaleState, themeState),
+          ),
         ),
       ),
     );

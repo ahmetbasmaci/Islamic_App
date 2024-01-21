@@ -11,7 +11,7 @@ class Surah {
   });
 
   Surah.empty({
-    this.name = 'ERROR',
+    this.name = '',
     this.startAtPage = 0,
     this.number = 0,
     this.ayahs = const [],

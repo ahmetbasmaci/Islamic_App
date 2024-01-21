@@ -6,7 +6,7 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../../../core/utils/params/params.dart';
 
 class TafseerCheckIfDownloadedUseCase extends IUseCaseAsync<bool, TafseerIdParams> {
-  ITafseerManagerRepository tafseerRepository;
+  ITafseerRepository tafseerRepository;
 
   TafseerCheckIfDownloadedUseCase({required this.tafseerRepository});
 

@@ -6,7 +6,7 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../../../core/utils/params/params.dart';
 
 class TafseerWriteDataIntoFileAsBytesSyncUseCase extends IUseCase<Unit, WriteDataIntoFileAsBytesSyncParams> {
-  ITafseerManagerRepository tafseerRepository;
+  ITafseerRepository tafseerRepository;
 
   TafseerWriteDataIntoFileAsBytesSyncUseCase({required this.tafseerRepository});
 

@@ -6,7 +6,7 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../../../core/utils/params/params.dart';
 
 class TafseerGetManagerUseCase extends IUseCaseAsync<List<TafseerManagerModel>, NoParams> {
-  ITafseerManagerRepository tafseerRepository;
+  ITafseerRepository tafseerRepository;
 
   TafseerGetManagerUseCase({required this.tafseerRepository});
 

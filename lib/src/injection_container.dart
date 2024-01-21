@@ -208,6 +208,7 @@ class GetItManager {
     _sl.registerFactory(
       () => QuranCubit(
         quranDataRepository: _sl(),
+        tafseerManagerRepository: _sl(),
       ),
     );
     _sl.registerFactory(
@@ -242,11 +243,12 @@ class GetItManager {
         ));
     _sl.registerLazySingleton<ITafseerSelectedDataSource>(() => TafseerSelectedDataSource(
           localStorage: _sl(),
+          filesService: _sl(),
         ));
 
     //!Repository
-    _sl.registerLazySingleton<ITafseerManagerRepository>(
-      () => TafseerManagerRepository(
+    _sl.registerLazySingleton<ITafseerRepository>(
+      () => TafseerRepository(
         tafseerManagerDataSource: _sl(),
         tafseerDownloaderDataSource: _sl(),
         tafseerFileDataSource: _sl(),
@@ -261,6 +263,7 @@ class GetItManager {
     _sl.registerLazySingleton(() => TafseerWriteDataIntoFileAsBytesSyncUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerSaveSelectedIdUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerGetSelectedTafseerId(tafseerRepository: _sl()));
+    _sl.registerLazySingleton(() => TafseerGetTafseerDataUseCase(tafseerRepository: _sl()));
 
     //!Cubit
     _sl.registerFactory(
@@ -268,6 +271,7 @@ class GetItManager {
         getTafseersUseCase: _sl(),
         tafseerSaveSelectedIdUseCase: _sl(),
         tafseerGetSelectedTafseerId: _sl(),
+        tafseerGetTafseerDataUseCase: _sl(),
       ),
     );
     _sl.registerFactory(

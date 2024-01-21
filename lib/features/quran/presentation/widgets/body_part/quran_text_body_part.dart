@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/utils/resources/app_constants.dart';
+import 'package:zad_almumin/features/tafseer/tafseer.dart';
 
 import '../../../quran.dart';
 
@@ -17,10 +19,11 @@ class QuranTextBodyPart extends StatelessWidget {
     for (var element in ayahs) {
       element.isMarked = true;
     }
-    if (context.read<QuranCubit>().state.showTafseerPage) {
+    var tafseerModel = AppConstants.context.read<TafseerCubit>().state.tafseerDataModel;
+    if (context.read<QuranCubit>().state.showTafseerPage && tafseerModel.surahs.isNotEmpty) {
       return QuranTafseerPart(ayahs: ayahs);
     } else {
-      return QuranTextPart(context: context, ayahs: ayahs);
+      return QuranTextPart(ayahs: ayahs);
     }
   }
 }

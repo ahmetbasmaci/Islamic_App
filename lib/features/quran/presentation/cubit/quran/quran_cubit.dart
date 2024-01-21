@@ -5,13 +5,20 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:zad_almumin/core/helpers/dialogs_helper.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/helpers/toats_helper.dart';
+import 'package:zad_almumin/core/utils/app_router.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/features/quran/quran.dart';
+
+import '../../../../tafseer/tafseer.dart';
 part 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
   final IQuranDataRepository quranDataRepository;
-  QuranCubit({required this.quranDataRepository}) : super(QuranState.initial());
+  final ITafseerRepository tafseerManagerRepository;
+  QuranCubit({
+    required this.quranDataRepository,
+    required this.tafseerManagerRepository,
+  }) : super(QuranState.initial());
 
   ScrollController scrollController = ScrollController();
   late TabController tabCtr;
@@ -238,13 +245,19 @@ class QuranCubit extends Cubit<QuranState> {
     if (state.showTopFooterPart) pagePressed();
   }
 
-  void changeShowTafseerPage() {
-    // List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
-    // if (allTafseer.isEmpty) {
-    //   Get.to(() => TafseersPage(), transition: Transition.cupertinoDialog, duration: const Duration(milliseconds: 200));
-    //   return;
-    // } else
-    //   emit(state.copyWith(showTafseerPage: !state.showTafseerPage));
+  void changeShowTafseerPage() async {
+    var result = await tafseerManagerRepository.getTafsers;
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (tafseers) {
+        if (tafseers.isEmpty) {
+          ToatsHelper.show('لا يوجد تفاسير محملة');
+          NavigatorHelper.pushNamed(AppRoutes.tafseer);
+          return;
+        }
+        emit(state.copyWith(showTafseerPage: !state.showTafseerPage));
+      },
+    );
   }
 
   bool get _getSavedQuranViewMode {

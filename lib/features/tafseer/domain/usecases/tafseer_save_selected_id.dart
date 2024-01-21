@@ -6,7 +6,7 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../../../core/utils/params/params.dart';
 
 class TafseerSaveSelectedIdUseCase extends IUseCaseAsync<Unit, TafseerIdModelParams> {
-  ITafseerManagerRepository tafseerRepository;
+  ITafseerRepository tafseerRepository;
 
   TafseerSaveSelectedIdUseCase({required this.tafseerRepository});
 

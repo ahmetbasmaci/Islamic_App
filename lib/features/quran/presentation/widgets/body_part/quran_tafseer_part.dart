@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:zad_almumin/core/extentions/dart_extention.dart';
-import 'package:zad_almumin/core/utils/resources/resources.dart';
 import '../../../quran.dart';
 
 class QuranTafseerPart extends StatelessWidget {
@@ -17,7 +15,58 @@ class QuranTafseerPart extends StatelessWidget {
       itemScrollController: context.read<QuranCubit>().itemScrollController,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        Ayah ayah = ayahs[index];
+        return _basmalahOrAyahOrTafseer(context, ayahs[index]);
+      },
+    );
+  }
+
+  Widget _basmalahOrAyahOrTafseer(BuildContext context, Ayah ayah) {
+    late List<InlineSpan> childs;
+
+    if (ayah.isBasmalah) {
+      childs = [QuranBasmalahWidget(context: context, ayah: ayah)];
+    } else {
+      childs = [
+        QuranAyahWidget(context: context, ayah: ayah),
+        QuranTafseerWidget(context: context, ayah: ayah),
+      ];
+    }
+
+    return QuranRichText(textSpanChilderen: childs);
+  }
+
+  Widget tafseerAyah(Ayah ayah) {
+    return const Text('');
+    /* List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
+    String tafseerText = allTafseer
+        .firstWhere((x) => x.surahNumber == ayah.surahNumber)
+        .ayahsTafseer
+        .firstWhere((x) => x.ayahNumber == ayah.ayahNumber)
+        .tafseerText;
+    return Container(
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(MySiezes.blockRadius),
+        color: MyColors.primary.withOpacity(.15),
+      ),
+      padding: EdgeInsets.all(MySiezes.screenPadding),
+      margin: EdgeInsets.symmetric(vertical: MySiezes.screenPadding),
+      child: MyTexts.quran(
+        title: tafseerText,
+        textAlign: TextAlign.justify,
+        // textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
+        color: MyColors.whiteBlack,
+        fontSize: _quranCtr.quranFontSize.value,
+      ),
+    );
+  
+  */
+  }
+}
+
+
+/*
+ Ayah ayah = ayahs[index];
         return ayah.isBasmalah
             ? _basmalahPart(context, ayah)
             : Column(
@@ -52,37 +101,5 @@ class QuranTafseerPart extends StatelessWidget {
                   tafseerAyah(ayah),
                 ],
               );
-    
-      },
-    );
-  }
 
-  QuranRichText _basmalahPart(BuildContext context, Ayah ayah) => QuranRichText(textSpanChilderen: [QuranBasmalahWidget(context: context, ayah: ayah)]);
-    Widget tafseerAyah(Ayah ayah) {
-    return const Text('');
-    /* List<SurahTafseer> allTafseer = Get.find<TafseersCtr>().allTafseer;
-    String tafseerText = allTafseer
-        .firstWhere((x) => x.surahNumber == ayah.surahNumber)
-        .ayahsTafseer
-        .firstWhere((x) => x.ayahNumber == ayah.ayahNumber)
-        .tafseerText;
-    return Container(
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(MySiezes.blockRadius),
-        color: MyColors.primary.withOpacity(.15),
-      ),
-      padding: EdgeInsets.all(MySiezes.screenPadding),
-      margin: EdgeInsets.symmetric(vertical: MySiezes.screenPadding),
-      child: MyTexts.quran(
-        title: tafseerText,
-        textAlign: TextAlign.justify,
-        // textAlign: AppSettings.isArabicLang ? TextAlign.right : TextAlign.left,
-        color: MyColors.whiteBlack,
-        fontSize: _quranCtr.quranFontSize.value,
-      ),
-    );
-  
-  */
-  }
-}
+*/
