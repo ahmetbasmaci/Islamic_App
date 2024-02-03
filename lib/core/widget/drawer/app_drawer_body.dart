@@ -42,7 +42,7 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).quranRevidion,
               icon: AppIcons.ayahsTest,
-              route: AppRoutes.home, //TODO
+              route: AppRoutes.quranQuestions,
             ),
             AppDrawerItem(
               context: context,

@@ -15,7 +15,7 @@ class QuranTopMenuButton extends StatelessWidget {
     return QuranAppbarButton(
       child: PopupMenuButton(
         color: context.themeColors.background,
-        icon: AppIcons.moreVert,
+        icon: AppIcons.optinosVertical,
         itemBuilder: (context) => contextMenuItems(context),
       ),
     );

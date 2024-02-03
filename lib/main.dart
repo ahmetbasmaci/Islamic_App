@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'src/app.dart';
 import 'src/bloc_observer.dart';
-import 'src/injection_container.dart' as di;
 import 'src/injection_container.dart';
 
 void main() async {

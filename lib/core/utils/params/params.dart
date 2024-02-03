@@ -66,6 +66,7 @@ class TafseerIdParams extends Equatable {
   @override
   List<Object?> get props => [tafseerId];
 }
+
 class TafseerIdModelParams extends Equatable {
   final SelectedTafseerIdModel tafseerIdModel;
 
@@ -73,6 +74,7 @@ class TafseerIdModelParams extends Equatable {
   @override
   List<Object?> get props => [tafseerIdModel];
 }
+
 class WriteDataIntoFileAsBytesSyncParams extends Equatable {
   final int tafseerId;
   final List<int> data;
@@ -80,4 +82,69 @@ class WriteDataIntoFileAsBytesSyncParams extends Equatable {
   const WriteDataIntoFileAsBytesSyncParams({required this.tafseerId, required this.data});
   @override
   List<Object?> get props => [tafseerId, data];
+}
+
+class GetRandomStartAyahParams extends Equatable {
+  final int juzFrom;
+  final int juzTo;
+  final int pageFrom;
+  final int pageTo;
+
+  const GetRandomStartAyahParams({
+    required this.juzFrom,
+    required this.juzTo,
+    required this.pageFrom,
+    required this.pageTo,
+  });
+
+  @override
+  List<Object?> get props => [juzFrom, juzTo, pageFrom, pageTo];
+}
+
+class JuzFromParams extends Equatable {
+  final int juzFrom;
+
+  const JuzFromParams({required this.juzFrom});
+  @override
+  List<Object?> get props => [juzFrom];
+}
+
+class JuzToParams extends Equatable {
+  final int juzTo;
+
+  const JuzToParams({required this.juzTo});
+  @override
+  List<Object?> get props => [juzTo];
+}
+
+class PageFromParams extends Equatable {
+  final int pageFrom;
+
+  const PageFromParams({required this.pageFrom});
+  @override
+  List<Object?> get props => [pageFrom];
+}
+
+class PageToParams extends Equatable {
+  final int pageTo;
+
+  const PageToParams({required this.pageTo});
+  @override
+  List<Object?> get props => [pageTo];
+}
+
+class QuestionTypeParams extends Equatable {
+  final QuestionType questionType;
+
+  const QuestionTypeParams({required this.questionType});
+  @override
+  List<Object?> get props => [questionType];
+}
+
+class AnswerTypeParams extends Equatable {
+  final AyahsAnswersType answerType;
+
+  const AnswerTypeParams({required this.answerType});
+  @override
+  List<Object?> get props => [answerType];
 }

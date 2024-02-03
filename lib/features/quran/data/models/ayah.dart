@@ -79,7 +79,7 @@ class Ayah extends Equatable {
       surahName: json['surahName'] ?? '',
       surahNumber: int.tryParse(json['surahNumber'].toString()) ?? 0,
       isBasmalah: json['text'].toString().isBasmalah,
-      isMarked: json['markedAyah'],
+      isMarked: json['markedAyah'] ?? false,
     );
   }
 

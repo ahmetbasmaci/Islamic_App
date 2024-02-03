@@ -40,7 +40,7 @@ class AppIcons {
   static Icon azkar = const Icon(Icons.workspace_premium_sharp);
   static Icon notification = const Icon(Icons.notifications);
   static Icon prayersTime = const Icon(CupertinoIcons.timer_fill);
-  static Icon moreVert = const Icon(Icons.more_vert);
+  static Icon optinosVertical = const Icon(Icons.more_vert);
 
   static Icon addBookMark = const Icon(Icons.bookmark_add_sharp);
   static Icon letter = const Icon(Icons.font_download_off_rounded);
@@ -56,6 +56,7 @@ class AppIcons {
   static Icon downlaodDone = const Icon(Icons.download_done_rounded);
   static Icon downlaod = const Icon(Icons.download_rounded);
   static Icon warning = const Icon(Icons.warning);
+  static Icon optinos = const Icon(Icons.more_horiz_rounded);
 
   static Widget animatedQuranImagesView(bool isImages) {
     return AnimatedCrossFade(

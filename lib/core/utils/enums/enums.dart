@@ -71,3 +71,9 @@ enum SearchFilter { surahs, ayahs, pages }
 enum DownloadState { notDownloaded, downloading, downloaded }
 
 enum FireBaseStorageFileName { tafseers }
+
+enum QuestionType { ayahInJuzAndPage, surahInJuz }
+
+enum AyahsAnswersType { buttons, dropDownMenu }
+
+enum AyahsAnswerStates { currect, wrong, none }

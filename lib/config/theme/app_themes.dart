@@ -11,9 +11,11 @@ class AppThemes {
     primary: const Color(0xFFee4e02),
     secondary: const Color(0xFF02a3ee),
     third: const Color(0xFFa3ee02),
-    succes: const Color.fromARGB(255, 0, 135, 43),
+    success: const Color.fromARGB(255, 0, 135, 43),
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
+    onError: Colors.white,
+    onSuccess:Colors.white,
   );
 
   static final ThemeColors darkColor = ThemeColors(
@@ -22,9 +24,11 @@ class AppThemes {
     primary: const Color(0xFFee4e02),
     secondary: const Color(0xFF02a3ee),
     third: const Color(0xFFa3ee02),
-    succes: const Color(0xFF02ee4d),
+    success: const Color(0xFF02ee4d),
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
+    onError: Colors.white,
+    onSuccess:Colors.white,
   );
 
   static final ThemeData _light = _setTheme(lightColor);

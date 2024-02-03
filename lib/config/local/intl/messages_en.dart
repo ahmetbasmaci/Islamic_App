@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("Ayman Swaid"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Azhan Time"),
+        "buttons": MessageLookupByLibrary.simpleMessage("Buttons"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "categoryBookname":
             MessageLookupByLibrary.simpleMessage("Category Bookname: "),
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dark": MessageLookupByLibrary.simpleMessage("Light"),
         "diferentAzkar": MessageLookupByLibrary.simpleMessage("Diferent Azkar"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
+        "dropDownMenu": MessageLookupByLibrary.simpleMessage("Drop Down Menu"),
         "duaForPhalastinePeople":
             MessageLookupByLibrary.simpleMessage("Dua For Phalastine People"),
         "duaTitleAlarm": MessageLookupByLibrary.simpleMessage("Dua"),

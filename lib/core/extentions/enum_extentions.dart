@@ -154,3 +154,14 @@ extension SearchFilterExtentions on SearchFilter {
     }
   }
 }
+
+extension AyahsAnswersTypeExtentions on AyahsAnswersType {
+  String get translatedName {
+    switch (this) {
+      case AyahsAnswersType.buttons:
+        return AppStrings.of(AppConstants.context).buttons;
+      case AyahsAnswersType.dropDownMenu:
+        return AppStrings.of(AppConstants.context).dropDownMenu;
+    }
+  }
+}

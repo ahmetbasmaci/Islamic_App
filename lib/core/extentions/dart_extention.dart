@@ -14,10 +14,12 @@ extension ContextExtentions on BuildContext {
         primary: Theme.of(this).colorScheme.primary,
         secondary: Theme.of(this).colorScheme.secondary,
         third: isDark ? AppThemes.darkColor.third : AppThemes.lightColor.third,
-        succes: isDark ? AppThemes.darkColor.succes : AppThemes.lightColor.succes,
+        success: isDark ? AppThemes.darkColor.success : AppThemes.lightColor.success,
         error: Theme.of(this).colorScheme.error,
         warning: isDark ? AppThemes.darkColor.warning : AppThemes.lightColor.warning,
         onBackground: Theme.of(this).colorScheme.onBackground,
+        onError: Theme.of(this).colorScheme.onError,
+        onSuccess: isDark ? AppThemes.darkColor.onSuccess : AppThemes.lightColor.onSuccess,
       );
   bool get isDark => Theme.of(this).brightness == Brightness.dark;
   String? get currentRoute => ModalRoute.of(this)?.settings.name;

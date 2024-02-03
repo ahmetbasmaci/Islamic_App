@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/utils/resources/app_sizes.dart';
 import 'app_appbar.dart';
 
 import 'drawer/app_drawer.dart';
@@ -38,7 +39,7 @@ class AppScaffold extends StatelessWidget {
       ),
       drawer: const AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(0),
+        padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
         child: body,
       ),
       floatingActionButton: floatingActionButton,

@@ -23,6 +23,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.quranCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranReaderCubit),
         BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
+        BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit)
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(

@@ -1362,6 +1362,26 @@ class AppStrings {
     );
   }
 
+  /// `Buttons`
+  String get buttons {
+    return Intl.message(
+      'Buttons',
+      name: 'buttons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drop Down Menu`
+  String get dropDownMenu {
+    return Intl.message(
+      'Drop Down Menu',
+      name: 'dropDownMenu',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(

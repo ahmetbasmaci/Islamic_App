@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/packages/location_detector/i_location_detector.
 import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
 import 'package:zad_almumin/core/utils/api/api.dart';
+import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
@@ -21,18 +22,6 @@ class GetItManager {
   static final _instance = GetItManager._();
   static GetItManager get instance => _instance;
 
-  Future<void> init() async {
-    await _initExternal();
-
-    await _initTheme();
-    await _initLcoale();
-    await _initQuran();
-    await _initAzkar();
-    await _initAlarm();
-    await _initPrayTimes();
-    await _initHome();
-    await _initTafseer();
-  }
 
   ThemeCubit get themeCubit => _sl<ThemeCubit>();
   LocaleCubit get localeCubit => _sl<LocaleCubit>();
@@ -55,7 +44,23 @@ class GetItManager {
   TafseerCubit get tafseerCubit => _sl<TafseerCubit>();
   TafseerDownloadCubit get tafseerDownloadCubit => _sl<TafseerDownloadCubit>();
 
+  QuranQuestionsCubit get quranQuestionsCubit => _sl<QuranQuestionsCubit>();
+
   final _sl = GetIt.instance;
+
+  Future<void> init() async {
+    await _initExternal();
+
+    await _initTheme();
+    await _initLcoale();
+    await _initQuran();
+    await _initAzkar();
+    await _initAlarm();
+    await _initPrayTimes();
+    await _initHome();
+    await _initTafseer();
+    await _initQuranQuestions();
+  }
 
   Future _initExternal() async {
     //!External
@@ -279,6 +284,70 @@ class GetItManager {
         checkTafseerIfDownloadedUseCase: _sl(),
         downloadTafseerUseCase: _sl(),
         tafseerWriteDataIntoFileAsBytesSyncUseCase: _sl(),
+      ),
+    );
+  }
+
+  Future _initQuranQuestions() async {
+    //!DataSource
+    QuranQuestionGetRandomPageStartAyahDataSource quranQuestionGetRandomPageStartAyahDataSource =
+        QuranQuestionGetRandomPageStartAyahDataSource(jsonService: _sl());
+    await quranQuestionGetRandomPageStartAyahDataSource.loadPagesFirstAyahs();
+    _sl.registerLazySingleton<IQuranQuestionGetRandomPageStartAyahDataSource>(
+      () => quranQuestionGetRandomPageStartAyahDataSource,
+    );
+
+    _sl.registerLazySingleton<IQuranQuestionSaveToDbDataSource>(
+      () => QuranQuestionSaveToDbDataSource(
+        localStorage: _sl(),
+      ),
+    );
+    _sl.registerLazySingleton<IQuranQuestionReadFromDbDataSource>(
+      () => QuranQuestionReadFromDbDataSource(
+        localStorage: _sl(),
+      ),
+    );
+
+    //!Repository
+    _sl.registerLazySingleton<IQuranQuestionRepository>(
+      () => QuranQuestionRepository(
+        quranQuestionGetRandomPageStartAyahDataSource: _sl(),
+        quranQuestionSaveToDbDataSource: _sl(),
+        quranQuestionReadFromDbDataSource: _sl(),
+      ),
+    );
+
+    //!usecase
+    _sl.registerLazySingleton(() => QuranQuestionSaveJuzFromUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionSaveJuzToUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionSavePageToUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionSaveQuestionTypeUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetAnswerTypeUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetJuzFromUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetJuzToUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetPageToUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetQuestionTypeUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetPageFromUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionSavePageFromUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionGetRandomAyahUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranQuestionSaveAnswerTypeUseCase(repository: _sl()));
+
+    //!Cubit
+    _sl.registerFactory(
+      () => QuranQuestionsCubit(
+        quranQuestionSaveJuzFromUseCase: _sl(),
+        quranQuestionSaveJuzToUseCase: _sl(),
+        quranQuestionSavePageToUseCase: _sl(),
+        quranQuestionSaveQuestionTypeUseCase: _sl(),
+        quranQuestionGetAnswerTypeUseCase: _sl(),
+        quranQuestionGetJuzFromUseCase: _sl(),
+        quranQuestionGetJuzToUseCase: _sl(),
+        quranQuestionGetPageToUseCase: _sl(),
+        quranQuestionGetQuestionTypeUseCase: _sl(),
+        quranQuestionGetPageFromUseCase: _sl(),
+        quranQuestionSavePageFromUseCase: _sl(),
+        quranQuestionGetRandomAyahUseCase: _sl(),
+        quranQuestionSaveAnswerTypeUseCase: _sl(),
       ),
     );
   }

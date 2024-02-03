@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("أيمن سويد"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
+        "buttons": MessageLookupByLibrary.simpleMessage("الأزرار"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "categoryBookname": MessageLookupByLibrary.simpleMessage("أسم الفئة"),
         "changeLanguage":
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dark": MessageLookupByLibrary.simpleMessage("داكن"),
         "diferentAzkar": MessageLookupByLibrary.simpleMessage("أذكار متنوعة"),
         "done": MessageLookupByLibrary.simpleMessage("تم"),
+        "dropDownMenu": MessageLookupByLibrary.simpleMessage("قائمة الخيارات"),
         "duaForPhalastinePeople":
             MessageLookupByLibrary.simpleMessage("دعاء لأهل فلسطين"),
         "duaTitleAlarm": MessageLookupByLibrary.simpleMessage("الدعاء"),

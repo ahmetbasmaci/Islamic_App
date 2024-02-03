@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
+import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 import 'resources.dart';
 
 class AppDecorations {
@@ -100,10 +101,36 @@ class AppDecorations {
           spreadRadius: .5,
         ),
         BoxShadow(
-          color: context.themeColors.succes.withOpacity(1),
+          color: context.themeColors.success.withOpacity(1),
           blurRadius: 1,
           spreadRadius: 1,
         )
+      ],
+    );
+  }
+
+  static BoxDecoration quranQuestionDecoration({
+    required Color backgroundColor,
+    required Offset distance,
+    required double blure,
+  }) {
+    return BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          offset: -distance,
+          color: AppConstants.context.themeColors.background.withOpacity(.2),
+          blurRadius: blure,
+          // inset: context.read<QuranQuestionsCubit>().state.isPressed,
+        ),
+        BoxShadow(
+          offset: distance,
+          color: AppConstants.context.isDark ? const Color(0xff23262a) : const Color(0xffa7a9af),
+          blurRadius: blure,
+          spreadRadius: 1,
+          // inset: context.read<QuranQuestionsCubit>().state.isPressed,
+        ),
       ],
     );
   }

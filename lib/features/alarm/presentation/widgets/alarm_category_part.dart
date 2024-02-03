@@ -33,7 +33,7 @@ class AlarmCategoryPart extends StatelessWidget {
             ],
           ),
         ),
-         VerticalSpace(AppSizes.spaceBetweanParts),
+        VerticalSpace(AppSizes.spaceBetweanParts),
       ],
     );
   }
@@ -95,7 +95,7 @@ class AlarmCategoryPart extends StatelessWidget {
   Widget _updateAlarmRepeated(BuildContext context, RepeatedAlarmModel alarmModel) {
     return PopupMenuButton<RepeatAlarmType>(
       // color: MyColors.background,
-      icon: AppIcons.moreVert,
+      icon: AppIcons.optinosVertical,
       onSelected: (value) {
         context.read<AlarmCubit>().updateAlarmRepeated(alarmModel, value);
       },

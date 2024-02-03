@@ -130,6 +130,9 @@
     "searchForAyahOrSureOrPage" : "البحث عن سورة أو آية أو صفحة",
     "ok" : "موافق",
     "cancel" : "إلغاء",
-
+    "buttons":"الأزرار",
+    "dropDownMenu":"قائمة الخيارات",
+    
+    
     "s":"s"
 }

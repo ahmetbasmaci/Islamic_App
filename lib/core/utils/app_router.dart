@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zad_almumin/features/quran_questions/presentation/pages/quran_questions_page.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../features/alarm/alarm.dart';
 import '../../features/home/home.dart';
@@ -32,6 +33,7 @@ enum AppRoutes {
   prayTimes("/prayTimes"),
   quran("/quran"),
   tafseer("/tafseer"),
+  quranQuestions("/quranQuestions"),
   ;
 
   const AppRoutes(this.path);
@@ -115,6 +117,11 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.tafseer.path,
       name: AppRoutes.tafseer.name,
       builder: (context, state) => const TafseeerPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.quranQuestions.path,
+      name: AppRoutes.quranQuestions.name,
+      builder: (context, state) => const QuranQuestionsPage(),
     ),
   ],
 );
