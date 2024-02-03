@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/toats_helper.dart';
+import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
+import 'package:zad_almumin/core/widget/space/space.dart';
 import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import '../../../../core/widget/app_scaffold.dart';
 import '../../../../core/widget/screen_loading_layer.dart';
@@ -31,7 +33,10 @@ class AppDeveloperPage extends StatelessWidget {
   Widget _body(BuildContext context) {
     return AppScaffold(
       title: 'مطور التطبيق',
-      body: _childeren(context),
+      body: GestureDetector(
+        onTap: () => AppConstants.focusScopeNode.unfocus(),
+        child: _childeren(context),
+      ),
     );
   }
 
@@ -41,12 +46,13 @@ class AppDeveloperPage extends StatelessWidget {
       children: [
         _image(context), //developer_3d,cosrumerSurvices_3d
         _title(),
-        _description(),
+        _description(context),
+        VerticalSpace(AppSizes.spaceBetweanWidgets),
         _textFieldsTitle(),
         const AppDeveloperAddNameTextField(),
-        SizedBox(height: context.height * .01),
+        VerticalSpace(AppSizes.spaceBetweanWidgets),
         const AppDeveloperAddMessageTextField(),
-        SizedBox(height: context.height * .01),
+        VerticalSpace(AppSizes.spaceBetweanWidgets),
         const AppDeveloperSubmitButton(),
       ],
     );
@@ -55,17 +61,20 @@ class AppDeveloperPage extends StatelessWidget {
   Image _image(BuildContext context) {
     return Image.asset(
       AppImages.developer_3d,
-      height: context.height * .4,
+      height: context.height * .3,
     );
   }
 
   Text _title() => const Text('مرحبا, انا مطور البرنامج أسمي (أحمد بصمه جي)');
 
-  Wrap _description() {
-    return const Wrap(
+  Wrap _description(BuildContext context) {
+    return Wrap(
       children: <Widget>[
-        Text("تواصل معي عبر الايميل:"),
-        SelectableText('engahmet10@gmail.com'),
+        const Text("تواصل معي عبر الايميل:"),
+        SelectableText(
+          AppConstants.developerEmail,
+          style: AppStyles.contentBold.copyWith(color: context.themeColors.secondary),
+        ),
       ],
     );
   }

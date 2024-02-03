@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:zad_almumin/core/utils/resources/app_sizes.dart';
 import '../../../../core/utils/resources/app_constants.dart';
 import '../../app_developer.dart';
 
@@ -17,7 +17,7 @@ class AppDeveloperAddMessageTextField extends StatelessWidget {
         maxLines: 15,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(2, 2, 5, 2),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.cardRadius)),
           counterText: "",
           hintText: 'الملاحظة :',
         ),

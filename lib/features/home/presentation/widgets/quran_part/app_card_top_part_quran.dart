@@ -9,7 +9,6 @@ import '../../../../../core/widget/app_card_widgets/app_card_top_part.dart';
 import '../../../../../src/injection_container.dart';
 import '../../cubit/cubit_quran/cubit_quran_audio_button/home_quran_audio_button_cubit.dart';
 import '../referesh_btn_rounded.dart';
-import '../../../../../src/injection_container.dart' as di;
 
 class AppCardTopPartQuran extends StatelessWidget {
   const AppCardTopPartQuran({
@@ -56,7 +55,7 @@ class AppCardTopPartQuran extends StatelessWidget {
 
   Widget _audioBtn(BuildContext context) {
     return BlocProvider(
-      create: (context) =>GetItManager.instance.homeQuranAudioButtonCubit,
+      create: (context) => GetItManager.instance.homeQuranAudioButtonCubit,
       child: BlocConsumer<HomeQuranAudioButtonCubit, HomeQuranAudioButtonState>(
         listener: (context, state) {
           if (state is HomeQuranAudioButtonFieldState) {

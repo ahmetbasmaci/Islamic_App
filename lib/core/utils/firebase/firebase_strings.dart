@@ -1,5 +1,5 @@
 class FirebaseStrings {
-const FirebaseStrings._();
+  const FirebaseStrings._();
 
-static const String users = 'users';
+  static const String users = 'Users Messages';
 }
