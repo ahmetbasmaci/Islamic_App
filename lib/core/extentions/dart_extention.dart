@@ -155,3 +155,7 @@ extension StringExtentions on String {
     return replaceAll('سُورَةُ', '');
   }
 }
+
+extension DateTimeExtention on DateTime {
+  String get formattedDate => '$year/${month.formated2}/${day.formated2}/${hour.formated2}:${minute.formated2}';
+}

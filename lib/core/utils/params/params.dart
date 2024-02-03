@@ -148,3 +148,13 @@ class AnswerTypeParams extends Equatable {
   @override
   List<Object?> get props => [answerType];
 }
+class AddNewUserMessageParams extends Equatable{
+  
+  final String name;
+  final String message;
+
+  AddNewUserMessageParams({required this.name, required this.message});
+
+  @override
+  List<Object?> get props => [name, message];
+}

@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
-import '../../../../core/utils/api/api.dart';
+import '../../../../core/utils/api/consumer/api_consumer.dart';
+import '../../../../core/utils/firebase/firebase.dart';
 import '../../tafseer.dart';
 
 abstract class ITafseerDownloaderDataSource {

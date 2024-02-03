@@ -1,14 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_connection.dart';
-import 'package:zad_almumin/core/packages/location_detector/i_location_detector.dart';
 import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
-import 'package:zad_almumin/core/utils/api/api.dart';
+import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_player/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
 import '../core/packages/location_detector/location_detector.dart';
+import '../core/utils/api/consumer/consumer.dart';
+import '../core/utils/firebase/firebase.dart';
 import '../features/alarm/alarm.dart';
 import '../features/azkar/azkar.dart';
 import '../features/home/home.dart';
@@ -21,7 +22,6 @@ class GetItManager {
   GetItManager._();
   static final _instance = GetItManager._();
   static GetItManager get instance => _instance;
-
 
   ThemeCubit get themeCubit => _sl<ThemeCubit>();
   LocaleCubit get localeCubit => _sl<LocaleCubit>();
@@ -46,6 +46,8 @@ class GetItManager {
 
   QuranQuestionsCubit get quranQuestionsCubit => _sl<QuranQuestionsCubit>();
 
+  AppDeveloperCubit get appDeveloperCubit => _sl<AppDeveloperCubit>();
+
   final _sl = GetIt.instance;
 
   Future<void> init() async {
@@ -60,6 +62,7 @@ class GetItManager {
     await _initHome();
     await _initTafseer();
     await _initQuranQuestions();
+    await _initAppDeveloper();
   }
 
   Future _initExternal() async {
@@ -348,6 +351,34 @@ class GetItManager {
         quranQuestionSavePageFromUseCase: _sl(),
         quranQuestionGetRandomAyahUseCase: _sl(),
         quranQuestionSaveAnswerTypeUseCase: _sl(),
+      ),
+    );
+  }
+
+  Future _initAppDeveloper() async {
+    //!DataSource
+    _sl.registerLazySingleton<IAppDeveloperSaveMessageToDbDataSource>(
+      () => AppDeveloperSaveMessageToDbDataSource(
+        firebaseStorageConsumer: _sl(),
+      ),
+    );
+
+    //!Repository
+    _sl.registerLazySingleton<IAppDeveloperRepository>(
+      () => AppDeveloperRepository(
+        appDeveloperSaveMessageToDbDataSource: _sl(),
+      ),
+    );
+
+    //!usecase
+    _sl.registerLazySingleton(() => AppDeveloperSaveMessageToDbUseCase(
+          appDeveloperRepository: _sl(),
+        ));
+
+    //!Cubit
+    _sl.registerFactory(
+      () => AppDeveloperCubit(
+        appDeveloperSaveMessageToDbUseCase: _sl(),
       ),
     );
   }

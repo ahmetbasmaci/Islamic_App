@@ -7,7 +7,6 @@ import '../../utils/app_router.dart';
 
 class AppDrawerBody extends StatelessWidget {
   const AppDrawerBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -67,7 +66,7 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).appDeveloper,
               icon: AppIcons.review,
-              route: AppRoutes.home, //TODO
+              route: AppRoutes.appDeveloper,
             ),
           ],
         ),

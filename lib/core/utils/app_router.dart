@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/quran_questions/presentation/pages/quran_questions_page.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../features/alarm/alarm.dart';
@@ -34,6 +35,7 @@ enum AppRoutes {
   quran("/quran"),
   tafseer("/tafseer"),
   quranQuestions("/quranQuestions"),
+  appDeveloper("/appDeveloper"),
   ;
 
   const AppRoutes(this.path);
@@ -122,6 +124,13 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.quranQuestions.path,
       name: AppRoutes.quranQuestions.name,
       builder: (context, state) => const QuranQuestionsPage(),
+    ), GoRoute(
+      path: AppRoutes.appDeveloper.path,
+      name: AppRoutes.appDeveloper.name,
+      builder: (context, state) => BlocProvider(
+        create: (context) => GetItManager.instance.appDeveloperCubit,
+        child: const AppDeveloperPage(),
+      ),
     ),
   ],
 );

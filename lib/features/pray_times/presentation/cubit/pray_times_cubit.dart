@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/core/utils/params/params.dart';
-import '../../../../core/packages/location_detector/i_location_detector.dart';
+import '../../../../core/packages/location_detector/location_detector.dart';
 import '../../data/models/current_day_pray_detailes_model.dart';
 import '../../data/models/pray_time_model.dart';
 import '../../data/models/time.dart';

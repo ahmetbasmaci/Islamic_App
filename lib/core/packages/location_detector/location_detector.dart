@@ -1,6 +1,8 @@
 import 'package:geolocator/geolocator.dart';
 import '../../helpers/dialogs_helper.dart';
-import 'i_location_detector.dart';
+abstract class ILocationDetector {
+  Future<Position?> get currentPosition;
+}
 
 class LocationDetector implements ILocationDetector {
   Position? _currentPosition;
