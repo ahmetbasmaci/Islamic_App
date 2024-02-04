@@ -165,3 +165,20 @@ extension AyahsAnswersTypeExtentions on AyahsAnswersType {
     }
   }
 }
+
+extension FavoriteZikrCategoryExtentions on FavoriteZikrCategory {
+  String get translatedName {
+    switch (this) {
+      case FavoriteZikrCategory.all:
+        return AppStrings.of(AppConstants.context).all;
+      case FavoriteZikrCategory.allahNames:
+        return AppStrings.of(AppConstants.context).allahNames;
+      case FavoriteZikrCategory.azkar:
+        return AppStrings.of(AppConstants.context).azkar;
+      case FavoriteZikrCategory.quran:
+        return AppStrings.of(AppConstants.context).quran;
+      case FavoriteZikrCategory.hadiths:
+        return AppStrings.of(AppConstants.context).hadiths;
+    }
+  }
+}

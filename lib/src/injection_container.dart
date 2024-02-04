@@ -3,6 +3,7 @@ import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_c
 import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
 import 'package:zad_almumin/features/app_developer/app_developer.dart';
+import 'package:zad_almumin/features/favorite/presentation/cubit/favorite_cubit.dart';
 import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_player/audio_player.dart';
@@ -47,6 +48,7 @@ class GetItManager {
   QuranQuestionsCubit get quranQuestionsCubit => _sl<QuranQuestionsCubit>();
 
   AppDeveloperCubit get appDeveloperCubit => _sl<AppDeveloperCubit>();
+  FavoriteCubit get favoriteCubit => _sl<FavoriteCubit>();
 
   final _sl = GetIt.instance;
 
@@ -63,6 +65,7 @@ class GetItManager {
     await _initTafseer();
     await _initQuranQuestions();
     await _initAppDeveloper();
+    await _initFavorite();
   }
 
   Future _initExternal() async {
@@ -381,5 +384,10 @@ class GetItManager {
         appDeveloperSaveMessageToDbUseCase: _sl(),
       ),
     );
+  }
+
+  Future _initFavorite() async {
+    //!Cubit
+    _sl.registerFactory(() => FavoriteCubit());
   }
 }

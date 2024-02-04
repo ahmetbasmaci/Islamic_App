@@ -1382,6 +1382,46 @@ class AppStrings {
     );
   }
 
+  /// `All`
+  String get all {
+    return Intl.message(
+      'All',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allah Names`
+  String get allahNames {
+    return Intl.message(
+      'Allah Names',
+      name: 'allahNames',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Azkar`
+  String get azkar {
+    return Intl.message(
+      'Azkar',
+      name: 'azkar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hadiths`
+  String get hadiths {
+    return Intl.message(
+      'Hadiths',
+      name: 'hadiths',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(

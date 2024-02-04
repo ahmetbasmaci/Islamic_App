@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "alarmDeactivated":
             MessageLookupByLibrary.simpleMessage("تم إيقاف المنبه"),
         "alhasri": MessageLookupByLibrary.simpleMessage("الحصري"),
+        "all": MessageLookupByLibrary.simpleMessage("الكل"),
+        "allahNames": MessageLookupByLibrary.simpleMessage("أسماء الله الحسنى"),
         "allahNamesZikr":
             MessageLookupByLibrary.simpleMessage("أذكار أسماء الله الحسنى"),
         "almenshawi": MessageLookupByLibrary.simpleMessage("المنشاوي"),
@@ -53,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("أيمن سويد"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("أوقات الصلاة"),
+        "azkar": MessageLookupByLibrary.simpleMessage("أذكار"),
         "buttons": MessageLookupByLibrary.simpleMessage("الأزرار"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "categoryBookname": MessageLookupByLibrary.simpleMessage("أسم الفئة"),
@@ -98,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "قال رسول الله صلى الله عليه وسلم"),
         "hadithTitleAlarm":
             MessageLookupByLibrary.simpleMessage("الحديث الشريف"),
+        "hadiths": MessageLookupByLibrary.simpleMessage("الأحاديث"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("أذكار الحج والعمرة"),
         "haniRifai": MessageLookupByLibrary.simpleMessage("هاني الرفاعي"),
         "high": MessageLookupByLibrary.simpleMessage("عالي"),

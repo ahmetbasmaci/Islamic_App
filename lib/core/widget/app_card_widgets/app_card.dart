@@ -14,7 +14,7 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: useMargin ? const EdgeInsets.all(10) : null,
+      margin: useMargin ? EdgeInsets.only(bottom: AppSizes.spaceBetweanWidgets) : null,
       decoration: decoration ?? AppDecorations.zikrCard(context),
       child: child,
     );

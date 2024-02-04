@@ -54,7 +54,7 @@ class AppDrawerBody extends StatelessWidget {
               context: context,
               title: AppStrings.of(context).favorite,
               icon: AppIcons.favoriteFilled,
-              route: AppRoutes.home, //TODO
+              route: AppRoutes.favorite,
             ),
             AppDrawerItem(
               context: context,

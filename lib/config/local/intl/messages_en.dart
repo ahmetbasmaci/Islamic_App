@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "alarmDeactivated":
             MessageLookupByLibrary.simpleMessage("Alarm Deactivated"),
         "alhasri": MessageLookupByLibrary.simpleMessage("Alhasri"),
+        "all": MessageLookupByLibrary.simpleMessage("All"),
+        "allahNames": MessageLookupByLibrary.simpleMessage("Allah Names"),
         "allahNamesZikr":
             MessageLookupByLibrary.simpleMessage("Allah Names Azkars"),
         "almenshawi": MessageLookupByLibrary.simpleMessage("Almenshawi"),
@@ -53,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aymanSwaid": MessageLookupByLibrary.simpleMessage("Ayman Swaid"),
         "azhanTimeTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Azhan Time"),
+        "azkar": MessageLookupByLibrary.simpleMessage("Azkar"),
         "buttons": MessageLookupByLibrary.simpleMessage("Buttons"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "categoryBookname":
@@ -96,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hadithTitle":
             MessageLookupByLibrary.simpleMessage("Praved Muhammed (PBUH) Said"),
         "hadithTitleAlarm": MessageLookupByLibrary.simpleMessage("Hadith"),
+        "hadiths": MessageLookupByLibrary.simpleMessage("Hadiths"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("Haj Azkars"),
         "haniRifai": MessageLookupByLibrary.simpleMessage("Hani Rifai"),
         "high": MessageLookupByLibrary.simpleMessage("High"),

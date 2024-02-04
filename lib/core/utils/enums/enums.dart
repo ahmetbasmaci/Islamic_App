@@ -12,6 +12,14 @@ enum ZikrCategories {
   allahNames,
 }
 
+enum FavoriteZikrCategory {
+  all,
+  azkar,
+  allahNames,
+  quran,
+  hadiths,
+}
+
 enum AlarmPeriod { daily, weekly, monthly, once, repeat }
 
 enum RepeatAlarmType { high, medium, low, rare, none }
