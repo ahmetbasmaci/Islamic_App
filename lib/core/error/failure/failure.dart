@@ -14,3 +14,7 @@ class JsonFailure extends Failure {
 class ServerFailure extends Failure {
   ServerFailure(super.message);
 }
+
+class SqliteFailure extends Failure {
+  SqliteFailure(super.message);
+}

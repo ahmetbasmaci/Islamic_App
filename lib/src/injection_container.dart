@@ -13,6 +13,7 @@ import '../core/utils/api/consumer/consumer.dart';
 import '../core/utils/firebase/firebase.dart';
 import '../features/alarm/alarm.dart';
 import '../features/azkar/azkar.dart';
+import '../features/favorite_button/favorite_button.dart';
 import '../features/home/home.dart';
 import '../features/locale/locale.dart';
 import '../features/pray_times/pray_times.dart';
@@ -49,6 +50,7 @@ class GetItManager {
 
   AppDeveloperCubit get appDeveloperCubit => _sl<AppDeveloperCubit>();
   FavoriteCubit get favoriteCubit => _sl<FavoriteCubit>();
+  FavoriteButtonCubit get favoriteButtonCubit => _sl<FavoriteButtonCubit>();
 
   final _sl = GetIt.instance;
 
@@ -66,6 +68,7 @@ class GetItManager {
     await _initQuranQuestions();
     await _initAppDeveloper();
     await _initFavorite();
+    await _initFavoriteButton();
   }
 
   Future _initExternal() async {
@@ -389,5 +392,32 @@ class GetItManager {
   Future _initFavorite() async {
     //!Cubit
     _sl.registerFactory(() => FavoriteCubit());
+  }
+
+  Future _initFavoriteButton() async {
+    //!DataSource
+    _sl.registerLazySingleton<IFavoriteButtonReadWriteDataSource>(() => FavoriteButtonReadWriteDataSource());
+    _sl.registerLazySingleton<IFavoriteButtonCheckContentIfFavoriteDataSource>(
+        () => FavoriteButtonCheckContentIfFavoriteDataSource());
+
+    //!Repository
+    _sl.registerLazySingleton<IFavoriteButtonRepository>(
+      () => FavoriteButtonRepository(
+        checkContentIfFavoriteDataSource: _sl(),
+        readWriteDataSource: _sl(),
+      ),
+    );
+
+    //!usecase
+    _sl.registerLazySingleton(() => FavoriteButtonAddItemUseCase(favoriteRepository: _sl()));
+    _sl.registerLazySingleton(() => FavoriteButtonCheckContentIfFavoriteUseCase(favoriteRepository: _sl()));
+    _sl.registerLazySingleton(() => FavoriteButtonRemoveItemUseCase(favoriteRepository: _sl()));
+
+    //!Cubit
+    _sl.registerFactory(() => FavoriteButtonCubit(
+          favoriteButtonAddItemUseCase: _sl(),
+          favoriteButtonCheckContentIfFavoriteUseCase: _sl(),
+          favoriteButtonRemoveItemUseCase: _sl(),
+        ));
   }
 }

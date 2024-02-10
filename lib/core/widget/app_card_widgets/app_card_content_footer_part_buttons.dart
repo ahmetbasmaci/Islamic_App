@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../buttons/copy_button.dart';
-import '../buttons/favorite_button.dart';
+import '../../../features/favorite_button/presentation/widgets/favorite_button.dart';
 import '../buttons/share_button.dart';
 
 class AppCardContentFooterPartButtons extends StatelessWidget {
@@ -20,7 +19,7 @@ class AppCardContentFooterPartButtons extends StatelessWidget {
       children: [
         CopyButton(content: content),
         ShareButton(content: content),
-        FavoriteButton(isFavorite: isFavorite),
+        FavoriteButton(content: content,isFavorite: isFavorite),
       ],
     );
   }
