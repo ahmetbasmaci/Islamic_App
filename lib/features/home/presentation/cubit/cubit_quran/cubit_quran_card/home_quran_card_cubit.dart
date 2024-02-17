@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/params/params.dart';
-import '../../../home.dart';
-
+import '../../../../../../core/utils/params/params.dart';
+import '../../../../home.dart';
 part 'home_quran_card_state.dart';
 
 class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {

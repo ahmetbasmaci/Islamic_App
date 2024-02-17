@@ -49,7 +49,7 @@ enum AppConnectivityResult { bluetooth, wifi, ethernet, mobile, none, vpn, other
 
 enum WeekDays { saturday, sunday, monday, tuesday, wednesday, thursday, friday, none }
 
-enum QuranReaders {
+enum QuranReader {
   yaserAldosary,
   yaserAlsalamah,
   ibrahimAldosary,
@@ -59,6 +59,7 @@ enum QuranReaders {
   abdulBased,
   alafasi,
   abdullahBasfar,
+  abdullahMatroud,
   abuBakrAlshatiri,
   ahmedAlajamy,
   haniRifai,
@@ -85,3 +86,5 @@ enum QuestionType { ayahInJuzAndPage, surahInJuz }
 enum AyahsAnswersType { buttons, dropDownMenu }
 
 enum AyahsAnswerStates { currect, wrong, none }
+
+enum AudioPlayerType { playingSingle, playingMultible, singlePauesed, multiblePaused, stopped, none }

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/navigator_helper.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/widget/app_scaffold.dart';
-import '../cubit/home_cubit.dart';
+import '../cubit/cubit_quran/cubit_home/home_cubit.dart';
 import '../widgets/home_page_body.dart';
 import '../../../../config/local/l10n.dart';
 import '../../../../core/utils/resources/app_constants.dart';

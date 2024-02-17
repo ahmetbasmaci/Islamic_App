@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rename/enums.dart';
 
 class AppConstants {
   AppConstants._();
@@ -9,6 +12,21 @@ class AppConstants {
   static BuildContext get context => navigatorKey.currentState!.context;
   static FocusScopeNode focusScopeNode = FocusScopeNode();
 
+  static RenamePlatform get currentPlatform {
+    if (Platform.isAndroid) {
+      return RenamePlatform.android;
+    } else if (Platform.isIOS) {
+      return RenamePlatform.ios;
+    } else if (Platform.isMacOS) {
+      return RenamePlatform.macOS;
+    } else if (Platform.isWindows) {
+      return RenamePlatform.windows;
+    } else if (Platform.isLinux) {
+      return RenamePlatform.linux;
+    }
+    return RenamePlatform.android;
+  }
+
   static SystemUiOverlayStyle systemUiOverlayStyleQuran = const SystemUiOverlayStyle(
       // statusBarColor: MyColors.quranStatus,
       // statusBarIconBrightness: Brightness.dark,
@@ -16,6 +34,7 @@ class AppConstants {
       // systemNavigationBarDividerColor: Colors.transparent,
       // systemNavigationBarIconBrightness: Brightness.dark,
       );
+
   static SystemUiOverlayStyle systemUiOverlayStyleDefault = const SystemUiOverlayStyle(
       // statusBarColor: MyColors.black,
       // statusBarIconBrightness: Brightness.light,

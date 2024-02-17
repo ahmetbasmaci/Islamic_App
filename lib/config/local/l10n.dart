@@ -1422,6 +1422,16 @@ class AppStrings {
     );
   }
 
+  /// `Abdullah Matroud`
+  String get abdullahMatroud {
+    return Intl.message(
+      'Abdullah Matroud',
+      name: 'abdullahMatroud',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../config/local/l10n.dart';
 import '../../../../../src/injection_container.dart';
 import '../../../../azkar/azkar.dart';
-import '../../cubit/home_cubit.dart';
+import '../../cubit/cubit_quran/cubit_home/home_cubit.dart';
 import 'home_page_zikr_slider_with_title.dart';
 
 class HomePageZikrSliderAllahNames extends StatelessWidget {

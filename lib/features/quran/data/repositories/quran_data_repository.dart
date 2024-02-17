@@ -307,7 +307,7 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Either<Failure, QuranReaders> get getSavedSelectedReader {
+  Either<Failure, QuranReader> get getSavedSelectedReader {
     try {
       var result = _quranDataDataSource.getSavedSelectedReader;
       return Right(result);
@@ -318,7 +318,7 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Future<Either<Failure, void>> savedSelectedReader(QuranReaders quranReader) async {
+  Future<Either<Failure, void>> savedSelectedReader(QuranReader quranReader) async {
     try {
       await _quranDataDataSource.savedSelectedReader(quranReader);
       return const Right(null);

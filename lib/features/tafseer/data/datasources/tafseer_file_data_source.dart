@@ -18,13 +18,13 @@ class TafseerFileDataSource implements ITafseerFileDataSource {
 
   @override
   Future<bool> checkTafseerIfDownloaded(int tafseerId) async {
-    bool tafseerAlraedyDownloaded = await filesService.checkFileIfDownloaded(tafseerId);
+    bool tafseerAlraedyDownloaded = await filesService.checkIfTafseerFileDownloaded(tafseerId);
     return tafseerAlraedyDownloaded;
   }
 
   @override
   void writeDataIntoFileIntoFileAsBytesSync(int tafseerid, List<int> data) {
-    filesService.writeDataIntoFileAsBytesSync(filesService.tafseerPath(tafseerid), data);
+    filesService.writeDataIntoFileAsBytes(filesService.tafseerPath(tafseerid), data);
   }
 
   @override

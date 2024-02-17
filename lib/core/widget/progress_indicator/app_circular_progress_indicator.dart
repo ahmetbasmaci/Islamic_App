@@ -8,9 +8,9 @@ class AppCircularProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 400),
         opacity: 1,
-        child:  AppGifs.loading,
+        child: AppGifs.loading,
       ),
     );
   }

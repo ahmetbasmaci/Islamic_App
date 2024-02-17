@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/packages/local_storage/local_storage.dart';
-import 'package:zad_almumin/core/utils/resources/app_storage_keys.dart';
 import '../../../../core/services/json_service.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
@@ -35,8 +34,8 @@ abstract class IQuranDataDataSource {
   Future<void> saveQuranFontSize(double fontSize);
   bool get getSavedQuranTafsserMode;
   Future<void> saveQuranTafsserMode(bool quranTafsserMode);
-  QuranReaders get getSavedSelectedReader;
-  Future<void> savedSelectedReader(QuranReaders quranReader);
+  QuranReader get getSavedSelectedReader;
+  Future<void> savedSelectedReader(QuranReader quranReader);
   List<MarkedPage> get getSavedMarkedPages;
   Future<void> savedMarkedPages(List<MarkedPage> markedPages);
   List<Ayah> get getSavedMarkedAyahs;
@@ -233,12 +232,12 @@ class QuranDataDataSource implements IQuranDataDataSource {
   }
 
   @override
-  QuranReaders get getSavedSelectedReader {
-    return QuranReaders.values[localStorage.read<int>(AppStorageKeys.selectedReader) ?? 0];
+  QuranReader get getSavedSelectedReader {
+    return QuranReader.values[localStorage.read<int>(AppStorageKeys.selectedReader) ?? 0];
   }
 
   @override
-  Future<void> savedSelectedReader(QuranReaders quranReader) async {
+  Future<void> savedSelectedReader(QuranReader quranReader) async {
     await localStorage.write(AppStorageKeys.selectedReader, quranReader.index);
   }
 

@@ -6,9 +6,10 @@ import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/favorite/presentation/cubit/favorite_cubit.dart';
 import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
-import '../core/packages/audio_player/audio_player.dart';
+import '../core/packages/audio_manager/audio_player.dart';
 import '../core/packages/local_storage/local_storage.dart';
 import '../core/packages/location_detector/location_detector.dart';
+import '../core/utils/api/ayah/ayah_api.dart';
 import '../core/utils/api/consumer/consumer.dart';
 import '../core/utils/firebase/firebase.dart';
 import '../features/alarm/alarm.dart';
@@ -32,6 +33,7 @@ class GetItManager {
   HomeHadithCardCubit get homeHadithCardCubit => _sl<HomeHadithCardCubit>();
   HomeQuranCardCubit get homeQuranCardCubit => _sl<HomeQuranCardCubit>();
   HomeQuranAudioButtonCubit get homeQuranAudioButtonCubit => _sl<HomeQuranAudioButtonCubit>();
+  HomeQuranAudioProgressCubit get homeQuranAudioProgressCubit => _sl<HomeQuranAudioProgressCubit>();
 
   AzkarCubit get azkarCubit => _sl<AzkarCubit>();
   AlarmCubit get alarmCubit => _sl<AlarmCubit>();
@@ -73,7 +75,8 @@ class GetItManager {
 
   Future _initExternal() async {
     //!External
-    _sl.registerLazySingleton(() => AudioPlayer());
+    _sl.registerLazySingleton<IAudioPlayer>(() => AudioPlayer());
+    _sl.registerLazySingleton<IAyahApi>(() => AyahApi());
     _sl.registerLazySingleton<ILocalStorage>(() => LocalStorage());
     _sl.registerLazySingleton<ApiConsumer>(() => HttpConsumer());
     _sl.registerLazySingleton<IAppInternetConnection>(() => AppInternetConnection());
@@ -96,16 +99,31 @@ class GetItManager {
   Future _initHome() async {
 //!DataSource
     _sl.registerLazySingleton<IHomeCardPlayPauseSingleAudioDataSource>(
-        () => HomeCardPlayPauseSingleAudioDataSource(audioService: _sl()));
-    _sl.registerLazySingleton<IHomeCardGetRandomHadithDataSource>(() => HomeCardGetRandomHadithDataSource(
-          jsonService: _sl(),
-        ));
+      () => HomeCardPlayPauseSingleAudioDataSource(
+        audioService: _sl(),
+        apiConsumer: _sl(),
+        fileService: _sl(),
+        ayahApi: _sl(),
+        appInternetConnection: _sl(),
+      ),
+    );
+    _sl.registerLazySingleton<IHomeCardGetRandomHadithDataSource>(
+      () => HomeCardGetRandomHadithDataSource(
+        jsonService: _sl(),
+      ),
+    );
+    _sl.registerLazySingleton<IHomeCardAudioPorgressDataSource>(
+      () => HomeCardAudioPorgressDataSource(
+        audioService: _sl(),
+      ),
+    );
 
     //!Repository
     _sl.registerLazySingleton<IHomeRepository>(
       () => HomeRepository(
         homeCardPlayPauseSingleAudioDataSource: _sl(),
         homeCardGetRandomHadithDataSource: _sl(),
+        homeCardAudioPorgressDataSource: _sl(),
       ),
     );
 
@@ -114,6 +132,7 @@ class GetItManager {
     _sl.registerLazySingleton(() => HomeCardGetRandomHadithUseCase(repository: _sl()));
     _sl.registerLazySingleton(() => HomeCardGetRandomAyahUseCase(quranDataRepository: _sl()));
     _sl.registerLazySingleton(() => HomeCardGetNextAyahUseCase(quranDataRepository: _sl()));
+    _sl.registerLazySingleton(() => HomeCardAudioPorgressUseCase(homeRepository: _sl()));
 
     //!Cubit
     _sl.registerFactory(() => HomeCubit());
@@ -125,6 +144,7 @@ class GetItManager {
           homeCardGetNextAyahUseCase: _sl(),
         ));
     _sl.registerFactory(() => HomeQuranAudioButtonCubit(playPauseSingleAudioUseCase: _sl()));
+    _sl.registerFactory(() => HomeQuranAudioProgressCubit(homeCardAudioPorgressUseCase: _sl()));
   }
 
   Future _initAzkar() async {

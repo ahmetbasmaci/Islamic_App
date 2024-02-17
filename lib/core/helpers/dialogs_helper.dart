@@ -137,6 +137,7 @@ class DialogsHelper {
               HorizontalSpace(AppSizes.spaceBetweanWidgets),
               AudioPlayPauseButton(
                 isPlaying: false,
+                isLoading: false,
                 onPressed: () {
                   // cancel();
                   // List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);

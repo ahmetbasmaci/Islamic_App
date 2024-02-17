@@ -7,13 +7,16 @@ abstract class HomeQuranAudioButtonState extends Equatable {
   List<Object> get props => [];
 }
 
-class HomeQuranAudioButtonPauseState extends HomeQuranAudioButtonState {}
+class HomeQuranAudioButtonPausingState extends HomeQuranAudioButtonState {}
 
-class HomeQuranAudioButtonPlayState extends HomeQuranAudioButtonState {}
+class HomeQuranAudioButtonPlayingState extends HomeQuranAudioButtonState {}
 
 class HomeQuranAudioButtonFieldState extends HomeQuranAudioButtonState {
   final String message;
-  HomeQuranAudioButtonFieldState(this.message);
+  const HomeQuranAudioButtonFieldState(this.message);
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [];
 }
+
+
+class HomeQuranAudioButtonLoadingState extends HomeQuranAudioButtonState {}

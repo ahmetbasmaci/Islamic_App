@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Abdullaah Awwaad"),
         "abdullahBasfar":
             MessageLookupByLibrary.simpleMessage("Abdullah Basfar"),
+        "abdullahMatroud":
+            MessageLookupByLibrary.simpleMessage("Abdullah Matroud"),
         "abuBakrAlshatiri":
             MessageLookupByLibrary.simpleMessage("Abu Bakr Alshatiri"),
         "addBookMark": MessageLookupByLibrary.simpleMessage("Add Book Mark"),

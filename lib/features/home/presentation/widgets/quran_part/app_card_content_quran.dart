@@ -47,10 +47,10 @@ class AppCardContentQuran extends StatelessWidget {
     return Column(
       children: <Widget>[
         AppCardCenterPartWidget(
-          content: state is HomeQuranCardLoadedState ? state.quranCardModel.content : '',
+          content: state is HomeQuranCardLoadedState ? state.quranCardModel!.content : '',
           isLoading: state is HomeQuranCardLoadingState,
         ),
-        state is HomeQuranCardLoadedState ? _ayahProps(context, state.quranCardModel) : Container(),
+        state is HomeQuranCardLoadedState ? _ayahProps(context, state.quranCardModel!) : Container(),
       ],
     );
   }
@@ -84,7 +84,7 @@ class AppCardContentQuran extends StatelessWidget {
 
   AppCardContentFooterPartButtons _footerPartWidget(HomeQuranCardState state) {
     return AppCardContentFooterPartButtons(
-      content: state is HomeQuranCardLoadedState ? state.quranCardModel.content : '',
+      content: state is HomeQuranCardLoadedState ? state.quranCardModel!.content : '',
       isFavorite: false,
     );
   }

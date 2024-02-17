@@ -13,17 +13,17 @@ class QuranReaderCubit extends Cubit<QuranReaderState> {
     updateQuranReader(readSavedReader);
   }
 
-  void updateQuranReader(QuranReaders quranReader) {
+  void updateQuranReader(QuranReader quranReader) {
     saveReader(quranReader);
     emit(QuranReaderState(selectedQuranReader: quranReader));
   }
 
-  void saveReader(QuranReaders quranReader) {
+  void saveReader(QuranReader quranReader) {
     quranDataRepository.savedSelectedReader(quranReader);
   }
 
-  QuranReaders get readSavedReader {
-    QuranReaders selectedQuranReader = QuranReaders.yaserAldosary;
+  QuranReader get readSavedReader {
+    QuranReader selectedQuranReader = QuranReader.yaserAldosary;
     var result = quranDataRepository.getSavedSelectedReader;
     result.fold(
       (l) => null,
@@ -34,8 +34,8 @@ class QuranReaderCubit extends Cubit<QuranReaderState> {
     return selectedQuranReader;
   }
 
-  List<QuranReaders> get sortedQuranReader {
-    return QuranReaders.values.toList()
+  List<QuranReader> get sortedQuranReader {
+    return QuranReader.values.toList()
       ..sort(
         (a, b) => a.translatedName.compareTo(b.translatedName),
       );

@@ -36,7 +36,7 @@ class TafseerManagerDataSource implements ITafseerManagertaSource {
   Future<void> _updateTafseersDownloadState() async {
     //check if tafseer is downloaded
     for (var element in allTafseerData) {
-      bool downloaded = await filesService.checkFileIfDownloaded(element.id);
+      bool downloaded = await filesService.checkIfTafseerFileDownloaded(element.id);
       if (downloaded) {
         element.downloadState = DownloadState.downloaded;
       }

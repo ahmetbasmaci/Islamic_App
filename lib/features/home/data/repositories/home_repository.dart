@@ -1,28 +1,31 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
-import '../../../../core/error/failure/failure.dart';
-import '../datasources/home_card_get_random_hadith_data_source.dart';
-import '../models/hadith/hadith_card_model.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
-import '../../domain/repositories/i_home_repository.dart';
-import '../datasources/home_card_play_single_audio_data_source.dart';
+import '../../../../core/error/failure/failure.dart';
+import '../../../../core/packages/audio_manager/audio_manager.dart';
+import '../../../../core/utils/enums/enums.dart';
+import '../../home.dart';
 
 class HomeRepository implements IHomeRepository {
   final IHomeCardPlayPauseSingleAudioDataSource homeCardPlayPauseSingleAudioDataSource;
   final IHomeCardGetRandomHadithDataSource homeCardGetRandomHadithDataSource;
-
+  final IHomeCardAudioPorgressDataSource homeCardAudioPorgressDataSource;
   HomeRepository({
     required this.homeCardGetRandomHadithDataSource,
     required this.homeCardPlayPauseSingleAudioDataSource,
+    required this.homeCardAudioPorgressDataSource,
   });
 
   @override
-  Future<Either<Failure, Unit>> playPauseSingleAudio() async {
+  Future<Either<Failure, bool>> playPauseSingleAudio(
+    QuranCardModel quranCardModel,
+    QuranReader quranReader,
+    Function onComplated,
+  ) async {
     try {
-      await homeCardPlayPauseSingleAudioDataSource.playPauseSingleAudio();
-      return const Right(unit);
+      bool audioComplated =
+          await homeCardPlayPauseSingleAudioDataSource.playPauseSingleAudio(quranCardModel, quranReader, onComplated);
+      return Right(audioComplated);
     } on AudioException catch (e) {
-      debugPrint(e.toString());
       return Left(AudioFailure(e.message));
     }
   }
@@ -33,8 +36,17 @@ class HomeRepository implements IHomeRepository {
       var result = await homeCardGetRandomHadithDataSource.getRandomHadith();
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
       return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AudioStreamModel>> getAudioProgress() async {
+    try {
+      var result = await homeCardAudioPorgressDataSource.getAudioProgress();
+      return Right(result);
+    } catch (e) {
+      return Left(AudioFailure(e.toString()));
     }
   }
 }

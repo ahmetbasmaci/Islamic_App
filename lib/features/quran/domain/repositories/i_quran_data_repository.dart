@@ -32,8 +32,8 @@ abstract class IQuranDataRepository {
   Future<Either<Failure, void>> saveQuranFontSize(double fontSize);
   Either<Failure, bool> get getSavedQuranTafsserMode;
   Future<Either<Failure, void>> saveQuranTafsserMode(bool quranTafsserMode);
-  Either<Failure, QuranReaders> get getSavedSelectedReader;
-  Future<Either<Failure, void>> savedSelectedReader(QuranReaders quranReader);
+  Either<Failure, QuranReader> get getSavedSelectedReader;
+  Future<Either<Failure, void>> savedSelectedReader(QuranReader quranReader);
   Either<Failure, List<MarkedPage>> get getSavedMarkedPages;
   Future<Either<Failure, void>> savedMarkedPages(List<MarkedPage> markedPages);
   Either<Failure, List<Ayah>> get getSavedMarkedAyahs;

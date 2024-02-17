@@ -6,14 +6,12 @@ class QuranCardModel {
   final int juz;
   final int ayahNumber;
   final int surahNumber;
-  final bool isFavorite;
   QuranCardModel({
     required this.content,
     required this.surahName,
     required this.juz,
     required this.ayahNumber,
     required this.surahNumber,
-    this.isFavorite = false,
   });
 
   factory QuranCardModel.fromAyahModel(Ayah ayah) {
@@ -23,7 +21,13 @@ class QuranCardModel {
       juz: ayah.juz,
       ayahNumber: ayah.number,
       surahNumber: ayah.surahNumber,
-      isFavorite: false,
     );
   }
+
+  QuranCardModel.empty()
+      : content = '',
+        surahName = '',
+        juz = 0,
+        ayahNumber = 0,
+        surahNumber = 0;
 }

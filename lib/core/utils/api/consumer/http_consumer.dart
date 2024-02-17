@@ -11,9 +11,12 @@ class HttpConsumer implements ApiConsumer {
   }
 
   @override
-  Future get(String url, {Map<String, dynamic>? params}) async {
+  Future get(String url, {Map<String, dynamic>? params, bool convertToJson = false}) async {
     final response = await http.get(Uri.parse(url));
-    return _handelResponseAsJson(response);
+    if (convertToJson) {
+      return _handelResponseAsJson(response);
+    }
+    return response;
   }
 
   @override
@@ -24,7 +27,9 @@ class HttpConsumer implements ApiConsumer {
 
   @override
   Future put(String url, {Map<String, dynamic>? body, Map<String, dynamic>? params}) async {
-    final response = await http.put(Uri.parse(url), body: body);
+    final response = await http.Client().get(Uri.parse(url));
+    final response2 = await http.put(Uri.parse(url), body: body);
+
     return _handelResponseAsJson(response);
   }
 

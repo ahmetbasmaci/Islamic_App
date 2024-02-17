@@ -13,7 +13,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<QuranReaderCubit, QuranReaderState>(
       builder: (context, state) {
-        return DropdownButton<QuranReaders>(
+        return DropdownButton<QuranReader>(
           value: context.read<QuranReaderCubit>().state.selectedQuranReader,
           menuMaxHeight: context.height * .3,
           onChanged: (newReader) {
@@ -34,7 +34,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     );
   }
 
-  Widget _dropDownItem(BuildContext context, QuranReaders item) {
+  Widget _dropDownItem(BuildContext context, QuranReader item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -44,7 +44,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     );
   }
 
-  Widget _title(BuildContext context, QuranReaders item) {
+  Widget _title(BuildContext context, QuranReader item) {
     return Text(
       item.translatedName,
       style: context.read<QuranReaderCubit>().state.selectedQuranReader == item
@@ -53,7 +53,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     );
   }
 
-  Widget infoButton(BuildContext context, QuranReaders item) {
+  Widget infoButton(BuildContext context, QuranReader item) {
     return IconButton(
       icon: AppIcons.info,
       onPressed: () {

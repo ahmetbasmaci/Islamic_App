@@ -1,7 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../utils/resources/app_images.dart';
+import '../../../utils/resources/app_images.dart';
 
 class AudioHelperWidgets {
   static Metas metas({

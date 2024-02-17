@@ -1,6 +1,6 @@
-import 'package:zad_almumin/config/local/l10n.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/resources/app_constants.dart';
+import '../../config/local/l10n.dart';
 import '../../features/alarm/data/models/alarm_model.dart';
 import '../../features/pray_times/data/models/time.dart';
 import '../utils/enums/enums.dart';
@@ -91,53 +91,55 @@ extension WeekDaysExtentions on WeekDays {
   }
 }
 
-extension QuranReadersExtentions on QuranReaders {
+extension QuranReadersExtentions on QuranReader {
   String get translatedName {
     switch (this) {
-      case QuranReaders.yaserAldosary:
+      case QuranReader.yaserAldosary:
         return AppStrings.of(AppConstants.context).yaserAldosary;
-      case QuranReaders.yaserAlsalamah:
+      case QuranReader.yaserAlsalamah:
         return AppStrings.of(AppConstants.context).yaserAlsalamah;
-      case QuranReaders.ibrahimAldosary:
+      case QuranReader.ibrahimAldosary:
         return AppStrings.of(AppConstants.context).ibrahimAldosary;
-      case QuranReaders.aymanSwaid:
+      case QuranReader.aymanSwaid:
         return AppStrings.of(AppConstants.context).aymanSwaid;
-      case QuranReaders.alhasri:
+      case QuranReader.alhasri:
         return AppStrings.of(AppConstants.context).alhasri;
-      case QuranReaders.almenshawi:
+      case QuranReader.almenshawi:
         return AppStrings.of(AppConstants.context).almenshawi;
-      case QuranReaders.abdulBased:
+      case QuranReader.abdulBased:
         return AppStrings.of(AppConstants.context).abdulBased;
-      case QuranReaders.alafasi:
+      case QuranReader.alafasi:
         return AppStrings.of(AppConstants.context).alafasi;
-      case QuranReaders.abdullahBasfar:
+      case QuranReader.abdullahBasfar:
         return AppStrings.of(AppConstants.context).abdullahBasfar;
-      case QuranReaders.abuBakrAlshatiri:
+      case QuranReader.abuBakrAlshatiri:
         return AppStrings.of(AppConstants.context).abuBakrAlshatiri;
-      case QuranReaders.ahmedAlajamy:
+      case QuranReader.ahmedAlajamy:
         return AppStrings.of(AppConstants.context).ahmedAlajamy;
-      case QuranReaders.haniRifai:
+      case QuranReader.haniRifai:
         return AppStrings.of(AppConstants.context).haniRifai;
-      case QuranReaders.abdullaahAwwaad:
+      case QuranReader.abdullaahAwwaad:
         return AppStrings.of(AppConstants.context).abdullaahAwwaad;
-      case QuranReaders.ahmedNeana:
+      case QuranReader.ahmedNeana:
         return AppStrings.of(AppConstants.context).ahmedNeana;
-      case QuranReaders.warshAbdulBasit:
+      case QuranReader.warshAbdulBasit:
         return AppStrings.of(AppConstants.context).warshAbdulBasit;
-      case QuranReaders.akramAlALqimy:
+      case QuranReader.akramAlALqimy:
         return AppStrings.of(AppConstants.context).akramAlALqimy;
-      case QuranReaders.faresAbbad:
+      case QuranReader.faresAbbad:
         return AppStrings.of(AppConstants.context).faresAbbad;
-      case QuranReaders.maherAlmuaqly:
+      case QuranReader.maherAlmuaqly:
         return AppStrings.of(AppConstants.context).maherAlmuaqly;
-      case QuranReaders.nabilRifa3i:
+      case QuranReader.nabilRifa3i:
         return AppStrings.of(AppConstants.context).nabilRifa3i;
-      case QuranReaders.naserAlqatami:
+      case QuranReader.naserAlqatami:
         return AppStrings.of(AppConstants.context).naserAlqatami;
-      case QuranReaders.saoodAlShuraym:
+      case QuranReader.saoodAlShuraym:
         return AppStrings.of(AppConstants.context).saoodAlShuraym;
-      case QuranReaders.mahmoudAliAlBanna:
+      case QuranReader.mahmoudAliAlBanna:
         return AppStrings.of(AppConstants.context).mahmoudAliAlBanna;
+      case QuranReader.abdullahMatroud:
+        return AppStrings.of(AppConstants.context).abdullahMatroud;
     }
   }
 }
@@ -180,5 +182,11 @@ extension FavoriteZikrCategoryExtentions on FavoriteZikrCategory {
       case FavoriteZikrCategory.hadiths:
         return AppStrings.of(AppConstants.context).hadiths;
     }
+  }
+}
+
+extension AudioPlayerTypeExtention on AudioPlayerType {
+  bool get isPlaying {
+    return this == AudioPlayerType.playingSingle || this == AudioPlayerType.playingMultible;
   }
 }

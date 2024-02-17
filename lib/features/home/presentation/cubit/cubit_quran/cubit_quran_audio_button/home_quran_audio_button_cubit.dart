@@ -1,33 +1,46 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../../../../../core/utils/enums/enums.dart';
 import '../../../../../../core/utils/params/params.dart';
-import '../../../../domain/usecases/home_card_play_pause_single_audio_use_case.dart';
+import '../../../../home.dart';
 part 'home_quran_audio_button_state.dart';
 
 class HomeQuranAudioButtonCubit extends Cubit<HomeQuranAudioButtonState> {
-  HomeQuranAudioButtonCubit({required this.playPauseSingleAudioUseCase}) : super(HomeQuranAudioButtonPauseState());
   final HomeCardPlayPauseSingleAudioUseCase playPauseSingleAudioUseCase;
-  void playPause() async {
-    if (state is HomeQuranAudioButtonPlayState) {
-      var result = await playPauseSingleAudioUseCase.call(NoParams());
+  HomeQuranAudioButtonCubit({
+    required this.playPauseSingleAudioUseCase,
+  }) : super(HomeQuranAudioButtonPausingState());
 
-      result.fold(
-        (l) {
-          emit(HomeQuranAudioButtonPauseState());
-          emit(HomeQuranAudioButtonFieldState(l.message));
-        },
-        (r) => emit(HomeQuranAudioButtonPauseState()),
-      );
-    } else {
-      var result = await playPauseSingleAudioUseCase.call(NoParams());
+  void playPause({
+    required QuranCardModel quranCardModel,
+    required QuranReader quranReader,
+    required Function onComplate,
+  }) async {
+    var operationSuccesState = state is HomeQuranAudioButtonPlayingState
+        ? HomeQuranAudioButtonPausingState()
+        : HomeQuranAudioButtonPlayingState();
 
-      result.fold(
-        (l) {
-          emit(HomeQuranAudioButtonPauseState());
-          emit(HomeQuranAudioButtonFieldState(l.message));
-        },
-        (r) => emit(HomeQuranAudioButtonPlayState()),
-      );
-    }
+    emit(HomeQuranAudioButtonLoadingState());
+
+    var result = await playPauseSingleAudioUseCase.call(
+      PlayAudioParams(
+        quranCardModel: quranCardModel,
+        quranReader: quranReader,
+        onComplated: () => _onAudioComplated(onComplate),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        // emit(HomeQuranAudioButtonPausingState());
+        emit(HomeQuranAudioButtonFieldState(l.message));
+      },
+      (r) => emit(operationSuccesState),
+    );
+  }
+
+  void _onAudioComplated(Function onComplate) {
+    emit(HomeQuranAudioButtonPausingState());
+    onComplate();
   }
 }

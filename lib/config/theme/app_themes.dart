@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/utils/resources/app_fonts.dart';
+import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'theme_colors.dart';
 
 class AppThemes {
@@ -15,7 +15,7 @@ class AppThemes {
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
     onError: Colors.white,
-    onSuccess:Colors.white,
+    onSuccess: Colors.white,
   );
 
   static final ThemeColors darkColor = ThemeColors(
@@ -28,7 +28,7 @@ class AppThemes {
     error: const Color(0xFFee022d),
     warning: const Color(0xFFeec302),
     onError: Colors.white,
-    onSuccess:Colors.white,
+    onSuccess: Colors.white,
   );
 
   static final ThemeData _light = _setTheme(lightColor);
@@ -59,12 +59,16 @@ class AppThemes {
   }
 
   static IconThemeData _appIconThemeData(ThemeColors themeColors) {
-    return IconThemeData(color: themeColors.primary);
+    return IconThemeData(
+      color: themeColors.primary,
+      size: AppSizes.icon,
+    );
   }
 
   static IconButtonThemeData _appIconButtonThemeData(ThemeColors themeColors) {
     return IconButtonThemeData(
       style: ButtonStyle(
+        iconSize: MaterialStateProperty.all<double>(AppSizes.icon),
         foregroundColor: MaterialStateProperty.all<Color>(themeColors.primary),
       ),
     );

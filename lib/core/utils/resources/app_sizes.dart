@@ -14,4 +14,5 @@ class AppSizes {
   static double get minQuranFontSize => 20.0.sp;
   static double get downPartHeight => 100.sp; //Constants.context.height * .12
   static double get loadingRowHeight => 30.sp; //Constants.context.height * .04
+  static double get icon => 30.0;
 }

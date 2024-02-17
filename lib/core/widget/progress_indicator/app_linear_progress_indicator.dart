@@ -7,11 +7,12 @@ class AppLinearProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(value);
     return Center(
       child: LinearProgressIndicator(
-        value: value,
-        backgroundColor: Colors.grey,
-        color: context.themeColors.primary,
+        value: value ?? 0,
+        valueColor: AlwaysStoppedAnimation<Color>(context.themeColors.primary),
+        backgroundColor: Colors.grey.withOpacity(.1),
       ),
     );
   }
