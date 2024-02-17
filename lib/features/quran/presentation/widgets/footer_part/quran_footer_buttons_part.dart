@@ -18,10 +18,18 @@ class QuranFooterButtonsPart extends StatelessWidget {
           icon: AppIcons.settings,
           onPressed: () async => showResitationSettingsDialog(context),
         ),
-        _button(icon: AppIcons.animatedPlayPause(context), onPressed: () {} //TODO=> _quranCtr.playPauseBtnPress(),
-            ),
-        _button(icon: AppIcons.stop, onPressed: () {} //TODO=> _quranCtr.stopAudio(),
-            ),
+        _button(
+          icon: AppIcons.animatedPlayPause(context),
+          onPressed: () {
+//TODO=> _quranCtr.playPauseBtnPress(),
+          },
+        ),
+        _button(
+          icon: AppIcons.stop,
+          onPressed: () {
+            //TODO=> _quranCtr.stopAudio()
+          },
+        ),
         _button(
           toolTipMessage: 'التنقل بين القران والتفسير',
           icon: AppIcons.animatedQuranTafseerView(context.read<QuranCubit>().state.showTafseerPage),

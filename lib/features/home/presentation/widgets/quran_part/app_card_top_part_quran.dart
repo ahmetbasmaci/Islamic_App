@@ -32,7 +32,7 @@ class AppCardTopPartQuran extends StatelessWidget {
           return AppCardTopPart(
             startWidget: _refereshBtn(context),
             centerWidget: _titleAndProgress(context),
-            endWidget: _audioBtn(context),
+            endWidget:AudioBtnHomeQuranCard(),
           );
         },
       ),
@@ -66,48 +66,4 @@ class AppCardTopPartQuran extends StatelessWidget {
     );
   }
 
-  Widget _audioBtn(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetItManager.instance.homeQuranAudioButtonCubit,
-      child: BlocConsumer<HomeQuranAudioButtonCubit, HomeQuranAudioButtonState>(
-        listener: (context, state) {
-          if (state is HomeQuranAudioButtonFieldState) {
-            ToatsHelper.showError(state.message);
-          }
-        },
-        builder: (context, stateBtn) {
-          return BlocBuilder<QuranReaderCubit, QuranReaderState>(
-            builder: (context, stateReader) {
-              return BlocBuilder<HomeQuranCardCubit, HomeQuranCardState>(
-                builder: (context, stateCard) {
-                  HomeQuranCardState cardState = context.read<HomeQuranCardCubit>().state;
-                  QuranCardModel quranCardModel =
-                      cardState is HomeQuranCardLoadedState ? cardState.quranCardModel : QuranCardModel.empty();
-                  return AudioPlayPauseButton(
-                    isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
-                    isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
-                    onPressed: () {
-                      context.read<HomeQuranAudioButtonCubit>().playPause(
-                            quranCardModel: quranCardModel,
-                            quranReader: context.read<QuranReaderCubit>().state.selectedQuranReader,
-                            onComplate: () {
-                              context.read<HomeQuranCardCubit>().getNextAyah(
-                                    quranCardModel.surahNumber,
-                                    quranCardModel.ayahNumber,
-                                  );
-                            },
-                          );
-                      if (stateBtn is! HomeQuranAudioButtonPlayingState) {
-                        context.read<HomeQuranAudioProgressCubit>().updatePorgress();
-                      }
-                    },
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
 }

@@ -25,6 +25,7 @@ export 'presentation/widgets/hadith_part/app_card_top_part_hadith.dart';
 export 'presentation/widgets/home_page_body.dart';
 export 'presentation/widgets/quran_part/app_card_content_quran.dart';
 export 'presentation/widgets/quran_part/app_card_top_part_quran.dart';
+export 'presentation/widgets/quran_part/audio_btn_home_quran_card.dart';
 export 'presentation/widgets/referesh_btn_rounded.dart';
 export 'presentation/widgets/zikr_part/home_page_zikr_category_card.dart';
 export 'presentation/widgets/zikr_part/home_page_zikr_slider_all_azkars.dart';
