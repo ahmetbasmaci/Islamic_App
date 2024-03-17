@@ -4,8 +4,10 @@ import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/core/widget/space/vertical_space.dart';
-import '../../../../../core/helpers/dialogs_helper.dart';
-import '../../../quran.dart';
+
+import '../../../../../../core/helpers/dialogs_helper.dart';
+import '../../../../quran.dart';
+
 
 class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
   const QuranFooterResitationSettingsSelectAyahsLimits({super.key});

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../features/alarm/data/models/alarm_model.dart';
 import '../../../features/home/home.dart';
+import '../../../features/quran/quran.dart';
 import '../../../features/tafseer/tafseer.dart';
 import '../enums/enums.dart';
 
@@ -170,16 +171,33 @@ class FavoriteParams extends Equatable {
 }
 
 class PlayAudioParams extends Equatable {
-  final QuranCardModel quranCardModel;
+  final QuranCardModel ayahs;
   final QuranReader quranReader;
   final Function onComplated;
 
   const PlayAudioParams({
-    required this.quranCardModel,
+    required this.ayahs,
     required this.quranReader,
     required this.onComplated,
   });
 
   @override
-  List<Object?> get props => [quranCardModel];
+  List<Object?> get props => [ayahs, quranReader, onComplated];
+}
+
+class PlayMultibleAudioParams extends Equatable {
+  final List<Ayah> ayahs;
+  final int startAyahIndex;
+  final QuranReader quranReader;
+  final void Function(Ayah complatedAyah, bool partEnded) onComplated;
+
+  const PlayMultibleAudioParams({
+    required this.ayahs,
+    required this.startAyahIndex,
+    required this.quranReader,
+    required this.onComplated,
+  });
+
+  @override
+  List<Object?> get props => [ayahs, quranReader, onComplated];
 }

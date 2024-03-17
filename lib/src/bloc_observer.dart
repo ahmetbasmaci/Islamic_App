@@ -2,39 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBlocObserver extends BlocObserver {
+  final bool _enablePrint = false;
   @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
-    debugPrint('onCreate -- ${bloc.runtimeType}');
+    _printCubit('onCreate -- ${bloc.runtimeType}');
   }
 
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    debugPrint('onEvent -- ${bloc.runtimeType}, $event');
+    _printCubit('onEvent -- ${bloc.runtimeType}, $event');
   }
 
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    debugPrint('onChange -- ${bloc.runtimeType}, $change');
+    _printCubit('onChange -- ${bloc.runtimeType}, $change');
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    debugPrint('onTransition -- ${bloc.runtimeType}, $transition');
+    _printCubit('onTransition -- ${bloc.runtimeType}, $transition');
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    debugPrint('onError -- ${bloc.runtimeType}, $error');
     super.onError(bloc, error, stackTrace);
+    _printCubit('onError -- ${bloc.runtimeType}, $error');
   }
 
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-    debugPrint('onClose -- ${bloc.runtimeType}');
+    _printCubit('onClose -- ${bloc.runtimeType}');
+  }
+
+  void _printCubit(String message) {
+    if (_enablePrint) {
+      debugPrint(message);
+    }
   }
 }

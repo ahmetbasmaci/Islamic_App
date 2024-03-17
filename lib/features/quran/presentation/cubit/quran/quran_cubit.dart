@@ -32,7 +32,7 @@ class QuranCubit extends Cubit<QuranState> {
 
     _goToSavedPage(showInKahf);
 
-    _hideTopFooterParts();
+    _hideTopFooterPartsVisabilety();
 
     bool quranViewModeInImages = _getSavedQuranViewMode;
 
@@ -59,6 +59,15 @@ class QuranCubit extends Cubit<QuranState> {
 
   void updateCurrentPageInfoBySurahName(String surahName) {
     Surah surah = getSurahByName(surahName);
+    updateCurrentPageInfoBySurah(surah);
+  }
+
+  void updateCurrentPageInfoBySurahNumber(int surahNumber) {
+    Surah surah = getSurahByNumber(surahNumber);
+    updateCurrentPageInfoBySurah(surah);
+  }
+
+  void updateCurrentPageInfoBySurah(Surah surah) {
     SelectedPageInfo newSelectedPage = SelectedPageInfo(
       juz: surah.ayahs.first.juz,
       pageNumber: surah.ayahs.first.page - 1,
@@ -71,6 +80,23 @@ class QuranCubit extends Cubit<QuranState> {
 
   void updateSelectedAyah(Ayah ayah) {
     emit(state.copyWith(selectedAyah: ayah));
+    if (isAudioPlaying) {
+      if (state.selectedPageInfo.pageNumber != ayah.page || state.selectedPageInfo.surahName != ayah.surahName) {
+        goToPage(ayah.page - 1);
+      }
+    }
+  }
+
+  void updateSelectedAyahByNumber(int ayahNumber) {
+    Ayah ayah = Ayah.empty();
+
+    //first ayah in fatiha (basmalah)
+    if (state.selectedPageInfo.surahNumber == 1) {
+      ayah = getAyah(state.selectedPageInfo.surahNumber, ayahNumber + 1);
+    } else {
+      ayah = getAyah(state.selectedPageInfo.surahNumber, ayahNumber);
+    }
+    updateSelectedAyah(ayah);
   }
 
   void changeQuranViewMode() async {
@@ -83,22 +109,6 @@ class QuranCubit extends Cubit<QuranState> {
   void updateQuranFontSize(double fontSize) async {
     await quranDataRepository.saveQuranFontSize(fontSize);
     emit(state.copyWith(quranFontSize: fontSize));
-  }
-
-  void pagePressed() {
-    bool isVisable = state.showTopFooterPart;
-    emit(
-      state.copyWith(
-        showTopFooterPart: !isVisable,
-        selectedAyah: Ayah.empty(),
-      ),
-    );
-  }
-
-  void hideSelectedAyah() {
-    emit(
-      state.copyWith(selectedAyah: Ayah.empty()),
-    );
   }
 
   void showAddQuranPageMarkDialog() async {
@@ -236,13 +246,48 @@ class QuranCubit extends Cubit<QuranState> {
           ),
         ),
       );
-    } else if (state.resitationSettings.startAyah.number == 0) {
-      print(20);
-    }
+    } else if (state.resitationSettings.startAyah.number == 0) {}
   }
 
-  void _hideTopFooterParts() {
-    if (state.showTopFooterPart) pagePressed();
+  void _hideTopFooterPartsVisabilety() {
+    if (!state.showTopFooterPart) return;
+    emit(state.copyWith(showTopFooterPart: false));
+  }
+
+  void _showTopFooterPartsVisabilety() {
+    if (state.showTopFooterPart) return;
+    emit(state.copyWith(showTopFooterPart: true));
+  }
+
+  void _triggerTopFooterPartsVisabilety() {
+    if (state.showTopFooterPart)
+      _hideTopFooterPartsVisabilety();
+    else
+      _showTopFooterPartsVisabilety();
+  }
+
+  void hideSelectedAyah() {
+    emit(state.copyWith(selectedAyah: Ayah.empty()));
+  }
+
+  void pagePressed() {
+    _triggerTopFooterPartsVisabilety();
+
+    if (isAudioPlaying) return;
+
+    hideSelectedAyah();
+  }
+
+  bool get isAudioPlaying {
+    var result = quranDataRepository.isAudioPlaying;
+    bool isPlaying = false;
+    result.fold(
+      (l) => emit(state.copyWith(message: l.message)),
+      (value) {
+        isPlaying = value;
+      },
+    );
+    return isPlaying;
   }
 
   void changeShowTafseerPage() async {
@@ -312,9 +357,9 @@ class QuranCubit extends Cubit<QuranState> {
     return resutlList;
   }
 
-  List<Surah> get alSurahs {
+  List<Surah> get allSurahs {
     List<Surah> surahs = [];
-    var result = quranDataRepository.alSurahs;
+    var result = quranDataRepository.allSurahs;
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),
       (r) => surahs = r,

@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/core/widget/progress_indicator/app_linear_progress_indicator.dart';
 import 'package:zad_almumin/features/home/home.dart';
-import 'package:zad_almumin/features/quran/quran.dart';
 import '../../../../../core/extentions/extentions.dart';
 import '../../../../../core/helpers/toats_helper.dart';
-import '../../../../../core/widget/buttons/audio_play_pause_button.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_top_part.dart';
 import '../../../../../src/injection_container.dart';
 
@@ -32,7 +30,7 @@ class AppCardTopPartQuran extends StatelessWidget {
           return AppCardTopPart(
             startWidget: _refereshBtn(context),
             centerWidget: _titleAndProgress(context),
-            endWidget:AudioBtnHomeQuranCard(),
+            endWidget: const AudioBtnHomeQuranCard(),
           );
         },
       ),
@@ -65,5 +63,4 @@ class AppCardTopPartQuran extends StatelessWidget {
       ],
     );
   }
-
 }

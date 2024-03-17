@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../quran.dart';
+import '../../../../quran.dart';
 
 class QuranFooterResitationSettingsBody extends StatelessWidget {
   const QuranFooterResitationSettingsBody({super.key});

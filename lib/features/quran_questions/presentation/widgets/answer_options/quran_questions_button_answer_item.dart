@@ -17,20 +17,20 @@ class QuranQuestionsButtonAnswerItem extends StatelessWidget {
     Offset distance = context.read<QuranQuestionsCubit>().state.isPressed ? const Offset(1, 1) : const Offset(2, 2);
     double blure = context.read<QuranQuestionsCubit>().state.isPressed ? 5 : 10;
     return InkWell(
-          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-          onTap: () => context.read<QuranQuestionsCubit>().buttonAnswerPressed(quranQuestionButtonModel),
-          child: AnimatedContainer(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            duration: const Duration(milliseconds: 200),
-            alignment: Alignment.center,
-            decoration: AppDecorations.quranQuestionDecoration(
-              backgroundColor: quranQuestionButtonModel.backgroundColor,
-              distance: distance,
-              blure: blure,
-            ),
-            child: _buttonText(context),
-          ),
-        );
+      borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+      onTap: () => context.read<QuranQuestionsCubit>().buttonAnswerPressed(quranQuestionButtonModel),
+      child: AnimatedContainer(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        duration: const Duration(milliseconds: 200),
+        alignment: Alignment.center,
+        decoration: AppDecorations.quranQuestionDecoration(
+          backgroundColor: quranQuestionButtonModel.backgroundColor,
+          distance: distance,
+          blure: blure,
+        ),
+        child: _buttonText(context),
+      ),
+    );
   }
 
   Text _buttonText(BuildContext context) {

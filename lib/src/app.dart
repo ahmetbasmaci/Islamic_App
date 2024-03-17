@@ -22,6 +22,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.prayTimesCubit..updateTodayPrayerTimes()),
         BlocProvider(create: (context) => GetItManager.instance.quranCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranReaderCubit),
+        BlocProvider(create: (context) => GetItManager.instance.quranAudioButtonCubit),
         BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
         BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit)
       ],
@@ -60,3 +61,20 @@ class App extends StatelessWidget {
     );
   }
 }
+/*
+
+TODO- add quran reader page
+TODO- favorite button
+TODO- fix padding in azkar page
+TODO- fix pray json response error
+TODO- add download progress when downloading quran
+TODO- isPlaying listenere must set in audio player after change package
+TODO- 
+TODO- 
+TODO- 
+TODO- 
+TODO- 
+TODO- 
+TODO- 
+TODO- 
+*/

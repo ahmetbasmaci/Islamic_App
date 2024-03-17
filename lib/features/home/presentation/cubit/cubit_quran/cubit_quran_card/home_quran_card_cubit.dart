@@ -22,10 +22,12 @@ class HomeQuranCardCubit extends Cubit<HomeQuranCardState> {
     );
   }
 
-  Future<void> getNextAyah(int surahNumber, int ayahNumber) async {
+  Future<void> setNextAyah(int surahNumber, int ayahNumber) async {
     emit(HomeQuranCardLoadingState());
-    var result =
-        await homeCardGetNextAyahUseCase.call(GetNextAyahParams(ayahNumber: ayahNumber + 1, surahNumber: surahNumber));
+    var result = await homeCardGetNextAyahUseCase.call(GetNextAyahParams(
+      ayahNumber: ayahNumber + 1,
+      surahNumber: surahNumber,
+    ));
     result.fold(
       (l) => emit(HomeQuranCardErrorState(message: l.message)),
       (ayah) {

@@ -57,7 +57,7 @@ extension StringExtentions on String {
   }
 
   String get removeTashkil {
-    return replaceAll('ٱ', 'ا') //change alef
+    String newValue = replaceAll('ٱ', 'ا') //change alef
         .replaceAll('\u0610', '') //ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
         .replaceAll('\u0611', '') //ARABIC SIGN ALAYHE ASSALLAM
         .replaceAll('\u0612', '') //ARABIC SIGN RAHMATULLAH ALAYHE
@@ -145,6 +145,8 @@ extension StringExtentions on String {
         .replaceAll('\u0622', '\u0627')
         .replaceAll('\u0623', '\u0627')
         .replaceAll('\u0625', '\u0627');
+
+    return newValue;
   }
 
   String get removeTashkilAndSpace {

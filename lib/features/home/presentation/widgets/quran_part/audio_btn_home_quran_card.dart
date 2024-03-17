@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/widget/buttons/audio_play_pause_button.dart';
 
 import '../../../../../core/helpers/toats_helper.dart';
-import '../../../../../core/widget/buttons/buttons.dart';
 import '../../../../../src/injection_container.dart';
 import '../../../../quran/quran.dart';
 import '../../../home.dart';
@@ -48,31 +48,10 @@ class AudioBtnHomeQuranCard extends StatelessWidget {
   }
 
   Widget homeQuranCardCubit({required HomeQuranAudioButtonState stateBtn}) {
-    return BlocBuilder<HomeQuranCardCubit, HomeQuranCardState>(
-      builder: (context, stateCard) {
-        HomeQuranCardState cardState = context.read<HomeQuranCardCubit>().state;
-        QuranCardModel quranCardModel =
-            cardState is HomeQuranCardLoadedState ? cardState.quranCardModel : QuranCardModel.empty();
-        return AudioPlayPauseButton(
-          isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
-          isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
-          onPressed: () {
-            context.read<HomeQuranAudioButtonCubit>().playPause(
-                  quranCardModel: quranCardModel,
-                  quranReader: context.read<QuranReaderCubit>().state.selectedQuranReader,
-                  onComplate: () {
-                    context.read<HomeQuranCardCubit>().getNextAyah(
-                          quranCardModel.surahNumber,
-                          quranCardModel.ayahNumber,
-                        );
-                  },
-                );
-            if (stateBtn is! HomeQuranAudioButtonPlayingState) {
-              context.read<HomeQuranAudioProgressCubit>().updatePorgress();
-            }
-          },
-        );
-      },
+    return 
+    //Container();
+    AudioPlayPauseButton.single(
+      stateBtn: stateBtn,
     );
   }
 }

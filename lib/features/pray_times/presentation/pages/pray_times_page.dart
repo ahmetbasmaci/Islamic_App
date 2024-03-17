@@ -18,6 +18,7 @@ class PrayTimesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       title: AppStrings.of(context).prayTimes,
+      usePadding: false,
       body: SafeArea(
         child: BlocConsumer<PrayTimesCubit, PrayTimesState>(
           listener: _blocListener,

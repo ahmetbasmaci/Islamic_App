@@ -73,7 +73,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   @override
   Surah getSurahByName(String surahName) {
     Surah surah = _surahs.firstWhere(
-      (element) => element.name.removeTashkilAndSpace == surahName.removeTashkilAndSpace,
+      (element) => element.name.removeTashkil == surahName.removeTashkil,
       orElse: () => Surah.empty(),
     );
     return surah;
@@ -125,7 +125,7 @@ class QuranDataDataSource implements IQuranDataDataSource {
   Ayah getAyah(int surahNumber, int ayahNumber) {
     List<Ayah> ayahs = getSurahByNumber(surahNumber).ayahs;
     if (ayahs.length > ayahNumber)
-      return ayahs.elementAt(ayahNumber);
+      return ayahs.firstWhere((element) => element.number == ayahNumber, orElse: () => Ayah.empty());
     else {
       return getRandomAyah();
     }

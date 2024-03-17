@@ -14,6 +14,7 @@ class AlarmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       title: AppStrings.of(context).alarm,
+      usePadding: false,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: BlocBuilder<AlarmCubit, AlarmState>(

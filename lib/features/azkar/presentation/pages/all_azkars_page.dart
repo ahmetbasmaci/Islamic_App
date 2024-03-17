@@ -12,6 +12,7 @@ class AllAzkarsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       title: AppStrings.of(context).muslimZikrs,
+      usePadding: false,
       body: BlocBuilder<AzkarCubit, AzkarState>(
         builder: (context, state) {
           return SingleChildScrollView(

@@ -24,7 +24,7 @@ class HomeQuranAudioButtonCubit extends Cubit<HomeQuranAudioButtonState> {
 
     var result = await playPauseSingleAudioUseCase.call(
       PlayAudioParams(
-        quranCardModel: quranCardModel,
+        ayahs: quranCardModel,
         quranReader: quranReader,
         onComplated: () => _onAudioComplated(onComplate),
       ),
@@ -39,8 +39,11 @@ class HomeQuranAudioButtonCubit extends Cubit<HomeQuranAudioButtonState> {
     );
   }
 
-  void _onAudioComplated(Function onComplate) {
+  void pause(){
     emit(HomeQuranAudioButtonPausingState());
+  }
+  void _onAudioComplated(Function onComplate) {
+    // emit(HomeQuranAudioButtonPausingState());
     onComplate();
   }
 }

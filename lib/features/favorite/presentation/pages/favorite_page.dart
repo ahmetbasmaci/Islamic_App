@@ -12,6 +12,7 @@ class FavoritePage extends StatelessWidget {
       builder: (context, state) {
         return AppScaffold(
           title: 'المفضلة',
+      usePadding: false,
           actions: _actions(context),
           body: FavoriteBody(),
         );

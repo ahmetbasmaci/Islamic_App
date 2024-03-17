@@ -12,31 +12,35 @@ class QuranQuestionsSelectFromOption extends StatelessWidget {
     return Row(
       children: [
         Text(isPage ? 'من الصفحة    ' : 'من الجزء    '),
-        DropdownButton<int>(
-          items: List.generate(
-            isPage ? 20 : 30,
-            (index) => DropdownMenuItem(value: index + 1, child: Text('${index + 1}')),
-          ),
-          value: isPage
-              ? context.read<QuranQuestionsCubit>().state.pageFrom
-              : context.read<QuranQuestionsCubit>().state.juzFrom,
-          iconEnabledColor: context.themeColors.primary,
-          onChanged: (val) {
-            if (isPage) {
-              context.read<QuranQuestionsCubit>().changePageFrom(val!);
-              if (context.read<QuranQuestionsCubit>().state.selectedDropDownAnswerPage <
-                  context.read<QuranQuestionsCubit>().state.pageFrom) {
-                //  context.read<QuranQuestionsCubit>().state.answerPageDropDown =
-                //     context.read<QuranQuestionsCubit>().state.pageFrom;
-              }
-            } else {
-              context.read<QuranQuestionsCubit>().changeJuzFrom(val!);
-              if (context.read<QuranQuestionsCubit>().state.selectedDropDownAnswerJuz <
-                  context.read<QuranQuestionsCubit>().state.juzFrom) {
-                //  context.read<QuranQuestionsCubit>().state.answerJuzDropDown =
-                //     context.read<QuranQuestionsCubit>().state.juzFrom;
-              }
-            }
+        BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
+          builder: (context, state) {
+            return DropdownButton<int>(
+              items: List.generate(
+                isPage ? 20 : 30,
+                (index) => DropdownMenuItem(value: index + 1, child: Text('${index + 1}')),
+              ),
+              value: isPage
+                  ? context.read<QuranQuestionsCubit>().state.pageFrom
+                  : context.read<QuranQuestionsCubit>().state.juzFrom,
+              iconEnabledColor: context.themeColors.primary,
+              onChanged: (val) {
+                if (isPage) {
+                  context.read<QuranQuestionsCubit>().changePageFrom(val!);
+                  if (context.read<QuranQuestionsCubit>().state.selectedDropDownAnswerPage <
+                      context.read<QuranQuestionsCubit>().state.pageFrom) {
+                    //  context.read<QuranQuestionsCubit>().state.answerPageDropDown =
+                    //     context.read<QuranQuestionsCubit>().state.pageFrom;
+                  }
+                } else {
+                  context.read<QuranQuestionsCubit>().changeJuzFrom(val!);
+                  if (context.read<QuranQuestionsCubit>().state.selectedDropDownAnswerJuz <
+                      context.read<QuranQuestionsCubit>().state.juzFrom) {
+                    //  context.read<QuranQuestionsCubit>().state.answerJuzDropDown =
+                    //     context.read<QuranQuestionsCubit>().state.juzFrom;
+                  }
+                }
+              },
+            );
           },
         ),
       ],

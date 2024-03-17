@@ -8,11 +8,13 @@ class AudioHelperWidgets {
     required String title,
     required String artist,
     required String album,
+    required Map<String, dynamic>? extra,
   }) {
     return Metas(
       title: title,
       artist: artist, // "${'الآية'.tr}  ${ayah.ayahNumber}",
       album: album,
+      extra: extra,
       image: MetasImage.asset(AppImages.appLogo), //can be MetasImage.network
     );
   }

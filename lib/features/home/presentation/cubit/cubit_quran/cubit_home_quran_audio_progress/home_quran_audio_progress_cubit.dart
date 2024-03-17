@@ -19,6 +19,7 @@ class HomeQuranAudioProgressCubit extends Cubit<HomeQuranAudioProgressState> {
       (audioStreamModel) {
         audioStreamModel.position.listen(
           (event) {
+            //TODO
             print('-----------------------------------------------${event.inMilliseconds}');
             emit(HomeQuranAudioProgressState(duration: audioStreamModel.duration, position: event));
           },

@@ -10,6 +10,6 @@ class HomeCardPlayPauseSingleAudioUseCase extends IUseCaseAsync<bool, PlayAudioP
   HomeCardPlayPauseSingleAudioUseCase({required this.repository});
   @override
   Future<Either<Failure, bool>> call(PlayAudioParams params) {
-    return repository.playPauseSingleAudio(params.quranCardModel, params.quranReader,params.onComplated);
+    return repository.playPauseSingleAudio(params.ayahs, params.quranReader, params.onComplated);
   }
 }

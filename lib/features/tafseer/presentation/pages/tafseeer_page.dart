@@ -12,6 +12,7 @@ class TafseeerPage extends StatelessWidget {
       builder: (context, state) {
         return AppScaffold(
           title: 'تفاسير القرآن',
+          usePadding: false,
           body: body(context.read<TafseerCubit>().state),
         );
       },

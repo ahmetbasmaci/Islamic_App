@@ -53,7 +53,7 @@ class AppDrawerBody extends StatelessWidget {
             AppDrawerItem(
               context: context,
               title: AppStrings.of(context).favorite,
-              icon: AppIcons.favoriteFilled,
+              icon: AppIcons.favorite,
               route: AppRoutes.favorite,
             ),
             AppDrawerItem(

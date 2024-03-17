@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
         bottom: false,
         child: AppScaffold(
           title: AppStrings.of(context).mainPageTitle,
+      usePadding: false,
           showSettingsBtn: true,
           showDrawerBtn: true,
           actions: _actions,

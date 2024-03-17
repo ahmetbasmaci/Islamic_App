@@ -13,6 +13,7 @@ class QuranState extends Equatable {
   final ResitationSettings resitationSettings;
   final List<MarkedPage> markedPages;
   final List<Ayah> markedAyahs;
+  final bool isAudioPlaying;
   const QuranState({
     required this.selectedAyah,
     required this.message,
@@ -26,6 +27,7 @@ class QuranState extends Equatable {
     required this.resitationSettings,
     required this.markedPages,
     required this.markedAyahs,
+    required this.isAudioPlaying,
   });
 
   factory QuranState.initial() {
@@ -42,6 +44,7 @@ class QuranState extends Equatable {
       resitationSettings: ResitationSettings.initial(),
       markedPages: [],
       markedAyahs: [],
+      isAudioPlaying : false,
     );
   }
 
@@ -59,6 +62,7 @@ class QuranState extends Equatable {
     ResitationSettings? resitationSettings,
     List<MarkedPage>? markedPages,
     List<Ayah>? markedAyahs,
+    bool? isAudioPlaying,
   }) {
     return QuranState(
       selectedAyah: selectedAyah ?? this.selectedAyah,
@@ -73,6 +77,7 @@ class QuranState extends Equatable {
       resitationSettings: resitationSettings ?? this.resitationSettings,
       markedPages: markedPages ?? this.markedPages,
       markedAyahs: markedAyahs ?? this.markedAyahs,
+      isAudioPlaying: isAudioPlaying ?? this.isAudioPlaying,
     );
   }
 
@@ -90,5 +95,6 @@ class QuranState extends Equatable {
         resitationSettings,
         markedPages,
         markedAyahs,
+        isAudioPlaying,
       ];
 }

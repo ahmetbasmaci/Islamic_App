@@ -33,6 +33,7 @@ class AppDeveloperPage extends StatelessWidget {
   Widget _body(BuildContext context) {
     return AppScaffold(
       title: 'مطور التطبيق',
+      usePadding: true,
       body: GestureDetector(
         onTap: () => AppConstants.focusScopeNode.unfocus(),
         child: _childeren(context),

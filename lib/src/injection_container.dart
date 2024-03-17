@@ -44,6 +44,7 @@ class GetItManager {
   QuranSearchCubit get quranSearchCubit => _sl<QuranSearchCubit>();
   QuranReaderCubit get quranReaderCubit => _sl<QuranReaderCubit>();
   QuranEndDrawerCubit get quranEndDrawerCubit => _sl<QuranEndDrawerCubit>();
+  QuranAudioButtonCubit get quranAudioButtonCubit => _sl<QuranAudioButtonCubit>();
 
   TafseerCubit get tafseerCubit => _sl<TafseerCubit>();
   TafseerDownloadCubit get tafseerDownloadCubit => _sl<TafseerDownloadCubit>();
@@ -224,19 +225,34 @@ class GetItManager {
   }
 
   Future _initQuran() async {
-//!DataSource
+    
+    //!DataSource
     QuranDataDataSource quranDataDataSource = QuranDataDataSource(localStorage: _sl(), jsonService: _sl());
     await quranDataDataSource.loadSurahs();
     _sl.registerLazySingleton<IQuranDataDataSource>(() => quranDataDataSource);
-
+    _sl.registerLazySingleton<IQuranAudioProgressDataSource>(() => QuranAudioProgressDataSource(audioService: _sl()));
+    _sl.registerLazySingleton<IQuranAudioDataSource>(
+      () => QuranAudioDataSource(
+        apiConsumer: _sl(),
+        appInternetConnection: _sl(),
+        audioService: _sl(),
+        fileService: _sl(),
+        ayahApi: _sl(),
+      ),
+    );
+   
     //!Repository
     _sl.registerLazySingleton<IQuranDataRepository>(
       () => QuranDataRepository(
         quranDataDataSource: _sl(),
+        quranAudioDataSource: _sl(),
+        quranAudioProgressDataSource: _sl(),
       ),
     );
 
     //!usecase
+    _sl.registerLazySingleton(() => QuranPlayPauseAudioUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => QuranStopAudioUseCase(repository: _sl()));
 
     //!Cubit
     _sl.registerFactory(
@@ -258,6 +274,12 @@ class GetItManager {
     _sl.registerFactory(
       () => QuranEndDrawerCubit(
         quranDataRepository: _sl(),
+      ),
+    );
+    _sl.registerFactory(
+      () => QuranAudioButtonCubit(
+        playPauseAudioUseCase: _sl(),
+        stopAudioUseCase: _sl(),
       ),
     );
   }

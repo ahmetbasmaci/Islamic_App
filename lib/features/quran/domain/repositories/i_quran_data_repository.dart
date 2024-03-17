@@ -1,11 +1,12 @@
 import 'dart:core';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure/failure.dart';
+import '../../../../core/packages/audio_manager/audio_manager.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../quran.dart';
 
 abstract class IQuranDataRepository {
-  Either<Failure, List<Surah>> get alSurahs;
+  Either<Failure, List<Surah>> get allSurahs;
   Either<Failure, bool> get isEmpty;
   Either<Failure, bool> get isNotEmpty;
   Either<Failure, int> get surahsCount;
@@ -38,4 +39,14 @@ abstract class IQuranDataRepository {
   Future<Either<Failure, void>> savedMarkedPages(List<MarkedPage> markedPages);
   Either<Failure, List<Ayah>> get getSavedMarkedAyahs;
   Future<Either<Failure, void>> savedMarkedAyahs(List<Ayah> markedAyahs);
+  Future<Either<Failure, bool>> playPauseSingleAudio(
+    List<Ayah> ayahs,
+    int startAyahIndex,
+    QuranReader quranReader,
+    Function(Ayah complatedAyah, bool partEnded) onComplated,
+  );
+  Future<Either<Failure, bool>> stopAudio();
+
+  Future<Either<Failure, AudioStreamModel>> getAudioProgress();
+  Either<Failure, bool> get isAudioPlaying;
 }

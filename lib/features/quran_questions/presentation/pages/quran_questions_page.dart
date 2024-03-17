@@ -13,6 +13,7 @@ class QuranQuestionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       title: 'مراجعة القرآن',
+      usePadding: true,
       leading: const QuranQuestionOptionsButton(),
       body: BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
         builder: (context, state) {
@@ -28,11 +29,10 @@ class QuranQuestionsPage extends StatelessWidget {
     //if there is tafseers for current local
     return Column(
       children: [
+        VerticalSpace(AppSizes.spaceBetweanWidgets),
         _title(),
         VerticalSpace(AppSizes.spaceBetweanWidgets),
-        const Expanded(
-          child: QuranQuestionsResultWidgets(),
-        ),
+        const Expanded(child: QuranQuestionsResultWidgets()),
       ],
     );
   }

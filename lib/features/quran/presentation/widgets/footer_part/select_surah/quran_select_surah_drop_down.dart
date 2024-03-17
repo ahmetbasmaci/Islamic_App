@@ -11,11 +11,10 @@ class QuranSelectSurahDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<QuranCubit, QuranState>(
       builder: (context, state) {
-        print(context.read<QuranCubit>().state.selectedPageInfo.surahName);
         return DropdownButton<String>(
           items: context
               .read<QuranCubit>()
-              .alSurahs
+              .allSurahs
               .map(
                 (item) => DropdownMenuItem(
                   value: item.name,
@@ -23,8 +22,8 @@ class QuranSelectSurahDropDown extends StatelessWidget {
                 ),
               )
               .toList(),
-           value: context.read<QuranCubit>().state.selectedPageInfo.surahName.isEmpty
-              ? context.read<QuranCubit>().alSurahs[0].name
+          value: context.read<QuranCubit>().state.selectedPageInfo.surahName.isEmpty
+              ? context.read<QuranCubit>().allSurahs[0].name
               : context.read<QuranCubit>().state.selectedPageInfo.surahName,
           menuMaxHeight: context.height * .3,
           onChanged: (newVal) {

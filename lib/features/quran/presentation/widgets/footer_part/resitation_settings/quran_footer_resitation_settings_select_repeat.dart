@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
-import '../../../../../core/utils/resources/resources.dart';
-import '../../../quran.dart';
+import '../../../../../../core/utils/resources/resources.dart';
+import '../../../../quran.dart';
 
 class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
   const QuranFooterResitationSettingsSelectRepeat({super.key});

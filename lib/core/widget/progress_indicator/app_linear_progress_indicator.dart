@@ -7,7 +7,6 @@ class AppLinearProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(value);
     return Center(
       child: LinearProgressIndicator(
         value: value ?? 0,

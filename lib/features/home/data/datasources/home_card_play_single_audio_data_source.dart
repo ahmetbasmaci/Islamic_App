@@ -11,7 +11,7 @@ import '../../../../core/utils/api/consumer/consumer.dart';
 import '../../home.dart';
 
 abstract class IHomeCardPlayPauseSingleAudioDataSource {
-  Future<bool> playPauseSingleAudio(QuranCardModel quranCardModel, QuranReader quranReader ,    Function onComplated);
+  Future<bool> playPauseSingleAudio(QuranCardModel quranCardModel, QuranReader quranReader, Function onComplated);
 }
 
 class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingleAudioDataSource {
@@ -29,7 +29,7 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
     required this.appInternetConnection,
   });
   @override
-  Future<bool> playPauseSingleAudio(QuranCardModel quranCardModel, QuranReader quranReader , Function onComplate) async {
+  Future<bool> playPauseSingleAudio(QuranCardModel quranCardModel, QuranReader quranReader, Function onComplate) async {
     try {
       //check if file exist
       bool fileExist = await fileService.checkIfAyahFileDownloaded(
@@ -42,8 +42,9 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
         path: fileService.ayahPath(quranCardModel.surahNumber, quranCardModel.ayahNumber, quranReader),
         metasTitle: quranCardModel.surahName,
         metasArtist: '${quranCardModel.surahNumber}:${quranCardModel.ayahNumber}',
+        metasAlbum: quranCardModel.ayahNumber.toString(),
       );
-      bool audioComplated = await audioService.playPauseSingleAudio(audioFile,onComplate);
+      bool audioComplated = await audioService.playPauseSingleAudio(audioFile, onComplate);
       return audioComplated;
     } catch (e) {
       throw AudioException(e.toString());

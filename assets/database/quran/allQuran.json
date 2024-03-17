@@ -5,20 +5,10 @@
         "numberOfAyahs": 7,
         "ayahs": [
             {
-                "numberInQuran": 0,
-                "numberInSurah": 0,
-                "audioUrl": "",
-                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
-                "juz": 1,
-                "page": 1,
-                "markedAyah": false,
-                "haveSajda": false
-            },
-            {
                 "numberInQuran": 1,
                 "numberInSurah": 1,
                 "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3",
-                "text": "﻿",
+                "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
                 "juz": 1,
                 "page": 1,
                 "markedAyah": false,

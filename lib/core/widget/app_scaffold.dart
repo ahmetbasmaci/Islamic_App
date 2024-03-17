@@ -9,6 +9,7 @@ class AppScaffold extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
+    required this.usePadding,
     this.leading,
     this.actions,
     this.floatingActionButton,
@@ -26,6 +27,7 @@ class AppScaffold extends StatelessWidget {
   final Widget body;
   final Widget? floatingActionButton;
   final bool resizeToAvoidBottomInset;
+  final bool usePadding;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +40,8 @@ class AppScaffold extends StatelessWidget {
         centerTitle: centerTitle,
       ),
       drawer: const AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
+      body: Container(
+        padding: usePadding ? EdgeInsets.symmetric(horizontal: AppSizes.screenPadding) : null,
         child: body,
       ),
       floatingActionButton: floatingActionButton,

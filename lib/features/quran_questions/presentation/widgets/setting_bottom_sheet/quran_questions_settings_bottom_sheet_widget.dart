@@ -56,8 +56,8 @@ class QuranQuestionsSettingsBottomSheetWidget extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        QuranQuestionsSelectFromOption(isPage: true),
-        QuranQuestionsSelectToOption(isPage: true),
+        QuranQuestionsSelectFromOption(isPage: false),
+        QuranQuestionsSelectToOption(isPage: false),
       ],
     );
   }

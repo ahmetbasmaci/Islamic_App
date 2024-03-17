@@ -1,19 +1,18 @@
-import 'dart:io';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:rename/custom_exceptions.dart';
-import 'package:zad_almumin/core/extentions/enum_extentions.dart';
+import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
-import 'package:zad_almumin/core/utils/resources/app_constants.dart';
+import '../../../features/quran/quran.dart';
 import 'audio_manager.dart';
 
 abstract class IAudioPlayer {
   Future<bool> playPauseSingleAudio(AudioFile audioFile, Function onComplate);
-  Future<bool> play(AudioFile audioFile, Function onComplate);
-  Future<bool> playMultiple({required List<AudioFile> audioFiles, required int startIndex});
+  Future<bool> playPauseMultibleAudio(
+      List<AudioFile> audioFiles, int startAyahIndex, Function(Ayah complatedAyah, bool partEnded) onComplate);
   Future<void> pause();
   Future<void> stopAudio();
   Future<AudioStreamModel> streamPosition();
+  bool get isPlaying;
 }
 
 class AudioPlayer implements IAudioPlayer {
@@ -30,61 +29,49 @@ class AudioPlayer implements IAudioPlayer {
   int currentAyahRepeatCount = 0;
   int currentOfAllRepeatCount = 0;
 
-  Playing? currentAudio;
+  @override
+  bool get isPlaying => audioPlayerType.isPlaying || assetsAudioPlayer.isPlaying.value;
+
+  bool get isPaused =>
+      audioPlayerType == AudioPlayerType.singlePauesed || audioPlayerType == AudioPlayerType.multiblePaused;
 
   @override
   Future<bool> playPauseSingleAudio(AudioFile audioFile, Function onComplate) async {
-    if (audioPlayerType.isPlaying) {
+    if (audioPlayerType == AudioPlayerType.playingSingle) {
       await pause();
       return false;
     } else {
-      return await play(audioFile, onComplate);
+      return await _playSingle(audioFile, onComplate);
     }
   }
 
-  @override
-  Future<bool> play(AudioFile audioFile, Function onComplate) async {
-    if (audioPlayerType.isPlaying) {
+  Future<bool> _playSingle(AudioFile audioFile, Function onComplate) async {
+    if (isPlaying) {
       await stopAudio();
     }
 
     String fullPath = audioFile.path;
-
-    File file = File(fullPath);
-    bool exsist = await file.exists();
-    if (!exsist) {
-      throw FileNotExistException(
-        filePath: audioFile.path,
-        details:
-            '${audioFile.path} File not found \n title: ${audioFile.metasTitle} \n artist: ${audioFile.metasArtist} \n album: ${audioFile.metasAlbum}',
-        platform: AppConstants.currentPlatform,
-      );
-    }
-
     //check if player in pause mode and have to continue the same audio
     //if true continue the same audio
-    //if (_isSinglePaused(fullPath)) {
-    if (audioPlayerType == AudioPlayerType.singlePauesed && currentAudio?.audio.audio.path == fullPath) {
-      await assetsAudioPlayer.playOrPause();
-      return true;
+    bool continuePeusedAudio = cotinueIfSinglePaused(fullPath);
+    if (continuePeusedAudio) return true;
+    if (isPaused) {
+      await stopAudio();
     }
-
     _resetFields();
 
     audioPlayerType = AudioPlayerType.playingSingle;
     await assetsAudioPlayer.setLoopMode(LoopMode.none);
-    assetsAudioPlayer.playlistAudioFinished.listen(
-      (event) {
-        audioPlayerType = AudioPlayerType.none;
-        onComplate();
-      },
-    );
+
+    _onComlatedSingleAudios(onComplate);
+
     Audio audio = Audio.file(
       fullPath,
       metas: AudioHelperWidgets.metas(
         title: audioFile.metasTitle,
         artist: audioFile.metasArtist,
-        album: audioFile.metasAlbum ?? '',
+        album: audioFile.metasAlbum,
+        extra: audioFile.extra,
       ),
     );
 
@@ -93,12 +80,63 @@ class AudioPlayer implements IAudioPlayer {
       showNotification: true,
       notificationSettings: AudioHelperWidgets.singleAudioNotificationSettings(stopAudio),
     );
+
+    return true;
+  }
+
+  @override
+  Future<bool> playPauseMultibleAudio(
+    List<AudioFile> audioFiles,
+    int startAyahInde,
+    Function(Ayah complatedAyah, bool partEnded) onComplate,
+  ) async {
+    if (audioPlayerType == AudioPlayerType.playingMultible) {
+      await pause();
+      return false;
+    } else {
+      return await _playMultiple(audioFiles, startAyahInde, onComplate);
+    }
+  }
+
+  Future<bool> _playMultiple(
+    List<AudioFile> audioFiles,
+    int startIndex,
+    Function(Ayah complatedAyah, bool partEnded) onComplate,
+  ) async {
+    if (audioFiles.isEmpty) throw Exception("Audio files is empty");
+
+    if (isPlaying) {
+      await stopAudio();
+    }
+
+    bool continueAudio = cotinueIfMultiblePaused(audioFiles);
+    if (continueAudio) return true;
+    if (isPaused) {
+      await stopAudio();
+    }
+    _resetFields();
+
+    await assetsAudioPlayer.setLoopMode(LoopMode.playlist);
+    audioPlayerType = AudioPlayerType.playingMultible;
+
+    _setOnComlatedMultibleAudios(onComplate);
+
+    Playlist playlist = getPlaylist(audioFiles);
+    assetsAudioPlayer.open(
+      playlist,
+      showNotification: true,
+      autoStart: false,
+      notificationSettings: AudioHelperWidgets.multibleAudioNotificationSettings(),
+    );
+
+    await assetsAudioPlayer.playlistPlayAtIndex(startIndex);
+
     return true;
   }
 
   @override
   Future<void> pause() async {
-    if (audioPlayerType.isPlaying) {
+    if (isPlaying) {
       await assetsAudioPlayer.pause();
 
       if (audioPlayerType == AudioPlayerType.playingSingle) {
@@ -111,7 +149,7 @@ class AudioPlayer implements IAudioPlayer {
 
   @override
   Future<void> stopAudio() async {
-    if (audioPlayerType.isPlaying) {
+    if (isPlaying) {
       await assetsAudioPlayer.stop();
 
       audioPlayerType = AudioPlayerType.none;
@@ -125,108 +163,38 @@ class AudioPlayer implements IAudioPlayer {
   }
 
   @override
-  Future<bool> playMultiple({required List<AudioFile> audioFiles, required int startIndex}) async {
-    if (audioFiles.isEmpty) throw Exception("Audio files is empty");
-
-    if (audioPlayerType.isPlaying) {
-      await stopAudio();
-    }
-
-    Playlist playlist = Playlist(audios: []);
-    for (int i = 1; i < audioFiles.length; i++) {
-      AudioFile audioFile = audioFiles[i];
-      String fullPath = audioFile.path;
-      //_getFullPath(audioFile.path);
-
-      File file = File(fullPath);
-      bool exsist = await file.exists();
-      if (!exsist) {
-        throw FileNotExistException(
-          filePath: audioFile.path,
-          details:
-              '${audioFile.path} File not found \n title: ${audioFile.metasTitle} \n artist: ${audioFile.metasArtist} \n album: ${audioFile.metasAlbum}',
-          platform: AppConstants.currentPlatform,
-        );
-      }
-      Audio audio = Audio.file(
-        fullPath,
-        metas: AudioHelperWidgets.metas(
-          title: audioFile.metasTitle,
-          artist: audioFile.metasArtist,
-          album: audioFile.metasAlbum ?? '',
-        ),
-      );
-      playlist.add(audio);
-    }
-
-    // check if player in pause mode and have to continue the same audio
-    if (audioPlayerType == AudioPlayerType.playingMultible && currentAudio?.audio.audio.path != audioFiles[0].path) {
-      await assetsAudioPlayer.playOrPause();
-      return true;
-    }
-    _resetPosition();
-
-    await assetsAudioPlayer.setLoopMode(LoopMode.playlist);
-    audioPlayerType = AudioPlayerType.playingMultible;
-
-    assetsAudioPlayer.open(
-      playlist,
-      showNotification: true,
-      autoStart: false,
-      notificationSettings: AudioHelperWidgets.multibleAudioNotificationSettings(),
-    );
-
-    await assetsAudioPlayer.playlistPlayAtIndex(startIndex);
-    return true;
-  }
-
-  @override
   Future<AudioStreamModel> streamPosition() async {
     while (assetsAudioPlayer.isPlaying.value != true) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
+
     return AudioStreamModel(
       duration: assetsAudioPlayer.current.value?.audio.duration ?? const Duration(),
       position: assetsAudioPlayer.currentPosition,
     );
   }
 
-  void _setPlayerListeners() {
-    // assetsAudioPlayer.isPlaying.listen((event) {
-    //   audioPlayerType = event;
-    // });
-
-    //update current audio file
-    assetsAudioPlayer.current.listen((event) {
-      currentAudio = event;
-    });
-
-    //add audio complite event
-    // assetsAudioPlayer.playlistAudioFinished.listen(
-    //   (Playing playing) {
-    //     if (audioPlayerType == AudioPlayerType.playingMultible) {
-    //       _onComlatedMultibleAudios();
-    //     } else if (audioPlayerType == AudioPlayerType.playingSingle) {
-    //       _onComlatedSingleAudios();
-    //     }
-    //   },
-    // );
-
-    //add notification open action
-    AssetsAudioPlayer.addNotificationOpenAction((notification) {
-      debugPrint('addNotificationOpenAction action');
-      return false;
-    });
-
-    //set notification open action
-    AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
-      debugPrint("setupNotificationsOpenAction action");
-      return true;
-    });
+  void _onComlatedSingleAudios(Function onComplate) {
+    assetsAudioPlayer.playlistAudioFinished.listen(
+      (event) {
+        audioPlayerType = AudioPlayerType.none;
+        onComplate();
+      },
+    );
   }
 
-  void _onComlatedMultibleAudios() {
-    print("**********************onCompliteMultible");
+  void _setOnComlatedMultibleAudios(Function(Ayah complatedAyah, bool partEnded) onComplate) {
+    assetsAudioPlayer.playlistAudioFinished.listen((event) {
+      Ayah complatedAyah = Ayah.fromJson(event.audio.audio.metas.extra);
+      bool partEnded = complatedAyah.number == (int.tryParse(event.playlist.audios.last.metas.album ?? '0') ?? 0);
+      if (partEnded) {
+        audioPlayerType = AudioPlayerType.none;
+      }
+      onComplate(complatedAyah, partEnded);
+    });
+
+    // print(assetsAudioPlayer.current.value);
+    // _onComlatedMultibleAudios();
     /*
     QuranPageCtr quranPageCtr = Get.find<QuranPageCtr>();
 
@@ -272,12 +240,74 @@ class AudioPlayer implements IAudioPlayer {
     */
   }
 
-  void _onComlatedSingleAudios() {
-    print("**********************onCompliteSingle");
-    //onCompliteSingle.call();
+  bool cotinueIfSinglePaused(String fullPath) {
+    if (audioPlayerType == AudioPlayerType.singlePauesed) {
+      if (assetsAudioPlayer.current.value?.audio.audio.path == fullPath) {
+        assetsAudioPlayer.playOrPause();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool cotinueIfMultiblePaused(List<AudioFile> audioFiles) {
+    // check if player in pause mode and have to continue the same audio
+    // if (audioPlayerType == AudioPlayerType.multiblePaused) {
+    //   if (playlist.audios.any((element) => element.path == assetsAudioPlayer.current.valueOrNull?.audio.audio.path)) {
+    //     await assetsAudioPlayer.playOrPause();
+    //     return true;
+    //   }
+    // }
+
+    if (audioPlayerType == AudioPlayerType.multiblePaused) {
+      if (assetsAudioPlayer.playlist != null) {
+        if (assetsAudioPlayer.playlist!.audios.length == audioFiles.length) {
+          if (audioFiles.any((element) => element.path == assetsAudioPlayer.current.valueOrNull?.audio.audio.path)) {
+            assetsAudioPlayer.playOrPause();
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  void _setPlayerListeners() {
+    // assetsAudioPlayer.isPlaying.listen((event) {
+    //   audioPlayerType = event;
+    // });
+
+    //update current audio file
+    // assetsAudioPlayer.current.listen((event) {
+    //   _currentAudio = event;
+    // });
+
+    //add audio complite event
+    // assetsAudioPlayer.playlistAudioFinished.listen(
+    //   (Playing playing) {
+    //     if (audioPlayerType == AudioPlayerType.playingMultible) {
+    //       _onComlatedMultibleAudios();
+    //     } else if (audioPlayerType == AudioPlayerType.playingSingle) {
+    //       _onComlatedSingleAudios();
+    //     }
+    //   },
+    // );
+
+    //add notification open action
+    AssetsAudioPlayer.addNotificationOpenAction((notification) {
+      debugPrint('addNotificationOpenAction action');
+      return false;
+    });
+
+    //set notification open action
+    AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
+      debugPrint("setupNotificationsOpenAction action");
+      return true;
+    });
   }
 
   void _resetFields() {
+    _updateAudioPlayerObject();
     _resetPosition();
     _resetDuration();
     currentOfAllRepeatCount = 0;
@@ -292,25 +322,26 @@ class AudioPlayer implements IAudioPlayer {
     duration = const Duration();
   }
 
-  String _getFullPath(String path) => "file://$path";
+  void _updateAudioPlayerObject() {
+    assetsAudioPlayer = AssetsAudioPlayer();
+   
+  }
 
-  bool _isSinglePaused(String fullPath) {
-    if (audioPlayerType == AudioPlayerType.playingMultible) return false;
-    if (!assetsAudioPlayer.current.hasValue) return false;
-    if (assetsAudioPlayer.current.value == null) return false;
-    if (assetsAudioPlayer.current.value!.audio.audio.path != fullPath) return false;
-
-    return true;
-
-    //     if (!isMultibleAudio.value) {
-    //   if (assetsAudioPlayer.current.hasValue) {
-    //     if (assetsAudioPlayer.current.value != null) {
-    //       if (assetsAudioPlayer.current.value!.audio.audio.path == fullPath) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    // }
-    // return false;
+  Playlist getPlaylist(List<AudioFile> audioFiles) {
+    Playlist playlist = Playlist(audios: []);
+    for (int i = 1; i < audioFiles.length; i++) {
+      AudioFile audioFile = audioFiles[i];
+      Audio audio = Audio.file(
+        audioFile.path,
+        metas: AudioHelperWidgets.metas(
+          title: audioFile.metasTitle,
+          artist: audioFile.metasArtist,
+          album: audioFile.metasAlbum,
+          extra: audioFile.extra,
+        ),
+      );
+      playlist.add(audio);
+    }
+    return playlist;
   }
 }

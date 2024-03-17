@@ -88,6 +88,9 @@ class QuranQuestionsDropDownAnswers extends StatelessWidget {
     required Function(int?) onChanged,
     required List<DropdownMenuItem<int>> items,
   }) {
+    if (!items.any((element) => element.value == valueSelected)) {
+      valueSelected = items.first.value ?? 0;
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[

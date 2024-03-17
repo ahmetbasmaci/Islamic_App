@@ -17,6 +17,7 @@ class AzkarPage extends StatelessWidget {
     context.read<AzkarCubit>().readData(zikrCategoryModel.category);
     return AppScaffold(
       title: zikrCategoryModel.title,
+      usePadding: false,
       showDrawerBtn: false,
       body: _body(),
     );

@@ -14,21 +14,25 @@ class QuranQuestionsSelectDifferentTestType extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const Text('نوع الاختبار:'),
-        DropdownButton<QuestionType>(
-          value: context.read<QuranQuestionsCubit>().state.questionType,
-          iconEnabledColor: context.themeColors.primary,
-          onChanged: (QuestionType? val) {
-            if (context.read<QuranQuestionsCubit>().state.questionType != val) {
-              context.read<QuranQuestionsCubit>().changeQuestionType(val!);
-              {
-                // getNextQuestion(context);
-              }
-            }
+        BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
+          builder: (context, state) {
+            return DropdownButton<QuestionType>(
+              value: context.read<QuranQuestionsCubit>().state.questionType,
+              iconEnabledColor: context.themeColors.primary,
+              onChanged: (QuestionType? val) {
+                if (context.read<QuranQuestionsCubit>().state.questionType != val) {
+                  context.read<QuranQuestionsCubit>().changeQuestionType(val!);
+                  {
+                    // getNextQuestion(context);
+                  }
+                }
+              },
+              items: [
+                const DropdownMenuItem(value: QuestionType.ayahInJuzAndPage, child: Text('الايات')),
+                const DropdownMenuItem(value: QuestionType.surahInJuz, child: Text('السور')),
+              ],
+            );
           },
-          items: [
-            const DropdownMenuItem(value: QuestionType.ayahInJuzAndPage, child: Text('الايات')),
-            const DropdownMenuItem(value: QuestionType.surahInJuz, child: Text('السور')),
-          ],
         ),
       ],
     );

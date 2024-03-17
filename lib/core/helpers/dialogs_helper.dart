@@ -1,9 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/navigator_helper.dart';
 import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 import 'package:zad_almumin/core/widget/space/space.dart';
+
 import '../../features/quran/quran.dart';
 import '../utils/resources/resources.dart';
 import '../widget/buttons/buttons.dart';
@@ -118,48 +120,54 @@ class DialogsHelper {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AddBookMarkButton(
-                isMarked: ayah.isMarked,
-                ayah: ayah,
-                onDone: () {
-                  ayah.isMarked = !ayah.isMarked;
-                  cancel();
-                },
-              ),
-              HorizontalSpace(AppSizes.spaceBetweanWidgets),
-              CopyButton(
-                content: ayah.text,
-                onDone: () => cancel(),
-              ),
-              HorizontalSpace(AppSizes.spaceBetweanWidgets),
-              AudioPlayPauseButton(
-                isPlaying: false,
-                isLoading: false,
-                onPressed: () {
-                  // cancel();
-                  // List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);
-                  // _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
-                  // _quranCtr.selectedPage.endAyahNum.value = ayahsList.last.ayahNumber;
-                  // _quranCtr.selectedPage.surahName.value = ayah.surahName;
-                  // _quranCtr.selectedPage.surahNumber.value = ayah.surahNumber;
-                  // _quranCtr.selectedPage.totalAyahsNum.value = ayahsList.length;
-                  // _quranCtr.changeOnShownState(false);
+          child: BlocProvider.value(
+            value: context.read<QuranAudioButtonCubit>(),
+            child: BlocProvider.value(
+              value: context.read<QuranReaderCubit>(),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AddBookMarkButton(
+                    isMarked: ayah.isMarked,
+                    ayah: ayah,
+                    onDone: () {
+                      ayah.isMarked = !ayah.isMarked;
+                      cancel();
+                    },
+                  ),
+                  HorizontalSpace(AppSizes.spaceBetweanWidgets),
+                  CopyButton(
+                    content: ayah.text,
+                    onDone: () => cancel(),
+                  ),
+                  HorizontalSpace(AppSizes.spaceBetweanWidgets),
+                  AudioPlayPauseButton.multible(
+                    startAyah: ayah,
+                    onDone: () => cancel(),
 
-                  // if (_httpCtr.downloadComplated.value) {
-                  //   AudioService.playMultiAudio(ayahList: ayahsList);
-                  // }
-                },
-                onDone: () => cancel(),
+                    //onPressed: () {
+                    // cancel();
+                    // List<Ayah> ayahsList = await HttpService.getSurah(surahNumber: ayah.surahNumber);
+                    // _quranCtr.selectedPage.startAyahNum.value = ayah.ayahNumber;
+                    // _quranCtr.selectedPage.endAyahNum.value = ayahsList.last.ayahNumber;
+                    // _quranCtr.selectedPage.surahName.value = ayah.surahName;
+                    // _quranCtr.selectedPage.surahNumber.value = ayah.surahNumber;
+                    // _quranCtr.selectedPage.totalAyahsNum.value = ayahsList.length;
+                    // _quranCtr.changeOnShownState(false);
+
+                    // if (_httpCtr.downloadComplated.value) {
+                    //   AudioService.playMultiAudio(ayahList: ayahsList);
+                    // }
+                    //},
+                  ),
+                  HorizontalSpace(AppSizes.spaceBetweanWidgets),
+                  ShareButton(
+                    content: ayah.text,
+                    onDone: () => cancel(),
+                  ),
+                ],
               ),
-              HorizontalSpace(AppSizes.spaceBetweanWidgets),
-              ShareButton(
-                content: ayah.text,
-                onDone: () => cancel(),
-              ),
-            ],
+            ),
           ),
         ),
       ),
