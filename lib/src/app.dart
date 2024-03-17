@@ -69,7 +69,7 @@ TODO- fix padding in azkar page
 TODO- fix pray json response error
 TODO- add download progress when downloading quran
 TODO- isPlaying listenere must set in audio player after change package
-TODO- 
+TODO- localizations
 TODO- 
 TODO- 
 TODO- 

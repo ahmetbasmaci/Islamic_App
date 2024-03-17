@@ -18,115 +18,114 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('تكرار التلاوة:  ', style: AppStyles.contentBold),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                AnimatedOpacity(
-                  opacity: context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAll
-                      ? 0.5
-                      : 1,
-                  duration: const Duration(milliseconds: 200),
-                  child: Row(
-                    children: <Widget>[
-                      const Text('المقطع :  '),
-                      Text(
-                          context
-                              .read<QuranCubit>()
-                              .state
-                              .resitationSettings
-                              .repeetAllCount
-                              .toString(),
-                          style: AppStyles.contentBold),
-                      IconButton(
-                        onPressed:
-                            context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAll
-                                ? null
-                                : null, //TODO () => context.read<QuranCubit>().state.selectedPageInfo.repeetAllCount++,
-                        icon: AppIcons.plus,
-                      ),
-                      IconButton(
-                        onPressed:
-                            context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAll
-                                ? null
-                                : () {
-                                    //TODO
-                                    // if (context.read<QuranCubit>().state.selectedPageInfo.repeetAllCount != 1)
-                                    //   context.read<QuranCubit>().state.selectedPageInfo.repeetAllCount--;
-                                  },
-                        icon: AppIcons.minus,
-                      ),
-                    ],
-                  ),
-                ),
-                Checkbox(
-                  fillColor: MaterialStateProperty.all<Color>(context.themeColors.background),
-                  checkColor: context.themeColors.primary,
-                  overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(.1)),
-                  value: context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAll,
-                  onChanged:
-                      (value) {}, //TODO context.read<QuranCubit>().state.selectedPageInfo.isUnlimitRepeatAll = value ?? false,
-                ),
-                const Text('لا محدود'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                AnimatedOpacity(
-                  opacity: context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAyah
-                      ? 0.5
-                      : 1,
-                  duration: const Duration(milliseconds: 200),
-                  child: Row(
-                    children: <Widget>[
-                      const Text('الآية   :  '),
-                      Text(
-                        context
-                            .read<QuranCubit>()
-                            .state
-                            .resitationSettings
-                            .repeetAyahCount
-                            .toString(),
-                        style: AppStyles.contentBold,
-                      ),
-                      IconButton(
-                        onPressed: context
-                                .read<QuranCubit>()
-                                .state
-                                .resitationSettings
-                                .isUnlimitRepeatAyah
-                            ? null
-                            : null, //TODO () => context.read<QuranCubit>().state.selectedPageInfo.repeetAyahCount++,
-                        icon: AppIcons.plus,
-                      ),
-                      IconButton(
-                        onPressed:
-                            context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAyah
-                                ? null
-                                : () {
-                                    //TODO
-                                    // if (context.read<QuranCubit>().state.selectedPageInfo.repeetAyahCount != 1)
-                                    //   context.read<QuranCubit>().state.selectedPageInfo.repeetAyahCount--;
-                                  },
-                        icon: AppIcons.minus,
-                      ),
-                    ],
-                  ),
-                ),
-                Checkbox(
-                  fillColor: MaterialStateProperty.all<Color>(context.themeColors.background),
-                  checkColor: context.themeColors.primary,
-                  overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(.1)),
-                  value: context.read<QuranCubit>().state.resitationSettings.isUnlimitRepeatAyah,
-                  onChanged:
-                      (value) {}, //TODO=> context.read<QuranCubit>().state.selectedPageInfo.isUnlimitRepeatAyah = value ?? false,
-                ),
-                const Text('لا محدود'),
-              ],
-            )
+            _header(),
+            _repeatingWidgt(context: context, isRepeatingPart: true),
+            _repeatingWidgt(context: context, isRepeatingPart: false),
           ],
         );
+      },
+    );
+  }
+
+  Text _header() => Text('تكرار التلاوة:  ', style: AppStyles.contentBold);
+
+  Widget _repeatingWidgt({
+    required BuildContext context,
+    required bool isRepeatingPart,
+  }) {
+    var quranCubit = context.read<QuranCubit>();
+
+    double opacity = isRepeatingPart
+        ? quranCubit.state.resitationSettings.isUnlimitRepeatAll
+            ? 0.5
+            : 1
+        : quranCubit.state.resitationSettings.isUnlimitRepeatAyah
+            ? 0.5
+            : 1;
+    String title = isRepeatingPart ? 'المقطع :  ' : 'الآية   :  ';
+
+    String repeatCount = isRepeatingPart
+        ? quranCubit.state.resitationSettings.isUnlimitRepeatAll
+            ? '∞'
+            : quranCubit.state.resitationSettings.repeetAllCount.toString()
+        : quranCubit.state.resitationSettings.isUnlimitRepeatAyah
+            ? '∞'
+            : quranCubit.state.resitationSettings.repeetAyahCount.toString();
+
+    bool unlimitRepeatall = isRepeatingPart
+        ? quranCubit.state.resitationSettings.isUnlimitRepeatAll
+        : quranCubit.state.resitationSettings.isUnlimitRepeatAyah;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Text(title),
+        _incresDecreasebuttons(opacity, repeatCount, unlimitRepeatall, isRepeatingPart, quranCubit),
+        _checkBoxUnlimitRepeat(context, unlimitRepeatall, isRepeatingPart, quranCubit),
+        const Text('لا محدود'),
+      ],
+    );
+  }
+
+  AnimatedOpacity _incresDecreasebuttons(
+      double opacity, String repeatCount, bool unlimitRepeatall, bool isRepeatingPart, QuranCubit quranCubit) {
+    return AnimatedOpacity(
+      opacity: opacity,
+      duration: const Duration(milliseconds: 200),
+      child: Row(
+        children: <Widget>[
+          Text(repeatCount, style: AppStyles.contentBold),
+          _brnIncreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
+          _btnDecreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
+        ],
+      ),
+    );
+  }
+
+  IconButton _brnIncreaseLimit(bool unlimitRepeatall, bool isRepeatingPart, QuranCubit quranCubit) {
+    return IconButton(
+        icon: AppIcons.plus,
+        onPressed: unlimitRepeatall
+            ? null
+            : () {
+                if (isRepeatingPart) {
+                  quranCubit.updateResitationSettingsInecreaseRepeatAllCount();
+                } else {
+                  quranCubit.updateResitationSettingsInecreaseRepeatAyahCount();
+                }
+              });
+  }
+
+  IconButton _btnDecreaseLimit(bool unlimitRepeatall, bool isRepeatingPart, QuranCubit quranCubit) {
+    return IconButton(
+      icon: AppIcons.minus,
+      onPressed: unlimitRepeatall
+          ? null
+          : () {
+              if (isRepeatingPart) {
+                if (quranCubit.state.resitationSettings.repeetAllCount != 1)
+                  quranCubit.updateResitationSettingsDecreaseRepeatAllCount();
+              } else {
+                if (quranCubit.state.resitationSettings.repeetAyahCount != 1)
+                  quranCubit.updateResitationSettingsDecreaseRepeatAyahCount();
+              }
+            },
+    );
+  }
+
+  Checkbox _checkBoxUnlimitRepeat(
+      BuildContext context, bool unlimitRepeatall, bool isRepeatingPart, QuranCubit quranCubit) {
+    return Checkbox(
+      fillColor: MaterialStateProperty.all<Color>(context.themeColors.background),
+      checkColor: context.themeColors.primary,
+      overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(.1)),
+      value: unlimitRepeatall,
+      onChanged: (value) {
+        if (isRepeatingPart) {
+          quranCubit.updateResitationSettingsUnlimitedRepeatAll(value ?? false);
+        } else {
+          quranCubit.updateResitationSettingsUnlimitedRepeatAyah(value ?? false);
+        }
       },
     );
   }

@@ -26,8 +26,8 @@ class ResitationSettings extends Equatable {
       startAyah: Ayah.empty(),
       endAyah: Ayah.empty(),
       surah: Surah.empty(),
-      repeetAllCount: 0,
-      repeetAyahCount: 0,
+      repeetAllCount: 1,
+      repeetAyahCount: 1,
       isUnlimitRepeatAll: false,
       isUnlimitRepeatAyah: false,
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/widget/dividers/dividers.dart';
 import '../../../../quran.dart';
 
 class QuranFooterResitationSettingsBody extends StatelessWidget {
@@ -10,11 +11,10 @@ class QuranFooterResitationSettingsBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         QuranFooterResitationSettingsSelectReader(),
-        Divider(),
+        AppHorizontalDivider(),
         QuranFooterResitationSettingsSelectAyahsLimits(),
-        Divider(),
-        // QuranFooterResitationSettingsSelectRepeat(),
-        // Divider(),
+        // AppHorizontalDivider(),
+        //QuranFooterResitationSettingsSelectRepeat(),
       ],
     );
   }

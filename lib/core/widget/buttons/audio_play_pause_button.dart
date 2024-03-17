@@ -95,23 +95,29 @@ class AudioPlayPauseButton extends StatelessWidget {
 
   void _multibleAudioButoonPressed(BuildContext context) {
     var quranCubit = context.read<QuranCubit>();
+    var quranAudioBtn = context.read<QuranAudioButtonCubit>();
+
     Ayah startAyah = this.startAyah ?? quranCubit.state.resitationSettings.startAyah;
     quranCubit.updateSelectedAyah(startAyah);
-    List<Ayah> ayahs = quranCubit.getSurahByNumber(quranCubit.state.selectedAyah.surahNumber).ayahs;
 
+    List<Ayah> ayahs = quranCubit.getSurahByNumber(quranCubit.state.selectedAyah.surahNumber).ayahs;
     ayahs = ayahs.where((element) => element.number <= quranCubit.state.resitationSettings.endAyah.number).toList();
+
     int startAyahIndex = ayahs.indexOf(startAyah) - 1;
-    context.read<QuranAudioButtonCubit>().playPause(
-          ayahs: ayahs,
-          startAyahIndex: startAyahIndex,
-          quranReader: context.read<QuranReaderCubit>().state.selectedQuranReader,
-          onComplate: (Ayah complatedAyah, bool partEnded) => _onComplateMultiAudio(
-            context: context,
-            quranCubit: quranCubit,
-            complatedAyah: complatedAyah,
-            partEnded: partEnded,
-          ),
-        );
+
+    // quranAudioBtn.currentAllPartRepeatCount = 0;
+
+    quranAudioBtn.playPause(
+      ayahs: ayahs,
+      startAyahIndex: startAyahIndex,
+      quranReader: context.read<QuranReaderCubit>().state.selectedQuranReader,
+      onComplate: (Ayah complatedAyah, bool partEnded) => _onComplateMultiAudio(
+        quranCubit: quranCubit,
+        quranAudioBtn: quranAudioBtn,
+        complatedAyah: complatedAyah,
+        partEnded: partEnded,
+      ),
+    );
     onDone?.call();
   }
 
@@ -128,7 +134,7 @@ class AudioPlayPauseButton extends StatelessWidget {
   }
 
   void _onComplateMultiAudio({
-    required BuildContext context,
+    required QuranAudioButtonCubit quranAudioBtn,
     required QuranCubit quranCubit,
     required Ayah complatedAyah,
     required bool partEnded,
@@ -136,7 +142,15 @@ class AudioPlayPauseButton extends StatelessWidget {
     //check if part ended
     if (partEnded) {
       //check to repeat same part
-
+      // if (quranCubit.state.resitationSettings.isUnlimitRepeatAll) {
+      //   quranCubit.updateSelectedAyah(complatedAyah);
+      //   return;
+      // } else if (quranCubit.state.resitationSettings.repeetAllCount > quranAudioBtn.currentAllPartRepeatCount) {
+      //   quranAudioBtn.currentAllPartRepeatCount++;
+      //   quranCubit.updateSelectedAyah(complatedAyah);
+      //   quranCubit.updateResitationSettingsDecreaseRepeatAllCount();
+      //   return;
+      // }
 
       //end part count
       quranCubit.hideSelectedAyah();
@@ -144,8 +158,16 @@ class AudioPlayPauseButton extends StatelessWidget {
     }
 
     //check to repeat same ayah
-
-  
+    // if (quranCubit.state.resitationSettings.isUnlimitRepeatAyah) {
+    //   quranCubit.updateSelectedAyah(complatedAyah);
+    //   return;
+    // } else if (quranCubit.state.resitationSettings.repeetAyahCount > quranAudioBtn.currentAyahRepeatCount) {
+    //   quranAudioBtn.currentAyahRepeatCount++;
+    //   quranCubit.updateSelectedAyah(complatedAyah);
+    //   quranCubit.updateResitationSettingsDecreaseRepeatAyahCount();
+    //   return;
+    // }
+    // quranAudioBtn.currentAyahRepeatCount = 0;
 
     //update next selected ayah
     var nextAyah = quranCubit.getAyah(

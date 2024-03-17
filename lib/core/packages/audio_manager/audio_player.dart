@@ -26,8 +26,6 @@ class AudioPlayer implements IAudioPlayer {
   Duration duration = const Duration();
   Duration position = const Duration();
 
-  int currentAyahRepeatCount = 0;
-  int currentOfAllRepeatCount = 0;
 
   @override
   bool get isPlaying => audioPlayerType.isPlaying || assetsAudioPlayer.isPlaying.value;
@@ -310,8 +308,6 @@ class AudioPlayer implements IAudioPlayer {
     _updateAudioPlayerObject();
     _resetPosition();
     _resetDuration();
-    currentOfAllRepeatCount = 0;
-    currentAyahRepeatCount = 0;
   }
 
   void _resetPosition() {

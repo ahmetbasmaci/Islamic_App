@@ -11,6 +11,11 @@ class QuranAudioButtonCubit extends Cubit<QuranAudioButtonState> {
   QuranAudioButtonCubit({required this.playPauseAudioUseCase, required this.stopAudioUseCase})
       : super(QuranAudioButtonStopedState());
 
+
+  int currentAyahRepeatCount = 0;
+  int currentAllPartRepeatCount = 0;
+
+
   Future<void> playPause({
     required List<Ayah> ayahs,
     required int startAyahIndex,

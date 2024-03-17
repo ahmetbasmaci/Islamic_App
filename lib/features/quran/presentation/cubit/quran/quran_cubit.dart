@@ -180,6 +180,48 @@ class QuranCubit extends Cubit<QuranState> {
     ));
   }
 
+  void updateResitationSettingsUnlimitedRepeatAyah(bool newValue) {
+    emit(state.copyWith(
+      resitationSettings: state.resitationSettings.copyWith(isUnlimitRepeatAyah: newValue),
+    ));
+  }
+
+  void updateResitationSettingsUnlimitedRepeatAll(bool newValue) {
+    emit(state.copyWith(
+      resitationSettings: state.resitationSettings.copyWith(isUnlimitRepeatAll: newValue),
+    ));
+  }
+
+  void updateResitationSettingsInecreaseRepeatAllCount() {
+    emit(state.copyWith(
+      resitationSettings:
+          state.resitationSettings.copyWith(repeetAllCount: state.resitationSettings.repeetAllCount + 1),
+    ));
+  }
+
+  void updateResitationSettingsInecreaseRepeatAyahCount() {
+    emit(state.copyWith(
+      resitationSettings:
+          state.resitationSettings.copyWith(repeetAyahCount: state.resitationSettings.repeetAyahCount + 1),
+    ));
+  }
+
+  void updateResitationSettingsDecreaseRepeatAllCount() {
+    if (state.resitationSettings.repeetAllCount == 1) return;
+    emit(state.copyWith(
+      resitationSettings:
+          state.resitationSettings.copyWith(repeetAllCount: state.resitationSettings.repeetAllCount - 1),
+    ));
+  }
+
+  void updateResitationSettingsDecreaseRepeatAyahCount() {
+    if (state.resitationSettings.repeetAyahCount == 1) return;
+    emit(state.copyWith(
+      resitationSettings:
+          state.resitationSettings.copyWith(repeetAyahCount: state.resitationSettings.repeetAyahCount - 1),
+    ));
+  }
+
   void endDrawerSavedItemPressed(int page) {
     goToPage(page);
 
