@@ -49,6 +49,12 @@ class AppDrawerBody extends StatelessWidget {
               icon: AppIcons.azkar,
               route: AppRoutes.allAzkars,
             ),
+            AppDrawerItem(
+              context: context,
+              title: AppStrings.of(context).shayhIbrahimGroup,
+              icon: AppIcons.memorize,
+              route: AppRoutes.memorize,
+            ),
             const Divider(height: 50, thickness: 2),
             AppDrawerItem(
               context: context,

@@ -24,6 +24,7 @@ class AppIcons {
   static Icon book = const Icon(Icons.book_outlined);
   static Icon tafseer = const Icon(Icons.my_library_books_rounded);
   static Icon quran = const Icon(CupertinoIcons.book);
+  static Icon memorize = const Icon(CupertinoIcons.dot_radiowaves_left_right);
   static Icon quranText = const Icon(Icons.menu_book_sharp);
   static Icon quranImages = const Icon(Icons.image_outlined);
 

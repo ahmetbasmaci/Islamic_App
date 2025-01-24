@@ -9,6 +9,7 @@ import 'package:zad_almumin/features/quran_questions/presentation/pages/quran_qu
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../../features/alarm/alarm.dart';
 import '../../features/home/home.dart';
+import '../../features/memorize/presentation/pages/memorize_page.dart';
 import '../../features/pray_times/pray_times.dart';
 import '../../features/quran/quran.dart';
 import '../../features/settings/settings.dart';
@@ -31,6 +32,7 @@ enum AppRoutes {
   onboarding("/Onboarding"),
   azkar("/azkar"),
   allAzkars("/allAzkars"),
+  memorize("/memorize"),
   alarm("/alarm"),
   prayTimes("/prayTimes"),
   quran("/quran"),
@@ -96,6 +98,11 @@ GoRouter appRouter = GoRouter(
         create: (context) => GetItManager.instance.azkarCubit,
         child: const AllAzkarsPage(),
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.memorize.path,
+      name: AppRoutes.memorize.name,
+      builder: (context, state) => const MemorizePage(),
     ),
     GoRoute(
       path: AppRoutes.alarm.path,

@@ -114,9 +114,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ibrahim Aldosary"),
         "isha": MessageLookupByLibrary.simpleMessage("Isha"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
+        "joinToShayhIbrahimTelegramGroup": MessageLookupByLibrary.simpleMessage(
+            "Join To Shayh Ibrahim Telegram Group"),
         "juz": MessageLookupByLibrary.simpleMessage("Juz"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "light": MessageLookupByLibrary.simpleMessage("Light"),
+        "linkNotAvailable":
+            MessageLookupByLibrary.simpleMessage("The link is not available"),
         "low": MessageLookupByLibrary.simpleMessage("Low"),
         "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
@@ -172,6 +176,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchForAyahOrSureOrPage": MessageLookupByLibrary.simpleMessage(
             "Search for Ayah or Sure or Page"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shayhIbrahimGroup":
+            MessageLookupByLibrary.simpleMessage("shayhIbrahimGroup"),
+        "shayhIbrahimTarjama": MessageLookupByLibrary.simpleMessage("test"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("Sleep Azkars"),
         "sun": MessageLookupByLibrary.simpleMessage("Sun"),

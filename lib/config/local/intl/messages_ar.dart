@@ -115,9 +115,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ابراهيم الدوسري"),
         "isha": MessageLookupByLibrary.simpleMessage("العشاء"),
         "ishaPray": MessageLookupByLibrary.simpleMessage("صلاة العشاء"),
+        "joinToShayhIbrahimTelegramGroup": MessageLookupByLibrary.simpleMessage(
+            "انضم إلى مجموعة الشيخ إبراهيم على التليجرام"),
         "juz": MessageLookupByLibrary.simpleMessage("الجُزْءُ"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "light": MessageLookupByLibrary.simpleMessage("فاتح"),
+        "linkNotAvailable":
+            MessageLookupByLibrary.simpleMessage("الرابط غير متاح"),
         "low": MessageLookupByLibrary.simpleMessage("منخفض"),
         "maghrib": MessageLookupByLibrary.simpleMessage("المغرب"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("صلاة المغرب"),
@@ -173,6 +177,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchForAyahOrSureOrPage": MessageLookupByLibrary.simpleMessage(
             "البحث عن سورة أو آية أو صفحة"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "shayhIbrahimGroup":
+            MessageLookupByLibrary.simpleMessage("shayhIbrahimGroup"),
+        "shayhIbrahimTarjama": MessageLookupByLibrary.simpleMessage("test"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "sleepZikr": MessageLookupByLibrary.simpleMessage("أذكار النوم"),
         "sun": MessageLookupByLibrary.simpleMessage("الشمس"),

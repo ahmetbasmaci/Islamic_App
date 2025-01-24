@@ -1442,6 +1442,46 @@ class AppStrings {
     );
   }
 
+  /// `shayhIbrahimGroup`
+  String get shayhIbrahimGroup {
+    return Intl.message(
+      'shayhIbrahimGroup',
+      name: 'shayhIbrahimGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `test`
+  String get shayhIbrahimTarjama {
+    return Intl.message(
+      'test',
+      name: 'shayhIbrahimTarjama',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join To Shayh Ibrahim Telegram Group`
+  String get joinToShayhIbrahimTelegramGroup {
+    return Intl.message(
+      'Join To Shayh Ibrahim Telegram Group',
+      name: 'joinToShayhIbrahimTelegramGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The link is not available`
+  String get linkNotAvailable {
+    return Intl.message(
+      'The link is not available',
+      name: 'linkNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(
